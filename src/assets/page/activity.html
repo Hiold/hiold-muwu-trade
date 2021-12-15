@@ -1,0 +1,527 @@
+<link href="style/activity/activity.css" rel="stylesheet" type="text/css">
+<link href="style/activity/activity-nav.css" rel="stylesheet" type="text/css">
+<script src="script/activity/activity.js" type="text/javascript"></script>	<!-- 活动礼包页面相关js -->
+<script src="script/activity/activity-nav.js" type="text/javascript"></script><!-- 活动礼包侧边分类栏js -->
+<script src="script/activity/qd.js" type="text/javascript"></script>	<!-- 签到相关js -->
+
+
+<nav class="Activity-nav">
+	<!-- 侧边导航栏、分类 -->
+	<div class="title">༺ཌ 活动礼包 ད༻</div>
+	<ul class="btn-1"><div>定时红包</div></ul>
+	<ul class="btn-2"><div>活动任务</div></ul>
+		<li class="b2-t0">每日任务</li>
+		<li class="b2-t1">主线任务</li>
+	<ul class="btn-3"><div>幸运抽奖</div></ul>
+		<!-- <li class="b3-t0">积分抽奖</li>
+		<li class="b3-t1">钻石抽奖</li> -->
+	<ul class="btn-4"><div>数字谜团</div></ul>
+	<ul class="btn-5"><div>每日签到</div></ul>
+</nav>
+<section class="Activity-page">
+	<!-- 头部工具栏 -->
+	<header class="head-tool">
+		<h1>七日签到领好礼</h1>
+		<div class="lottery-num">
+			<span class="tit">今日剩余可抽奖次数：</span>
+			<span class="val-1">88</span>
+			<span class="val-2"> / 100</span>
+		</div>
+		<div class="refresh" title="刷新"></div>
+		<div class="back" title="返回"></div>
+	</header>
+	<!-- 活动页面 -->
+	<div class="Act-hb">		<!-- 定时抢红包 -->
+		定时抢红包
+	</div>
+	<div class="Act-task">		<!-- 活动任务 -->
+		<div class="task-day">	<!-- 每日任务 -->
+			<li class="task-list">
+				<header>
+					<div class="title">今日击杀100只僵尸</div>
+					<div class="schedule">100/100</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3" style="display:none;">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">今日给其它玩家店铺点赞10次</div>
+					<div class="schedule">10/10</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2">已领取</div>
+					<div class="btn b3" style="display:none;">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">今日游戏在线时长达到240分钟</div>
+					<div class="schedule">1/240</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">今日与其它玩家完成1次线上交易</div>
+					<div class="schedule">0/1</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3">未完成</div>
+				</section>
+			</li>
+		</div>
+		<div class="task-main">	<!-- 主线任务 -->
+			<li class="task-list">
+				<header>
+					<div class="title">游戏等级达到200级</div>
+					<div class="schedule">200/200</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3" style="display:none;">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">开服至今累计签到100次</div>
+					<div class="schedule">100/100</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3" style="display:none;">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">开服至今累计在线时长达到200小时</div>
+					<div class="schedule">1/200</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2">已领取</div>
+					<div class="btn b3" style="display:none;">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">开服至今累计击杀10000僵尸</div>
+					<div class="schedule">123/10000</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3">未完成</div>
+				</section>
+			</li>
+			<li class="task-list">
+				<header>
+					<div class="title">开服至今累计与其它玩家完成50次线上交易</div>
+					<div class="schedule">0/50</div>
+				</header>
+				<section>
+					<div class="reward">
+						<li>
+							<img src="images/items/jf2.png">
+							<span>20000</span>
+						</li>
+						<li>
+							<img src="images/items/red-zs.png">
+							<span>100</span>
+						</li>
+					</div>
+					<div class="btn b1" style="display:none;">领取</div>
+					<div class="btn b2" style="display:none;">已领取</div>
+					<div class="btn b3">未完成</div>
+				</section>
+			</li>
+			
+		</div>
+	</div>
+	<div class="Act-lottery">	<!-- 幸运抽奖 -->
+		<div class="box">
+			<li class="l1">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l2">
+				<header>圣诞帽</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/armorSantaHat.png"/>
+					</div>
+					<div class="right">
+						<div class="num">5 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l3">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l4">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<div class="left">
+				<li class="l12">
+					<header>南瓜灯</header>
+					<section>
+						<div class="image">
+							<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+						</div>
+						<div class="right">
+							<div class="num">10 件</div>
+							<div class="pro">8.33%</div>
+						</div>
+					</section>
+				</li>
+				<li class="l11">
+					<header>南瓜灯</header>
+					<section>
+						<div class="image">
+							<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+						</div>
+						<div class="right">
+							<div class="num">10 件</div>
+							<div class="pro">8.33%</div>
+						</div>
+					</section>
+				</li>
+			</div>
+			<div class="center">
+				<div class="image">
+					<img src="images/lottery.jpg">
+				</div>
+				<div class="btn">
+					<div class="b1">
+						<div class="align">
+							<b>立即抽奖</b>
+							<div class="price">
+								<i></i>
+								<span>1000</span>
+							</div>
+						</div>
+					</div>
+					<div class="b2">
+						<div class="align">
+							<b>十连抽</b>
+							<div class="price">
+								<i></i>
+								<span>9000</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<li class="l5">
+					<header>南瓜灯</header>
+					<section>
+						<div class="image">
+							<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+						</div>
+						<div class="right">
+							<div class="num">10 件</div>
+							<div class="pro">8.33%</div>
+						</div>
+					</section>
+				</li>
+				<li class="l6">
+					<header>南瓜灯</header>
+					<section>
+						<div class="image">
+							<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+						</div>
+						<div class="right">
+							<div class="num">10 件</div>
+							<div class="pro">8.33%</div>
+						</div>
+					</section>
+				</li>
+			</div>
+			<li class="l10">
+				<header>南瓜灯</header>
+				<section class="l10">
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l9">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l8">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+			<li class="l7">
+				<header>南瓜灯</header>
+				<section>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png"/>
+					</div>
+					<div class="right">
+						<div class="num">10 件</div>
+						<div class="pro">8.33%</div>
+					</div>
+				</section>
+			</li>
+		</div>
+		<div class="top">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<div class="bottom">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<div class="left">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<div class="right">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<div class="read" style="display:none;"></div>
+	</div>
+	<div class="Act-number">	<!-- 数字谜团 -->
+		数字谜团
+	</div>
+	<div class="Act-qd">		<!-- 每日签到 -->
+		<div class="left">
+			<li data-index="0">
+				<div class="day">星期一</div>
+				<div class="image">
+					<img src="">
+					<b>123</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+			<li data-index="1">
+				<div class="day">星期二</div>
+				<div class="image">
+					<img src="">
+					<b>12</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+			<li data-index="2">
+				<div class="day">星期三</div>
+				<div class="image">
+					<img src="">
+					<b>1</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+			<li data-index="3">
+				<div class="day">星期四</div>
+				<div class="image">
+					<img src="">
+					<b>6666</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+			<li data-index="4">
+				<div class="day">星期五</div>
+				<div class="image">
+					<img src="">
+					<b>12345</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+			<li data-index="5">
+				<div class="day">星期六</div>
+				<div class="image">
+					<img src="">
+					<b>888</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+		</div>
+		<div class="right">
+			<li data-index="6">
+				<div class="day">星期日</div>
+				<div class="image">
+					<img src="">
+					<b>1</b>
+				</div>
+				<div class="name"></div>
+				<div class="received">
+					<img src="images/received.png">
+				</div>
+			</li>
+		</div>
+		<div class="read" style="display:none;"></div>
+	</div>
+	
+</section>

@@ -1,0 +1,395 @@
+<configs>
+
+	<recipes>
+		
+		<!-- 拐杖糖棍棒 -->
+		<recipe name="meleeWpnClubT1CandyClub" count="1"  craft_area="web"  quality="6">		<!--名称、数量、制作台-->
+		  	<ingredient name="decoPumpkinJackOLantern" count="0"/>			<!--南瓜灯：2个-->
+			<ingredient name="casinoCoin" count="20"/>						<!--公爵赌场币：20个-->
+			<ingredient name="积分" count="10"/>							<!--积分兑换券：10个-->
+		</recipe>
+		
+		<!-- 积分兑换券 -->
+		<recipe name="积分" count="10000"  craft_area="web" craft_time="3">		<!--名称、数量、制作台-->
+		  	<ingredient name="钻石" count="10"/>
+			<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 每日福利礼包plus -->
+		<recipe name="每日福利礼包plus" count="1"  craft_area="web" craft_time="8">		<!--名称、数量、制作台-->
+		  	<ingredient name="每日福利礼包" count="1"/>
+			<ingredient name="钻石" count="1"/>
+		</recipe>
+		
+		<!-- 南瓜灯 -->
+        <recipe name="decoPumpkinJackOLantern" count="10"  craft_area="web" craft_time="100">		<!--名称、数量、制作台-->
+		  	<!--<ingredient name="resourceForgedIron" count="10"/>				<!--锻铁：10个-->
+            <!--<ingredient name="resourceElectricParts" count="10"/>			<!--电子零件：10个-->
+			<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 圣诞帽 -->
+        <recipe name="armorSantaHat" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+			<ingredient name="vehicleWheels" count="4"/>					<!--车轮：4个-->
+			<ingredient name="resourceMechanicalParts" count="50"/>			<!--机械零件：50个-->
+			<ingredient name="resourceSpring" count="50"/>					<!--弹簧：50个-->
+			<ingredient name="resourceHeadlight" count="8"/>				<!--前照灯：8个-->
+			<ingredient name="casinoCoin" count="80000"/>							<!--casinoCoin：800个-->
+		</recipe>
+		
+		<!-- 电器箱 01 -->
+       <!-- <recipe name="electricalBox01" count="1"  craft_area="web">	<!--名称、数量、制作台-->
+		<!--	<ingredient name="resourceForgedIron" count="20"/>				<!--锻铁：10个-->
+		<!--	<ingredient name="resourceElectricParts" count="20"/>			<!--电子零件：5个-->
+		<!--	<ingredient name="casinoCoin" count="150"/>							<!--casinoCoin：50个-->
+		<!--</recipe>
+		
+		<!-- 空调 -->
+        <recipe name="airConditioner" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedSteel" count="15"/>					<!--锻钢：15个-->
+                <ingredient name="resourceMechanicalParts" count="20"/>				<!--机械零件：20个-->
+                <ingredient name="resourceNail" count="15"/>						<!--钉子：15个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 军营椅 -->
+        <recipe name="barracksChair" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceCloth" count="20"/>						<!--碎布：20个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 高脚杯花盆 -->
+        <recipe name="birdBathPlanter" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+		  		<ingredient name="resourceRockSmall" count="120"/>					<!--石头：120个-->
+		  		<ingredient name="resourceClayLump" count="50"/>					<!--黏土：50个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 支状大烛台 -->
+        <recipe name="candelabraLight" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceNail" count="3"/>							<!--蜡烛：3个-->
+		  		<ingredient name="resourceCandleStick" count="1"/>					<!--黄铜烛台：1个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 大吊灯 -->
+        <recipe name="chandelierLight" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceNail" count="9"/>							<!--蜡烛：9个-->
+		  		<ingredient name="resourceCandleStick" count="9"/>					<!--黄铜烛台：9个-->
+                <ingredient name="resourceForgedIron" count="15"/>					<!--锻铁：15个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 鸟窝 -->
+        <recipe name="cntBirdnest" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceYuccaFibers" count="20"/>					<!--植物纤维：20个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 收银机 -->
+        <recipe name="cntCashRegister" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+				<ingredient name="resourceElectricParts" count="5"/>				<!--电子零件：5个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 炭烤架 -->
+        <recipe name="cntCharcoalGrillClosed" count="1"  craft_area="web">		<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 燃气烧烤炉 -->
+        <recipe name="cntGasGrillClosed" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 弹药展示柜 -->
+		<recipe name="cntDisplayCaseAmmoRightBroken" count="1"  craft_area="web">	<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+		  		<ingredient name="ammo762mmBulletBall" count="50"/>					<!--7.62子弹：50个-->
+		  		<ingredient name="ammo9mmBulletBall" count="50"/>					<!--9毫米子弹：50个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 大垃圾箱 -->
+		<recipe name="cntDumpster" count="1"  craft_area="web">				<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="60"/>					<!--锻铁：60个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 制冰机 -->
+		<recipe name="cntIceMachine" count="1"  craft_area="web">				<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="50"/>					<!--锻铁：50个-->
+				<ingredient name="resourceElectricParts" count="20"/>				<!--电子零件：20个-->
+				<ingredient name="casinoCoin" count="400"/>							<!--casinoCoin：400个-->
+		</recipe>
+		
+		<!-- 看门人的购物车 -->
+		<recipe name="cntJanitorCartFull" count="1"  craft_area="web">			<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+		  		<ingredient name="resourceWood" count="20"/>						<!--木头：20个-->
+		  		<ingredient name="resourceScrapPolymers" count="30"/>				<!--废聚合物：30个-->
+				<ingredient name="casinoCoin" count="300"/>							<!--casinoCoin：300个-->
+		</recipe>
+		
+		<!-- 钱包 -->
+		<recipe name="cntPurse01" count="1"  craft_area="web">					<!--名称、数量、工作台-->
+		  		<ingredient name="resourceCloth" count="10"/>						<!--碎布：10个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 购物车 -->
+		<recipe name="cntShoppingCart" count="1"  craft_area="web">			<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 饮料机 -->
+		<recipe name="cntSodaFountain" count="1"  craft_area="web">			<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+                <ingredient name="resourceMechanicalParts" count="10"/>				<!--机械零件：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 旧炉子 -->
+		<recipe name="cntStoveOldVer1Closed" count="1"  craft_area="web">		<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+                <ingredient name="resourceMechanicalParts" count="10"/>				<!--机械零件：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 面包机 -->
+		<recipe name="cntToaster" count="1"  craft_area="web">					<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+                <ingredient name="resourceMechanicalParts" count="5"/>				<!--机械零件：5个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 洗衣机 -->
+		<recipe name="cntWashingMachine" count="1"  craft_area="web">			<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="resourceElectricParts" count="10"/>				<!--电子零件：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 烧柴炉 -->
+		<recipe name="cntWoodBurningStove" count="1"  craft_area="web">		<!--名称、数量、工作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+		  		<ingredient name="resourceWood" count="20"/>						<!--木头：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 牛头骨 -->
+        <recipe name="decoCowSkull" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceBone" count="20"/>						<!--骨头：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 宠物笼 -->
+        <recipe name="decoLargePetCage" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+		  		<ingredient name="resourceWood" count="20"/>						<!--木头：20个-->
+		  		<ingredient name="resourceScrapPolymers" count="20"/>				<!--废聚合物：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 滑滑梯 -->
+        <recipe name="decoMetalSlide" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="80"/>					<!--锻铁：80个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 秋千 -->
+        <recipe name="decoSwingSet" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="80"/>					<!--锻铁：80个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 台球桌 -->
+        <recipe name="decoPoolTable" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceWood" count="50"/>						<!--木头：50个-->
+		  		<ingredient name="resourceScrapPolymers" count="10"/>				<!--废聚合物：10个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 爬行动物容器 -->
+        <recipe name="decoReptileTerrarium" count="1"  craft_area="web">		<!--名称、数量、制作台-->
+		  		<ingredient name="resourceWood" count="10"/>						<!--木头：10个-->
+                <ingredient name="resourceNail" count="6"/>							<!--钉子：6个-->
+			  <ingredient name="glassBlockVariantHelper" count="20"/>				<!--玻璃：20个-->
+				<ingredient name="casinoCoin" count="300"/>							<!--casinoCoin：300个-->
+		</recipe>
+		
+		<!-- 脚踏机 -->
+        <recipe name="decoStationaryBike" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="resourceElectricParts" count="10"/>				<!--电子零件：10个-->
+                <ingredient name="resourceMechanicalParts" count="20"/>				<!--机械零件：20个-->
+				<ingredient name="casinoCoin" count="400"/>							<!--casinoCoin：400个-->
+		</recipe>
+		
+		<!-- 圆桌 -->
+        <recipe name="decoTableRound" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 跑步机 -->
+        <recipe name="decoTreadmill" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="resourceElectricParts" count="20"/>				<!--电子零件：20个-->
+                <ingredient name="resourceMechanicalParts" count="20"/>				<!--机械零件：20个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 杠杆 -->
+        <recipe name="decoWeightBar" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+		  		<ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+		  		<ingredient name="resourceForgedSteel" count="10"/>					<!--锻钢：10个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="400"/>							<!--casinoCoin：400个-->
+		</recipe>
+		
+		<!-- 狂野西部马车 -->
+        <recipe name="decoWildWestWagon" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+		  		<ingredient name="resourceWood" count="50"/>						<!--木头：50个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+				<ingredient name="casinoCoin" count="400"/>							<!--casinoCoin：400个-->
+		</recipe>
+		
+		<!-- 美国旗杆 -->
+        <recipe name="flagPoleAmerican" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="30"/>					<!--锻铁：30个-->
+		  		<ingredient name="resourceCloth" count="20"/>						<!--碎布：20个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 白河旗杆 -->
+        <recipe name="flagPoleWhiteRiver" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="30"/>					<!--锻铁：30个-->
+		  		<ingredient name="resourceCloth" count="20"/>						<!--碎布：20个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 荧光灯（目标点） -->
+        <recipe name="fluorescentLight" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="15"/>					<!--锻铁：15个-->
+				<ingredient name="resourceElectricParts" count="20"/>				<!--电子零件：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 监狱门1 -->
+        <recipe name="jailBars" count="1"  craft_area="web">					<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 监狱门2 -->
+        <recipe name="jailDoorStatic" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 路障灯 -->
+        <recipe name="roadBarricadeLight" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="20"/>					<!--锻铁：20个-->
+				<ingredient name="resourceElectricParts" count="20"/>				<!--电子零件：20个-->
+				<ingredient name="casinoCoin" count="400"/>							<!--casinoCoin：400个-->
+		</recipe>
+		
+		<!-- 卫星天线 -->
+        <recipe name="satelliteDish" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+				<ingredient name="resourceElectricParts" count="10"/>				<!--电子零件：10个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 卫星天线 小 -->
+        <recipe name="satelliteDishSmall" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+				<ingredient name="resourceElectricParts" count="10"/>				<!--电子零件：10个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 课桌 -->
+        <recipe name="schoolDesk" count="1"  craft_area="web">					<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>					<!--锻铁：10个-->
+		  		<ingredient name="resourceWood" count="10"/>						<!--木头：10个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 出口标志 -->
+        <recipe name="signExitLight" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="8"/>					<!--锻铁：8个-->
+				<ingredient name="resourceElectricParts" count="5"/>				<!--电子零件：5个-->
+				<ingredient name="casinoCoin" count="100"/>							<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 公园石碑 -->
+        <recipe name="signNationalPark" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+		  		<ingredient name="resourceRockSmall" count="200"/>					<!--石头：200个-->
+                <ingredient name="resourcePaint" count="10"/>						<!--油漆：20个-->
+				<ingredient name="casinoCoin" count="500"/>							<!--casinoCoin：500个-->
+		</recipe>
+		
+		<!-- 商人标志2x5 -->
+        <recipe name="signShopTraderJoel2x5Wall" count="1"  craft_area="web">	<!--名称、数量、制作台-->
+		  		<ingredient name="resourceWood" count="50"/>						<!--木头：50个-->
+                <ingredient name="resourceNail" count="20"/>						<!--钉子：20个-->
+                <ingredient name="resourcePaint" count="10"/>						<!--油漆：10个-->
+				<ingredient name="casinoCoin" count="300"/>							<!--casinoCoin：300个-->
+		</recipe>
+		
+		<!-- 商人标志1x3 -->
+        <recipe name="signShopTraderJoel1x3Wall" count="1"  craft_area="web">	<!--名称、数量、制作台-->
+		  		<ingredient name="resourceWood" count="30"/>						<!--木头：30个-->
+                <ingredient name="resourceNail" count="10"/>						<!--钉子：10个-->
+                <ingredient name="resourcePaint" count="10"/>						<!--油漆：10个-->
+				<ingredient name="casinoCoin" count="200"/>							<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 据台 -->
+        <recipe name="tableSaw" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>				<!--锻铁：10个-->
+                <ingredient name="resourceMechanicalParts" count="10"/>			<!--机械零件：10个-->
+				<ingredient name="casinoCoin" count="100"/>						<!--casinoCoin：100个-->
+		</recipe>
+		
+		<!-- 轨道灯 -->
+        <recipe name="trackLight" count="1"  craft_area="web">				<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="15"/>				<!--锻铁：15个-->
+				<ingredient name="resourceElectricParts" count="20"/>			<!--电子零件：20个-->
+				<ingredient name="casinoCoin" count="300"/>						<!--casinoCoin：300个-->
+		</recipe>
+		
+		<!-- 工作灯 -->
+        <recipe name="workLightPOI" count="1"  craft_area="web">			<!--名称、数量、制作台-->
+                <ingredient name="resourceForgedIron" count="10"/>				<!--锻铁：10个-->
+				<ingredient name="resourceElectricParts" count="12"/>			<!--电子零件：12个-->
+				<ingredient name="casinoCoin" count="200"/>						<!--casinoCoin：200个-->
+		</recipe>
+		
+		<!-- 干草捆：长-->
+        <recipe name="hayBaleSquare" count="1"  craft_area="web">									<!--名称、数量、制作台-->
+			<ingredient name="resourceYuccaFibers" count="20"/>					<!--植物纤维：20个-->
+		</recipe>
+		<!-- 干草捆：圆-->
+        <recipe name="hayBaleRound" count="1"  craft_area="web">									<!--名称、数量、制作台-->
+			<ingredient name="resourceYuccaFibers" count="20"/>					<!--植物纤维：20个-->
+		</recipe>
+		
+		
+        
+	</recipes>
+	
+</configs>
+          

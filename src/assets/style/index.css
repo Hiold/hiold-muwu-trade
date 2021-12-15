@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "new";
+    src: url("../font/newfont.ttf");
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "微软雅黑";
+    transform-style: preserve-3d;
+    list-style: none;
+    overflow: hidden;
+    /* cursor:'url(C:\Users\Administrator\Desktop\小木屋の网页\新积分交易商城\images\icon\time.png)'; */
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+}

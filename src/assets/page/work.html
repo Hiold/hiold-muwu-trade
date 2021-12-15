@@ -1,0 +1,164 @@
+<link href="style/workbench/work-left.css" rel="stylesheet" type="text/css">
+<link href="style/workbench/work.css" rel="stylesheet" type="text/css">
+<script src="script/workbench/work.js" type="text/javascript"></script>
+<script src="script/workbench/work-left.js" type="text/javascript"></script>
+
+<section class="workbench">
+	<!-- 头部工具栏 -->
+	<header class="head-tool">
+		<h1>在线工作台</h1>
+		<li>网页工作台</li>
+		<li><i></i>基础工作台</li>
+		<li><i></i>化学工作台</li>
+		<li><i></i>水泥搅拌机</li>
+		
+		<div class="back"></div>
+	</header>
+	<aside class="citems-list">		<!-- 物品列表（显示可以制作的物品） -->
+		<div class="citems-search">	<!-- 列表头部 -->
+			<input type="text" class="search" placeholder="搜索物品" oninput="searchItems()">
+			<div class="select-page">	<!-- 选择第几页 -->
+				<div class="prev"></div>
+				<input type="text" class="num" value="1" oninput="jumpPage()">
+				<div class="next"></div>
+			</div>
+			<div class="search-type">	<!-- 搜索类型: 制作物、配方 -->
+				<div class="t1">制作物</div>
+				<div class="t2">配方</div>
+			</div>
+		</div>
+		<ul>
+			<!-- <li class="craftable-items">
+				<i></i>
+				<span class="name">物品名称</span>
+				<span class="num">x2</span>
+			</li> -->
+			<div class="empty" style="display: none;">
+				<span>没有找到你想<br>搜索的物品</span>
+			</div>
+		</ul>
+	</aside>
+	<section class="work-page">	<!-- 右侧主体页面 -->
+		<div class="work-recipe">
+			<header>
+				<i></i>
+				<span class="name">南瓜灯</span>
+				<span class="num">x10</span>
+			</header>
+			<div class="left">
+				<div class="icon">
+					<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+					<div class="quality"><span>6</span></div>
+				</div>
+				<div class="time">
+					<i></i>
+					<span>00:01</span>
+				</div>
+				<div class="number">
+					<div class="jian"></div>
+					<input type="text" class="num" value="1" oninput="changeCraftingCount()">
+					<div class="add"></div>
+				</div>
+				<li class="l1"><i></i>配方<span>&lt;A&gt;</span></li>
+				<li class="l2"><i></i>制作<span>&lt;S&gt;</span></li>
+				<li class="l3"><i></i>购买<span>&lt;D&gt;</span></li>
+			</div>
+			<div class="right">
+				<ul class="recipe-list">
+					<!-- <li class="items">
+						<div class="icon">
+							<i></i>
+						</div>
+						<div class="name">植物纤维</div>
+						<div class="num">
+							<span class="n1">仓库：<b>1860</b></span><br>
+							<span class="n2">消耗：<b>200</b></span>
+						</div>
+					</li>
+					<li class="items">
+						<div class="icon">
+							<i></i>
+						</div>
+						<div class="name">圣诞帽</div>
+						<div class="num">
+							<span class="n1">仓库：<b>7463</b></span><br>
+							<span class="n2">消耗：<b>99999</b></span>
+						</div>
+					</li>
+					<li class="items">
+						<div class="icon">
+							<i></i>
+						</div>
+						<div class="name">AK47机枪</div>
+						<div class="num">
+							<span class="n1">仓库：<b>123</b></span><br>
+							<span class="n2">消耗：<b>10</b></span>
+						</div>
+					</li> -->
+					<div class="empty">
+						<img src="images/empty5.png">
+						<span>
+							这个物品暂时不能制作<br>
+							<!-- 去查询它的配方吧 -->
+							快去叫服主写配方
+						</span>
+					</div>
+				</ul>
+				
+			</div>
+		</div>
+		<div class="work-desc">
+			
+		</div>
+		<div class="slots">	<!-- 制作槽 -->
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+			<li>
+				<div class="icon"></div>
+				<div class="time"></div>
+			</li>
+		</div>
+	</section>
+</section>

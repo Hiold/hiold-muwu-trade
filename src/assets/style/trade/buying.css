@@ -1,0 +1,398 @@
+/* 物资求购页面 */
+.buying{
+	width:100%;
+	height:100%;
+	border:0.5rem solid rgba(255,255,255,0.8);
+	box-sizing: border-box;
+	padding: 1%;
+	padding-top:5rem;
+	overflow: visible;
+	/display:none;
+}
+.buying>.content{
+	width:30%;
+	height:100%;
+	float:left;
+	/border:1px solid red;
+	box-sizing: border-box;
+	background-image:url(../../images/card/beige.jpg);
+	background-size: cover;
+	/padding: 2%;
+}
+.buying>.box{
+	width:70%;
+	height:100%;
+	float:left;
+	padding:1%;
+	overflow-y: auto;
+	border:0.5rem solid burlywood;
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	box-shadow: 0 0 0.5rem grey inset;
+	background-color: rgba(238,232,170,0.3);
+}
+.buying>.box::-webkit-scrollbar {
+	width : 0.8rem;
+}
+.buying>.box::-webkit-scrollbar-thumb{
+	background-color: wheat;
+}
+.buying>.content>.image{
+	width:90%;
+	height: 8rem;
+	text-align: center;
+	/border:1px solid red;
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	box-shadow: 0 0 0.3rem gray inset;
+	background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));
+	margin:0.75rem 0.75rem 0 0.75rem;
+}
+.buying>.content>.image>img{
+	height:100%;
+	transform: scale(0.9);
+}
+.buying>.content>.name{
+	font-size: 1.2rem;
+	height:3rem;
+	font-weight:bold;
+	/text-align: center;
+	/border:1px solid red;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color:white;
+	text-shadow: 0.05rem 0.05rem 0.1rem black;
+}
+.buying>.content>.foot{
+	width:100%;
+	height:15rem;
+	background-color: rgba(255,255,255,0.3);
+}
+.buying>.content>.foot>.price{
+	padding:0.5rem;
+}
+.buying>.content>.foot>.price>.tit{
+	width:100%;
+	/height:1.5rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+	font-size: 0.9rem;
+	color:rgb(155,155,155);
+	padding-left: 0.2rem;
+}
+.buying>.content>.foot>.price>.min,
+.buying>.content>.foot>.price>.max{
+	height:1.6rem;
+	font-size: 0.9rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	padding-left: 1rem;
+}
+.buying>.content>.foot>.price>.min>.tit{
+	float:left;
+	color:green;
+}
+.buying>.content>.foot>.price>.max>.tit{
+	float:left;
+	color:red;
+}
+.buying>.content>.foot>.price>div>i{
+	float:left;
+	width:1.2rem;
+	height:1.2rem;
+	background-image:url(../../images/icon/jf2.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.buying>.content>.foot>.price>div>.val{
+	color:rgb(255,150,0);
+	font-size: 1rem;
+	font-weight: bold;
+	padding-left: 0.2rem;
+}
+.buying>.content>.foot>.price>.max>.val{
+	color:rgb(255,88,0);
+}
+
+.buying>.content>.foot>.desc{
+	width:82%;
+	height:6rem;
+	margin:auto;
+	color:rgb(88,88,88);
+	overflow-y: auto;
+	padding: 0.5rem;
+	border-radius: 0.2rem;
+	box-shadow: 0 0 0.3rem rgb(166,166,166) inset;
+	background-color:rgba(255,255,255,0.5);
+}
+.buying>.content>.foot>.desc::-webkit-scrollbar {
+	width : 0.8rem;
+}
+.buying>.content>.foot>.desc::-webkit-scrollbar-thumb{
+	background-color: wheat;
+}
+
+.buying>.box>li{
+	width: 13.29%;
+	height: 4.25rem;
+	margin: 0.5%;
+	float: left;
+	border: 0.1rem solid white;
+	box-sizing: border-box;
+	background-image: url(../../images/card/beige.jpg);
+	background-size: cover;
+	border-radius: 0.2rem;
+}
+.buying>.box>li:hover{
+	outline:0.15rem solid lightsalmon;
+}
+.buying>.box>li>.image{
+	height: 100%;
+	width: 100%;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 0.1rem white;
+	transform: scale(0.75);
+	background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));
+}
+.buying>.box>li>.image>img{
+	width:100%;
+	height:100%;
+}
+.buying>.box>.blank{
+	width:100%;
+	height:100%;
+	position: absolute;
+	left:0;top:0;
+	z-index: 2;
+	background-color: rgba(166,166,166,0.4);
+	display: none;
+}
+.buying .window{
+	width:25rem;
+	height:25rem;
+	position: absolute;
+	left:0;right:0;
+	top:0;bottom:0;
+	margin:auto;
+	/border:0.2rem solid rgba(135,206,235,0.9);
+	/border:0.25rem solid rgba(224,180,235,0.9);
+	border:0.25rem solid rgba(255,188,188,0.9);
+	border-radius: 1rem;
+	box-sizing: border-box;
+	background-color: white;
+	box-shadow: 0 0 0.5rem grey;
+	background-image: url(../../images/back2.jpg);
+	background-size: cover;
+}
+.buying .window>.fil{
+	width: 100%;
+	height: 100%;
+	border-radius: 0 0 0.7rem 0.7rem;
+	background-color: rgba(255,255,255,0.8);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.buying .window>header{
+	height: 2.5rem;
+	line-height: 2.5rem;
+	width: 100%;
+	/background-color: rgba(135,206,235,0.9);
+	/background-color: rgba(224,180,235,0.9);
+	background-color: rgba(255,188,188,0.9);
+	color: white;
+	font-weight: bold;
+	box-sizing: border-box;
+	padding-left: 1rem;
+	letter-spacing: 0.1rem;
+	border-radius: 0.8rem 0.8rem 0 0;
+}
+.buying .window>header>i{
+	float: right;
+	margin-right: 1rem;
+	cursor: pointer;
+	font-size: 1.1rem;
+}
+.buying .window>section{
+	box-sizing: border-box;
+	padding:1rem;
+}
+.buying .window>section>header{
+	width:100%;
+	height:4rem;
+	margin:auto;
+	/border: 1px solid red;
+	box-sizing: border-box;
+	background-color: rgba(255,255,255,0.7);
+	box-shadow: 0 0 0.3rem rgb(200 200 200);
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+.buying .window>section>header>.head{
+	width: 3.4rem;
+	height: 3.4rem;
+	float: left;
+	margin-left: 0.5rem;
+	border-radius: 50%;
+	box-sizing: border-box;
+	background-color: rgba(255, 188, 0, 0.2);
+}
+.buying .window>section>header>.head>img{
+	width: 100%;
+	height:100%;
+	transform:scale(0.8);
+}
+.buying .window>section>header>.name{
+	font-size: 1.1rem;
+	padding-left: 1rem;
+}
+.buying .window>section>div *{
+	float:left;
+}
+.buying .window>section>p{
+	line-height: 2rem;
+	padding-left: 1rem;
+	font-size:0.8rem;
+	color:brown;
+}
+.buying .window>section>div{
+	width: 100%;
+	height:3.2rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+.buying .window>section>div>.tit{
+	width:4.5rem;
+	font-size: 0.9rem;
+	text-align: center;
+}
+.buying .window>section>div>.val{
+	width:18rem;
+	height:2.5rem;
+	/border:1px solid blue;
+	box-sizing: border-box;
+}
+.buying .window>section>div>.val>div{
+	width:2.5rem;
+	height:100%;
+	font-size:1.6rem;
+	border: 0.1rem solid rgb(188,188,188);
+	box-sizing: border-box;
+	text-align: center;
+	line-height:1.3em;
+	/background-color: rgba(200,200,200,0.2);
+}
+.buying .window>section>div>.val>.reduce{
+	background-color: rgba(255,200,200,0.3);
+	cursor: pointer;
+	/transform:scaleX(1.1);
+}
+.buying .window>section>div>.val>.add{
+	background-color: rgba(200,255,200,0.3);
+	cursor: pointer;
+}
+.buying .window>section>div>.val>.icon{
+	background-color: rgba(255,255,100,0.3);
+	background-image: url(../../images/icon/jf2.png);
+	background-size: 70%;
+	background-position: 50%;
+	background-repeat: no-repeat;
+}
+.buying .window>section>div>.val>input{
+	width:12rem;
+	height:100%;
+	box-sizing: border-box;
+	border:0.1rem solid rgb(188,188,188);
+	border-left: none;
+	border-right: none;
+	outline:none;
+	font-size: 1.2rem;
+	padding-left: 1rem;
+}
+.buying .window>section>div>.val>input::placeholder{
+	color:rgb(188,188,188);
+	font-size: 0.9rem;
+}
+.buying .window>section>.quality>.val>input{
+	color:mediumpurple;
+}
+.buying .window>section>.count>.val>input{
+	color:limegreen;
+}
+.buying .window>section>.price>.val>input{
+	width:14.5rem;
+	border-right:0.1rem solid rgb(188,188,188);
+	color:orange;
+	
+}
+
+.buying .window>footer{
+	height: 4rem;
+	width: 100%;
+	border-top: 0.15rem dashed rgb(200,200,200);
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+}
+.buying .window>footer>div{
+	float: right;
+	width: 5rem;
+	height: 2.6rem;
+	line-height: 2.6rem;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	text-align: center;
+	color: white;
+	margin-top: 0.7rem;
+	margin-right: 1rem;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	opacity: 0.8;
+}
+.buying .window>footer>div:hover{
+	opacity: 1;
+}
+.buying .window>footer>.close{
+	background-color: rgba(244,100,100,0.8);
+}
+.buying .window>footer>.confirm{
+	width:6rem;
+	background-color: rgba(66,200,66,0.8);
+}
+
+.buying .empty{
+	width:14rem;
+	height:17rem;
+	color:rgb(166,166,166);
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+	position: absolute;
+	left:0;right:0;
+	top:0;bottom:2rem;
+	margin: auto;
+	z-index: 2;
+	/background-color: pink;
+	background-image: url(../../images/empty5.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	display:none;
+}
+.buying .empty>span{
+	display: block;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+

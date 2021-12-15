@@ -1,0 +1,65 @@
+/* 导航栏分类样式（仓库） */
+.Collect-ware{
+	width: 20%;
+	height: 100%;
+	border-right:0.1em solid rgb(200,200,200);
+	box-sizing: border-box;
+	float: left;
+	overflow-y:scroll;
+	padding: 1%;
+	position: relative;
+	transition:width 1s;
+	/filter: blur(3px);
+}
+.Collect-ware>.title{
+	border-bottom:1px solid rgb(200,200,200);
+	box-sizing: border-box;
+	text-align: center;
+	width:100%;
+	height:2em;
+	font-weight:bold;
+	/line-height: 3em;
+	color:rgb(144,144,144);
+}
+.Collect-ware>ul{
+	width:100%;
+	height:4rem;
+	line-height:4rem;
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+	text-shadow: 0 0 0.1em gray;
+	border-radius: 1rem;
+	box-shadow: 0 0 0.2em gray;
+	color:white;
+	margin:0.5em auto;
+	background-image: url(../../images/btn/b1.jfif);
+	/background-size: cover;
+	letter-spacing: 0.2em;
+	cursor: pointer;
+	opacity: 0.8;
+	transition: all 0.2s;
+}
+.Collect-ware>ul:hover{
+	opacity: 1;
+	/transform: scale(1.1);
+}
+.Collect-ware>.btn-1>div{
+	/background: rgba(255,0,0,0.4);
+	background: rgba(255,255,0,0.4);
+}
+.Collect-ware>.btn-2>div{
+	/background: rgba(255,188,0,0.4);
+	background: rgba(0,255,0,0.3);
+}
+.Collect-ware>.btn-3>div{
+	/background: rgba(0,255,0,0.3);
+	background: rgba(200,200,0,0.3);
+}
+.Collect-ware>.btn-4>div{
+	background: rgba(186,85,211,0.4);
+}
+
+
+
+

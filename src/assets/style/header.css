@@ -1,0 +1,115 @@
+/* 头部基础信息样式 */
+
+main>header{
+	width: 100%;
+	height: 8%;
+	/border:0.2em solid purple;
+	box-sizing: border-box;
+	/box-shadow: 0 1px 5px gray;
+	/border-bottom: 1px solid rgb(200,200,200);
+	
+}
+main>header>.game-head{
+	float: left;
+	/width: 3%;
+	height: 70%;
+	background: url(../images/7dtdhead.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	border-radius: 0.5em;
+	margin: 0.8%;
+	margin-left:2%;
+}
+main>header>.title{
+	font-size:1.2em;
+	color:gray;
+	padding-left: 0.2em;
+	/font-family: "test2";
+	font-weight: bold;
+}
+main>header>.seting{
+	float:right;
+	width:10em;
+	height:70%;
+	margin: 0.8%;
+	/border:1px solid red;
+	box-sizing: border-box;
+	
+}
+main>header>.seting>div{
+	float:right;
+	height:100%;
+	margin: 0.8%;
+	margin-left:3%;
+	/border:1px solid red;
+	box-sizing: border-box;
+	background-size: cover;
+	opacity: 0.6;
+	cursor: pointer;
+	transition:all 0.2s;
+}
+main>header>.seting>div:hover{
+	opacity: 1;
+	/position:relative;
+	/bottom:0.2em;
+}
+main>header>.seting>.set{
+	background-image: url(../images/icon/set.png);
+	transform: scale(0.7);
+}
+main>header>.seting>.set:hover{
+	transform: translateY(-0.2em) scale(0.78) rotate(90deg);
+}
+main>header>.seting>.skin{
+	background-image: url(../images/icon/skin.png);
+	transform: scale(0.85);
+}
+main>header>.seting>.skin:hover{
+	transform: translateY(-0.2em) scale(0.9);
+}
+main>header>.seting>.mail{
+	background-image: url(../images/icon/mail.png);
+	background-position-y: 0.1em;
+	transform: scale(0.9);
+}
+main>header>.seting>.mail:hover{
+	transform: translateY(-0.2em) scale(0.95);
+}
+main>header>.Diamond,main>header>.Point{
+	/border:1px solid red;
+	box-sizing: border-box;
+	float: right;
+	width:12em;
+	height:70%;
+	margin: 0.8%;
+	cursor: pointer;
+}
+main>header>.Diamond>i{
+	display: inline-block;
+	height:100%;
+	/border:1px solid red;
+	background-image: url(../images/icon/red-zs.png);
+	background-size: cover;
+	transform: scale(0.75);
+}
+main>header>.Diamond>span{
+	display: inline-block;
+	color:rgb(249,102,112);
+	font-weight: bold;
+	font-size: 1.3em;
+}
+main>header>.Point>i{
+	display: inline-block;
+	height:100%;
+	/border:1px solid red;
+	background-image: url(../images/icon/jf2.png);
+	background-size: cover;
+	transform: scale(0.75);
+}
+main>header>.Point>span{
+	display: inline-block;
+	color: orange;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+

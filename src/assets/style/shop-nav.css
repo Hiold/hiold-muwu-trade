@@ -1,0 +1,107 @@
+/* 导航栏分类样式（商店） */
+.Category{
+	width: 20%;
+	height: 100%;
+	border-right:0.1em solid gray;
+	box-sizing: border-box;
+	float: left;
+	overflow-y: scroll;
+	padding: 1%;
+}
+.Category>.title{
+	border-bottom:1px solid rgb(200,200,200);
+	box-sizing: border-box;
+	text-align: center;
+	width:100%;
+	height:2em;
+	font-weight:bold;
+	/line-height: 3em;
+	color:rgb(144,144,144);
+}
+.Category>ul{
+	width:100%;
+	height:4rem;
+	line-height:4rem;
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+	text-shadow: 0 0 0.1em gray;
+	border-radius: 1rem;
+	box-shadow: 0 0 0.2em gray;
+	color:white;
+	margin:0.5em auto;
+	background-image: url(../images/btn/b1.jfif);
+	/background-size: cover;
+	letter-spacing: 0.2em;
+	cursor: pointer;
+	opacity: 0.9;
+	transition: all 0.2s;
+}
+.Category>ul:hover{
+	opacity: 1;
+	transform: scale(1.1);
+}
+.Category>.btn-1{
+	/transform: scale(1.1);
+}
+.Category>ul>div{
+	width:100%;
+	height:100%;
+	/border:1px solid red;
+	box-sizing: border-box;
+}
+.Category>.btn-1>div{
+	background: rgba(255,255,0,0.4);
+}
+.Category>.btn-2>div{
+	background: rgba(0,255,0,0.3);
+}
+.Category>.btn-3>div{
+	background: rgba(200,200,0,0.3);
+}
+.Category>.btn-5>div{
+	/background: rgba(0,150,200,0.3);
+	background: rgba(133,46,250,0.4);
+}
+.Category>.btn-6>div{
+	background: rgba(255,0,0,0.4);
+}
+.Category>li{
+	width:75%;
+	height:2.2rem;
+	line-height: 2.2rem;
+	margin:0.3rem auto;
+	/border:1px solid red;
+	border-radius: 30%;
+	box-sizing: border-box;
+	text-align: center;
+	color:gray;
+	font-size: 1.05rem;
+	/display: none;
+}
+.Category>.b1-t0{
+	background:radial-gradient(rgb(254, 227, 171), rgba(254, 208, 171, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+.Category>.b2-t0{
+	background:radial-gradient(rgb(186, 231, 206), rgba(255, 255, 255, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+.Category>.b3-t0{
+	background:radial-gradient(rgb(232, 206, 185), rgba(255, 255, 255, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+.Category>.b4-t0{
+	background:radial-gradient(rgb(255, 200, 200), rgba(255, 255, 255, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+.Category>.b5-t0{
+	background:radial-gradient(rgb(200, 200, 255), rgba(255, 255, 255, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+.Category>.b6-t0{
+	background:radial-gradient(rgb(255, 160, 160), rgba(255, 255, 255, 0.2));
+	box-shadow: 0 0 0.2rem white;
+}
+
+

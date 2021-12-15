@@ -1,0 +1,338 @@
+<link href="style/trade/trade.css" rel="stylesheet" type="text/css">
+<link href="style/trade/trade-nav.css" rel="stylesheet" type="text/css">
+<link href="style/trade/buying.css" rel="stylesheet" type="text/css">
+<!-- <script src="script/player-collect.js" type="text/javascript"></script>	<!-- 玩家收藏数据js -->
+
+<!-- <script src="script/player-store.js" type="text/javascript"></script> -->	<!-- 玩家店铺相关js -->
+<script src="script/trade/buying.js" type="text/javascript"></script>	<!-- 物资求购页面相关js -->
+<script src="script/trade/trade.js" type="text/javascript"></script>	<!-- 交易中心主体js -->
+<script src="script/trade/trade-nav.js" type="text/javascript"></script><!-- 交易中心侧边分类栏js -->
+
+
+<nav class="Trade-ware">
+	<!-- 侧边导航栏、分类 -->
+	<div class="title">༺ཌ 交易中心 ད༻</div>
+	<ul class="btn-1"><div>我的店铺</div></ul>
+	<ul class="btn-2"><div>玩家店铺</div></ul>
+	<ul class="btn-3"><div>玩家售卖区</div></ul>
+		<li class="b3-t0">全部</li>
+		<li class="b3-t1">物块模型</li>
+		<li class="b3-t2">物品资源</li>
+		<li class="b3-t3">特殊物品</li>
+	<ul class="btn-4"><div>玩家求购区</div></ul>
+		<li class="b4-t0">全部</li>
+		<li class="b4-t1">物块模型</li>
+		<li class="b4-t2">物品资源</li>
+		<li class="b4-t3">特殊物品</li>
+	<ul class="btn-5"><div>物资求购</div></ul>
+</nav>
+<section>
+<!-- 专题区域、详细内容 -->
+	<!-- 头部工具栏 -->
+	<header class="head-tool">
+		<h1>我的店铺</h1>
+		<div class="serch">
+			<input type="text" class="name-id" placeholder="请输入玩家或店铺名称" oninput="searchItems()">
+			<div class="btn"></div>
+		</div>
+		<div class="sort">
+			<div class="s-page">默认排序</div>
+			<li class="t1" data-click="true">默认排序</li>
+			<li class="t2">等级高到低</li>
+			<li class="t3">积分高到低</li>
+			<li class="t4">获赞高到低</li>
+			<li class="t5">销售额高到低</li>
+		</div>
+		<div class="refresh" title="刷新"></div>
+		<div class="back" title="返回"></div>
+	</header>
+	
+	<!-- 玩家店铺列表 -->
+	<div class="player-store">
+		<header>
+			<div class="h1">排名</div>
+			<div class="h2">店铺/玩家 信息</div>
+			<div class="h3">销售额</div>
+			<div class="h4">获赞</div>
+		</header>
+		<!-- <li>
+			<div class="num">1</div>
+			<div class="head"></div>
+			<div class="name">
+				<div class="shop-name">彩虹糖果屋</div>
+				<div class="vip"></div>
+				<div class="owner">店主：彩色の小木屋</div>
+				<div class="level">lv.520</div>
+			</div>
+			<div class="sales">
+				<i></i>
+				<span>1314000</span>
+			</div>
+			<div class="praised">
+				<i></i>
+				<span>2345</span>
+			</div>
+		</li> -->
+		
+		<div class="empty">
+			<span>没有找到你想<br>搜索的店铺</span>
+		</div>
+	</div>
+	
+	<!-- 店铺详情 页面 -->
+	<div class="my-shop">
+		
+		<header>
+			<div class="left">
+				<div class="head" id="player-head"></div>
+				<!-- <div class="praised">
+					<i></i>
+					<span>123</span>
+				</div> -->
+			</div>
+			<div class="center">
+				<div class="shop-name">我的店铺</div>
+				<div class="vip"></div>
+				<div class="shopkeeper">
+					店主：
+					<span class="name"><!-- 彩色の小木屋 --></span>
+					<span class="open-qq"></span>
+				</div>
+				<!-- <div class="qq">
+					QQ：
+					<span>429690798</span>
+					<i></i>
+				</div> -->
+				<div class="assets">
+					<span>资产：</span>
+					<div class="point">
+						<i></i>
+						<span>12345</span>
+					</div>
+					<div class="diamond">
+						<i></i>
+						<span>0</span>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="sales">
+					<div class="s1">总销售额</div>
+					<div class="s2">
+						<i></i>
+						<span><!-- 123456 --></span>
+					</div>
+				</div>
+				<div class="praised">
+					<div class="p1">获赞数量</div>
+					<div class="p2">
+						<i></i>
+						<span><!-- 666 --></span>
+					</div>
+				</div>
+			</div>
+			<div class="edit">
+				编辑<br>资料
+			</div>
+			<div class="back" title="返回"></div>
+			<!-- <div class="refresh"></div> -->
+		</header>
+		<section>
+			<nav>
+				<div class="sell" data-click="true">出东西</div>
+				<div class="need">收东西</div>
+			</nav>
+			<ul class="sitems-list">
+				<!-- <li>
+					<div class="image">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+						<div class="quality"><span>6</span></div>
+					</div>
+					<div class="content">
+						<div class="price">
+							<i></i>
+							<span>123456</span>
+						</div>
+						<div class="num">
+							库存：200
+						</div>
+						<div class="name">南瓜灯</div>
+					</div>
+				</li> -->
+				
+				
+				<div class="add">
+					<div class="add-logo">+</div>
+					<span>添加物品</span>
+				</div>
+				<div class="empty">
+					<div class="image"></div>
+					<span>该玩家暂时没有<br>需要出售的东西</span>
+				</div>
+			</ul>
+		</section>
+	</div>
+	
+	<!-- 玩家售卖区/玩家求购区 页面 -->
+	<div class="player-com">
+		<!-- <li>
+			<div class="image">
+				<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+				<div class="quality"><span>6</span></div>
+			</div>
+			<div class="content">
+				<div class="price">
+					<i></i>
+					<span>123456</span>
+				</div>
+				<div class="num">
+					数量：200
+				</div>
+				<div class="name">南瓜灯</div>
+				<div class="shop">
+					<i></i>
+					<span>彩虹糖果屋</span>
+				</div>
+			</div>
+		</li> -->
+		
+		<div class="empty">
+			<span>没有找到你想<br>搜索的店铺</span>
+		</div>
+	</div>
+	
+	<!-- 物资求购页面 -->
+	<div class="buying">
+		<div class="content">
+			<div class="image">
+				<img src="images/alert.png">
+			</div>
+			<div class="name"></div>
+			<div class="foot">
+				<div class="price">
+					<div class="tit">建议求购价：</div>
+					<div class="min">
+						<span class="tit">最低价：</span>
+						<i></i>
+						<span class="val"></span>
+					</div>
+					<div class="max">
+						<span class="tit">最高价：</span>
+						<i></i>
+						<span class="val"></span>
+					</div>
+				</div>
+				<div class="desc">
+					请将鼠标移入右边的物品图标以查看详情
+				</div>
+			</div>
+		</div>
+		<div class="box">
+			<!-- <li class="game-items">
+				<div class="image">
+					<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+				</div>
+			</li> -->
+			
+			<div class="blank">
+				<div class="window">
+					<div class="fil"></div>
+					<header>
+						<span>求购发布</span>
+						<i>✘</i>
+					</header>
+					<section>
+						<header>
+							<div class="head">
+								<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+							</div>
+							<div class="name">南瓜灯</div>
+						</header>
+						<div class="quality">
+							<span class="tit">品质：</span>
+							<div class="val">
+								<div class="reduce">-</div>
+								<input type="text" placeholder="请输入物品的品质" onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')">
+								<div class="add">+</div>
+							</div>
+						</div>
+						<div class="count">
+							<span class="tit">数量：</span>
+							<div class="val">
+								<div class="reduce">-</div>
+								<input type="text" placeholder="请输入求购的数量" onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')">
+								<div class="add">+</div>
+							</div>
+						</div>
+						<div class="price">
+							<span class="tit">价格：</span>
+							<div class="val">
+								<div class="icon"></div>
+								<input type="text" placeholder="请输入你想支付的价格" onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')">
+							</div>
+						</div>
+						<p>
+							说明：如果物品没有品质，将自动忽略。
+						</p>
+					</section>
+					<footer>
+						<div class="close">取消</div>
+						<div class="confirm">确认发布</div>
+					</footer>
+				</div>
+
+			</div>
+			<div class="empty">
+				<span>没有找到你想<br>搜索的店铺</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- 购买订单提交页面 -->
+	<div class="player-order">
+		<div class="window">
+			<div class="fil"></div>
+			<header>
+				<span>订单确认</span>
+				<i>✘</i>
+			</header>
+			<section>
+				<header>
+					<div class="head">
+						<img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+					</div>
+					<div class="msg">
+						<div class="name">南瓜灯</div>
+						<div class="price">
+							<i></i>
+							<span>12345</span>
+						</div>
+					</div>
+					<div class="num">x12</div>
+				</header>
+				<div class="count">
+					<span class="tit">购买数量：</span>
+					<div class="val">
+						<div class="reduce">-</div>
+						<input type="text" placeholder="请输入购买的数量" onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')" oninput="buyNum()">
+						<div class="add">+</div>
+					</div>
+				</div>
+				<div class="price">
+					<span class="tit">合计价格：</span>
+					<div class="val">
+						<i></i>
+						<span>0</span>
+					</div>
+				</div>
+				<!-- <p>
+					说明：付款成功后物品会发送至您的仓库。
+				</p> -->
+			</section>
+			<footer>
+				<div class="close">取消</div>
+				<div class="confirm">确认付款</div>
+			</footer>
+		</div>
+	</div>
+</section>

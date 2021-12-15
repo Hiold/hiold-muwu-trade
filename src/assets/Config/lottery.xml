@@ -1,0 +1,35 @@
+<lotterys>
+	<!-- name: 活动名称, 将会在页面子分类菜单中显示这个名称。
+		 currency: 抽奖消耗的货币类型, (积分/钻石)。
+		 price: 单次抽奖需要花费的价格。
+		 price10: 十连抽奖需要花费的价格。
+		 numDay: 每日可抽奖的次数。 -->
+	<lottery name="积分抽奖" currency="积分" price="1000" price10="9000" numDay="99">
+		<prize id="积分" 数量="500" 概率="2"/>			<!-- 奖品1: 积分兑换券 -->
+		<prize id="decoPumpkinJackOLantern" 数量="50" 概率="5"/>		<!-- 奖品2: 南瓜灯 -->
+		<prize id="armorSantaHat" 数量="3" 概率="5"/>				<!-- 奖品3: 圣诞帽 -->
+		<prize id="钻石" 数量="2" 概率="1"/>				<!-- 奖品4: 钻石兑换券 -->
+		<prize id="meleeWpnClubT1CandyClub" 数量="5" 概率="1"/>		<!-- 奖品5: 拐杖糖棍棒 -->
+		<prize id="casinoCoin" 数量="50000" 概率="5"/>				<!-- 奖品6: 公爵赌场币 -->
+		<prize id="积分" 数量="2000" 概率="2"/>			<!-- 奖品7: 积分兑换券 -->
+		<prize id="drinkCanMegaCrush" 数量="50" 概率="5"/>			<!-- 奖品8: 碾压王 -->
+		<prize id="drinkJarGrandpasMoonshine" 数量="50" 概率="5"/>	<!-- 奖品9: 祖父的私酒 -->
+		<prize id="钻石" 数量="5" 概率="1"/>				<!-- 奖品10: 钻石兑换券 -->
+		<prize id="drinkJarBoiledWater" 数量="200" 概率="5"/>		<!-- 奖品11: 白开水 -->
+		<prize id="积分满减券100-50" 数量="20" 概率="2"/>				<!-- 奖品12: 积分满减券100-50 -->
+	</lottery>
+	<lottery name="钻石抽奖" currency="钻石" price="10" price10="90" numDay="20">
+		<prize id="钻石" 数量="2" 概率="1"/>				<!-- 奖品1: 钻石兑换券 -->
+		<prize id="armorSantaHat" 数量="3" 概率="5"/>				<!-- 奖品2: 圣诞帽 -->
+		<prize id="decoPumpkinJackOLantern" 数量="50" 概率="5"/>		<!-- 奖品3: 南瓜灯 -->
+		<prize id="积分" 数量="500" 概率="2"/>			<!-- 奖品4: 积分兑换券 -->
+		<prize id="casinoCoin" 数量="50000" 概率="5"/>				<!-- 奖品5: 公爵赌场币 -->
+		<prize id="meleeWpnClubT1CandyClub" 数量="5" 概率="1"/>		<!-- 奖品6: 拐杖糖棍棒 -->
+		<prize id="钻石" 数量="5" 概率="1"/>				<!-- 奖品7: 钻石兑换券 -->
+		<prize id="drinkJarGrandpasMoonshine" 数量="50" 概率="5"/>	<!-- 奖品8: 祖父的私酒 -->
+		<prize id="drinkCanMegaCrush" 数量="50" 概率="5"/>			<!-- 奖品9: 碾压王 -->
+		<prize id="积分" 数量="2000" 概率="2"/>			<!-- 奖品10: 积分兑换券 -->
+		<prize id="积分满减券100-50" 数量="20" 概率="2"/>				<!-- 奖品11: 积分满减券100-50 -->
+		<prize id="drinkJarBoiledWater" 数量="200" 概率="5"/>		<!-- 奖品12: 白开水 -->
+	</lottery>
+</lotterys>

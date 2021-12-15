@@ -1,0 +1,13 @@
+<!-- value: 1表示开启每周签到的功能, 填写其它值表示关闭签到功能。 -->
+<qd value="1">
+	<!-- 	day: 表示每周的第1天到第7天, 这里的值只作为展示。
+			award: 当天玩家签到后获得的奖励(填写物品ID)。
+			count: 当天玩家签到后获得奖励的数量。 -->
+	<li day="1" award="decoPumpkinJackOLantern" count="10"/>	<!-- 南瓜灯 -->
+	<li day="2" award="armorSantaHat" count="1"/>	<!-- 圣诞帽 -->
+	<li day="3" award="meleeWpnClubT1CandyClub" count="1"/>	<!-- 拐杖糖棍棒 -->
+	<li day="4" award="casinoCoin" count="20000"/>	<!-- 赌场公爵币 -->
+	<li day="5" award="积分" count="8888"/>
+	<li day="6" award="钻石" count="10"/>
+	<li day="7" award="Cxx的尿不湿" count="5"/>
+</qd>

@@ -1,0 +1,349 @@
+/* 右侧主菜单样式 */
+aside{
+	width: 20%;
+	height: 100%;
+	/border:0.2em solid yellow;
+	box-sizing: border-box;
+	/box-shadow:-3px 0 10px gray;
+	float: right;
+	position: relative;
+}
+aside>header{
+	width: 90%;
+	height: 7.2em;
+	border-radius: 1em;
+	/border:0.1rem dashed gray;
+	border:0.1rem dashed white;
+	box-sizing: border-box;
+	box-shadow:0 0 0.4em gray;
+	background-image: url(../images/msgback.jpg);
+	background-size: cover;
+	margin:5%;
+	position: relative;
+	overflow: visible;
+	z-index: 2;
+	transition: height 0.3s;
+}
+aside>header>.player-head{
+	width:3.5rem;
+	height:3.5rem;
+	border:1px solid white;
+	border-radius:50%;
+	box-shadow: 0 0 1em gray;
+	margin:0.8rem;
+	background-image: url(../images/player/haiou.jpg);
+	background-size: cover;
+	float:left;
+}
+aside>header>.player-key{
+	height:4rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+	padding-top:0.3rem;
+	float:left;
+	margin-top:1rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+aside>header>.player-key>.name{
+	font-weight: bold;
+	display: inline-block;
+	color:rgb(80,80,80);
+	/color:rgb(221, 36, 36);
+	font-size: 1.1em;
+	text-shadow: 0 0 0.1em white;
+	/border:1px solid red;
+	box-sizing: border-box;
+	width:7.5em;
+	/-webkit-text-stroke-width: 0.5px;
+	/-webkit-text-stroke-color: white;
+	line-height: 1.4rem;
+}
+aside>header>.player-key>.level{
+	/font-family: "MV Boli";
+	font-weight: bold;
+	/font-style: italic;
+	font-size:0.95em;
+	color:#F8FE4E;
+	color:yellow;
+	text-shadow: 0 0 0.1em gray;
+	line-height: 1.4rem;
+}
+aside>header>.player-steamId{
+	/font-family: "MV Boli";
+	clear: both;
+	font-size:0.83rem;
+	color:gray;
+	text-indent: 1em;
+	/line-height: 1.5rem;
+}
+aside>header>.player-steamId>span{
+	padding-left:0.5em;
+	user-select: text;
+}
+aside>header>.more{
+	width: 6rem;
+	height:1.8em;
+	line-height: 1.8em;
+	font-size:0.8em;
+	text-align: center;
+	color:gray;
+	border:1px solid darkgray;
+	border-top:1px dashed white;
+	position: absolute;
+	left:50%;right:0;
+	bottom:-2em;
+	margin:auto;
+	border-radius:0 0 1em 1em;
+	background:rgba(255,255,255,0.5);
+	cursor:pointer;
+}
+aside>header>li{
+	width: 50%;
+	height:2.5em;
+	line-height: 2.5em;
+	float: left;
+	border-bottom:1px solid rgb(230,230,230);
+	box-sizing: border-box;
+	text-align: center;
+	background: rgba(255,255,255,0.5);
+	color:gray;
+	font-size:0.9em;
+	margin-top:1em;
+	display: none;
+}
+aside>header>.btn-1{
+	background-color: rgba(255,255,255,0.8);
+	border-bottom: 2px solid rgb(160,160,200);
+}
+.aside-profile{
+	width: 100%;
+	height:62%;
+	background-color: rgba(255,255,255,0.8);
+	display:none;
+}
+aside>header>.rech{
+	width:94%;
+	background-image: url(../images/vipcard.png);
+	background-size: cover;
+	height:3.5rem;
+	line-height:3.5rem;
+	border-radius: 1rem;
+	margin:auto;
+	position: absolute;
+	left:0;right:0;
+	bottom:0.3em;
+	display: none;
+	text-align: center;
+	color:white;
+	text-shadow: 0 0 0.1rem gray;
+	font-size:1.5em;
+	font-weight:bold;
+	font-style: italic;
+	cursor: pointer;
+	border:1px solid gold;
+	opacity:0.9;
+	letter-spacing: 1px;
+}
+aside>header>.rech:hover{
+	opacity:1;
+}
+.aside-profile>.page1{
+	width:100%;
+	height:100%;
+	/border:1px solid red;
+	box-sizing: border-box;
+	padding: 1em;
+}
+.aside-profile>.page1>p{
+	font-size: 0.9em;
+	color:rgb(150,150,150);
+	line-height: 2em;
+}
+.content>.page1 span{
+	color:rgb(40,40,40);
+}
+.all-cz,.all-xf,.all-qd{
+	text-indent: 1em;
+}
+.my-jf>span{
+	font-weight: bold;
+	color:orange !important;
+}
+.my-zs>span{
+	font-weight: bold;
+	color:rgb(249,102,112) !important;
+}
+.aside-profile>.page2{
+	width:100%;
+	height:100%;
+	/border:1px solid red;
+	box-sizing: border-box;
+	display: none;
+	overflow-y: scroll;
+	padding-bottom: 3rem;
+}
+.aside-profile>.page2::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width : 0.5rem;  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+.aside-profile>.page2::-webkit-scrollbar-thumb{
+	background-color: rgb(177,150,228);
+}
+.aside-profile>.page2>.tit{
+	color:darkgray;
+	font-size:0.8rem;
+	margin:0.5rem;
+}
+.aside-profile>.page2>.tit>i{
+	display: inline-block;
+	width:0.8rem;
+	height:0.8rem;
+	background-image: url(../images/icon/down.png);
+	background-size: cover;
+	position:relative;
+	top:0.1rem;
+	margin-right:0.1rem;
+	transition:all 0.2s;
+}
+.Customer{
+	width:98%;
+	height:3.5rem;
+	/border:1px solid red;
+	box-sizing: border-box;
+}
+.Customer:hover{
+	background: rgb(240,240,240);
+}
+.Customer>.head{
+	width:3.5rem;
+	height:3.5rem;
+	/border:1px solid blue;
+	border-radius: 50%;
+	box-sizing: border-box;
+	background-image: url(../images/player/haiou.jpg);
+	background-size: cover;
+	transform: scale(0.7);
+	float:left;
+}
+.Customer>.msg{
+	width:9rem;
+	height:100%;
+	/border:1px solid blue;
+	box-sizing: border-box;
+	float:left;
+}
+.Customer .name{
+	font-size: 0.9rem;
+	font-weight: bold;
+	color:rgb(91,46,0);
+	/color:orangered;
+	line-height: 1.3rem;
+	padding-top:0.5rem;
+}
+.Customer .intro{
+	font-size: 0.8rem;
+	color:gray;
+}
+
+.Main-menu{
+	/border:1px solid red;
+	width: 90%;
+	height: 72%;
+	box-sizing: border-box;
+	margin:5%;
+	position: absolute;
+	bottom:0em;
+	left:0;
+	overflow: visible;
+}
+.Main-menu>li{
+	width: 100%;
+	height:18%;
+	margin:5% auto;
+	border:1px solid white;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px gray;
+	text-align: center;
+	text-shadow: 0 0 2px black;
+	color:white;
+	cursor: pointer;
+	background-size: cover;
+	padding-top: 0.5em;
+	opacity: 0.8;
+	transition: transform 0.2s;
+}
+
+.Main-menu>li>.cn{
+	font-size:1.2em;
+	font-weight:bold;
+	line-height: 1.8em;
+	padding:0 0.8em;
+	padding-bottom: 0.2em;
+	border-bottom:1px solid rgb(230,230,230);
+}
+.Main-menu>.menu-1{
+	background-image: url(../images/btn/btn1.jpg);
+	transform: scale(1.1);
+	opacity: 1;
+}
+.Main-menu>.menu-2{
+	background-image: url(../images/btn/btn2.jpg);
+}
+.Main-menu>.menu-3{
+	background-image: url(../images/btn/btn3.jpg);
+}
+.Main-menu>.menu-4{
+	background-image: url(../images/btn/btn4.jpg);
+}
+.Main-menu>.min{
+	width:100%;
+	/border:1px solid red;
+	box-sizing: border-box;
+}
+.Main-menu>.min>div{
+	width:25%;
+	float:left;
+	/border:1px solid blue;
+	box-sizing: border-box;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position-x: 50%;
+	text-align: center;
+	color:rgb(85,85,85);
+	font-weight: bold;
+	position: relative;
+	opacity: 0.8;
+	cursor: pointer;
+	/display:flex;
+	/align-items:flex-end;
+}
+.Main-menu>.min>div:hover{
+	opacity: 1;
+}
+.Main-menu>.min>div>span{
+	/font-family: "test2";
+	position: absolute;
+	left:0;right:0;
+	bottom:0;
+}
+.Main-menu>.min>.m1{
+	background-image: url(../images/icon/qd.png);
+	background-size: 55%;
+}
+.Main-menu>.min>.m2{
+	background-image: url(../images/icon/dh.png);
+	background-size: 60%;
+}
+.Main-menu>.min>.m3{
+	background-image: url(../images/icon/gg.png);
+	background-size: 60%;
+}
+.Main-menu>.min>.m4{
+	background-image: url(../images/icon/ph.png);
+	background-size: 60%;
+}
+
+
+

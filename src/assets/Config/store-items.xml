@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items>
+	
+	<item name="积分">
+		<property name="名称" value="积分兑换券"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/jf2"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1000"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="1000"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="999"/>
+		<property name="描述" value="<font color='orangered'><b>网页专属积分兑换券</b></font><br>在仓库中使用可获得对应数量积分"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="货币兑换"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="88888"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="auto" date="2021-12-12" time="18:00:00"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="55"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="10"/>
+		<property name="总限购" value="false"/>
+		<property name="跟档" value="true"/>
+	</item>
+	
+	<item name="钻石">
+		<property name="名称" value="钻石兑换券"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/red-zs"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="100"/>
+		<property name="货币" value="钻石"/>
+		<property name="价格" value="100"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="99"/>
+		<property name="描述" value="<font color='orangered'><b>网页专属钻石兑换券</b></font><br>在仓库中使用可获得对应数量钻石"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="货币兑换"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="333"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="36"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="10"/>
+		<property name="总限购" value="false"/>
+		<property name="跟档" value="true"/>
+	</item>
+	
+	<item name="补签卡">
+		<property name="名称" value="补签卡"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/qd"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="1000"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="888"/>
+		<property name="描述" value="<font color='orangered'><b>网页专属签到补签卡</b></font><br>在签到页面中使用，可获得一次过期补充签到的资格"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="其它"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="678"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="66"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="1"/>
+		<property name="总限购" value="false"/>
+		<property name="跟档" value="false"/>
+	</item>
+	
+	<item name="新手礼包">
+		<property name="名称" value="新手礼包 : 网页专属"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/gift"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="100"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="1"/>
+		<property name="描述" value="
+			<span class='desc-h orangered'>网页专属新手礼包</span><br>
+			<b>打开可获得以下物品:</b><br>
+			<span class='w12'>⑴. <i>积分兑换券</span>数量 : 8888</i><br>
+			<span class='w12'>⑴. <i>钻石兑换券</span>数量 : 1</i><br>
+			<span class='w12'>⑴. <i>积分满减券50-10</span>数量 : 5</i><br>
+			<span class='w12'>⑵. <i>公爵赌场币</span>数量 : 8888</i><br>
+			<span class='w12'>⑶. <i>自行车</span>数量 : 1</i>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="礼包抽奖"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="99999"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="32"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="1"/>
+		<property name="获得奖品" value="true" set="0">
+			<prize id="积分" 数量="8888"/>
+			<prize id="钻石" 数量="1"/>
+			<prize id="积分满减券50-10" 数量="5"/>
+			<prize id="casinoCoin" 数量="8888"/>
+			<prize id="vehicleBicyclePlaceable" 数量="1"/>
+		</property>
+	</item>
+	
+	<item name="每日福利礼包">
+		<property name="名称" value="每日福利礼包"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/gift"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="100"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="1"/>
+		<property name="描述" value="
+			<span class='desc-h orangered'>网页专属福利礼包</span><br>
+			<b>打开可获得以下物品:</b><br>
+			<span class='w12'>⑴. <i>积分兑换券</span>数量 : 100</i><br>
+			<span class='w12'>⑵. <i>公爵赌场币</span>数量 : 500</i><br>
+			<font color='deeppink'>每天限购一份哦~</font>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="礼包抽奖"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="99999"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="32"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="1"/>
+		<property name="总限购" value="false"/>
+		<property name="获得奖品" value="true" set="0">
+			<prize id="积分" 数量="100"/>
+			<prize id="casinoCoin" 数量="500"/>
+		</property>
+	</item>
+	
+	<item name="每日福利礼包plus">
+		<property name="名称" value="每日福利礼包plus"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/gift"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="150"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="100"/>
+		<property name="描述" value="
+			<span class='desc-h orangered'>网页专属福利礼包升级版</span><br>
+			<b>打开可获得以下物品:</b><br>
+			<span class='w12'>⑴. <i>积分兑换券</span>数量 : 1000</i><br>
+			<span class='w12'>⑵. <i>公爵赌场币</span>数量 : 5000</i><br>
+			<span class='w12'>⑵. <i>蔬菜炖肉</span>数量 : 5</i><br>
+			<span class='w12'>⑵. <i>开水</span>数量 : 200</i><br>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="礼包抽奖"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="99999"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="false"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="32"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="1"/>
+		<property name="总限购" value="false"/>
+		<property name="获得奖品" value="true" set="0">
+			<prize id="积分" 数量="1000"/>
+			<prize id="casinoCoin" 数量="5000"/>
+			<prize id="foodHoboStew" 数量="5"/>
+			<prize id="drinkJarBoiledWater" 数量="20"/>
+		</property>
+	</item>
+	
+	<item name="随机礼包">
+		<property name="名称" value="测试 : 随机礼包"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/gift"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="100"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="1"/>
+		<property name="描述" value="
+			<span class='desc-h orangered'>网页专属福利礼包（测试）</span><br>
+			<b>打开可随机获得以下物品中的2种:</b><br>
+			<span class='w12'>⑴. <i>积分兑换券</span><span class='w8'>数量 : 100</span>概率 : 40%</i><br>
+			<span class='w12'>⑵. <i>公爵赌场币</span><span class='w8'>数量 : 1000</span>概率 : 30%</i><br>
+			<span class='w12'>⑶. <i>圣诞帽</span><span class='w8'>数量 : 1</span>概率 : 20%</i><br>
+			<span class='w12'>⑷. <i>南瓜灯</span><span class='w8'>数量 : 5</span>概率 : 10%</i>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="礼包抽奖"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="99999"/>
+		<property name="热卖" value="false" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="32"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="10"/>
+		<property name="总限购" value="false"/>
+		<property name="获得奖品" value="true" set="2">
+			<prize id="积分" 数量="100" 概率="4"/>
+			<prize id="casinoCoin" 数量="1000" 概率="3"/>
+			<prize id="armorSantaHat" 数量="1" 概率="2"/>
+			<prize id="decoPumpkinJackOLantern" 数量="5" 概率="1"/>
+		</property>
+	</item>
+
+	<item name="积分满减券100-50">
+		<property name="名称" value="【券】满100减50"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/quan"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="50"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="25"/>
+		<property name="描述" value="
+			<font color='orangered'><b>网页专属积分满减券</b></font><br>
+			在购买商品时使用可抵消 <b>50</b> 积分<br>
+			使用要求：满 <b>100</b> 积分可用<br>
+			使用期限：即日起 至 <b>2021-10-18</b>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="抵用券"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="88888"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="auto" date="2021-12-12" time="18:00:00"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="55"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="10"/>
+		<property name="抵用券" currency="积分" type="满减" value="50" set="100" date="2021-12-21"/>
+	</item>
+	
+	<item name="积分满减券50-10">
+		<property name="名称" value="【券】满50减10"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/quan"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="10"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="5"/>
+		<property name="描述" value="
+			<font color='orangered'><b>网页专属积分满减券</b></font><br>
+			在购买商品时使用可抵消 <b>10</b> 积分<br>
+			使用要求：满 <b>50</b> 积分可用<br>
+			使用期限：即日起 至 <b>2021-12-21</b>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="抵用券"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="88888"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="auto" date="2021-12-12" time="18:00:00"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="55"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="10"/>
+		<property name="抵用券" currency="积分" type="满减" value="10" set="50" date="2021-12-21"/>
+	</item>
+	
+	<item name="积分折扣券100-9.5">
+		<property name="名称" value="【券】满100 9.5折"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/quan"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="50"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="25"/>
+		<property name="描述" value="
+			<font color='orangered'><b>网页专属积分折扣券</b></font><br>
+			在购买商品时使用可额外获得 <b>9.5</b> 折优惠<br>
+			使用要求：满 <b>100</b> 积分可用<br>
+			使用期限：即日起 至 <b>2021-12-21</b>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="抵用券"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="88888"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="auto" date="2021-12-12" time="18:00:00"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="55"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="10"/>
+		<property name="抵用券" currency="积分" type="折扣" value="9.5" set="100" date="2021-12-21"/>
+	</item>
+
+	<item name="钻石满减券50-5">
+		<property name="名称" value="【券】满50减5"/>	<!-- 在网页上显示的名称 -->
+		<property name="图标" value="/quan"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="钻石"/>
+		<property name="价格" value="5"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="2"/>
+		<property name="描述" value="
+			<font color='orangered'><b>网页专属钻石满减券</b></font><br>
+			在购买商品时使用可抵消 <b>5</b> 钻石<br>
+			使用要求：满 <b>50</b> 钻石可用<br>
+			使用期限：即日起 至 <b>2022-8-8</b>
+		"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="抵用券"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="88888"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="auto" date="2022-12-12" time="18:00:00"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="25"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="10"/>
+		<property name="抵用券" currency="钻石" type="满减" value="5" set="50" date="2022-8-8"/>
+	</item>
+
+	<item name="armorSantaHat">	<!-- 圣诞帽 -->
+		<property name="名称" value=""/>	<!-- 名称留空自动获取汉化名称 -->
+		<property name="图标" value="armorSantaHat"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="666"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="520"/>
+		<property name="描述" value="圣诞节专属装饰<br>它是一顶红色帽子，据说晚上戴上睡觉除了睡得安稳和有点暖外，第二天你还会发现帽子里多了点心爱的人送的礼物。"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="衣服套装"/>
+		<property name="IsMod" value="false"/>	<!-- 是否是mod -->
+		<property name="销量" value="123"/>
+		<property name="热卖" value="auto" set="888"/>	<!-- 如果销量大于888, 则自动显示热卖图标 -->
+		<property name="显示" value="true"/>		<!-- 是否在网页显示这个商品（不显示玩家就看不到这个商品 也就买不了） -->
+		<property name="库存" value="50"/>
+		<property name="收藏" value="18"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="5"/>
+		<property name="总限购" value="100"/>
+	</item>
+	
+	<item name="decoPumpkinJackOLantern">	<!-- 南瓜灯 -->
+		<property name="名称" value="南瓜灯"/>
+		<property name="图标" value="decoPumpkinJackOLantern"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="150"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="100"/>
+		<property name="描述" value="万圣节装饰物品<br>这是一个普通而可爱（可怕）的南瓜灯，敲碎可以回收。<br>散发着微微的黄色光芒，烘托了一丝温暖的气息。<br>听说周围的僵尸都害怕它，让它作为僵尸在万圣节最好的礼物吧~"/>
+		<property name="总分类" value="物块模型"/>
+		<property name="子分类" value="家具装饰"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="123"/>
+		<property name="热卖" value="auto" set="125"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="500"/>
+		<property name="收藏" value="9"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="10"/>
+		<property name="总限购" value="200"/>
+	</item>
+	
+	<item name="软糖币">
+		<property name="名称" value=""/>
+		<property name="图标" value="/ccCoin"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="100"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="100"/>
+		<property name="折扣" value="9.8"/>
+		<property name="优惠价" value="auto"/>
+		<property name="描述" value="超级可爱的货币."/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="auto"/>
+		<property name="销量" value="666"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="10"/>
+		<property name="收藏" value="29"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="100"/>
+		<property name="总限购" value="false"/>
+		<property name="跟档" value="false"/>
+	</item>
+	
+	<item name="Cxx的尿不湿">
+		<property name="名称" value=""/>
+		<property name="图标" value="/nbs"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="钻石"/>
+		<property name="价格" value="80"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="50"/>
+		<property name="描述" value="祭坛boss掉落物品。<br>这个东西闻起来似乎有点奇怪的气味。。。小声点！那是Cxx私藏多年的“宝贝”，听说它可以用来做成更好的武器。"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="auto"/>
+		<property name="销量" value="666"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="10"/>
+		<property name="收藏" value="29"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="200"/>
+		<property name="每日限购" value="3"/>
+		<property name="总限购" value="500"/>
+		<property name="跟档" value="true"/>
+	</item>
+	
+	<item name="Cxx的尿不湿">
+		<property name="名称" value=""/>
+		<property name="图标" value="/nbs"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="2"/>
+		<property name="货币" value="钻石"/>
+		<property name="价格" value="160"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="80"/>
+		<property name="描述" value="祭坛boss掉落物品。<br>这个东西闻起来似乎有点奇怪的气味。。。小声点！那是Cxx私藏多年的“宝贝”，听说它可以用来做成更好的武器。"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="99999"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="10"/>
+		<property name="收藏" value="29"/>
+		<property name="可购买" value="vip"/>
+		<property name="等级限购" value="200"/>
+		<property name="每日限购" value="3"/>
+		<property name="总限购" value="500"/>
+		<property name="跟档" value="true"/>
+	</item>
+	
+	<item name="Cxx的开裆裤">
+		<property name="名称" value="Cxx的开裆裤"/>
+		<property name="图标" value="/kdk"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="钻石"/>
+		<property name="价格" value="101"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="80"/>
+		<property name="描述" value="祭坛boss掉落物品。<br>一条超大的开裆裤，这个尺寸可以装下一个200斤的巨婴了。。。小声点！那是Cxx私藏多年的“宝贝”，听说它可以用来做成更好的武器。"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="555"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="3"/>
+		<property name="收藏" value="22"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="200"/>
+		<property name="每日限购" value="1"/>
+		<property name="总限购" value="200"/>
+	</item>
+	
+	<!-- <item name="3级CC石">
+		<property name="名称" value="3级CC石"/>
+		<property name="图标" value="/ccStone3"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="10"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="150000"/>
+		<property name="折扣" value="true"/>
+		<property name="优惠价" value="128888"/>
+		<property name="描述" value="本服专属货币"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="777"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="300"/>
+		<property name="收藏" value="12"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item> -->
+	
+	<item name="CC眼镜">
+		<property name="名称" value="CC眼镜"/>
+		<property name="图标" value="/ccGlasses"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="20000"/>
+		<property name="折扣" value="8.8"/>
+		<property name="优惠价" value="auto"/>
+		<property name="描述" value="服务器专属道具，秒制作。"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="衣服套装"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="123"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="6"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="2"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="casinoCoin">	<!-- 公爵赌场币 -->
+		<property name="数量" value="20000"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="500"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="销量" value="88"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="8888"/>
+		<property name="收藏" value="16"/>
+	</item>
+		
+	<item name="meleeWpnClubT1CandyClub">	<!-- 拐杖糖棍棒 -->
+		<property name="名称" value=""/>
+		<property name="图标" value="meleeWpnClubT1CandyClub"/>
+		<property name="品质" value="6"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="1666"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="1314"/>
+		<property name="描述" value="圣诞专属武器<br>这跟棍棒看起来好像很好吃，就是咬起来有点费牙齿....."/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="武器弹药"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="123"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="50"/>
+		<property name="收藏" value="3"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="drinkJarGrandpasMoonshine">	<!-- 祖父的私酒 -->
+		<property name="名称" value="祖父的私酒"/>
+		<property name="图标" value="drinkJarGrandpasMoonshine"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="500"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="450"/>
+		<property name="描述" value="auto"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="234"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="50"/>
+		<property name="收藏" value="11"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="5"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="drinkCanMegaCrush">	<!-- 碾压王 -->
+		<property name="名称" value="碾压王"/>
+		<property name="图标" value="drinkCanMegaCrush"/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="500"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="360"/>
+		<property name="描述" value="auto"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="200"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="50"/>
+		<property name="收藏" value="12"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="10"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="foodHoboStew">	<!-- 蔬菜炖肉 -->
+		<property name="价格" value="200"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="188"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="销量" value="222"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="500"/>
+		<property name="收藏" value="15"/>
+		<property name="每日限购" value="10"/>
+	</item>
+	
+	<item name="drinkJarBoiledWater">	<!-- 开水 -->
+		<property name="价格" value="10"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="销量" value="222"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="500"/>
+		<property name="收藏" value="15"/>
+		<property name="每日限购" value="100"/>
+	</item>
+	
+	<item name="vehicleBicyclePlaceable">	<!-- 自行车 -->
+		<property name="名称" value=""/>		<!-- 汉化名:自行车, 这里留空可以自动获取 -->
+		<property name="图标" value="vehicleBicyclePlaceable"/>
+		<property name="品质" value="0"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="1000"/>
+		<property name="折扣" value="8.8"/>
+		<property name="优惠价" value="auto"/>
+		<property name="描述" value="auto"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="载具药物"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="123"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="9999"/>
+		<property name="收藏" value="3"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="plantedChrysanthemum1">	<!-- 菊花（种子） -->
+		<property name="名称" value=""/>
+		<property name="图标" value=""/>
+		<property name="品质" value=""/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="10"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="8"/>
+		<!-- <property name="描述" value="auto"/> -->
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="8888"/>
+		<property name="收藏" value="4"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="resourceYuccaFibers">	<!-- 植物纤维 -->
+		<property name="名称" value=""/>
+		<property name="图标" value=""/>
+		<property name="品质" value=""/>
+		<property name="数量" value="100"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="10"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="8"/>
+		<property name="描述" value="auto"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="8888"/>
+		<property name="收藏" value="4"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test1">
+		<property name="名称" value="测试：物块 建筑"/>
+		<property name="图标" value="gunMGT1AK47"/>
+		<property name="品质" value="1"/>
+		<property name="数量" value="1"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="300"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="100"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="物块模型"/>
+		<property name="子分类" value="建筑物块"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="2"/>
+		<property name="可购买" value="true"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test2">
+		<property name="名称" value="测试：物块 家具"/>
+		<property name="图标" value="gunMGT1AK47"/>
+		<property name="品质" value="2"/>
+		<property name="数量" value="2"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="300"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="200"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="物块模型"/>
+		<property name="子分类" value="家具装饰"/>
+		<property name="IsMod" value="true"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="2"/>
+		<property name="可购买" value="false"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test3">
+		<property name="名称" value="测试：物块 植物"/>
+		<property name="图标" value="gunMGT1AK47"/>
+		<property name="品质" value="3"/>
+		<property name="数量" value="3"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="600"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="300"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="物块模型"/>
+		<property name="子分类" value="户外植物"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="2"/>
+		<property name="可购买" value="false"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test4">
+		<property name="名称" value="测试：特殊 礼包"/>
+		<property name="图标" value="/zhi"/>
+		<property name="品质" value="4"/>
+		<property name="数量" value="4"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="600"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="400"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="礼包抽奖"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="4"/>
+		<property name="可购买" value="false"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test5">
+		<property name="名称" value="测试：特殊 服务"/>
+		<property name="图标" value="/zhi"/>
+		<property name="品质" value="5"/>
+		<property name="数量" value="5"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="600"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="500"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="专属服务"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="233"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="5"/>
+		<property name="可购买" value="false"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	<item name="test6">
+		<property name="名称" value="测试：特殊 抵用券"/>
+		<property name="图标" value="/zhi"/>
+		<property name="品质" value="6"/>
+		<property name="数量" value="7"/>
+		<property name="货币" value="积分"/>
+		<property name="价格" value="600"/>
+		<property name="折扣" value="auto"/>
+		<property name="优惠价" value="600"/>
+		<property name="描述" value="这是一把AK-47机枪武器。"/>
+		<property name="总分类" value="特殊商品"/>
+		<property name="子分类" value="抵用券"/>
+		<property name="IsMod" value="false"/>
+		<property name="销量" value="666"/>
+		<property name="热卖" value="auto" set="888"/>
+		<property name="显示" value="true"/>
+		<property name="库存" value="888"/>
+		<property name="收藏" value="6"/>
+		<property name="可购买" value="false"/>
+		<property name="等级限购" value="false"/>
+		<property name="每日限购" value="false"/>
+		<property name="总限购" value="false"/>
+	</item>
+	
+	
+	
+	
+	
+	<item name="resourceForgedIron">	<!-- 锻铁 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceForgedSteel">	<!-- 锻钢 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceNail">	<!-- 钉子 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceRockSmall">	<!-- 小石子 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="1000"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceClayLump">	<!-- 粘土 -->
+		<property name="数量" value="20000"/>
+		<property name="价格" value="500"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="ammo762mmBulletBall">	<!-- 7.62毫米弹药 -->
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="武器弹药"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="ammo9mmBulletBall">	<!-- 9毫米弹药 -->
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="武器弹药"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceElectricParts">	<!-- 电子零件 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceMechanicalParts">	<!-- 机械零件 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceSpring">	<!-- 弹簧 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceMetalPipe">	<!-- 短铁管 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceWood">	<!-- 木头 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceScrapPolymers">	<!-- 废聚合物 -->
+		<property name="数量" value="8888"/>
+		<property name="价格" value="9999"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="基础资源"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourcePaint">	<!-- 油漆 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="foodRottingFlesh">	<!-- 腐肉 -->
+		<property name="数量" value="100"/>
+		<property name="价格" value="2000"/>
+		<property name="折扣" value="8.8"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="resourceAnimalFat">	<!-- 脂肪 -->
+		<property name="数量" value="100"/>
+		<property name="价格" value="2000"/>
+		<property name="折扣" value="6.6"/>
+		<property name="总分类" value="物品资源"/>
+		<property name="子分类" value="食物饮品"/>
+		<property name="显示" value="true"/>
+	</item>
+	
+	<item name="vehicleWheels">	<!-- 车轮 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="resourceHeadlight">	<!-- 前照灯 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="resourcePaper">	<!-- 纸 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="resourceGlue">	<!-- 胶水 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="resourceCloth">	<!-- 碎布 -->
+		<property name="总分类" value="物品资源"/>
+	</item>
+	
+	<item name="airConditioner">	<!-- 空调 -->
+		<property name="总分类" value="物块模型"/>
+	</item>
+	
+	<item name="birdBathPlanter">	<!-- 高脚杯花盆 -->
+		<property name="总分类" value="物块模型"/>
+	</item>
+	
+</items>

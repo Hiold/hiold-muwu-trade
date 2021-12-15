@@ -1,0 +1,178 @@
+/* 头部工具栏样式 */
+.head-tool{
+	width:100%;
+	height:4rem;
+	/border-top:1px solid red;
+	box-sizing: border-box;
+	position: absolute;
+	top:0;
+	background-color: rgba(255,255,255,0.8);
+	z-index: 100;
+	overflow: visible;
+	/display: none;
+}
+.head-tool>.serch{
+	background:linear-gradient(90deg,#BE93C5,#7BC6CC,#7BC6CC,#BE93C5);
+	animation: back 500s linear 0s infinite;
+	/background:linear-gradient(90deg,#A6FFCB,#12D8FA,#1FA2FF);
+	box-sizing: border-box;
+	width:40%;
+	height:80%;
+	border-radius: 2rem;
+	margin-top:0.3rem;
+	margin-left:1.5rem;
+	float:left;
+	transform: scale(0.9);
+}
+.head-tool .name-id{
+	display: inline-block;
+	float: left;
+	width: 77%;
+	height: 70%;
+	margin-left: 5%;
+	margin-top:0.46rem;
+	/transform: scale(0.85,0.7);
+	box-sizing: border-box;
+	border:none;
+	outline: none;
+	font-size: 1.2rem;
+	text-indent: 1rem;
+	box-shadow: 0 0 0.3rem gray inset;
+	/color:red;
+	border-radius: 0.5rem;
+}
+.head-tool .name-id:focus{
+	box-shadow: 0 0 0.3rem rgb(100,100,100) inset;
+}
+.head-tool .name-id::-webkit-input-placeholder{
+	color:rgb(188,188,188);
+}
+.head-tool>.serch>.btn{
+	display: inline-block;
+	float: left;
+	width: 18%;
+	height: 100%;
+	/border:1px solid red;
+	box-sizing: border-box;
+	text-align: center;
+	background: url(../images/icon/serch.png) no-repeat;
+	background-size: contain;
+	transform: scale(0.6);
+	cursor: pointer;
+}
+.head-tool>.display{
+	/border:1px solid red;
+	box-sizing: border-box;
+	float:left;
+	height:100%;
+	width:24%;
+	display:flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.head-tool>.display>li{
+	width: 40%;
+	height:55%;
+	float: left;
+	font-size: 1.2rem;
+	/font-weight: bold;
+	/border:1px solid lightgreen;
+	border-bottom:0.25rem solid rgba(255,255,255,0);
+	box-sizing: border-box;
+	text-align: right;
+	/padding-left: 1.5rem;
+	padding-right:0.3rem;
+	font-weight: bold;
+	color:rgb(88,88,88);
+	transform:scale(0.9);
+	opacity: 0.7;
+}
+.head-tool>.display>li:hover{
+	opacity:0.9;
+}
+.head-tool>.display>.l1{
+	background: url(../images/icon/card.png) no-repeat;
+	background-size:1.6rem 100%;
+	background-position:0.3rem 0;
+	border-bottom-color:#ff6969;
+	opacity:1;
+}
+.head-tool>.display>.l2{
+	background: url(../images/icon/tb.png) no-repeat;
+	background-size:2.1rem 110%;
+	background-position:0 -0.1rem;
+}
+.head-tool>.display>.l3{
+	background: url(../images/icon/liebiao.png) no-repeat;
+	background-size:1.8rem 80%;
+	background-position:0.2rem 0.2rem;
+	display:none;
+}
+.head-tool>.sort{
+	width:15%;
+	height:50%;
+	float:right;
+	line-height: 1.95rem;
+	border:1px solid rgb(180,180,180);
+	border-radius: 2rem;
+	box-sizing: border-box;
+	/box-shadow:0 0 0.4rem rgb(200,200,200);
+	margin-right:2.5rem;
+	margin-top:0.95rem;
+	/cursor: pointer;
+	opacity: 0.9;
+	transition: all 0.2s;
+	background-color: rgba(250,250,250,1);
+}
+.head-tool>.sort:hover{
+	opacity: 1;
+	/border:1px solid rgb(88,88,88);
+}
+.head-tool>.sort>.s-page{
+	width:100%;
+	height:2rem;
+	border-bottom:2px dashed rgb(200,200,200);
+	box-sizing: border-box;
+	color:gray;
+	text-align: center;
+	font-size: 0.95rem;
+}
+.head-tool>.sort>.s-page:hover{
+	/outline:0.2rem solid lightblue;
+}
+.head-tool>.sort>li{
+	text-align: center;
+	color:gray;
+	font-size: 0.9rem;
+}
+.head-tool>.sort>li:nth-of-type(1){
+	background-color: rgb(230,230,230);
+}
+.head-tool>h1{
+	display:inline-block;
+	float:left;
+	line-height: 4.5rem;
+	height:4.5rem;
+	font-family: "new","微软雅黑";
+	font-weight: normal;
+	font-size: 2.2em;
+	/font-style: oblique;
+	padding-left:1.5rem;
+	padding-right:2rem;
+	/text-decoration: underline;
+	/box-shadow:0 0 0.2rem gray inset;
+	color:rgb(244,164,96);
+	background:linear-gradient(135deg,rgba(255,255,255,0.8),rgb(255,239,213));
+	border-right:8px solid rgba(255,255,255,0.5);
+	border-bottom:8px solid rgba(255,255,255,0.5);
+	border-radius:0 0 0.8rem 0;
+	transform:skewX(-20deg);
+	/-webkit-background-clip: text;
+	/text-shadow: 1px 1px 0 rgba(188,188,188);
+	/opacity: 0.8;
+	letter-spacing: 0.2rem;
+	/-webkit-text-stroke-width:0.05rem;
+	-webkit-text-stroke-color:white;
+}
+
+
