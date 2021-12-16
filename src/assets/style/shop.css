@@ -164,11 +164,17 @@
     position: absolute;
     right: 0;
     top: 0;
-    background-image: url(../images/icon/collect-1.png);
     background-repeat: no-repeat;
     background-size: 98%;
     margin: 0.5rem;
     transform: scale(0.9);
+}
+.collected {
+    background-image: url('../images/icon/collect-3.png');
+}
+
+.notcollected {
+    background-image: url('../images/icon/collect-1.png');
 }
 
 .items-box > .items > section > .collect:hover {
@@ -186,7 +192,6 @@
     background-repeat: no-repeat;
     background-size: 100%;
     transform: scale(0.9);
-    display: none;
 }
 
 .items-box > .items > section > .ex {
@@ -201,7 +206,6 @@
     font-style: italic;
     text-shadow: 0 0 1px gray;
     background: linear-gradient(90deg, rgba(255, 192, 203, 0.2), rgba(255, 105, 180, 0.6));
-    display: none;
 }
 
 .items-box > .items > footer {
@@ -273,7 +277,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: -0.2rem 0.3rem;
-    display: none;
     z-index: 2;
 }
 
@@ -287,7 +290,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: -0.2rem 0.3rem;
-    display: none;
 }
 
 .items-details {
