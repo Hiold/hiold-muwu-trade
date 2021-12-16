@@ -5,58 +5,6 @@
     <div class="title">༺ཌ 商品分类 ད༻</div>
     <shop-mune-item v-for="(item,index) in menuItem" :menuitem="item.items" :menuindex="index"
                     :menucategory="item.category" :key="item.category"></shop-mune-item>
-    <!--        <ul class="btn-1">-->
-    <!--            <div>活动折扣</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b1-t0">全部</li>-->
-    <!--        <li class="b1-t1">物块模型</li>-->
-    <!--        <li class="b1-t2">物品资源</li>-->
-    <!--        <li class="b1-t3">特殊商品</li>-->
-    <!--        <ul class="btn-2">-->
-    <!--            <div>物块模型</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b2-t0">全部</li>-->
-    <!--        <li class="b2-t1">建筑物块</li>-->
-    <!--        <li class="b2-t2">家具装饰</li>-->
-    <!--        <li class="b2-t3">户外植物</li>-->
-    <!--        <li class="b2-t4">地形块</li>-->
-    <!--        <li class="b2-t5">建造拆除</li>-->
-    <!--        <li class="b2-t6">搜刮奖励</li>-->
-    <!--        <li class="b2-t7">等级设计</li>-->
-    <!--        <ul class="btn-3">-->
-    <!--            <div>物品资源</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b3-t0">全部</li>-->
-    <!--        <li class="b3-t1">工具陷阱</li>-->
-    <!--        <li class="b3-t2">基础资源</li>-->
-    <!--        <li class="b3-t3">武器弹药</li>-->
-    <!--        <li class="b3-t4">衣服套装</li>-->
-    <!--        <li class="b3-t5">食物饮品</li>-->
-    <!--        <li class="b3-t6">载具药物</li>-->
-    <!--        <li class="b3-t7">书本学习</li>-->
-    <!--        <li class="b3-t8">特殊物品</li>-->
-    <!--        <ul class="btn-4">-->
-    <!--            <div>本服专属</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b4-t0">全部</li>-->
-    <!--        <li class="b4-t1">物块模型</li>-->
-    <!--        <li class="b4-t2">物品资源</li>-->
-    <!--        <ul class="btn-5">-->
-    <!--            <div>特殊商品</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b5-t0">全部</li>-->
-    <!--        <li class="b5-t1">货币兑换</li>-->
-    <!--        <li class="b5-t2">礼包抽奖</li>-->
-    <!--        <li class="b5-t3">专属服务</li>-->
-    <!--        <li class="b5-t4">抵用券</li>-->
-    <!--        <li class="b5-t5">其它</li>-->
-    <!--        <ul class="btn-6">-->
-    <!--            <div>钻石商城</div>-->
-    <!--        </ul>-->
-    <!--        <li class="b6-t0">全部</li>-->
-    <!--        <li class="b6-t1">物块模型</li>-->
-    <!--        <li class="b6-t2">物品资源</li>-->
-    <!--        <li class="b6-t3">特殊商品</li>-->
   </nav>
 </template>
 
@@ -242,17 +190,16 @@ export default {
     lastView(type1, type2) {	//自动跳转到规定的分类并打印商品
       //$(".Category>div>.btn-2").click();
       for (var i = 0; i < $(".Category>div>ul").length; i++) {
-        //console.log(i)
         //alert($(".Category>div>ul").length)
         var name1 = $(".Category>div>ul").eq(i).find("div").text();	//获取总分类名称
         var xb = $(".Category>div>ul").eq(i).attr("class").split("-")[1];	//获取总分类下标
+
         if (name1 == type1) {	//找到对应总分类
-          $(".Category>div>ul").eq(i).click();
+          console.log($(".Category>div>ul").eq(i).click());
           for (var j = 0; j < $(".Category>div>li[class^=b" + xb + "]").length; j++) {
             var name2 = $(".Category>div>li[class^=b" + xb + "]").eq(j).text();
             if (name2 == type2 && name2 != "全部") {	//找到对应子分类
               $(".Category>div>li[class^=b" + xb + "]").eq(j).click();
-              //console.log("j="+j+" --- xb="+xb)
               //console.log("生成商品："+name1+" -- "+name2);
               //GenerateCom(type1,type2);
             }
@@ -260,13 +207,13 @@ export default {
         }
         //changeColor(xb)
       }
-
     }
   },
   mounted() {
     //加载默认菜单
-    this.lastView(this.class1, this.class1);
     this.ready();
+    //在执行隐藏
+    this.lastView(this.class1, this.class2);
   }
 }
 </script>
