@@ -169,6 +169,7 @@
     margin: 0.5rem;
     transform: scale(0.9);
 }
+
 .collected {
     background-image: url('../images/icon/collect-3.png');
 }
@@ -242,11 +243,9 @@
     font-size: 0.9rem;
     color: rgb(120, 120, 120);
     font-weight: normal;
-    display: none;
 }
 
 .items-box > .items > footer > .active {
-    display: block;
     float: right;
     width: 16%;
     height: 70%;
@@ -264,7 +263,6 @@
     position: absolute;
     right: 0;
     top: 0;
-    display: none;
 }
 
 .items-box > .items > section > .soldout {
@@ -298,7 +296,6 @@
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 3%;
-    display: none;
 }
 
 .items-details > .left {
@@ -612,16 +609,6 @@
     bottom: 0.1rem;
 }
 
-.spxq > .num > .jian > span {
-    transform: scaleX(1.5);
-    color: rgb(180, 180, 180);
-    cursor: not-allowed;
-}
-
-.spxq > .num > .add > span {
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-}
 
 .spxq > .num > input {
     width: 50%;

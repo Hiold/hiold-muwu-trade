@@ -1,5 +1,6 @@
 <template>
-    <li class="items" :data-index="index">
+    <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
+    <li class="items" :data-index="index" @click="showdetailsss($event.target)">
         <!--渲染名字时使用过滤器去掉bbcode-->
         <header>
             <span class="name">{{ item.name |deleteBBcode }}</span>
@@ -22,14 +23,19 @@
             <div class="soldout" v-show="item.stock*1<=0"></div>
             <div class="vip" v-show="vip===true"></div>
         </section>
-        <footer><i></i><span class="price"></span>
-            <del></del>
-            <span class="active"></span></footer>
+        <footer><i
+                :style="{'background-image:url(images/icon/red-zs.png)':item.currency=='钻石','background-image:url(images/icon/jf2.png)':item.currency=='积分'}"></i><span
+                class="price"
+                :style="{'color:deeppink':item.currency=='钻石','color:rgb(221, 36, 36)':item.currency=='积分'}">
+            {{item.price*item.discount/10}}
+        </span>
+            <del v-show="item.discount*1 < 10 && item.discount*1 > 0">{{item.price}}</del>
+            <span class="active" v-show="!isNaN(item.xgLevel) || !isNaN(item.xgDay) || !isNaN(item.xgAll)">限购</span>
+        </footer>
     </li>
 </template>
 
 <script>
-
     export default {
         name: "ShopItem",
         props: ["item", "index", "vip"],
@@ -40,6 +46,10 @@
             }
         },
         methods: {
+            showdetailsss(target) {
+                console.log(11111)
+                this.$emit('showdetail', this.item, target)
+            },
             calcDiscount(discount) {
                 if (discount < 10 && discount > 0) {
                     var zk = Math.floor(discount * 10) / 10;		//只保留小数点后一位
