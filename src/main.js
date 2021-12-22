@@ -1,12 +1,17 @@
 import Vue from 'vue'
-import App from './components/IndexMainContainer'
+import App from './App'
 import './assets/style/index.css'
 
 Vue.config.productionTip = false
 import $ from "jquery"
+import VueRouter from 'vue-router'
+import router from './router/router'
+
+Vue.use(VueRouter)
 
 new Vue({
     render: h => h(App),
+    router: router,
     mounted() {
         window.vue = this
     }
