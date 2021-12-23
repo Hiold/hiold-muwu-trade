@@ -333,24 +333,24 @@ function searchItems(){		//搜索店铺或物品
 			$(".player-com>.empty").find("span").html("没有找到你想<br>搜索的物品");
 		}
 	}else if(nowPage=="物资求购"){
-		$(".buying>.box>li").show();	//先默认让所有隐藏物品显示
+		$(".buying>.shop>li").show();	//先默认让所有隐藏物品显示
 		var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
 		var find = false;	//默认为没找到商品
-		for(var i=0;i<$(".buying>.box>li").length;i++){	//遍历当前页面显示的物品
-			var xb = $(".buying>.box>li").eq(i).data("index");	//获取每个物品在数组中的下标
+		for(var i=0;i<$(".buying>.shop>li").length;i++){	//遍历当前页面显示的物品
+			var xb = $(".buying>.shop>li").eq(i).data("index");	//获取每个物品在数组中的下标
 			var name = gameItems[xb].name.toLowerCase();	//获取物品名称
 			var id = gameItems[xb].id.toLowerCase();	//获取物品ID
 			if(name.indexOf(txt) != -1||id.indexOf(txt) != -1){	//如果物品名称或ID中包含了你需要搜索的字符串
 				find = true;
-				$(".buying>.box>.empty").hide();
+				$(".buying>.shop>.empty").hide();
 			}else{
-				$(".buying>.box>li").eq(i).hide();
+				$(".buying>.shop>li").eq(i).hide();
 			}
 		}
 		if(!find){	//如果遍历完数组后，仍然没找到要搜索的商品
 			console.log("没找到搜索的物品");
-			$(".buying>.box>.empty").show();
-			$(".buying>.box>.empty").find("span").html("没有找到你想<br>搜索的物品");
+			$(".buying>.shop>.empty").show();
+			$(".buying>.shop>.empty").find("span").html("没有找到你想<br>搜索的物品");
 		}
 	}
 }

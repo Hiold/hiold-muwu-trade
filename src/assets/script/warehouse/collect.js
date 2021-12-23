@@ -72,54 +72,54 @@ function arrCollToObj(){
 arrCollToObj();
 	
 function GenerateColl(type){	//将收藏列表渲染到页面
-	$(".collect-box>.coll-items").remove();	//移除收藏列表所有物品卡片
+	$(".collect-shop>.coll-items").remove();	//移除收藏列表所有物品卡片
 	for(var i=1;i<playerCollects.data.length;i++){	//遍历收藏数组
-		$(".collect-box").append(collCard);
+		$(".collect-shop").append(collCard);
 		//下标
-		$(".collect-box>li:last").attr("data-index",i);
+		$(".collect-shop>li:last").attr("data-index",i);
 		//名称
 		//var name = deleteBBcode(playerCollects.data[i].name);
-		$(".collect-box>li:last").find(".name").text(playerCollects.data[i].name);
+		$(".collect-shop>li:last").find(".name").text(playerCollects.data[i].name);
 		//图片
-		$(".collect-box>li:last").find(".left").find("img").attr("src",playerCollects.data[i].image);
+		$(".collect-shop>li:last").find(".left").find("img").attr("src",playerCollects.data[i].image);
 		//图片背景颜色
 		if(playerCollects.data[i].xb==undefined){	//已失效商品
-			$(".collect-box>li:last").css({"box-shadow":"0 0 0.5rem rgb(255,50,50) inset, 0 0 0.3rem rgb(255,50,50)"});
-			$(".collect-box>li:last>.left").css({"background-color":"rgba(255,100,100,0.2)"});
+			$(".collect-shop>li:last").css({"box-shadow":"0 0 0.5rem rgb(255,50,50) inset, 0 0 0.3rem rgb(255,50,50)"});
+			$(".collect-shop>li:last>.left").css({"background-color":"rgba(255,100,100,0.2)"});
 		}else{
 			if(playerCollects.data[i].class=="物块模型"){
-				$(".collect-box>li:last").css({"box-shadow":"0 0 0.5rem #2fb238 inset, 0 0 0.3rem #2fb238"});
-				$(".collect-box>li:last>.left").css({"background-color":"rgba(0,255,0,0.2)"});
+				$(".collect-shop>li:last").css({"box-shadow":"0 0 0.5rem #2fb238 inset, 0 0 0.3rem #2fb238"});
+				$(".collect-shop>li:last>.left").css({"background-color":"rgba(0,255,0,0.2)"});
 			}else if(playerCollects.data[i].class=="物品资源"){
-				$(".collect-box>li:last").css({"box-shadow":"0 0 0.5rem #ffa500 inset, 0 0 0.3rem #ffa500"});
-				$(".collect-box>li:last>.left").css({"background-color":"rgba(255,188,0,0.2)"});
+				$(".collect-shop>li:last").css({"box-shadow":"0 0 0.5rem #ffa500 inset, 0 0 0.3rem #ffa500"});
+				$(".collect-shop>li:last>.left").css({"background-color":"rgba(255,188,0,0.2)"});
 			}else{
-				$(".collect-box>li:last").css({"box-shadow":"0 0 0.5rem #BA55D3 inset, 0 0 0.3rem #BA55D3"});
-				$(".collect-box>li:last>.left").css({"background-color":"rgba(186,85,211,0.2)"});
+				$(".collect-shop>li:last").css({"box-shadow":"0 0 0.5rem #BA55D3 inset, 0 0 0.3rem #BA55D3"});
+				$(".collect-shop>li:last>.left").css({"background-color":"rgba(186,85,211,0.2)"});
 			}
 		}
 		//数量
 		var num = playerCollects.data[i].num*1;
-		$(".collect-box>li:last").find(".num").show().text("x"+num);
+		$(".collect-shop>li:last").find(".num").show().text("x"+num);
 		if(num<=1){
-			$(".collect-box>li:last").find(".num").hide();
+			$(".collect-shop>li:last").find(".num").hide();
 		}
 		//收藏量
-		$(".collect-box>li:last").find(".coll-num").text(playerCollects.data[i].collect+"人收藏")
+		$(".collect-shop>li:last").find(".coll-num").text(playerCollects.data[i].collect+"人收藏")
 		//货币类型
 		var cur = playerCollects.data[i].currency;
 		if(cur=="积分"){
-			$(".collect-box>li:last").find(".price").find("i").css("background-image","url(images/icon/jf2.png)");
+			$(".collect-shop>li:last").find(".price").find("i").css("background-image","url(images/icon/jf2.png)");
 		}else if(cur=="钻石"){
-			$(".collect-box>li:last").find(".price").find("i").css("background-image","url(images/icon/red-zs.png)");
+			$(".collect-shop>li:last").find(".price").find("i").css("background-image","url(images/icon/red-zs.png)");
 		}
 		//价格
-		$(".collect-box>li:last").find(".price").find("span").text(playerCollects.data[i].price);
+		$(".collect-shop>li:last").find(".price").find("span").text(playerCollects.data[i].price);
 		
 		//分类验证: 如果不是想要显示的分类
 		if(type=="特殊物品"){type="特殊商品"}
 		if(type!="全部"&&playerCollects.data[i].class!=type){
-			$(".collect-box>li:last").remove();
+			$(".collect-shop>li:last").remove();
 		}else{
 			
 		}
@@ -132,13 +132,13 @@ function GenerateColl(type){	//将收藏列表渲染到页面
 		$(".head-tool>.display>.l2").click();
 	}
 	//检测物品数量
-	var num = $(".collect-box>li").length;
+	var num = $(".collect-shop>li").length;
 	console.log(getTime().date+"\n当前分区收藏物品数量:"+num);
 	if(num==0){
-		$(".collect-box>.empty").show();
-		$(".collect-box>.empty").find("span").html("收藏夹是空的<br>快去商城逛逛吧");
+		$(".collect-shop>.empty").show();
+		$(".collect-shop>.empty").find("span").html("收藏夹是空的<br>快去商城逛逛吧");
 	}else{
-		$(".collect-box>.empty").hide();
+		$(".collect-shop>.empty").hide();
 	}
 }
 
@@ -209,7 +209,7 @@ $(document).ready(function(){
 	});
 	
 	var openCard = true;
-	$(".collect-box").on("click",".coll-items",function(){	//我的收藏物品: 点击跳转到商品详情界面
+	$(".collect-shop").on("click",".coll-items",function(){	//我的收藏物品: 点击跳转到商品详情界面
 		if(openCard){
 			var xb = $(this).data("index");		//获取这个物品在收藏数组中的下标
 			var xb2 = playerCollects.data[xb].xb;	//获取这个物品在商品列表中的下标
@@ -248,12 +248,12 @@ $(document).ready(function(){
 							alert("物品类型错误！");
 							return;
 						}
-						//$(".items-box>.items").eq(xb2)
+						//$(".items-shop>.items").eq(xb2)
 						//遍历当前显示的商品
-						for(var i=0;i<$(".items-box>.items").length;i++){
-							var index = $(".items-box>.items").eq(i).data("index");
+						for(var i=0;i<$(".items-shop>.items").length;i++){
+							var index = $(".items-shop>.items").eq(i).data("index");
 							if(index==xb2){		//找到对应商品
-								$(".items-box>.items").eq(i).click();
+								$(".items-shop>.items").eq(i).click();
 								formPage = "collect";
 							}
 						}
@@ -263,7 +263,7 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$(".collect-box").on("click",".icon",function(){	//取消收藏
+	$(".collect-shop").on("click",".icon",function(){	//取消收藏
 		openCard = false;
 		var con = confirm("是否取消收藏？");
 		if(con){

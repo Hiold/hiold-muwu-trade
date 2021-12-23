@@ -11,11 +11,12 @@ Vue.use(VueRouter)
 
 new Vue({
     render: h => h(App),
-    router: router,
+    router,
     mounted() {
         window.vue = this
     }
 }).$mount('#app')
+
 //全局挂载用户数据
 Vue.prototype.playerinfo = {}
 //绑定Alert

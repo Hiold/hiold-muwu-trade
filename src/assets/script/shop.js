@@ -4,7 +4,7 @@
 	//refresh = refreshShop;	//获取首页设定的 是否开启刷新
 	comCard = '<li class="items"><header><span class="name"></span><span class="num"></span><i></i><div class="follow">跟档</div></header><section><img src=""><div class="quality"><span></span></div><div class="collect"></div><div class="hot"></div><div class="ex"></div><div class="soldout"></div><div class="vip"></div></section><footer><i></i><span class="price"></span><del></del><span class="active"></span></footer></li>';
 	// if(onRefreshItems){	//如果设置了定时刷新商品的功能
-	// 	$(".items-box>.items").css("transition-duration","unset");
+	// 	$(".items-shop>.items").css("transition-duration","unset");
 	// }
 
 
@@ -40,7 +40,7 @@
 
 		},50);
 	//}
-	//$(".items-box span,.items-box div,.items-box del").show();
+	//$(".items-shop span,.items-shop div,.items-shop del").show();
 	function lastView(type1,type2){	//自动跳转到规定的分类并打印商品
 		//$(".Category>.btn-2").click();
 		for(var i=0;i<$(".Category>ul").length;i++){
@@ -68,25 +68,25 @@
 
 
 	function searchItems(){	//当输入框获内容改变时，只显示搜索的商品（无视英文字母大小写）
-		$(".items-box>.items").show();	//先默认让所有隐藏元素显示
+		$(".items-shop>.items").show();	//先默认让所有隐藏元素显示
 		var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
 		var find = false;	//默认为没找到商品
-		for(var i=0;i<$(".items-box>.items").length;i++){	//遍历当前页面显示的商品
-			var xb = $(".items-box>.items").eq(i).data("index");	//获取每个商品在数组中的下标
-			//var name = $(".items-box>.items").eq(i).find("header").find(".name").text();
+		for(var i=0;i<$(".items-shop>.items").length;i++){	//遍历当前页面显示的商品
+			var xb = $(".items-shop>.items").eq(i).data("index");	//获取每个商品在数组中的下标
+			//var name = $(".items-shop>.items").eq(i).find("header").find(".name").text();
 			var name = shop.data[xb].name.toLowerCase();	//获取商品名称
 			var id = shop.data[xb].id.toLowerCase();		//获取商品ID
 			if(name.indexOf(txt) != -1||id.indexOf(txt) != -1){	//如果商品名称或ID中包含了你需要搜索的字符串
 				find = true;
-				$(".items-box>.none").hide();
+				$(".items-shop>.none").hide();
 			}else{
-				$(".items-box>.items").eq(i).hide();
+				$(".items-shop>.items").eq(i).hide();
 			}
 		}
 		if(!find){	//如果遍历完数组后，仍然没找到要搜索的商品
 			console.log("没找到搜索的商品");
-			$(".items-box>.none").show();
-			$(".items-box>.none").find("span").html("没有找到你想<br>搜索的商品");
+			$(".items-shop>.none").show();
+			$(".items-shop>.none").find("span").html("没有找到你想<br>搜索的商品");
 		}
 	}
 
@@ -97,11 +97,11 @@ $(document).ready(function(){
 		searchItems();
 	});
 	var openCard = true;
-	$(".items-box").on("click",".items",function(){		//点击卡片打开商品详情
+	$(".items-shop").on("click",".items",function(){		//点击卡片打开商品详情
 		if(openCard){	//这一步是为了避免和点击收藏图标发生冲突
 			formPage = "shop";
 			$(".items-details").fadeIn(100);
-			$(".items-box,.head-tool").fadeOut(100);
+			$(".items-shop,.head-tool").fadeOut(100);
 			adaptive();
 			//arrcomToObj();	//将商品数据转换为obj格式
 			//下面是获取商品的基本信息
@@ -278,19 +278,19 @@ $(document).ready(function(){
 			//detectNum();
 		}
 	});
-	$(".items-box").on("mouseenter",".collect",function(){	//收藏商品图标 鼠标移入 特效
+	$(".items-shop").on("mouseenter",".collect",function(){	//收藏商品图标 鼠标移入 特效
 		var coll = $(this).data("collect");
 		if(coll!="true"){
 			$(this).css("background-image","url(images/icon/collect-2.png)");
 		}
 	});
-	$(".items-box").on("mouseout",".collect",function(){	//收藏商品图标 鼠标移出 特效
+	$(".items-shop").on("mouseout",".collect",function(){	//收藏商品图标 鼠标移出 特效
 		var coll = $(this).data("collect");
 		if(coll!="true"){
 			$(this).css("background-image","url(images/icon/collect-1.png)");
 		}
 	});
-	$(".items-box").on("click",".collect",function(){	//收藏商品
+	$(".items-shop").on("click",".collect",function(){	//收藏商品
 		//alert(123)
 		openCard = false;	//避免打开商品详情
 		var coll = $(this).data("collect");
@@ -325,28 +325,28 @@ $(document).ready(function(){
 		setTimeout(function(){openCard=true;},100);
 	});
 	function cardToIcon(){	//将卡片转换为图标
-		$(".items-box>.items>header,.items-box>.items>footer").hide();	//隐藏头部和脚部
-		$(".items-box>.items>section>div").css("opacity","0");		//隐藏多余元素（仅保留图片）
-		$(".items-box>.items>section>.collect").hide();
-		$(".items-box>.items>section").css({		//调整图片区域的样式
+		$(".items-shop>.items>header,.items-shop>.items>footer").hide();	//隐藏头部和脚部
+		$(".items-shop>.items>section>div").css("opacity","0");		//隐藏多余元素（仅保留图片）
+		$(".items-shop>.items>section>.collect").hide();
+		$(".items-shop>.items>section").css({		//调整图片区域的样式
 			"height":"100%",
 			"transform":"scale(0.8)"
 		});
-		$(".items-box>.items").css({	//调整整个卡片的样式
+		$(".items-shop>.items").css({	//调整整个卡片的样式
 			"width":"13.27%",
 			"height":"6.2rem",
 			"margin":"0.5%"
 		});
 	}
 	function iconToCard(){	//将图标转换为卡片
-		$(".items-box>.items>header,.items-box>.items>footer").show();	//显示头部和脚部
-		$(".items-box>.items>section>div").css("opacity","1");		//显示多余元素
-		$(".items-box>.items>section>.collect").show();
-		$(".items-box>.items>section").css({		//调整图片区域的样式
+		$(".items-shop>.items>header,.items-shop>.items>footer").show();	//显示头部和脚部
+		$(".items-shop>.items>section>div").css("opacity","1");		//显示多余元素
+		$(".items-shop>.items>section>.collect").show();
+		$(".items-shop>.items>section").css({		//调整图片区域的样式
 			"height":"60%",
 			"transform":"scale(1)"
 		});
-		$(".items-box>.items").css({	//调整整个卡片的样式
+		$(".items-shop>.items").css({	//调整整个卡片的样式
 			"width":"31.3%",
 			"height":"10rem",
 			"margin":"1%"

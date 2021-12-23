@@ -1,7 +1,7 @@
 <template>
   <div id="box">
     <!--alert弹窗common-->
-    <alert-common :couProps="couProps"></alert-common>
+    <!--    <alert-common :couProps="couProps"></alert-common>-->
 
     <left-container-box :itemMenu="itemMenu" :class1="class1" :class2="class2"></left-container-box>
     <right-container-box></right-container-box>
@@ -9,88 +9,42 @@
 </template>
 
 <script>
-import LeftContainerBox from "./shop/LeftContainerBox";
-import RightMenuBox from "./shop/RightMenuBox";
-import AlertCommon from "./AlertCommon";
-//引入juqery
-import $ from 'jquery'
+import LeftContainerBox from "@/components/warehouse/LeftContainerBox";
+import RightMenuBox from "@/components/warehouse/RightMenuBox";
+import $ from "jquery";
+// import AlertCommon from "@/components/AlertCommon";
 
 export default {
-  name: "IndexMainContainer",
+  components: {
+    'left-container-box': LeftContainerBox,
+    'right-container-box': RightMenuBox,
+    // 'alert-common': AlertCommon
+  },
+  name: "WareHouseMainContainer",
   data() {
     return {
-      class1: "活动折扣",
+      class1: "普通物品",
       class2: "全部",
-      couProps: [{
-        couCurr: "积分",
-        couType: "折扣",
-        couPrice: "8",
-        couCond: "100",
-        couDate: "2021-12-31",
-        id: "1",
-        count: "10"
-      }, {
-        couCurr: "积分",
-        couType: "满减",
-        couPrice: "8",
-        couCond: "100",
-        couDate: "2021-12-31",
-        id: "2",
-        count: "10"
-      }],
       itemMenu: [
         {
-          category: "活动折扣", items: [
+          category: "普通物品", items: [
             {name: "全部", data: "全部"},
             {name: "物块模型", data: "物块模型"},
             {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
           ]
         },
         {
-          category: "物块模型", items: [
-            {name: "全部", data: "全部"},
-            {name: "建筑物块", data: "建筑物块"},
-            {name: "家具装饰", data: "家具装饰"},
-            {name: "户外植物", data: "户外植物"},
-            {name: "地形块 ", data: "地形块 "},
-            {name: "建造拆除", data: "建造拆除"},
-            {name: "搜刮奖励", data: "搜刮奖励"},
-            {name: "等级设计", data: "等级设计"}
-          ]
-        },
-        {
-          category: "本服专属", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"}
-          ]
-        },
-        {
-          category: "特殊商品", items: [
+          category: "特殊物品", items: [
             {name: "全部", data: "全部"},
             {name: "货币兑换", data: "货币兑换"},
             {name: "礼包抽奖", data: "礼包抽奖"},
             {name: "专属服务", data: "专属服务"},
             {name: "抵用券 ", data: "抵用券 "},
-            {name: "其它", data: "其它"}
-          ]
-        },
-        {
-          category: "钻石商城", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
+            {name: "其他", data: "其他"}
           ]
         }
       ]
     }
-  },
-  components: {
-    'left-container-box': LeftContainerBox,
-    'right-container-box': RightMenuBox,
-    'alert-common': AlertCommon
   },
   methods: {
     adaptive() {
@@ -254,122 +208,6 @@ export default {
 }
 </script>
 
-<style>
-main > header {
-  width: 100%;
-  height: 8%;
-  box-sizing: border-box;
-
-}
-
-main > header > .game-head {
-  float: left;
-  height: 70%;
-  background: url('../assets/images/7dtdhead.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border-radius: 0.5em;
-  margin: 0.8%;
-  margin-left: 2%;
-}
-
-main > header > .title {
-  font-size: 1.2em;
-  color: gray;
-  padding-left: 0.2em;
-  font-weight: bold;
-}
-
-main > header > .seting {
-  float: right;
-  width: 10em;
-  height: 70%;
-  margin: 0.8%;
-  box-sizing: border-box;
-
-}
-
-main > header > .seting > div {
-  float: right;
-  height: 100%;
-  margin: 0.8%;
-  margin-left: 3%;
-  box-sizing: border-box;
-  background-size: cover;
-  opacity: 0.6;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-main > header > .seting > div:hover {
-  opacity: 1;
-}
-
-main > header > .seting > .set {
-  background-image: url(../assets/images/icon/set.png);
-  transform: scale(0.7);
-}
-
-main > header > .seting > .set:hover {
-  transform: translateY(-0.2em) scale(0.78) rotate(90deg);
-}
-
-main > header > .seting > .skin {
-  background-image: url(../assets/images/icon/skin.png);
-  transform: scale(0.85);
-}
-
-main > header > .seting > .skin:hover {
-  transform: translateY(-0.2em) scale(0.9);
-}
-
-main > header > .seting > .mail {
-  background-image: url(../assets/images/icon/mail.png);
-  background-position-y: 0.1em;
-  transform: scale(0.9);
-}
-
-main > header > .seting > .mail:hover {
-  transform: translateY(-0.2em) scale(0.95);
-}
-
-main > header > .Diamond, main > header > .Point {
-  box-sizing: border-box;
-  float: right;
-  width: 12em;
-  height: 70%;
-  margin: 0.8%;
-  cursor: pointer;
-}
-
-main > header > .Diamond > i {
-  display: inline-block;
-  height: 100%;
-  background-image: url(../assets/images/icon/red-zs.png);
-  background-size: cover;
-  transform: scale(0.75);
-}
-
-main > header > .Diamond > span {
-  display: inline-block;
-  color: rgb(249, 102, 112);
-  font-weight: bold;
-  font-size: 1.3em;
-}
-
-main > header > .Point > i {
-  display: inline-block;
-  height: 100%;
-  background-image: url(../assets/images/icon/jf2.png);
-  background-size: cover;
-  transform: scale(0.75);
-}
-
-main > header > .Point > span {
-  display: inline-block;
-  color: orange;
-  font-weight: bold;
-  font-size: 1.3em;
-}
+<style scoped>
 
 </style>

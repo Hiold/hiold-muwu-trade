@@ -3,7 +3,7 @@
   <nav class="Category">
     <!-- 侧边导航栏、分类 -->
     <div class="title">༺ཌ 商品分类 ད༻</div>
-    <shop-mune-item v-for="(item,index) in menuItem" :menuitem="item.items" :menuindex="index"
+    <shop-mune-item v-for="(item,index) in itemMenu" :menuitem="item.items" :menuindex="index"
                     :menucategory="item.category" :key="item.category"></shop-mune-item>
   </nav>
 </template>
@@ -21,57 +21,9 @@ import ShopMenuItem from './ShopMenuItem'
 export default {
   components: {"shop-mune-item": ShopMenuItem},
   name: "ShopMeuu",
-  props: ["class1", "class2"],
+  props: ["class1", "class2", "itemMenu"],
   data() {
-    return {
-      menuItem: [
-        {
-          category: "活动折扣", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
-          ]
-        },
-        {
-          category: "物块模型", items: [
-            {name: "全部", data: "全部"},
-            {name: "建筑物块", data: "建筑物块"},
-            {name: "家具装饰", data: "家具装饰"},
-            {name: "户外植物", data: "户外植物"},
-            {name: "地形块 ", data: "地形块 "},
-            {name: "建造拆除", data: "建造拆除"},
-            {name: "搜刮奖励", data: "搜刮奖励"},
-            {name: "等级设计", data: "等级设计"}
-          ]
-        },
-        {
-          category: "本服专属", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"}
-          ]
-        },
-        {
-          category: "特殊商品", items: [
-            {name: "全部", data: "全部"},
-            {name: "货币兑换", data: "货币兑换"},
-            {name: "礼包抽奖", data: "礼包抽奖"},
-            {name: "专属服务", data: "专属服务"},
-            {name: "抵用券 ", data: "抵用券 "},
-            {name: "其它", data: "其它"}
-          ]
-        },
-        {
-          category: "钻石商城", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
-          ]
-        }
-      ]
-    }
+    return {}
   },
   methods: {
     ready() {
@@ -111,7 +63,7 @@ export default {
       $(".Category>div>li").click(function () {		//子分类点击特效+生成商品
         $(".head-tool .name-id").val("");
         $(".items-details").hide();
-        $(".items-box,.head-tool").show();
+        $(".items-shop,.head-tool").show();
         var xb = $(this).attr("class").split("")[1];	//获取序号
         //console.log("序号:"+xb)
         $(".Category>div>li[class^='b" + xb + "']").css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
@@ -128,7 +80,7 @@ export default {
         self.changeColor(xb);
         //$(".items-details").fadeOut(200);
         //$(".items-details").hide();
-        //$(".items-box,section>.head-tool").show();
+        //$(".items-shop,section>.head-tool").show();
         //alert("点击子分类："+class2);
         return;
       });
@@ -161,31 +113,31 @@ export default {
     },
     changeColor(color) {
       if (color == 1) {
-        $(".items-box>.items").css("background-image", "url(images/card/yellow.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/yellow.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
       }
       if (color == 2) {
-        $(".items-box>.items").css("background-image", "url(images/card/green.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/green.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
       }
       if (color == 3) {
-        $(".items-box>.items").css("background-image", "url(images/card/beige.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/beige.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
       }
       if (color == 4) {
-        $(".items-box>.items").css("background-image", "url(images/card/pink.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/pink.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
       if (color == 5) {
-        $(".items-box>.items").css("background-image", "url(images/card/purple.jpg)");
-        //$(".items-box>.items>section").css("background","linear-gradient(90deg, rgba(185, 216, 253, 0.5), rgba(209, 230, 254, 0.7))");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/purple.jpg)");
+        //$(".items-shop>.items>section").css("background","linear-gradient(90deg, rgba(185, 216, 253, 0.5), rgba(209, 230, 254, 0.7))");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
       }
       if (color == 6) {
-        $(".items-box>.items").css("background-image", "url(images/card/red.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/red.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
-      //$(".items-box>.items").css("opacity","1");
+      //$(".items-shop>.items").css("opacity","1");
     },
     lastView(type1, type2) {	//自动跳转到规定的分类并打印商品
       //$(".Category>div>.btn-2").click();

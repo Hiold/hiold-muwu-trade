@@ -1,11 +1,29 @@
-//此js保存定义了本项目所有路由规则
-import Vuerouter from 'vue-router';
-import ShopMainContainer from "../components/ShopMainContainer";
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-export default new Vuerouter([{
-    name: "shop",
-    route: "/shop",
-    components: ShopMainContainer
-}, {route: "/", redirect: '/shop'}
+// 引入组件
+import shop from "../components/ShopMainContainer";
+import warehouse from "@/components/WareHouseMainContainer";
 
-]);
+// 要告诉 vue 使用 vueRouter
+Vue.use(VueRouter);
+
+const routes = [
+    {
+        path: "/shop",
+        component: shop
+    },
+    {
+        path: "/warehouse",
+        component: warehouse
+    },
+    {
+        path: "/",
+        redirect: "/shop"
+    }
+]
+
+var router = new VueRouter({
+    routes
+})
+export default router;
