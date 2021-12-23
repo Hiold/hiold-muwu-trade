@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import ShopMenu from "./Shop/ShopMenu";
-import ShopContent from "./Shop/ShopContent";
+import ShopMenu from "./WareHouse/WareMenu";
+import ShopContent from "./WareHouse/WareContent";
 
 export default {
   data() {

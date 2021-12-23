@@ -229,7 +229,7 @@
 import '../../../../assets/style/warehouse/ware.css'
 import '../../../../assets/style/shop-nav.css'
 import '../../../../assets/style/headTool.css'
-import ShopItem from "@/components/warehouse/MainBox/Shop/ShopItem";
+import ShopItem from "@/components/warehouse/MainBox/WareHouse/WareItem";
 import $ from "jquery";
 
 //引入juqery

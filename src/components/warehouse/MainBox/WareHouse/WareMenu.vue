@@ -3,8 +3,8 @@
   <nav class="Category-ware">
     <!-- 侧边导航栏、分类 -->
     <div class="title">༺ཌ 商品分类 ད༻</div>
-    <shop-mune-item v-for="(item,index) in itemMenu" :menuitem="item.items" :menuindex="index"
-                    :menucategory="item.category" :key="item.category"></shop-mune-item>
+    <ware-mune-item v-for="(item,index) in itemMenu" :menuitem="item.items" :menuindex="index"
+                    :menucategory="item.category" :key="item.category"></ware-mune-item>
   </nav>
 </template>
 
@@ -16,10 +16,10 @@ import '../../../../assets/style/headTool.css'
 //引入juqery
 import $ from 'jquery'
 
-import ShopMenuItem from './ShopMenuItem'
+import WareMenuItem from './WareMenuItem'
 
 export default {
-  components: {"shop-mune-item": ShopMenuItem},
+  components: {"ware-mune-item": WareMenuItem},
   name: "ShopMeuu",
   props: ["class1", "class2", "itemMenu"],
   data() {
