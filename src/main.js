@@ -82,3 +82,14 @@ Vue.prototype.Alert = function (text) {	//自定义提示弹窗, 模拟alert()�
     $("#alert>.alert>section>input").hide();	//隐藏输入框
     $("#alert>.alert>section>p").html(text);	//输出文本提示内容
 }
+
+Vue.prototype.Prompt = function (text, value) {	//自定义输入弹窗, 模拟prompt()弹窗
+    $("#alert").hide();
+    $("#alert>.alert>footer>.confirm").unbind("click");	//取消弹窗点击事件
+    $("#alert").fadeIn(100);	//显示弹窗主体页面
+    $("#alert>.alert").show();	//显示提示窗口
+    $("#alert > .alert > footer > div").show();	//显示确认和取消按钮
+    $("#alert>.alert>section>input").val(value).show().focus().select();//显示输入框
+    $("#alert>.alert>section>p").html(text);	//输出文本提示内容
+    //$("#alert>.alert>section>input").val(value);
+}
