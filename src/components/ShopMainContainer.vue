@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import LeftContainerBox from "./shop/LeftContainerBox";
-import RightMenuBox from "./shop/RightMenuBox";
-import AlertCommon from "./AlertCommon";
+import LeftContainerBox from "/src/components/shop/LeftContainerBox.vue";
+import RightMenuBox from "/src/components/shop/RightMenuBox.vue";
+import AlertCommon from "/src/components/AlertCommon.vue";
 //引入juqery
 import $ from 'jquery'
 

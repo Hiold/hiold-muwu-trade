@@ -16,7 +16,7 @@ import '../../../../assets/style/headTool.css'
 //引入juqery
 import $ from 'jquery'
 
-import ShopMenuItem from './ShopMenuItem'
+import ShopMenuItem from '/src/components/shop/MainBox/Shop/ShopMenuItem.vue'
 
 export default {
   components: {"shop-mune-item": ShopMenuItem},

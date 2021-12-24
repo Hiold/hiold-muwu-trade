@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import ShopMenu from "./WareHouse/WareMenu";
-import ShopContent from "./WareHouse/WareContent";
+import ShopMenu from "/src/components/warehouse/MainBox/WareHouse/WareMenu.vue";
+import ShopContent from "/src/components/warehouse/MainBox/WareHouse/WareContent.vue";
 
 export default {
   data() {

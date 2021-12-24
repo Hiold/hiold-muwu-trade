@@ -11,8 +11,8 @@
 
 <script>
 //引入顶部header
-import MyHeader from "./MainBox/MyHeader";
-import MyArticle from "./MainBox/MyArticle";
+import MyHeader from "/src/components/warehouse/MainBox/MyHeader.vue";
+import MyArticle from "/src/components/warehouse/MainBox/MyArticle.vue";
 
 //导入样式
 import '../../assets/style/box.css'

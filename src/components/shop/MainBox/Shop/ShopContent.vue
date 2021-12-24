@@ -41,8 +41,8 @@ import '../../../../assets/style/shop.css'
 import '../../../../assets/style/shop-nav.css'
 import '../../../../assets/style/headTool.css'
 
-import ShopMenuItem from './ShopItem'
-import ShopItemDetails from "./ShopItemDetails";
+import ShopMenuItem from '/src/components/shop/MainBox/Shop/ShopItem.vue'
+import ShopItemDetails from "/src/components/shop/MainBox/Shop/ShopItemDetails.vue";
 //引入juqery
 import $ from 'jquery'
 

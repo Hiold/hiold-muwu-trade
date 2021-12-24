@@ -16,7 +16,7 @@
     //引入juqery
     import $ from 'jquery'
 
-    import WareMenuItem from './WareMenuItem'
+    import WareMenuItem from '/src/components/warehouse/MainBox/WareHouse/WareMenuItem.vue'
 
     export default {
         components: {"ware-mune-item": WareMenuItem},

@@ -9,10 +9,10 @@
 </template>
 
 <script>
-    import LeftContainerBox from "@/components/warehouse/LeftContainerBox";
-    import RightMenuBox from "@/components/warehouse/RightMenuBox";
+    import LeftContainerBox from "/src/components/warehouse/LeftContainerBox.vue";
+    import RightMenuBox from "/src/components/warehouse/RightMenuBox.vue";
     import $ from "jquery";
-    import AlertCommon from "@/components/AlertCommon";
+    import AlertCommon from "/src/components/AlertCommon.vue";
 
     export default {
         components: {

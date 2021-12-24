@@ -125,9 +125,9 @@
     import '../../../../assets/style/warehouse/ware.css'
     import '../../../../assets/style/warehouse/ware-nav.css'
     import '../../../../assets/style/headTool.css'
-    import WareItem from "../../../../components/warehouse/MainBox/WareHouse/WareItem";
-    import WareItemDetails from "./WareItemDetails";
-    import WareTereBox from "./WareTereBox";
+    import WareItem from "/src/components/warehouse/MainBox/WareHouse/WareItem.vue";
+    import WareItemDetails from "/src/components/warehouse/MainBox/WareHouse/WareItemDetails.vue";
+    import WareTereBox from "/src/components/warehouse/MainBox/WareHouse/WareTereBox.vue";
     import $ from "jquery";
 
     //引入juqery
