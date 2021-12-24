@@ -75,115 +75,10 @@
                 </li> -->
             </div>
 
+            <!--加载detail模板-->
+            <WareItemDetails></WareItemDetails>
+            <WareTereBox></WareTereBox>
 
-            <div class="ware-details">  <!-- 仓库物品详情页 -->
-                <header>
-                    <span class="name">南瓜灯</span>
-                    <i class="back" title="返回"></i>
-                </header>
-                <section>
-                    <div class="left">
-                        <header>
-                            <div class="c1">物块模型</div>
-                            <div class="c2">家具装饰</div>
-                            <div class="c3">Mod物品</div>
-                        </header>
-                        <div class="img">
-                            <img src="images/items/decoPumpkinJackOLantern.png">
-                        </div>
-                        <footer>
-                            <div class="num">数量 :<span>123</span>件</div>
-                            <div class="quality">品质 :<span>6</span></div>
-                        </footer>
-                    </div>
-                    <div class="right">
-                        <div class="btn-1">提取物品</div>
-                        <div class="btn-2">出售物品</div>
-                        <div class="btn-3">配方制作</div>
-                        <div class="btn-4">丢弃物品</div>
-                    </div>
-                </section>
-                <footer>
-                    <div class="desc">物品介绍</div>
-                </footer>
-            </div>
-            <div class="terr-box" data-page="box">    <!-- 领地箱子 -->
-                <header>
-                    <i></i>
-                    <span class="title">领地箱子</span>
-                    <div class="back" title="返回"></div>
-                </header>
-                <section>
-                    <div class="page-box">
-                        <!-- <li class="player-box">
-                          <header>安全储物箱</header>
-                          <section>
-                            <img src="images/itemIcons/cntChest01.png">
-                          </section>
-                          <footer>
-                            <div class="num">编号： <span>01</span></div>
-                            <div class="locked">
-                              状态：
-                              <span style="color:red;">已锁定</span>
-                              <i style="background-image: url(images/icon/lock-1.png);"></i>
-                            </div>
-                            <div class="coor">坐标： <i>1000,100,2000</i></div>
-                            <div class="owner">归属： <span>热心の小白鼠</span></div>
-                          </footer>
-                        </li> -->
-                        <div class="empty2">
-                            <span>这里空空如也<br>没有找到你的箱子</span>
-                        </div>
-                    </div>
-                    <div class="page-items">
-                        <header>
-                            <div class="head-box">
-                                <div class="head">
-                                    <img src="images/ItemIcons/cntChest01.png">
-                                </div>
-                                <div class="msg">
-                                    <div class="name">
-                                        <span>安全储物箱</span>
-                                        <i>01</i>
-                                    </div>
-                                    <div class="coor">坐标 : <span>100,50,200</span></div>
-                                </div>
-                                <div class="refresh">刷新</div>
-                            </div>
-                            <div class="head-items" style="display: none;">
-                                <div class="head">
-                                    <img src="images/ItemIcons/cntChest01.png">
-                                </div>
-                                <div class="msg">
-                                    <div class="name">
-                                        <span>Cxx的尿不湿</span>
-                                    </div>
-                                    <div class="num">数量 : <span>123</span></div>
-                                    <div class="quality">品质 : <span>6</span></div>
-                                </div>
-                            </div>
-                        </header>
-                        <section>
-                            <li class="box-items">
-                                <div class="filter">
-                                    <img src="images/ItemIcons/armorSantaHat.png">
-                                </div>
-                                <div class="num">123</div>
-                            </li>
-                            <li class="box-items">
-                                <div class="filter">
-                                    <img src="images/ItemIcons/casinoCoin.png">
-                                </div>
-                                <div class="num">20000</div>
-                            </li>
-
-                        </section>
-                        <div class="empty2" style="display: none;">
-                            <span>这里空空如也<br>没有找到你的物品</span>
-                        </div>
-                    </div>
-                </section>
-            </div>
             <div class="order-record">
                 <header>
                     <i></i>
@@ -228,9 +123,11 @@
 <script>
     //导入样式
     import '../../../../assets/style/warehouse/ware.css'
-    import '../../../../assets/style/shop-nav.css'
+    import '../../../../assets/style/warehouse/ware-nav.css'
     import '../../../../assets/style/headTool.css'
-    import ShopItem from "@/components/warehouse/MainBox/WareHouse/WareItem";
+    import WareItem from "../../../../components/warehouse/MainBox/WareHouse/WareItem";
+    import WareItemDetails from "./WareItemDetails";
+    import WareTereBox from "./WareTereBox";
     import $ from "jquery";
 
     //引入juqery
@@ -238,7 +135,7 @@
     export default {
         name: "ShopContent",
         props: ["class1", "class2"],
-        components: {"ShopItem": ShopItem},
+        components: {"ShopItem": WareItem, "WareItemDetails": WareItemDetails, "WareTereBox": WareTereBox},
         data() {
             return {
                 isdetailShow: false,
@@ -293,14 +190,14 @@
                 var num = item.num * 1;	//获取物品数量
                 var con;
                 if (num == 1) {
-                    this.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
-                    this.popupCss(25, 14);
+                    self.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+                    self.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                     });
                 } else {
                     this.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
-                    this.popupCss(25, 18);
+                    self.popupCss(25, 18);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = $("#alert>.alert>section>input").val() * 1;
                     });
@@ -355,15 +252,15 @@
                 var num = item.num * 1;	//获取物品数量
                 var con;
                 if (num == 1) {
-                    this.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
-                    this.popupCss(25, 14);
+                    self.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+                    self.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                     });
                     //if(con){con=1}
                 } else {
                     this.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
-                    this.popupCss(25, 18);
+                    self.popupCss(25, 18);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = $("#alert>.alert>section>input").val() * 1;
                     });
@@ -429,15 +326,15 @@
                 var num = item.num * 1;	//获取物品数量
                 var con;
                 if (num == 1) {	//如果只有一件物品
-                    this.Confirm("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足");
-                    this.popupCss(25, 14);
+                    self.Confirm("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足");
+                    self.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                         extract();
                     });
                 } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
                     this.Prompt("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足<br>输入你要提取的数量：", num);
-                    this.popupCss(25, 18);
+                    self.popupCss(25, 18);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         //alert(123)
                         con = $("#alert>.alert>section>input").val() * 1;
@@ -445,13 +342,13 @@
                             return
                         }
                         if (isNaN(con) || con <= 0 || (con % con != 0)) {
-                            this.Alert("提取数量必须是 ≥1 的整数！");
-                            this.popupCss(25, 13);
+                            self.Alert("提取数量必须是 ≥1 的整数！");
+                            self.popupCss(25, 13);
                             return;
                         }
                         if (con > num) {	//如果输入的数量大于拥有的数量
-                            this.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能提取 " + num + " 件物品");
-                            this.popupCss(25, 16);
+                            self.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能提取 " + num + " 件物品");
+                            self.popupCss(25, 16);
                             return;
                         }
                         // extract();
@@ -468,14 +365,14 @@
                     //........
                     var suc = true;	//假设这是后端传回来的数据，表示验证成功
                     if (suc) {
-                        this.Alert("提取成功！<br>物品已发送到您的背包");
-                        this.popupCss(25, 14);
+                        self.Alert("提取成功！<br>物品已发送到您的背包");
+                        self.popupCss(25, 14);
                         $(".ware-details>header>.back").click();	//返回仓库物品列表页面
                         // recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>提取物品</span><span><b>"+name+"</b></span><span>"+con+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
                         return true;
                     } else {
-                        this.Alert("提取失败！");
-                        this.popupCss(25, 13);
+                        self.Alert("提取失败！");
+                        self.popupCss(25, 13);
                         return false;
                     }
                 }
@@ -498,20 +395,20 @@
                             var point = this.playerinfo.points * 1;	//获取玩家拥有的积分
                             point += use;	//给玩家增加对应数量的积分
                             this.playerinfo.points = point;	//将玩家积分保存到obj对象
-                            this.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
-                            this.popupCss(25, 14);
+                            self.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
+                            self.popupCss(25, 14);
                         } else if (id == "钻石") {
                             var zs = this.playerinfo.diamonds * 1;	//获取玩家拥有的钻石
                             zs += use;	//给玩家增加对应数量的钻石
                             this.playerinfo.diamonds = zs;	//将玩家钻石保存到obj对象
-                            this.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
-                            this.popupCss(25, 14);
+                            self.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
+                            self.popupCss(25, 14);
                             // GeneratePlayer();	//重新在页面渲染玩家数据
                         }
 
                     } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
                         this.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
-                        this.popupCss(25, 18);
+                        self.popupCss(25, 18);
                         $("#alert>.alert>footer>.confirm").click(function () {
                             //alert(1)
                             $("#alert>.alert>section>p").html("");	//清空文本提示内容
@@ -522,13 +419,13 @@
                                 return
                             }
                             if (isNaN(use) || use <= 0 || (use % use != 0)) {
-                                this.Alert("使用数量必须是 ≥1 的整数！");
-                                this.popupCss(25, 13);
+                                self.Alert("使用数量必须是 ≥1 的整数！");
+                                self.popupCss(25, 13);
                                 return;
                             }
                             if (use > num) {	//如果输入的数量大于拥有的数量
-                                this.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
-                                this.popupCss(25, 16);
+                                self.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
+                                self.popupCss(25, 16);
                                 return;
                             }
                             num -= use;		//减去使用的数量
@@ -537,14 +434,14 @@
                                 var point = this.playerinfo.points * 1;	//获取玩家拥有的积分
                                 point += use;	//给玩家增加对应数量的积分
                                 this.playerinfo.points = point;	//将玩家积分保存到obj对象
-                                this.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
-                                this.popupCss(25, 14);
+                                self.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
+                                self.popupCss(25, 14);
                             } else if (id == "钻石") {
                                 var zs = this.playerinfo.diamonds * 1;	//获取玩家拥有的钻石
                                 zs += use;	//给玩家增加对应数量的钻石
                                 this.playerinfo.diamonds = zs;	//将玩家钻石保存到obj对象
-                                this.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
-                                this.popupCss(25, 14);
+                                self.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
+                                self.popupCss(25, 14);
                             }
 
 
@@ -565,7 +462,7 @@
                         uselb();
                     } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
                         this.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
-                        this.popupCss(25, 18);
+                        self.popupCss(25, 18);
                         $("#alert>.alert>footer>.confirm").click(function () {
                             $("#alert>.alert>section>p").html("");	//清空文本提示内容
                             $("#alert,#alert>.alert").hide();
@@ -575,13 +472,13 @@
                                 return
                             }
                             if (isNaN(use2) || use2 <= 0 || (use2 % use2 != 0)) {
-                                this.Alert("使用数量必须是 ≥1 的整数！");
-                                this.popupCss(25, 13);
+                                self.Alert("使用数量必须是 ≥1 的整数！");
+                                self.popupCss(25, 13);
                                 return;
                             }
                             if (use2 > num) {	//如果输入的数量大于拥有的数量
-                                this.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
-                                this.popupCss(25, 16);
+                                self.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
+                                self.popupCss(25, 16);
                                 return;
                             }
                             uselb();
@@ -590,12 +487,12 @@
                     }
 
                 } else if (type == "专属服务") {
-                    this.Alert("专属服务可能需要在游戏内与服务器管理员进行互动<br>请联系服务器管理员使用此物品<br>若是已经使用过，请丢弃此物品");
-                    this.popupCss(32, 16, 1.1);
+                    self.Alert("专属服务可能需要在游戏内与服务器管理员进行互动<br>请联系服务器管理员使用此物品<br>若是已经使用过，请丢弃此物品");
+                    self.popupCss(32, 16, 1.1);
                     return;
                 } else if (type == "抵用券") {
-                    this.Confirm("抵用券需要在商城购买商品时使用<br>是否立即前往？");
-                    this.popupCss(25, 14);
+                    self.Confirm("抵用券需要在商城购买商品时使用<br>是否立即前往？");
+                    self.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         $("#alert>.alert>section>p").html("");	//清空文本提示内容
                         $("#alert").hide();
@@ -604,11 +501,11 @@
                     return;
                 } else {
                     if (id == "补签卡") {
-                        this.Alert("此物品需要在签到页面中使用");
-                        this.popupCss(25, 13);
+                        self.Alert("此物品需要在签到页面中使用");
+                        self.popupCss(25, 13);
                     } else {
-                        this.Alert("该物品没有明确分类，可能为公告说明类提示信息<br>若有疑问请联系服务器管理员进行使用");
-                        this.popupCss(32, 14, 1.1);
+                        self.Alert("该物品没有明确分类，可能为公告说明类提示信息<br>若有疑问请联系服务器管理员进行使用");
+                        self.popupCss(32, 14, 1.1);
                     }
                     return;
                 }
@@ -718,7 +615,7 @@
                 var xb = $(this).parents(".ware-items").data("index");	//获取物品在数组中的下标
                 var txt = $(this).text();	//获取按钮文本内容，有“提取”和“使用”两种情况
                 if (txt == "提取") {
-                    this.pickUpItems(xb);	//调用提取函数
+                    self.pickUpItems(xb);	//调用提取函数
                 } else if (txt == "使用") {
                     //alert("功能正在制作中。。。");
                     //var xb = $(this).parents(".ware-items").data("index");	//获取物品在仓库数组中的下标
@@ -743,8 +640,8 @@
             });
 
             $(".warehouse>.menu>.l1").click(function () {		//彩色按钮 - 提取到背包
-                this.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
-                this.popupCss(28, 16);
+                self.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
+                self.popupCss(28, 16);
                 $("#alert>.alert>footer>.confirm").click(function () {
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
@@ -756,15 +653,15 @@
                         //暂时声明为true
                         var fn = true;
                         if (fn) {
-                            this.Alert("提取成功！<br>物品已发送到您的背包");
-                            this.popupCss(25, 14);
+                            self.Alert("提取成功！<br>物品已发送到您的背包");
+                            self.popupCss(25, 14);
                         } else if (!fn) {
-                            this.Alert("仓库没有任何可提取的东西！");
-                            this.popupCss(25, 13);
+                            self.Alert("仓库没有任何可提取的东西！");
+                            self.popupCss(25, 13);
                         }
                     } else {
-                        this.Alert("提取失败！");
-                        this.popupCss(25, 13);
+                        self.Alert("提取失败！");
+                        self.popupCss(25, 13);
                     }
                 });
             });
@@ -773,28 +670,28 @@
             $(".warehouse>.menu>.l1-replace").click(function () {	//彩色按钮 - 储存到仓库
                 var page = $(".terr-box").data("page");
                 if (page == "box") {
-                    this.Alert("请选择一个箱子");
-                    this.popupCss(25, 13);
+                    self.Alert("请选择一个箱子");
+                    self.popupCss(25, 13);
                     return;
                 }
                 //判断容器状态
                 var containerStatus = false;
                 if (containerStatus) {
-                    this.Alert("箱子里是空的，没有可以储存的物品！");
-                    this.popupCss(28, 13);
+                    self.Alert("箱子里是空的，没有可以储存的物品！");
+                    self.popupCss(28, 13);
                     return;
                 }
 
                 var containerCount = 95;
-                this.Confirm("你的箱子里有 " + containerCount + " 件物品<br>是否确认把箱子内所有物品储存到仓库？");
-                this.popupCss(28, 15);
+                self.Confirm("你的箱子里有 " + containerCount + " 件物品<br>是否确认把箱子内所有物品储存到仓库？");
+                self.popupCss(28, 15);
                 $("#alert>.alert>footer>.confirm").click(function () {
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
                     //console.log("点击了确认");
                     //arrboxToObj();
-                    this.Alert("储存成功！");
-                    this.popupCss(25, 13);
+                    self.Alert("储存成功！");
+                    self.popupCss(25, 13);
                 });
                 // if(con){
 
