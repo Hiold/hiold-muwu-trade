@@ -4,7 +4,8 @@
     <article style="display: none">
       <li class="loading">正在加载中<i></i></li>
     </article>
-    <my-article :itemMenu="itemMenu" :class1="class1" :class2="class2"></my-article>
+    <my-article :itemMenu="itemMenu" :class1="class1" :class2="class2" @setclass1="setclass1"
+                @setclass2="setclass2"></my-article>
   </main>
 
 </template>
@@ -23,7 +24,15 @@ export default {
     "my-header": MyHeader,
     "my-article": MyArticle
   },
-  props: ["itemMenu", "class1", "class2"]
+  props: ["itemMenu", "class1", "class2"],
+  methods: {
+    setclass1(val) {
+      this.$emit("setclass1",val);
+    },
+    setclass2(val) {
+      this.$emit("setclass2",val);
+    }
+  }
 }
 </script>
 
