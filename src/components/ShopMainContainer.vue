@@ -10,6 +10,8 @@
 </template>
 
 <script>
+
+import "/src/assets/style/index.css";
 import LeftContainerBox from "/src/components/shop/LeftContainerBox.vue";
 import RightMenuBox from "/src/components/shop/RightMenuBox.vue";
 import AlertCommon from "/src/components/AlertCommon.vue";

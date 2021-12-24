@@ -9,7 +9,6 @@ export default {};
 <style>
 @import "./assets/css/main.css";
 @import "./assets/css/color-dark.css";
-@import "./assets/style/index.css";
 
 /*#app {*/
 /*  font-family: Avenir, Helvetica, Arial, sans-serif;*/
