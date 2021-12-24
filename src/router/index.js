@@ -36,6 +36,16 @@ const routes = [
                 name: "Userq",
                 component: Home,
                 children: [
+                    //商店管理
+                    {
+                        path: "/shopmanage",
+                        name: "shopmanage",
+                        meta: {
+                            title: '系统商店'
+                        },
+                        component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ShopManage.vue")
+                    },
+
                     {
                         path: "/dashboard",
                         name: "dashboard",
