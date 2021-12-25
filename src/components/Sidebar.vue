@@ -46,7 +46,7 @@
                     title: "系统信息",
                 },
                 {
-                    icon: "el-icon-lx-home",
+                    icon: "el-icon-lx-shop",
                     index: "/manage/shopmanage",
                     title: "系统商店",
                 },
