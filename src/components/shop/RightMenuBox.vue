@@ -66,13 +66,17 @@
     </header>
     <ul class="Main-menu">    <!-- 主菜单 -->
       <!-- 重要分类（大图标）：积分商城、个人仓库、交易中心、活动礼包 -->
-      <router-link tag="li" class="menu-1" data-click="true" to="/shop" active-class="active">
-        <span class="cn">积分商城</span><br>
-        <span class="en">Points Store</span>
+      <router-link custom to="/userq/shop" v-slot="{navigate,isActive}">
+        <li class="menu-1" @click="navigate" :class="{active:isActive}">
+          <span class="cn">积分商城</span><br>
+          <span class="en">Points Store</span>
+        </li>
       </router-link>
-      <router-link tag="li" class="menu-2" data-click="true" to="/warehouse" active-class="active">
-        <span class="cn">个人仓库</span><br>
-        <span class="en">Warehouse</span>
+      <router-link custom to="/userq/warehouse" v-slot="{navigate,isActive}">
+        <li class="menu-2" @click="navigate" :class="{active:isActive}">
+          <span class="cn">个人仓库</span><br>
+          <span class="en">Warehouse</span>
+        </li>
       </router-link>
       <li class="menu-3">
         <span class="cn">交易中心</span><br>

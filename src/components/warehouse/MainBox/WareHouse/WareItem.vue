@@ -1,7 +1,7 @@
 <template>
   <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
   <li class="ware-items" :data-index="index" @click="showdetailsss($event.target)">
-    <header>{{ item.name |deleteBBcode }}</header>
+    <header>{{ deleteBBcode(item.name) }}</header>
     <section>
       <div class="left">
         <div class="img"><img :src="item.image">
@@ -24,13 +24,11 @@
 export default {
   name: "ShopItem",
   props: ["item", "index", "vip"],
-  filters: {
+  methods: {
     deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
       return itemName.replace(/([\\[][0-9a-fA-F]{6}[\]])/g, "");
       //return itemName;
-    }
-  },
-  methods: {
+    },
     showdetailsss(target) {
       console.log(11111)
       this.$emit('showdetail', this.item, target)
