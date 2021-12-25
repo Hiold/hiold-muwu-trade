@@ -3,12 +3,15 @@
     <!--alert弹窗common-->
     <alert-common :couProps="couProps"></alert-common>
 
-    <left-container-box :itemMenu="itemMenu" :class1="class1" :class2="class2"></left-container-box>
+    <left-container-box :itemMenu="itemMenu" :class1="class1" :class2="class2"
+                        @setclass1="setclass1" @setclass2="setclass2"></left-container-box>
     <right-container-box></right-container-box>
   </div>
 </template>
 
 <script>
+
+import "/src/assets/style/index.css";
 import LeftContainerBox from "/src/components/shop/LeftContainerBox.vue";
 import RightMenuBox from "/src/components/shop/RightMenuBox.vue";
 import AlertCommon from "/src/components/AlertCommon.vue";
@@ -93,6 +96,12 @@ export default {
     'alert-common': AlertCommon
   },
   methods: {
+    setclass1(val) {
+      this.class1 = val;
+    },
+    setclass2(val) {
+      this.class2 = val;
+    },
     adaptive() {
       var Width, Height;	//浏览器窗口宽度和高度//自适应布局（任何设备上保持等比例显示）
       Width = $(window).width();
@@ -121,9 +130,9 @@ export default {
       var h3 = $("main>header").height();
       var h4 = $("main>header>.Diamond").height();
       var h5 = $(".head-tool>.display>li").height();
-      var h7 = $(".items-shop>.items>header").height();
-      var h8 = $(".items-shop>.items>header>i").height();
-      var h9 = $(".items-shop>.items>footer").height();
+      var h7 = $(".items-box>.items>header").height();
+      var h8 = $(".items-box>.items>header>i").height();
+      var h9 = $(".items-box>.items>footer").height();
       var h10_1 = $(".items-details").height();
       var h10_2 = $(".spxq").height();
       var h10_3 = h10_1 - h10_2 - 20;
@@ -173,9 +182,9 @@ export default {
       $("main>header>.Diamond,main>header>.Point").css("line-height", h4 + "px");
       $(".head-tool>.display>li").css({"line-height": h5 + "px"});
       //$(".head-tool>.sort").css({"line-height":h6+"px"});
-      $(".items-shop>.items>header").css({"line-height": h7 + "px"});
-      $(".items-shop>.items>header>i,.items-shop>.items>header>.follow,.items-shop>.items>footer>.active").css({"line-height": h8 + "px"});
-      $(".items-shop>.items>footer").css({"line-height": h9 + "px"});
+      $(".items-box>.items>header").css({"line-height": h7 + "px"});
+      $(".items-box>.items>header>i,.items-box>.items>header>.follow,.items-box>.items>footer>.active").css({"line-height": h8 + "px"});
+      $(".items-box>.items>footer").css({"line-height": h9 + "px"});
       $(".items-details>.bottom").css({"height": h10_3 + "px"});
       $(".ware-details>footer").css({"height": h11_4 + "px"});
       $(".terr-shop>section").css({"height": h12_3 + "px"});
