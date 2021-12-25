@@ -42,22 +42,22 @@
             const items = [
                 {
                     icon: "el-icon-lx-home",
-                    index: "/dashboard",
+                    index: "/manage/dashboard",
                     title: "系统信息",
                 },
                 {
                     icon: "el-icon-lx-home",
-                    index: "/shopmanage",
+                    index: "/manage/shopmanage",
                     title: "系统商店",
                 },
                 {
                     icon: "el-icon-lx-cascades",
-                    index: "/table",
+                    index: "/manage/table",
                     title: "基础表格",
                 },
                 {
                     icon: "el-icon-lx-copy",
-                    index: "/tabs",
+                    index: "/manage/tabs",
                     title: "tab选项卡",
                 },
                 {
@@ -66,11 +66,11 @@
                     title: "表单相关",
                     subs: [
                         {
-                            index: "/form",
+                            index: "/manage/form",
                             title: "基本表单",
                         },
                         {
-                            index: "/upload",
+                            index: "/manage/upload",
                             title: "文件上传",
                         },
                         {
@@ -78,7 +78,7 @@
                             title: "三级菜单",
                             subs: [
                                 {
-                                    index: "/editor",
+                                    index: "/manage/editor",
                                     title: "富文本编辑器",
                                 },
                             ],
@@ -87,17 +87,17 @@
                 },
                 {
                     icon: "el-icon-lx-emoji",
-                    index: "/icon",
+                    index: "/manage/icon",
                     title: "自定义图标",
                 },
                 {
                     icon: "el-icon-pie-chart",
-                    index: "/charts",
+                    index: "/manage/charts",
                     title: "schart图表",
                 },
                 {
                     icon: "el-icon-lx-global",
-                    index: "/i18n",
+                    index: "/manage/i18n",
                     title: "国际化功能",
                 },
                 {
@@ -106,18 +106,18 @@
                     title: "错误处理",
                     subs: [
                         {
-                            index: "/permission",
+                            index: "/manage/permission",
                             title: "权限测试",
                         },
                         {
-                            index: "/404",
+                            index: "/manage/404",
                             title: "404页面",
                         },
                     ],
                 },
                 {
                     icon: "el-icon-lx-redpacket_fill",
-                    index: "/donate",
+                    index: "/manage/donate",
                     title: "支持作者",
                 },
             ];

@@ -24,7 +24,15 @@ const routes = [{
         path: "dashboard", name: "dashboard", meta: {
             title: '系统首页'
         }, component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
-    }, {
+    },
+
+        {
+            path: "shopmanage", name: "shopmanage", meta: {
+                title: '商店管理'
+            }, component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ShopManage.vue")
+        }
+
+    , {
         path: "table", name: "basetable", meta: {
             title: '表格'
         }, component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
