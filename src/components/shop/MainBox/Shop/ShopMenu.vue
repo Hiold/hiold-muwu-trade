@@ -40,8 +40,7 @@ export default {
           $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
           $(".Category>div>ul").data("click", "false");
           $(this).data("click", "true");	//将展开状态设置为"展开"
-          // self.class1 = $(this).find("div").text();	//获取当前点击总分类名称
-          self.$emit("setclass1", $(this).find("div").text())
+          self.class1 = $(this).find("div").text();	//获取当前点击总分类名称
           //alert("展开总分类："+class1)
           $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
           //console.log("总分类："+xb);
@@ -64,7 +63,7 @@ export default {
       $(".Category>div>li").click(function () {		//子分类点击特效+生成商品
         $(".head-tool .name-id").val("");
         $(".items-details").hide();
-        $(".items-box,.head-tool").show();
+        $(".items-shop,.head-tool").show();
         var xb = $(this).attr("class").split("")[1];	//获取序号
         //console.log("序号:"+xb)
         $(".Category>div>li[class^='b" + xb + "']").css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
@@ -75,15 +74,13 @@ export default {
         //$(".Category>div>li[class^='b"+xb+"']").data("click","false");
         $(".Category>div>li").data("click", "false");
         $(this).data("click", "true");
-        // self.class2 = $(this).text();	//获取当前点击的子分类名称
-
-        self.$emit("setclass2", $(this).text())
+        self.class2 = $(this).text();	//获取当前点击的子分类名称
 
         //console.log("子分类："+xb);
         self.changeColor(xb);
         //$(".items-details").fadeOut(200);
         //$(".items-details").hide();
-        //$(".items-box,section>.head-tool").show();
+        //$(".items-shop,section>.head-tool").show();
         //alert("点击子分类："+class2);
         return;
       });
@@ -116,31 +113,31 @@ export default {
     },
     changeColor(color) {
       if (color == 1) {
-        $(".items-box>.items").css("background-image", "url(images/card/yellow.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/yellow.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
       }
       if (color == 2) {
-        $(".items-box>.items").css("background-image", "url(images/card/green.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/green.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
       }
       if (color == 3) {
-        $(".items-box>.items").css("background-image", "url(images/card/beige.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/beige.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
       }
       if (color == 4) {
-        $(".items-box>.items").css("background-image", "url(images/card/pink.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/pink.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
       if (color == 5) {
-        $(".items-box>.items").css("background-image", "url(images/card/purple.jpg)");
-        //$(".items-box>.items>section").css("background","linear-gradient(90deg, rgba(185, 216, 253, 0.5), rgba(209, 230, 254, 0.7))");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/purple.jpg)");
+        //$(".items-shop>.items>section").css("background","linear-gradient(90deg, rgba(185, 216, 253, 0.5), rgba(209, 230, 254, 0.7))");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
       }
       if (color == 6) {
-        $(".items-box>.items").css("background-image", "url(images/card/red.jpg)");
-        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-shop>.items").css("background-image", "url(images/card/red.jpg)");
+        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
-      //$(".items-box>.items").css("opacity","1");
+      //$(".items-shop>.items").css("opacity","1");
     },
     lastView(type1, type2) {	//自动跳转到规定的分类并打印商品
       //$(".Category>div>.btn-2").click();
