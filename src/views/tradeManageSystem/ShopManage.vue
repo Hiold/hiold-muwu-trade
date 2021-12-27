@@ -111,22 +111,19 @@ export default {
     //执行查询
     const querySearchAsync = (queryString, cb) => {
       if (queryString && queryString.length >= 1) {
-        let params = {itemname: queryString}
+        let params = {itemname: queryString};
         axios.get("proxy/api/getSystemItem", {params}).then(res => {
           if (res.data.respCode === "1") {
-            var JsonData = JSON.parse(res.data.data);
+            let JsonData = JSON.parse(res.data.data);
             //处理返回结果
             //声明一个数组存储待选项
-            var sugestion = [];
+            let sugestion = [];
             for (var i = 0; i < JsonData.length; i++) {
               sugestion[i] = {value: JsonData[i].itemname};
             }
-            console.log(sugestion)
             cb(sugestion);
           }
-        })
-      } else {
-        cb([]);
+        });
       }
     }
     const handleSelect = (item) => {
