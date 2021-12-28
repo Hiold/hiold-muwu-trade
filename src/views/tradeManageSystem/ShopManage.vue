@@ -120,7 +120,8 @@
                 访问地址：
                 <a href="https://www.wangeditor.com/doc/" target="_blank">wangEditor</a>
               </div>
-              <div class="mgb20" id='editorHtml'></div>
+              <div class="mgb20" ref='toolbar'></div>
+              <div class="mgb20" ref='editorHtml'></div>
               <el-button type="primary" @click="syncHTML">提交</el-button>
             </div>
           </div>
@@ -148,10 +149,11 @@ import WangEditor from "wangEditor";
 
 export default {
   mounted() {
-    this.instance = new WangEditor('#editorHtml');
+    this.instance = new WangEditor(`#toolbar`,`#editorHtml`);
     this.instance.config.zIndex = 1;
     this.instance.create();
   },
+
   name: "ShopManage",
   data() {
     return {
