@@ -52,11 +52,11 @@
 
 
     <!-- 编辑弹出框 -->
-    <el-dialog title="新增" v-model="addVisible" width="40%">
+    <el-dialog title="新增" v-model="addVisible" width="40%" :append-to-body="true">
       <el-form>
         <!--物品种类-->
         <el-form-item class="center">
-          <el-select v-model="itemType" placeholder="物品类型" class="handle-space">
+          <el-select v-model="itemType" placeholder="物品类型" class="handle-space" @change="handleEdtor">
             <el-option key="1" label="游戏内物品" value="1"></el-option>
             <el-option key="2" label="特殊物品" value="2"></el-option>
           </el-select>
@@ -79,7 +79,7 @@
         <el-form-item class="center" v-if="itemType==='1'">
           <el-tag>品质</el-tag>
           <el-slider v-if="itemType==='1'" v-model="quality" :show-tooltip="true"
-                     step="1" max="6" show-stops show-input
+                     :step="1" :max="6" show-stops show-input
                      :marks="marks"></el-slider>
         </el-form-item>
         <br/>
@@ -104,26 +104,96 @@
 
         <el-form-item class="center" v-if="itemType!==''">
           <el-tag>折扣</el-tag>
-          <el-slider v-model="discount" :show-tooltip="true"
-                     step="0.1" max="10" show-input show-tooltip></el-slider>
+          <el-slider v-model="discount" @change="discountchange" :show-tooltip="true"
+                     :step="0.1" :max="10" show-input show-tooltip></el-slider>
         </el-form-item>
 
         <el-form-item class="center" v-if="itemType!==''">
-          <el-input class="handle-space" placeholder="折后价格" v-model="prefer"></el-input>
+          <el-input class="handle-space" placeholder="折后价格" v-model="prefer" @change="preferchange"></el-input>
         </el-form-item>
 
-        <el-form-item>
-          <div>
-            <div class="container">
-              <div class="plugins-tips">
-                wangEditor：轻量级 web 富文本编辑器，配置方便，使用简单。
-                访问地址：
-                <a href="https://www.wangeditor.com/doc/" target="_blank">wangEditor</a>
+
+        <el-form-item class="center" v-if="itemType!==''">
+          <el-select v-model="sellType" placeholder="出售类型" class="handle-space">
+            <el-option key="1" label="VIP专属" value="1"></el-option>
+            <el-option key="2" label="无限制" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+
+
+        <el-form-item class="center" v-if="itemType!==''">
+          <el-row>
+            <el-col :span="1"></el-col>
+            <el-col :span="11" style="text-align: left;margin-right: 20px;">
+              <el-radio v-model="hot" label="1" size="medium">热卖</el-radio>
+              <el-radio v-model="hot" label="2" size="medium">非热卖</el-radio>
+              <el-radio v-model="hot" label="3" size="medium">自动</el-radio>
+            </el-col>
+            <el-col :span="11">
+              <div v-show="hot==='3'">
+                达到
+                <el-input v-model="hotset" style="width: 20%;"></el-input>
+                后自动设为热卖
               </div>
-              <div class="mgb20" ref='toolbar'></div>
-              <div class="mgb20" ref='editorHtml'></div>
-              <el-button type="primary" @click="syncHTML">提交</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item class="center" v-if="itemType!==''">
+          <el-row>
+            <el-col :span="1"></el-col>
+            <el-col :span="13" style="text-align: left;margin-right: 20px;">
+              <el-radio v-model="level" label="1" size="medium">不限购</el-radio>
+              <el-radio v-model="level" label="2" size="medium">达到等级可购买</el-radio>
+              <el-radio v-model="level" label="3" size="medium">超过等级不可购买</el-radio>
+            </el-col>
+            <el-col :span="8">
+              <div v-show="level!=='1'">
+                <el-input v-model="levelset" style="width: 40%;" placeholder="请输入等级"></el-input>
+              </div>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item class="center" v-if="itemType!==''">
+          <el-row>
+            <el-col :span="1"></el-col>
+            <el-col :span="13" style="text-align: left;margin-right: 20px;">
+              <el-radio v-model="fallow" label="1" size="medium">不跟档</el-radio>
+              <el-radio v-model="fallow" label="2" size="medium">跟档</el-radio>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item class="center" v-if="itemType!==''">
+          <el-row>
+            <el-col :span="8">
+              <el-radio v-model="xgAll" label="1" size="medium">不限时</el-radio>
+              <el-radio v-model="xgAll" label="2" size="medium">限时购买</el-radio>
+            </el-col>
+            <el-col :span="15" style="text-align: left;margin-right: 20px;">
+              <div v-show="xgAll==='2'">
+                <el-date-picker
+                    v-model="xgDate"
+                    type="datetimerange"
+                    range-separator="至"
+                    start-placeholder="开抢时间"
+                    end-placeholder="结束时间"
+                    @change="catchs"
+                >
+                </el-date-picker>
+              </div>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+
+        <el-form-item v-show="itemType!==''">
+          <div class="container">
+            <div class="plugins-tips">
+              物品描述
             </div>
+            <div class="mgb20" id='editor'></div>
           </div>
         </el-form-item>
 
@@ -141,32 +211,60 @@
 </template>
 
 <script>
-import {reactive, ref} from "vue";
-import {fetchData} from "../../api";
-import {ElMessage, ElMessageBox} from "element-plus";
 import axios from "axios";
-import WangEditor from "wangEditor";
+import moment from 'moment'
 
 export default {
-  mounted() {
-    this.instance = new WangEditor(`#toolbar`,`#editorHtml`);
-    this.instance.config.zIndex = 1;
-    this.instance.create();
-  },
-
   name: "ShopManage",
+  computed: {
+    discountHander: {
+      get() {
+        return this.discount;
+      },
+      set(val) {
+        this.discount = val;
+        this.prefer = (parseInt(this.price) * (val / 10)).toFixed(2) + "";
+      }
+    },
+    preferHander: {
+      get() {
+        return this.prefer;
+      },
+      set(val) {
+        this.prefer = val;
+        if (parseInt(this.prefer) > parseInt(this.price)) {
+          this.price = this.prefer;
+          this.discount = 10;
+        }
+        this.discount = (parseInt(this.prefer) / parseInt(this.price).toFixed(1)) / 10;
+      }
+    }
+
+  }
+  ,
+  mounted() {
+    //
+  },
   data() {
     return {
-      instance: null,
-      editor: null,
+      xgAll: "1",
+      xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
+      fallow: "1",
+      level: "1",
+      levelset: "",
+      hotset: "",
+      hot: "1",
+      sellType: "",
+      instance: false,
+      editor: "",
       html: "",
       text: "",
       src: '',
-      prefer: "",
-      discount: "",
+      prefer: "100",
+      discount: 10,
       itemType: "",
       currency: "",
-      price: "",
+      price: "100",
       itemName: "",
       itemnum: "",
       addVisible: false,
@@ -210,10 +308,31 @@ export default {
           },
           label: '6',
         }
-      }
+      },
     }
   },
   methods: {
+    discountchange() {
+      this.prefer = (parseInt(this.price) * (this.discount / 10)).toFixed(2) + "";
+    },
+    preferchange() {
+      if (parseInt(this.prefer) > parseInt(this.price)) {
+        this.price = this.prefer;
+        this.discount = 10;
+      }
+      this.discount = (((parseInt(this.prefer) / parseInt(this.price))) * 10).toFixed(2);
+    },
+    catchs(v) {
+      console.log(v)
+    },
+    handleEdtor() {
+      if (!this.instance) {
+        console.log("已创建");
+        this.editor = new wangEditor("#editor")
+        this.editor.create()
+        this.instance = true;
+      }
+    },
     handleAdd() {
       this.addVisible = true;
     },
