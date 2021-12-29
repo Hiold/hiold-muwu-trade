@@ -62,6 +62,39 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item class="center" v-show="itemType==='2'">
+          <el-autocomplete style="width: 70%;" v-model="couCurrType" :fetch-suggestions="loadCouCurr"
+                           placeholder="请选择系统预置特殊物品，或者输入自动以物品"
+                           @select="handleSelect"></el-autocomplete>
+        </el-form-item>
+
+        <el-form-item class="center" v-show="itemType==='2'" v-if="couCurrType==='积分满减'||couCurrType==='钻石满减'">
+
+          <el-row>
+            <el-col :span="6">满</el-col>
+            <el-col :span="6">
+              <el-input class="handle-space" v-model="couCond"></el-input>
+            </el-col>
+            <el-col :span="6">减</el-col>
+            <el-col :span="6">
+              <el-input class="handle-space" v-model="couPrice"></el-input>
+            </el-col>
+          </el-row>
+
+        </el-form-item>
+
+        <el-form-item class="center" v-show="itemType==='2'" v-if="couCurrType==='积分折扣'||couCurrType==='钻石折扣'">
+
+          <el-row>
+            <el-col :span="12">
+              <el-input class="handle-space" v-model="couPrice"></el-input>
+            </el-col>
+            <el-col :span="12">折</el-col>
+          </el-row>
+
+        </el-form-item>
+
+
         <el-form-item class="center" v-show="itemType==='1'">
           <el-autocomplete style="width: 70%;" :minlength="2" v-model="itemName" :fetch-suggestions="querySearchAsync"
                            placeholder="请输入内容"
@@ -247,6 +280,10 @@ export default {
   },
   data() {
     return {
+      couCurrType: "积分折扣",
+      couPrice: "8",
+      couCond: "100",
+      couDate: "2021-12-31",
       xgAll: "1",
       xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
       fallow: "1",
@@ -335,6 +372,14 @@ export default {
     },
     handleAdd() {
       this.addVisible = true;
+    },
+    loadCouCurr(queryString, cb) {
+      cb([
+        {value: '积分折扣'},
+        {value: '积分满减'},
+        {value: '钻石折扣'},
+        {value: '钻石满减'},
+      ]);
     },
     querySearchAsync(queryString, cb) {
       if (queryString && queryString.length >= 1) {
