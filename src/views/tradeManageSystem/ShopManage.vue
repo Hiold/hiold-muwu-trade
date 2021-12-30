@@ -56,158 +56,179 @@
       <el-form>
         <!--物品种类-->
         <el-form-item class="center">
-          <el-select v-model="itemType" placeholder="物品类型" class="handle-space" @change="handleEdtor">
+          <el-select v-model="formData.itemType" placeholder="物品类型" class="handle-space" @change="handleEdtor">
             <el-option key="1" label="游戏内物品" value="1"></el-option>
             <el-option key="2" label="特殊物品" value="2"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="center" v-show="itemType==='2'">
-          <el-autocomplete style="width: 70%;" v-model="couCurrType" :fetch-suggestions="loadCouCurr"
+        <el-form-item class="center" v-show="formData.itemType==='2'">
+          <el-autocomplete style="width: 70%;" v-model="formData.couCurrType" :fetch-suggestions="loadCouCurr"
                            placeholder="请选择系统预置特殊物品，或者输入自动以物品"
                            @select="handleSelect"></el-autocomplete>
         </el-form-item>
 
-        <el-form-item class="center" v-show="itemType==='2'" v-if="couCurrType==='积分满减'||couCurrType==='钻石满减'">
+        <el-form-item class="center" v-show="formData.itemType==='2'"
+                      v-if="formData.couCurrType==='积分满减'||formData.couCurrType==='钻石满减'">
 
           <el-row>
             <el-col :span="6">满</el-col>
             <el-col :span="6">
-              <el-input class="handle-space" v-model="couCond"></el-input>
+              <el-input class="handle-space" v-model="formData.couCond"></el-input>
             </el-col>
             <el-col :span="6">减</el-col>
             <el-col :span="6">
-              <el-input class="handle-space" v-model="couPrice"></el-input>
+              <el-input class="handle-space" v-model="formData.couPrice"></el-input>
             </el-col>
           </el-row>
 
         </el-form-item>
 
-        <el-form-item class="center" v-show="itemType==='2'" v-if="couCurrType==='积分折扣'||couCurrType==='钻石折扣'">
+        <el-form-item class="center" v-show="formData.itemType==='2'"
+                      v-if="formData.couCurrType==='积分折扣'||formData.couCurrType==='钻石折扣'">
 
           <el-row>
             <el-col :span="12">
-              <el-input class="handle-space" v-model="couPrice"></el-input>
+              <el-input class="handle-space" v-model="formData.couPrice"></el-input>
             </el-col>
             <el-col :span="12">折</el-col>
           </el-row>
 
         </el-form-item>
 
+        <el-form-item class="center" v-show="formData.itemType==='2'">
+          <el-row>
+            <el-col :span="2"></el-col>
+            <el-col :span="4">使用限制日期</el-col>
+            <el-col :span="16">
+              <el-date-picker
+                  v-model="formData.couDate"
+                  type="datetimerange"
+                  range-separator="至"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  @change="catchs">
+              </el-date-picker>
+            </el-col>
+          </el-row>
 
-        <el-form-item class="center" v-show="itemType==='1'">
-          <el-autocomplete style="width: 70%;" :minlength="2" v-model="itemName" :fetch-suggestions="querySearchAsync"
+        </el-form-item>
+
+
+        <el-form-item class="center" v-show="formData.itemType==='1'">
+          <el-autocomplete style="width: 70%;" :minlength="2" v-model="formData.itemName"
+                           :fetch-suggestions="querySearchAsync"
                            placeholder="请输入内容"
                            @select="handleSelect"></el-autocomplete>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType==='1'&&itemName!==''&&itemName!==null">
-          <el-image v-if="itemType==='1'&&itemName!==''&&itemName!==null"
+        <el-form-item class="center" v-if="formData.itemType==='1'&&formData.itemName!==''&&formData.itemName!==null">
+          <el-image v-if="formData.itemType==='1'&&formData.itemName!==''&&formData.itemName!==null"
                     style="width: 100px; height: 100px"
                     :src="src"
                     fit="fit"
           ></el-image>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType==='1'">
+        <el-form-item class="center" v-if="formData.itemType==='1'">
           <el-tag>品质</el-tag>
-          <el-slider v-if="itemType==='1'" v-model="quality" :show-tooltip="true"
+          <el-slider v-if="formData.itemType==='1'" v-model="formData.quality" :show-tooltip="true"
                      :step="1" :max="6" show-stops show-input
                      :marks="marks"></el-slider>
         </el-form-item>
         <br/>
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-input class="handle-space" placeholder="数量" v-model="itemnum"></el-input>
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-input class="handle-space" placeholder="数量" v-model="formData.itemnum"></el-input>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-select v-model="currency" placeholder="货币种类" class="handle-space">
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-select v-model="formData.currency" placeholder="货币种类" class="handle-space">
             <el-option key="1" label="积分" value="1"></el-option>
             <el-option key="2" label="钻石" value="2"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-input class="handle-space" placeholder="数量" v-model="itemnum"></el-input>
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-input class="handle-space" placeholder="数量" v-model="formData.itemnum"></el-input>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-input class="handle-space" placeholder="价格" v-model="price"></el-input>
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-input class="handle-space" placeholder="价格" v-model="formData.price"></el-input>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
+        <el-form-item class="center" v-if="formData.itemType!==''">
           <el-tag>折扣</el-tag>
-          <el-slider v-model="discount" @change="discountchange" :show-tooltip="true"
+          <el-slider v-model="formData.discount" @change="discountchange" :show-tooltip="true"
                      :step="0.1" :max="10" show-input show-tooltip></el-slider>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-input class="handle-space" placeholder="折后价格" v-model="prefer" @change="preferchange"></el-input>
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-input class="handle-space" placeholder="折后价格" v-model="formData.prefer" @change="preferchange"></el-input>
         </el-form-item>
 
 
-        <el-form-item class="center" v-if="itemType!==''">
-          <el-select v-model="sellType" placeholder="出售类型" class="handle-space">
+        <el-form-item class="center" v-if="formData.itemType!==''">
+          <el-select v-model="formData.sellType" placeholder="出售类型" class="handle-space">
             <el-option key="1" label="VIP专属" value="1"></el-option>
             <el-option key="2" label="无限制" value="2"></el-option>
           </el-select>
         </el-form-item>
 
 
-        <el-form-item class="center" v-if="itemType!==''">
+        <el-form-item class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="11" style="text-align: left;margin-right: 20px;">
-              <el-radio v-model="hot" label="1" size="medium">热卖</el-radio>
-              <el-radio v-model="hot" label="2" size="medium">非热卖</el-radio>
-              <el-radio v-model="hot" label="3" size="medium">自动</el-radio>
+              <el-radio v-model="formData.hot" label="1" size="medium">热卖</el-radio>
+              <el-radio v-model="formData.hot" label="2" size="medium">非热卖</el-radio>
+              <el-radio v-model="formData.hot" label="3" size="medium">自动</el-radio>
             </el-col>
             <el-col :span="11">
-              <div v-show="hot==='3'">
+              <div v-show="formData.hot==='3'">
                 达到
-                <el-input v-model="hotset" style="width: 20%;"></el-input>
+                <el-input v-model="formData.hotset" style="width: 20%;"></el-input>
                 后自动设为热卖
               </div>
             </el-col>
           </el-row>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
+        <el-form-item class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="13" style="text-align: left;margin-right: 20px;">
-              <el-radio v-model="level" label="1" size="medium">不限购</el-radio>
-              <el-radio v-model="level" label="2" size="medium">达到等级可购买</el-radio>
-              <el-radio v-model="level" label="3" size="medium">超过等级不可购买</el-radio>
+              <el-radio v-model="formData.level" label="1" size="medium">不限购</el-radio>
+              <el-radio v-model="formData.level" label="2" size="medium">达到等级可购买</el-radio>
+              <el-radio v-model="formData.level" label="3" size="medium">超过等级不可购买</el-radio>
             </el-col>
             <el-col :span="8">
-              <div v-show="level!=='1'">
-                <el-input v-model="levelset" style="width: 40%;" placeholder="请输入等级"></el-input>
+              <div v-show="formData.level!=='1'">
+                <el-input v-model="formData.levelset" style="width: 40%;" placeholder="请输入等级"></el-input>
               </div>
             </el-col>
           </el-row>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
+        <el-form-item class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="13" style="text-align: left;margin-right: 20px;">
-              <el-radio v-model="fallow" label="1" size="medium">不跟档</el-radio>
-              <el-radio v-model="fallow" label="2" size="medium">跟档</el-radio>
+              <el-radio v-model="formData.fallow" label="1" size="medium">不跟档</el-radio>
+              <el-radio v-model="formData.fallow" label="2" size="medium">跟档</el-radio>
             </el-col>
           </el-row>
         </el-form-item>
 
-        <el-form-item class="center" v-if="itemType!==''">
+        <el-form-item class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="8">
-              <el-radio v-model="xgAll" label="1" size="medium">不限时</el-radio>
-              <el-radio v-model="xgAll" label="2" size="medium">限时购买</el-radio>
+              <el-radio v-model="formData.xgAll" label="1" size="medium">不限时</el-radio>
+              <el-radio v-model="formData.xgAll" label="2" size="medium">限时购买</el-radio>
             </el-col>
             <el-col :span="15" style="text-align: left;margin-right: 20px;">
-              <div v-show="xgAll==='2'">
+              <div v-show="formData.xgAll==='2'">
                 <el-date-picker
-                    v-model="xgDate"
+                    v-model="formData.xgDate"
                     type="datetimerange"
                     range-separator="至"
                     start-placeholder="开抢时间"
@@ -221,7 +242,7 @@
         </el-form-item>
 
 
-        <el-form-item v-show="itemType!==''">
+        <el-form-item v-show="formData.itemType!==''">
           <div class="container">
             <div class="plugins-tips">
               物品描述
@@ -252,24 +273,24 @@ export default {
   computed: {
     discountHander: {
       get() {
-        return this.discount;
+        return this.formData.discount;
       },
       set(val) {
-        this.discount = val;
-        this.prefer = (parseInt(this.price) * (val / 10)).toFixed(2) + "";
+        this.formData.discount = val;
+        this.formData.prefer = (parseInt(this.formData.price) * (val / 10)).toFixed(2) + "";
       }
     },
     preferHander: {
       get() {
-        return this.prefer;
+        return this.formData.prefer;
       },
       set(val) {
-        this.prefer = val;
-        if (parseInt(this.prefer) > parseInt(this.price)) {
-          this.price = this.prefer;
-          this.discount = 10;
+        this.formData.prefer = val;
+        if (parseInt(this.formData.prefer) > parseInt(this.formData.price)) {
+          this.formData.price = this.formData.prefer;
+          this.formData.discount = 10;
         }
-        this.discount = (parseInt(this.prefer) / parseInt(this.price).toFixed(1)) / 10;
+        this.formData.discount = (parseInt(this.formData.prefer) / parseInt(this.formData.price).toFixed(1)) / 10;
       }
     }
 
@@ -280,33 +301,41 @@ export default {
   },
   data() {
     return {
-      couCurrType: "积分折扣",
-      couPrice: "8",
-      couCond: "100",
-      couDate: "2021-12-31",
-      xgAll: "1",
+      formData: {
+        couCurrType: "积分折扣",
+        couPrice: "8",
+        couCond: "100",
+        xgDateStart: this.xgDate[0],
+        xgDateEnd: this.xgDate[1],
+        xgAll: "1",
+        couDateStart: this.couDate[0],
+        couDateEnd: this.couDate[1],
+        fallow: "1",
+        level: "1",
+        levelset: "",
+        hotset: "",
+        hot: "1",
+        sellType: "",
+        desc: "",
+        prefer: "100",
+        discount: 10,
+        itemType: "",
+        currency: "",
+        price: "100",
+        itemName: "",
+        itemnum: "",
+        quality: 0,
+        itemGroup:"",
+        itemIcon:"",
+        itemTint:""
+      },
       xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
-      fallow: "1",
-      level: "1",
-      levelset: "",
-      hotset: "",
-      hot: "1",
-      sellType: "",
+      couDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
       instance: false,
       editor: "",
-      html: "",
-      text: "",
       src: '',
-      prefer: "100",
-      discount: 10,
-      itemType: "",
-      currency: "",
-      price: "100",
-      itemName: "",
-      itemnum: "",
       addVisible: false,
       itemNameCache: [],
-      quality: 0,
       marks: {
         0: {
           style: {
@@ -350,14 +379,14 @@ export default {
   },
   methods: {
     discountchange() {
-      this.prefer = (parseInt(this.price) * (this.discount / 10)).toFixed(2) + "";
+      this.formData.prefer = (parseInt(this.formData.price) * (this.formData.discount / 10)).toFixed(2) + "";
     },
     preferchange() {
-      if (parseInt(this.prefer) > parseInt(this.price)) {
-        this.price = this.prefer;
-        this.discount = 10;
+      if (parseInt(this.formData.prefer) > parseInt(this.formData.price)) {
+        this.formData.price = this.formData.prefer;
+        this.formData.discount = 10;
       }
-      this.discount = (((parseInt(this.prefer) / parseInt(this.price))) * 10).toFixed(2);
+      this.formData.discount = (((parseInt(this.formData.prefer) / parseInt(this.formData.price))) * 10).toFixed(2);
     },
     catchs(v) {
       console.log(v)
