@@ -17,29 +17,37 @@
         <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
         <el-button type="success" icon="el-icon-plus" @click="handleAdd">添加</el-button>
       </div>
-      <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header">
+      <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header" :data="queryData">
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="用户名"></el-table-column>
-        <el-table-column label="账户余额">
-          <template #default="scope">￥</template>
-        </el-table-column>
-        <el-table-column label="头像(查看大图)" align="center">
+        <el-table-column label="上架时间">
           <template #default="scope">
-            <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
-            </el-image>
+            {{ scope.row.postTime.substring(0, 19).replace("T", " ") }}
           </template>
         </el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
-        <el-table-column label="状态" align="center">
+        <el-table-column label="物品名称">
           <template #default="scope">
-
+            {{ scope.row.translate === null ? scope.row.couCurrType : scope.row.translate }}
+          </template>
+        </el-table-column>
+        <el-table-column label="售价">
+          <template #default="scope">
+            售价：{{ scope.row.price }} 折扣：{{ scope.row.discount === 10 ? "无" : (scope.row.discount + "折") }}
+            最终价格：{{ scope.row.prefer }}
+          </template>
+        </el-table-column>
+        <el-table-column label="物品状态">
+          <template #default="scope">
+            <el-tag v-if="scope.row.follow==='2'">跟档</el-tag>
+            <el-tag v-if="scope.row.hotSet==='2'">热卖</el-tag>
+            <el-tag v-if="scope.row.xgAll==='2'">限时购买</el-tag>
+            <el-tag v-if="scope.row.xgLevel==='2'">等级限购</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="注册时间"></el-table-column>
+
         <el-table-column label="操作" width="180" align="center">
           <template #default="scope">
-            <el-button type="text" icon="el-icon-edit">编辑
+            <el-button type="text" icon="el-icon-edit" @click="openUpdate(scope)">编辑
             </el-button>
             <el-button type="text" icon="el-icon-delete" class="red"
                        @click="">删除
@@ -52,7 +60,7 @@
 
 
     <!-- 编辑弹出框 -->
-    <el-dialog title="新增" v-model="addVisible" width="40%" :append-to-body="true">
+    <el-dialog title="新增" v-model="addVisible" width="40%" :append-to-body="true" @opened="handleEdtor">
       <el-form :rules="rules" ref="formData" :model="formData">
         <!--物品种类-->
         <el-form-item label="物品类型" class="center" prop="itemType">
@@ -290,6 +298,7 @@
 <script>
 import axios from "axios";
 import moment from 'moment'
+import {ElMessage} from 'element-plus'
 
 export default {
   name: "ShopManage",
@@ -320,14 +329,23 @@ export default {
   }
   ,
   mounted() {
-    //
+    let params = {itemname: ""};
+    axios.post("proxy/api/queryShopItem", params).then(res => {
+      if (res.data.respCode === "1") {
+        let JsonData = res.data.data;
+        console.log(JsonData);
+        this.queryData = JsonData.data;
+      }
+    });
   },
   data() {
     return {
+      queryData: null,
       rules: {
         itemType: [{required: true, trigger: 'blur', message: "请选择物品类型"}]
       },
       formData: {
+        id: -1,
         xgCount: "1",
         stock: "1",
         xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
@@ -411,10 +429,14 @@ export default {
           // let params = this.formData;
           axios.post("proxy/api/addShopItem", this.formData).then(res => {
             if (res.data.respCode === "1") {
-              console.log("成功")
+              ElMessage({
+                message: '保存成功!',
+                type: 'success',
+              })
             } else {
-              console.log("失败")
+              ElMessage.error('保存出错')
             }
+            this.addVisible = false;
           });
 
         } else {
@@ -422,6 +444,40 @@ export default {
           return false
         }
       })
+    },
+    openUpdate(scope) {
+      console.log(scope.row)
+      //显示窗口
+      this.addVisible = true;
+      this.formData.id = scope.row.id;
+      this.formData.xgCount = scope.row.xgCount;
+      this.formData.stock = scope.row.stock;
+      this.formData.xgDate = [scope.row.dateStart.substring(0, 19).replace("T", " "), scope.row.dateEnd.substring(0, 19).replace("T", " ")];
+      this.formData.couDate = [scope.row.couDateStart.substring(0, 19).replace("T", " "), scope.row.couDateEnd.substring(0, 19).replace("T", " ")];
+      this.formData.couCurrType = scope.row.couCurrType;
+      this.formData.couPrice = scope.row.couPrice;
+      this.formData.couCond = scope.row.couCond;
+      this.formData.xgAll = scope.row.xgAll;
+      this.formData.fallow = scope.row.follow;
+      this.formData.xgLevel = scope.row.level;
+      this.formData.xgLevelset = scope.row.levelset;
+      this.formData.hotset = scope.row.hotset;
+      this.formData.hot = scope.row.hot;
+      this.formData.sellType = scope.row.sellType;
+      this.formData.desc = scope.row.desc;
+      this.formData.prefer = scope.row.prefer;
+      this.formData.discount = scope.row.discount;
+      this.formData.itemType = scope.row.itemtype;
+      this.formData.currency = scope.row.currency;
+      this.formData.price = scope.row.price;
+      this.formData.itemName = scope.row.itemName;
+      this.formData.translate = scope.row.translate;
+      this.formData.itemnum = scope.row.num;
+      this.formData.quality = scope.row.quality;
+      this.formData.itemGroup = scope.row.itemGroup;
+      this.formData.itemIcon = scope.row.itemIcon;
+      this.formData.itemTint = scope.row.itemTint;
+
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -452,8 +508,8 @@ export default {
         };
         // 配置触发 onchange 的时间频率，默认为 200ms
         this.editor.config.onchangeTimeout = 100; // 修改为 500ms
-
         this.editor.create()
+        this.editor.txt.html(this.formData.desc);
         this.instance = true;
       }
     },
