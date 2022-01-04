@@ -38,9 +38,10 @@
         <el-table-column label="物品状态">
           <template #default="scope">
             <el-tag v-if="scope.row.follow==='2'">跟档</el-tag>
-            <el-tag v-if="scope.row.hotSet==='2'">热卖</el-tag>
+            <el-tag v-if="scope.row.hot==='1'">热卖</el-tag>
             <el-tag v-if="scope.row.xgAll==='2'">限时购买</el-tag>
             <el-tag v-if="scope.row.xgLevel==='2'">等级限购</el-tag>
+            <el-tag v-if="scope.row.xgCount==='2'">限量购买</el-tag>
           </template>
         </el-table-column>
 
@@ -50,7 +51,7 @@
             <el-button type="text" icon="el-icon-edit" @click="openUpdate(scope)">编辑
             </el-button>
             <el-button type="text" icon="el-icon-delete" class="red"
-                       @click="">删除
+                       @click="handleDelete(scope.row.id)">删除
             </el-button>
           </template>
         </el-table-column>
@@ -258,7 +259,7 @@
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="8" style="text-align: left;margin-right: 20px;">
-              <el-select v-model="formData.xgCount" placeholder="货币种类" class="handle-space">
+              <el-select v-model="formData.xgCount" placeholder="限量出售" class="handle-space">
                 <el-option key="1" label="不限量" value="1"></el-option>
                 <el-option key="2" label="限量" value="2"></el-option>
               </el-select>
@@ -298,7 +299,7 @@
 <script>
 import axios from "axios";
 import moment from 'moment'
-import {ElMessage} from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 export default {
   name: "ShopManage",
@@ -329,14 +330,7 @@ export default {
   }
   ,
   mounted() {
-    let params = {itemname: ""};
-    axios.post("proxy/api/queryShopItem", params).then(res => {
-      if (res.data.respCode === "1") {
-        let JsonData = res.data.data;
-        console.log(JsonData);
-        this.queryData = JsonData.data;
-      }
-    });
+    this.initTableData();
   },
   data() {
     return {
@@ -421,13 +415,49 @@ export default {
     }
   },
   methods: {
+    handleDelete(id) {
+      ElMessageBox.confirm('确定要删除这个商品吗？')
+          .then((value) => {
+            if (value === "confirm") {
+              let params = {id: id};
+              axios.post("proxy/api/deleteShopItem", params).then(res => {
+                if (res.data.respCode === "1") {
+                  ElMessage({
+                    message: '删除成功!',
+                    type: 'success',
+                  })
+                } else {
+                  ElMessage.error('删除失败')
+                }
+                this.initTableData();
+              });
+            }
+          })
+          .catch(() => {
+            // catch error
+          })
+    },
+    initTableData() {
+      let params = {itemname: ""};
+      axios.post("proxy/api/queryShopItem", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          console.log(JsonData);
+          this.queryData = JsonData.data;
+        }
+      });
+    },
     submitForm(formName) {
       console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // alert('submit!')
-          // let params = this.formData;
-          axios.post("proxy/api/addShopItem", this.formData).then(res => {
+          let url = "";
+          if (this.formData.id === -1) {
+            url = "proxy/api/addShopItem";
+          } else {
+            url = "proxy/api/updateShopItem";
+          }
+          axios.post(url, this.formData).then(res => {
             if (res.data.respCode === "1") {
               ElMessage({
                 message: '保存成功!',
@@ -437,6 +467,7 @@ export default {
               ElMessage.error('保存出错')
             }
             this.addVisible = false;
+            this.initTableData();
           });
 
         } else {
@@ -451,7 +482,7 @@ export default {
       this.addVisible = true;
       this.formData.id = scope.row.id;
       this.formData.xgCount = scope.row.xgCount;
-      this.formData.stock = scope.row.stock;
+      this.formData.stock = scope.row.stock + "";
       this.formData.xgDate = [scope.row.dateStart.substring(0, 19).replace("T", " "), scope.row.dateEnd.substring(0, 19).replace("T", " ")];
       this.formData.couDate = [scope.row.couDateStart.substring(0, 19).replace("T", " "), scope.row.couDateEnd.substring(0, 19).replace("T", " ")];
       this.formData.couCurrType = scope.row.couCurrType;
@@ -461,22 +492,23 @@ export default {
       this.formData.fallow = scope.row.follow;
       this.formData.xgLevel = scope.row.level;
       this.formData.xgLevelset = scope.row.levelset;
-      this.formData.hotset = scope.row.hotset;
+      this.formData.hotset = scope.row.hotSet + "";
       this.formData.hot = scope.row.hot;
-      this.formData.sellType = scope.row.sellType;
+      this.formData.sellType = scope.row.sellType + "";
       this.formData.desc = scope.row.desc;
-      this.formData.prefer = scope.row.prefer;
+      this.formData.prefer = scope.row.prefer + "";
       this.formData.discount = scope.row.discount;
       this.formData.itemType = scope.row.itemtype;
       this.formData.currency = scope.row.currency;
-      this.formData.price = scope.row.price;
-      this.formData.itemName = scope.row.itemName;
+      this.formData.price = scope.row.price + "";
+      this.formData.itemName = scope.row.name;
       this.formData.translate = scope.row.translate;
-      this.formData.itemnum = scope.row.num;
+      this.formData.itemnum = scope.row.num + "";
       this.formData.quality = scope.row.quality;
       this.formData.itemGroup = scope.row.itemGroup;
       this.formData.itemIcon = scope.row.itemIcon;
       this.formData.itemTint = scope.row.itemTint;
+      this.formData.itemGroup = scope.row.class1;
 
     },
     resetForm(formName) {
@@ -509,11 +541,12 @@ export default {
         // 配置触发 onchange 的时间频率，默认为 200ms
         this.editor.config.onchangeTimeout = 100; // 修改为 500ms
         this.editor.create()
-        this.editor.txt.html(this.formData.desc);
         this.instance = true;
       }
+      this.editor.txt.html(this.formData.desc);
     },
     handleAdd() {
+      this.formData.id = -1;
       this.addVisible = true;
     },
     loadCouCurr(queryString, cb) {
