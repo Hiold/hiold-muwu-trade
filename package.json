@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^0.2.4",
     "axios": "^0.21.1",
     "element-plus": "1.0.2-beta.52",
     "mitt": "^3.0.0",

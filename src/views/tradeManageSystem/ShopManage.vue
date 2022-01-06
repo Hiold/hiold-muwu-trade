@@ -128,6 +128,27 @@
                            @select="handleSelect"></el-autocomplete>
         </el-form-item>
 
+        <el-form-item class="center" v-if="formData.itemType==='2'">
+          <el-upload
+              class="upload-demo"
+              drag
+              action="https://jsonplaceholder.typicode.com/posts/"
+              multiple
+          >
+            <el-icon class="el-icon--upload">
+              <upload-filled/>
+            </el-icon>
+            <div class="el-upload__text">
+              拖拽 <em>或点击上传图片</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+        </el-form-item>
+
         <el-form-item class="center"
                       v-if="formData.itemType==='1'&&formData.itemName!==''&&formData.itemName!==null">
           <el-image v-if="formData.itemType==='1'&&formData.itemName!==''&&formData.itemName!==null"
