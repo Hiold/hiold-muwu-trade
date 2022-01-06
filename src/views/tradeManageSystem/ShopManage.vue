@@ -129,24 +129,19 @@
         </el-form-item>
 
         <el-form-item class="center" v-if="formData.itemType==='2'">
-          <el-upload
-              class="upload-demo"
-              drag
-              action="https://jsonplaceholder.typicode.com/posts/"
-              multiple
-          >
-            <el-icon class="el-icon--upload">
-              <upload-filled/>
-            </el-icon>
-            <div class="el-upload__text">
-              拖拽 <em>或点击上传图片</em>
-            </div>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
+          <ul class="infinite-list" style="overflow-x: scroll">
+            <el-upload action="proxy/api/uploadFile" multiple :on-success="handleAvatarSuccess"
+                       :on-error="handleAvatarFaild"
+                       style="float: left;width: 100px;height: 100px;">
+              <el-tag style="margin-top: 35px;">添加新图片</el-tag>
+            </el-upload>
+            <li v-for="i in allIcon" :key="i" class="infinite-list-item">
+              <el-image style="width: 100px;height:100px;" :src="'proxy/api/iconImage/'+i">
+
+              </el-image>
+            </li>
+          </ul>
+
         </el-form-item>
 
         <el-form-item class="center"
@@ -352,9 +347,11 @@ export default {
   ,
   mounted() {
     this.initTableData();
+    this.initIconData();
   },
   data() {
     return {
+      allIcon: [],
       queryData: null,
       rules: {
         itemType: [{required: true, trigger: 'blur', message: "请选择物品类型"}]
@@ -436,6 +433,15 @@ export default {
     }
   },
   methods: {
+    handleAvatarSuccess() {
+      ElMessage({
+        message: '上传成功!',
+        type: 'success',
+      })
+    },
+    handleAvatarFaild() {
+      ElMessage.error('上传失败')
+    },
     handleDelete(id) {
       ElMessageBox.confirm('确定要删除这个商品吗？')
           .then((value) => {
@@ -465,6 +471,16 @@ export default {
           let JsonData = res.data.data;
           console.log(JsonData);
           this.queryData = JsonData.data;
+        }
+      });
+    },
+    initIconData() {
+      let params = {itemname: ""};
+      axios.post("proxy/api/getIconFile", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          console.log(JsonData);
+          this.allIcon = JsonData;
         }
       });
     },
@@ -614,7 +630,63 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.el-form-item {
+  display: -webkit-box;
+}
+
+.infinite-list {
+  height: 135px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  float: left;
+}
+
+.infinite-list .infinite-list-item {
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background: var(--el-color-primary-light-9);
+  margin: 10px;
+  color: var(--el-color-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.el-upload--text {
+  background-color: #fff;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.infinite-list .infinite-list-item + .list-item {
+  margin-left: 10px;
+}
+
+.el-upload--picture-card {
+  background-color: #fbfdff;
+  border: 1px dashed #c0ccda;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 148px;
+  height: 148px;
+  cursor: pointer;
+  vertical-align: top;
+}
+
 .demonstration {
   font-size: 14px;
   /*color: var(--el-text-color-secondary);*/
