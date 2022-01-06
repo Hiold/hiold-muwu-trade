@@ -3,8 +3,7 @@
     <!--alert弹窗common-->
     <alert-common :couProps="couProps"></alert-common>
 
-    <left-container-box :itemMenu="itemMenu" :class1="class1" :class2="class2"
-                        @setclass1="setclass1" @setclass2="setclass2"></left-container-box>
+    <left-container-box :itemMenu="itemMenu" :class1="class1" :class2="class2"></left-container-box>
     <right-container-box></right-container-box>
   </div>
 </template>
@@ -15,6 +14,7 @@ import "/src/assets/style/index.css";
 import LeftContainerBox from "/src/components/shop/LeftContainerBox.vue";
 import RightMenuBox from "/src/components/shop/RightMenuBox.vue";
 import AlertCommon from "/src/components/AlertCommon.vue";
+import {getCurrentInstance, onUnmounted} from 'vue'
 //引入juqery
 import $ from 'jquery'
 
@@ -259,6 +259,15 @@ export default {
   },
   mounted() {
     this.ready();
+    //注册全局时间
+    const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+
+    $bus.on('setclass1', options => {
+      this.class1 = options;
+    });
+    $bus.on('setclass2', options => {
+      this.class2 = options;
+    });
   }
 }
 </script>

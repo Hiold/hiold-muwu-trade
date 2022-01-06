@@ -15,8 +15,8 @@ import '../../../../assets/style/shop-nav.css'
 import '../../../../assets/style/headTool.css'
 //引入juqery
 import $ from 'jquery'
-
 import ShopMenuItem from '/src/components/shop/MainBox/Shop/ShopMenuItem.vue'
+import {getCurrentInstance} from 'vue'
 
 export default {
   components: {"shop-mune-item": ShopMenuItem},
@@ -27,6 +27,9 @@ export default {
   },
   methods: {
     ready() {
+
+      const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+
       var self = this;
       $(".Category>div>li").hide();	//默认隐藏所有子分类
       //$(".Category>div>li[class^='b1']").show();	//默认显示第一组子分类（活动折扣）
@@ -40,7 +43,7 @@ export default {
           $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
           $(".Category>div>ul").data("click", "false");
           $(this).data("click", "true");	//将展开状态设置为"展开"
-          self.class1 = $(this).find("div").text();	//获取当前点击总分类名称
+          $bus.emit('setclass1', $(this).find("div").text());
           //alert("展开总分类："+class1)
           $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
           //console.log("总分类："+xb);
@@ -74,7 +77,8 @@ export default {
         //$(".Category>div>li[class^='b"+xb+"']").data("click","false");
         $(".Category>div>li").data("click", "false");
         $(this).data("click", "true");
-        self.class2 = $(this).text();	//获取当前点击的子分类名称
+        // self.class2 = $(this).text();	//获取当前点击的子分类名称
+        $bus.emit('setclass2', $(this).text());
 
         //console.log("子分类："+xb);
         self.changeColor(xb);
