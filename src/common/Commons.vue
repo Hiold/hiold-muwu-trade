@@ -3,9 +3,13 @@
 </template>
 
 <script>
-export default {
-  name: "Commons"
-}
+    export default {
+        name: "Commons",
+        setup(){
+
+
+        }
+    }
 </script>
 
 <style scoped>
