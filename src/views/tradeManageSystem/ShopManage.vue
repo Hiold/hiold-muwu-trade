@@ -509,6 +509,7 @@ export default {
       this.formData.itemIcon = scope.row.itemIcon;
       this.formData.itemTint = scope.row.itemTint;
       this.formData.itemGroup = scope.row.class1;
+      this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
 
     },
     resetForm(formName) {
@@ -578,14 +579,14 @@ export default {
     },
     //执行查询
     handleSelect(item) {
-      // console.log(item)
+      console.log(this.itemNameCache[item.value])
       this.formData.translate = item.value;
       this.formData.itemName = this.itemNameCache[item.value].itemname;
       this.formData.itemGroup = this.itemNameCache[item.value].group;
-      this.formData.itemIcon = this.itemNameCache[item.value].icon;
-      this.formData.itemTint = this.itemNameCache[item.value].tint;
+      this.formData.itemIcon = this.itemNameCache[item.value].icon === null ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon;
+      this.formData.itemTint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
       // console.log(itemNameCache[itemName.value], itemName, item);
-      this.src = 'proxy/api/image/' + this.itemNameCache[item.value].itemname + '.png';
+      this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
     }
 
   }
