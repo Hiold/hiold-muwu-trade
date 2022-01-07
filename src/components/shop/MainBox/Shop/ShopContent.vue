@@ -139,25 +139,25 @@ export default {
     },
     searchItems() {	//当输入框获内容改变时，只显示搜索的商品（无视英文字母大小写）
       var self = this;
-      $(".items-shop>.items").show();	//先默认让所有隐藏元素显示
+      $(".items-box>.items").show();	//先默认让所有隐藏元素显示
       var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
       var find = false;	//默认为没找到商品
-      for (var i = 0; i < $(".items-shop>.items").length; i++) {	//遍历当前页面显示的商品
-        var xb = $(".items-shop>.items").eq(i).data("index");	//获取每个商品在数组中的下标
-        //var name = $(".items-shop>.items").eq(i).find("header").find(".name").text();
+      for (var i = 0; i < $(".items-box>.items").length; i++) {	//遍历当前页面显示的商品
+        var xb = $(".items-box>.items").eq(i).data("index");	//获取每个商品在数组中的下标
+        //var name = $(".items-box>.items").eq(i).find("header").find(".name").text();
         var name = self.shop.data[xb].name.toLowerCase();	//获取商品名称
         var id = self.shop.data[xb].id.toLowerCase();		//获取商品ID
         if (name.indexOf(txt) != -1 || id.indexOf(txt) != -1) {	//如果商品名称或ID中包含了你需要搜索的字符串
           find = true;
-          $(".items-shop>.none").hide();
+          $(".items-box>.none").hide();
         } else {
-          $(".items-shop>.items").eq(i).hide();
+          $(".items-box>.items").eq(i).hide();
         }
       }
       if (!find) {	//如果遍历完数组后，仍然没找到要搜索的商品
         // console.log("没找到搜索的商品");
-        $(".items-shop>.none").show();
-        $(".items-shop>.none").find("span").html("没有找到你想<br>搜索的商品");
+        $(".items-box>.none").show();
+        $(".items-box>.none").find("span").html("没有找到你想<br>搜索的商品");
       }
     },
     showdetail(item, target) {
@@ -175,7 +175,7 @@ export default {
       }
       //点击卡片打开商品详情
       $(".items-details").fadeIn(100);
-      $(".items-shop,.head-tool").fadeOut(100);
+      $(".items-box,.head-tool").fadeOut(100);
       //arrcomToObj();	//将商品数据转换为obj格式
       //下面是获取商品的基本信息
       var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
@@ -188,10 +188,12 @@ export default {
       var price = $(target).find(".price").text();	//价格
       var del = $(target).find("del").text();		//删除价
       var dis = $(target).find("header").find("i").text();	//折扣
-      var xgLevel = item.xgLevel;		//等级限购
-      var xgLevelset = item.xgLevelset;		//等级限购
-      var xgDay = item.xgDay;			//每日限购
-      var xgAll = item.xgAll;			//总数限购
+      var xgLevel = item.xglevel;		//等级限购
+      var xgLevelset = item.xglevelset;		//等级限购
+      var xgDay = item.xgday;			//每日限购
+      var xgDayset = item.xgdayset;			//每日限购
+      var xgAll = item.xgall;			//总数限购
+      var xgAllset = item.xgallset;			//总数限购
       var stock = item.stock;			//剩余库存
       var img = 'proxy/api/image/' + item.itemicon;				//商品图片
       var backImg = $(target).css("background-image");//商品展示框背景图片
@@ -203,7 +205,7 @@ export default {
 
 
       var buyDay = "待实现";		//今日已购买数量
-      var buyAll = item.stock;		//历史购买总数量
+      var buyAll = "待实现";		//历史购买总数量
 
       //保存下标
       //下面是在商品详情页面打印商品信息
@@ -214,7 +216,7 @@ export default {
         $(".spxq").find(".shul").hide().text("");
       }
       $(".spxq").find(".sells").text("销量 : " + sales);	//销量
-      console.log(item.itemtype)
+      // console.log(item.itemtype)
       if (item.itemtype === '2') {
         $(".spxq").find(".cs1").hide();
         $(".spxq").find(".cs2").hide();
@@ -263,39 +265,42 @@ export default {
         $(".spxq").find(".xg1").find(".txt").text("≤ lv." + xgLevelset * -1);
       } else {
         $(".spxq").find(".xg1").find(".txt").text("无限制");
-      }``
+      }
+      ``
       //每日限购
-      if (xgDay >= 0) {
-        $(".spxq").find(".xg2").find(".txt").text(buyDay + "/" + xgDay);
+      if (xgDay === '2') {
+        $(".spxq").find(".xg2").find(".txt").text(buyDay + "/" + xgDayset);
       } else {
         $(".spxq").find(".xg2").find(".txt").text("无限制");
       }
       //总限购
-      if (xgAll >= 0) {
-        $(".spxq").find(".xg3").find(".txt").text(buyAll + "/" + xgAll);
+      if (xgAll === '2') {
+        $(".spxq").find(".xg3").find(".txt").text(buyAll + "/" + xgAllset);
       } else {
         $(".spxq").find(".xg3").find(".txt").text("无限制");
       }
       //输入框默认数量为1
       $(".spxq>.num>input").val(1);
       //库存
-      if (stock >= 0) {
+      if ((stock * 1) >= 0) {
+        console.log((stock * 1))
         $(".spxq").find(".stock").text("（库存 : " + stock + "）");
-        if (stock == 0) {	//如果库存为0，显示售罄图标
+        if (stock * 1 === 0) {	//如果库存为0，显示售罄图标
           $(".items-details>.left>.image .soldout").show();
         } else {
           $(".items-details>.left>.image .soldout").hide();
         }
       } else {
+        $(".items-details>.left>.image .soldout").hide();
         $(".spxq").find(".stock").text("（库存 : 无上限）");
       }
       //售罄图标
-      var showS = $(this).find(".soldout").css("display");
-      if (showS == "block") {
-        $(".items-details>.left>.image .soldout").show();
-      } else {
-        $(".items-details>.left>.image .soldout").hide();
-      }
+      // var showS = $(target).find(".soldout").css("display");
+      // if (showS == "block") {
+      //   $(".items-details>.left>.image .soldout").show();
+      // } else {
+      //   $(".items-details>.left>.image .soldout").hide();
+      // }
       //热销图标
       if (hot == "block") {
         $(".items-details>.left").find(".hot").show();
@@ -363,10 +368,10 @@ export default {
     //处理当前页面等待元素
     $(".loading").hide();
     if (this.shop.length == 0) {
-      $(".items-shop>.none").show();
-      $(".items-shop>.none").find("span").html("暂无出售的商品<br>快叫服主上架");
+      $(".items-box>.none").show();
+      $(".items-box>.none").find("span").html("暂无出售的商品<br>快叫服主上架");
     } else {
-      $(".items-shop>.none").hide();
+      $(".items-box>.none").hide();
     }
     // this.GenerateCom(this.class1, this.class2);
 
@@ -378,7 +383,7 @@ export default {
       self.searchItems();
     });
 
-    $(".items-shop").on("click", ".collect", function () {	//收藏商品
+    $(".items-box").on("click", ".collect", function () {	//收藏商品
       //alert(123)
       var coll = $(this).data("collect");
       var xb = $(this).parents(".items").data("index");
@@ -414,14 +419,14 @@ export default {
     });
 
     function cardToIcon() {	//将卡片转换为图标
-      $(".items-shop>.items>header,.items-shop>.items>footer").hide();	//隐藏头部和脚部
-      $(".items-shop>.items>section>div").css("opacity", "0");		//隐藏多余元素（仅保留图片）
-      $(".items-shop>.items>section>.collect").hide();
-      $(".items-shop>.items>section").css({		//调整图片区域的样式
+      $(".items-box>.items>header,.items-box>.items>footer").hide();	//隐藏头部和脚部
+      $(".items-box>.items>section>div").css("opacity", "0");		//隐藏多余元素（仅保留图片）
+      $(".items-box>.items>section>.collect").hide();
+      $(".items-box>.items>section").css({		//调整图片区域的样式
         "height": "100%",
         "transform": "scale(0.8)"
       });
-      $(".items-shop>.items").css({	//调整整个卡片的样式
+      $(".items-box>.items").css({	//调整整个卡片的样式
         "width": "13.27%",
         "height": "6.2rem",
         "margin": "0.5%"
@@ -429,14 +434,14 @@ export default {
     }
 
     function iconToCard() {	//将图标转换为卡片
-      $(".items-shop>.items>header,.items-shop>.items>footer").show();	//显示头部和脚部
-      $(".items-shop>.items>section>div").css("opacity", "1");		//显示多余元素
-      $(".items-shop>.items>section>.collect").show();
-      $(".items-shop>.items>section").css({		//调整图片区域的样式
+      $(".items-box>.items>header,.items-box>.items>footer").show();	//显示头部和脚部
+      $(".items-box>.items>section>div").css("opacity", "1");		//显示多余元素
+      $(".items-box>.items>section>.collect").show();
+      $(".items-box>.items>section").css({		//调整图片区域的样式
         "height": "60%",
         "transform": "scale(1)"
       });
-      $(".items-shop>.items").css({	//调整整个卡片的样式
+      $(".items-box>.items").css({	//调整整个卡片的样式
         "width": "31.3%",
         "height": "10rem",
         "margin": "1%"

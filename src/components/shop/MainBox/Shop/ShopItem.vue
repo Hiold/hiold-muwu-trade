@@ -4,7 +4,9 @@
     <!--渲染名字时使用过滤器去掉bbcode-->
     <header>
       <span
-          class="name">{{ deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate) }}</span>
+          class="name">{{
+          deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
+        }}</span>
       <!--同时满足折扣1~10之间并不是跟档道具才展示折扣-->
       <span class="num" v-show="item.num>0">x{{ item.num }}</span><i
         v-show="item.discount<10&&item.discount>0&&item.follow==='1'"
@@ -20,8 +22,8 @@
       <div class="collect notcollected" v-if="!item.collected"></div>
       <div class="hot" v-show="calcHot(item)"></div>
       <div class="ex" v-show="item.classMod==='2'">网页专属</div>
-<!--      <div class="ex" v-if="item.class1==='网页专属'">网页专属</div>-->
-      <div class="soldout" v-show="item.stock*1<=0"></div>
+      <!--      <div class="ex" v-if="item.class1==='网页专属'">网页专属</div>-->
+      <div class="soldout" v-show="item.stock*1===0"></div>
       <div class="vip" v-show="vip===true"></div>
     </section>
     <footer><i

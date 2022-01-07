@@ -183,10 +183,25 @@
                      :marks="marks"></el-slider>
         </el-form-item>
 
-
-        <el-form-item label="数量" class="center" v-if="formData.itemType!==''">
+        <el-form-item label="物品数量" class="center" v-if="formData.itemType!==''">
           <el-input class="handle-space" placeholder="数量" v-model="formData.itemnum"></el-input>
         </el-form-item>
+
+        <el-form-item label="总库存数量" class="center" v-if="formData.itemType!==''">
+          <el-row>
+            <el-col :span="1"></el-col>
+            <el-col :span="8" style="text-align: left;margin-right: 20px;">
+              <el-select v-model="formData.stock" placeholder="是否限制总库存" class="handle-space">
+                <el-option key="-1" label="无限制" value="-1"></el-option>
+                <el-option key="100" label="使用总库存" value="100"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="11" style="text-align: left;margin-right: 20px;">
+              <el-input class="handle-space" placeholder="库存" v-model="formData.stock"></el-input>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
 
         <el-form-item label="货币类型" class="center" v-if="formData.itemType!==''">
           <el-select v-model="formData.currency" placeholder="货币种类" class="handle-space">
@@ -400,9 +415,9 @@ export default {
       },
       formData: {
         id: -1,
-        stock: "1",
-        xgdatelimit:"1",
-        coudatelimit:"1",
+        stock: "-1",
+        xgdatelimit: "1",
+        coudatelimit: "1",
         xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
         couDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
         couCurrType: "积分折扣",
@@ -563,9 +578,9 @@ export default {
       this.formData.id = scope.row.id;
       this.formData.xgCount = scope.row.xgCount;
       this.formData.stock = scope.row.stock + "";
-      this.formData.xgdatelimit=scope.row.xgdatelimit;
+      this.formData.xgdatelimit = scope.row.xgdatelimit;
       this.formData.xgDate = [scope.row.dateStart.substring(0, 19).replace("T", " "), scope.row.dateEnd.substring(0, 19).replace("T", " ")];
-      this.formData.coudatelimit=scope.row.coudatelimit;
+      this.formData.coudatelimit = scope.row.coudatelimit;
       this.formData.couDate = [scope.row.couDateStart.substring(0, 19).replace("T", " "), scope.row.couDateEnd.substring(0, 19).replace("T", " ")];
       this.formData.couCurrType = scope.row.couCurrType;
       this.formData.couPrice = scope.row.couPrice;
