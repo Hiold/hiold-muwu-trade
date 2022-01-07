@@ -45,6 +45,7 @@ import ShopMenuItem from '/src/components/shop/MainBox/Shop/ShopItem.vue'
 import ShopItemDetails from "/src/components/shop/MainBox/Shop/ShopItemDetails.vue";
 //引入juqery
 import $ from 'jquery'
+import axios from "axios";
 
 export default {
   name: "ShopContent",
@@ -55,39 +56,41 @@ export default {
       isdetailShow: false,
       item: {},
       formPage: "",
-      shop: [{
-        "id": "积分",
-        "name": "积分兑换券",
-        "image": "images/items/jf2.png",
-        "quality": "3",
-        "num": "1000",
-        "currency": "积分",
-        "price": "1000",
-        "discount": "7.8",
-        "prefer": "999",
-        "desc": "<span style='color:mediumpurple;font-size:1.2rem;font-weight:bold;'>这个物品可以跟档</span><br><font color='orangered'><b>网页专属积分兑换券</b></font><br>在仓库中使用可获得对应数量积分",
-        "class1": "特殊商品",
-        "class2": "货币兑换",
-        "classMod": true,
-        "sales": "88888",
-        "hot": "auto",
-        "hotSet": "888",
-        "show": "auto",
-        "stock": "11",
-        "collect": "55",
-        "sell": true,
-        "xgLevel": false,
-        "xgDay": "10",
-        "xgAll": "false",
-        "follow": false,
-        "year": 2021,
-        "mon": 12,
-        "day": 31,
-        "hour": 18,
-        "min": 0,
-        "sec": 0,
-        "collected": true
-      }],
+      shop: [
+        //     {
+        //   "id": "积分",
+        //   "name": "积分兑换券",
+        //   "image": "images/items/jf2.png",
+        //   "quality": "3",
+        //   "num": "1000",
+        //   "currency": "积分",
+        //   "price": "1000",
+        //   "discount": "7.8",
+        //   "prefer": "999",
+        //   "desc": "<span style='color:mediumpurple;font-size:1.2rem;font-weight:bold;'>这个物品可以跟档</span><br><font color='orangered'><b>网页专属积分兑换券</b></font><br>在仓库中使用可获得对应数量积分",
+        //   "class1": "特殊商品",
+        //   "class2": "货币兑换",
+        //   "classMod": true,
+        //   "sales": "88888",
+        //   "hot": "auto",
+        //   "hotSet": "888",
+        //   "show": "auto",
+        //   "stock": "11",
+        //   "collect": "55",
+        //   "sell": true,
+        //   "xgLevel": false,
+        //   "xgDay": "10",
+        //   "xgAll": "false",
+        //   "follow": false,
+        //   "year": 2021,
+        //   "mon": 12,
+        //   "day": 31,
+        //   "hour": 18,
+        //   "min": 0,
+        //   "sec": 0,
+        //   "collected": true
+        // }
+      ],
       comCard: "",
       playerCollects: [],//收藏
       playerBuys: [],//购买
@@ -152,14 +155,14 @@ export default {
         }
       }
       if (!find) {	//如果遍历完数组后，仍然没找到要搜索的商品
-        console.log("没找到搜索的商品");
+        // console.log("没找到搜索的商品");
         $(".items-shop>.none").show();
         $(".items-shop>.none").find("span").html("没有找到你想<br>搜索的商品");
       }
     },
     showdetail(item, target) {
       this.item = item;
-      // console.log(target)
+      console.log(item)
       //查找父级元素
       for (var l = 0; l < 10; l++) {
         var targetName = target.tagName.toLowerCase()
@@ -175,7 +178,7 @@ export default {
       $(".items-shop,.head-tool").fadeOut(100);
       //arrcomToObj();	//将商品数据转换为obj格式
       //下面是获取商品的基本信息
-      var name = this.deleteBBcode(item.name);//名称
+      var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
       var num = item.num;				//数量
       var sales = item.sales;			//销量
       var class1 = item.class1;			//总分类
@@ -186,10 +189,11 @@ export default {
       var del = $(target).find("del").text();		//删除价
       var dis = $(target).find("header").find("i").text();	//折扣
       var xgLevel = item.xgLevel;		//等级限购
+      var xgLevelset = item.xgLevelset;		//等级限购
       var xgDay = item.xgDay;			//每日限购
       var xgAll = item.xgAll;			//总数限购
       var stock = item.stock;			//剩余库存
-      var img = item.image;				//商品图片
+      var img = 'proxy/api/image/' + item.itemicon;				//商品图片
       var backImg = $(target).css("background-image");//商品展示框背景图片
       var hot = $(target).find("section").find(".hot").css("display");//热销图标
       var quality = item.quality;			//品质
@@ -199,7 +203,7 @@ export default {
 
 
       var buyDay = "待实现";		//今日已购买数量
-      var buyAll = "待实现";		//历史购买总数量
+      var buyAll = item.stock;		//历史购买总数量
 
       //保存下标
       //下面是在商品详情页面打印商品信息
@@ -210,8 +214,19 @@ export default {
         $(".spxq").find(".shul").hide().text("");
       }
       $(".spxq").find(".sells").text("销量 : " + sales);	//销量
-      $(".spxq").find(".cs1").text(class1);			//总分类
-      $(".spxq").find(".cs2").text(class2);			//子分类
+      console.log(item.itemtype)
+      if (item.itemtype === '2') {
+        $(".spxq").find(".cs1").hide();
+        $(".spxq").find(".cs2").hide();
+        $(".spxq").find(".cs1").text(class1);			//总分类
+        $(".spxq").find(".cs2").text(class2);			//子分类
+      } else {
+        $(".spxq").find(".cs1").show();
+        $(".spxq").find(".cs2").show();
+        $(".spxq").find(".cs1").text(class1);			//总分类
+        $(".spxq").find(".cs2").text(class2);			//子分类
+      }
+
       if (sell == "vip") {
         $(".spxq").find(".cs4").show().text("会员专属");		//VIP专属
       } else {
@@ -242,13 +257,13 @@ export default {
         $(".spxq").find(".price").find(".p1").find("i").css("background-image", "url(images/icon/red-zs.png)");
       }
       //等级限购
-      if (xgLevel > 0) {
-        $(".spxq").find(".xg1").find(".txt").text("≥ lv." + xgLevel);
-      } else if (xgLevel < 0) {
-        $(".spxq").find(".xg1").find(".txt").text("≤ lv." + xgLevel * -1);
+      if (xgLevel === '2') {
+        $(".spxq").find(".xg1").find(".txt").text("≥ lv." + xgLevelset);
+      } else if (xgLevel === '3') {
+        $(".spxq").find(".xg1").find(".txt").text("≤ lv." + xgLevelset * -1);
       } else {
         $(".spxq").find(".xg1").find(".txt").text("无限制");
-      }
+      }``
       //每日限购
       if (xgDay >= 0) {
         $(".spxq").find(".xg2").find(".txt").text(buyDay + "/" + xgDay);
@@ -333,9 +348,18 @@ export default {
       //detectNum();
       this.isdetailShow = true;
     }
+
   }
   , mounted() {
-    console.log("\n当前分区售卖商品数量:" + this.shop.length + "\n\n");
+    let params = {itemname: ""};
+    axios.post("proxy/api/queryShopItem", params).then(res => {
+      if (res.data.respCode === "1") {
+        let JsonData = res.data.data;
+        this.shop = JsonData.data;
+      }
+    });
+
+    // console.log("\n当前分区售卖商品数量:" + this.shop.length + "\n\n");
     //处理当前页面等待元素
     $(".loading").hide();
     if (this.shop.length == 0) {

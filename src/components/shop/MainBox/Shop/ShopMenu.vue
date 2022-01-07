@@ -27,9 +27,7 @@ export default {
   },
   methods: {
     ready() {
-
       const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
-
       var self = this;
       $(".Category>div>li").hide();	//默认隐藏所有子分类
       //$(".Category>div>li[class^='b1']").show();	//默认显示第一组子分类（活动折扣）
@@ -38,6 +36,7 @@ export default {
       $(".Category>div>ul").click(function () {	//总分类点击特效+生成商品
         var dc = $(this).data("click");		//获取当前分类下的子分类展开状态
         var xb = $(this).attr("class").split("-")[1];	//从类名中获取序号
+        // console.log(dc, xb);
         if (dc == "false" || dc == undefined) {	//情况1:如果子分类为隐藏
           $(".Category>div>li").slideUp(100);	//先隐藏所有分组的子分类
           $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
@@ -66,7 +65,7 @@ export default {
       $(".Category>div>li").click(function () {		//子分类点击特效+生成商品
         $(".head-tool .name-id").val("");
         $(".items-details").hide();
-        $(".items-shop,.head-tool").show();
+        $(".items-box,.head-tool").show();
         var xb = $(this).attr("class").split("")[1];	//获取序号
         //console.log("序号:"+xb)
         $(".Category>div>li[class^='b" + xb + "']").css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
@@ -79,7 +78,6 @@ export default {
         $(this).data("click", "true");
         // self.class2 = $(this).text();	//获取当前点击的子分类名称
         $bus.emit('setclass2', $(this).text());
-
         //console.log("子分类："+xb);
         self.changeColor(xb);
         //$(".items-details").fadeOut(200);
@@ -117,29 +115,29 @@ export default {
     },
     changeColor(color) {
       if (color == 1) {
-        $(".items-shop>.items").css("background-image", "url(images/card/yellow.jpg)");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
+        $(".items-box>.items").css("background-image", "url(images/card/yellow.jpg)");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(255, 229, 168, 0.5), rgba(254, 234, 188, 0.7))");
       }
       if (color == 2) {
-        $(".items-shop>.items").css("background-image", "url(images/card/green.jpg)");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
+        $(".items-box>.items").css("background-image", "url(images/card/green.jpg)");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(144, 238, 144, 0.5), rgba(187, 244, 187, 0.7))");
       }
       if (color == 3) {
-        $(".items-shop>.items").css("background-image", "url(images/card/beige.jpg)");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
+        $(".items-box>.items").css("background-image", "url(images/card/beige.jpg)");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7))");
       }
       if (color == 4) {
-        $(".items-shop>.items").css("background-image", "url(images/card/pink.jpg)");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-box>.items").css("background-image", "url(images/card/pink.jpg)");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
       if (color == 5) {
-        $(".items-shop>.items").css("background-image", "url(images/card/purple.jpg)");
+        $(".items-box>.items").css("background-image", "url(images/card/purple.jpg)");
         //$(".items-shop>.items>section").css("background","linear-gradient(90deg, rgba(185, 216, 253, 0.5), rgba(209, 230, 254, 0.7))");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(237, 184, 254, 0.5), rgba(247, 209, 254, 0.7))");
       }
       if (color == 6) {
-        $(".items-shop>.items").css("background-image", "url(images/card/red.jpg)");
-        $(".items-shop>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
+        $(".items-box>.items").css("background-image", "url(images/card/red.jpg)");
+        $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
       //$(".items-shop>.items").css("opacity","1");
     },
@@ -151,7 +149,7 @@ export default {
         var xb = $(".Category>div>ul").eq(i).attr("class").split("-")[1];	//获取总分类下标
 
         if (name1 == type1) {	//找到对应总分类
-          console.log($(".Category>div>ul").eq(i).click());
+          // console.log($(".Category>div>ul").eq(i).click());
           for (var j = 0; j < $(".Category>div>li[class^=b" + xb + "]").length; j++) {
             var name2 = $(".Category>div>li[class^=b" + xb + "]").eq(j).text();
             if (name2 == type2 && name2 != "全部") {	//找到对应子分类

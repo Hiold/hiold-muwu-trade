@@ -37,6 +37,7 @@
 
 /* 下面是关于商品（卡片）的样式 */
 .items-box > .items {
+    background-image: url("../images/card/yellow.jpg");
     width: 31.3%;
     height: 10rem;
     border: 0.15rem solid white;

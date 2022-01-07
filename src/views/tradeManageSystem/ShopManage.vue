@@ -24,9 +24,18 @@
             {{ scope.row.postTime.substring(0, 19).replace("T", " ") }}
           </template>
         </el-table-column>
+
+        <el-table-column label="物品图标" :width="100">
+          <template #default="scope">
+            <el-image style="width: 50px;height: 50px;" :src="'proxy/api/image/'+scope.row.itemicon"></el-image>
+          </template>
+        </el-table-column>
+
         <el-table-column label="物品名称">
           <template #default="scope">
-            {{ scope.row.translate === null ? scope.row.couCurrType : scope.row.translate }}
+            {{
+              (scope.row.translate === null || scope.row.translate === "") ? scope.row.couCurrType : scope.row.translate
+            }}
           </template>
         </el-table-column>
         <el-table-column label="售价">
@@ -103,15 +112,28 @@
 
         </el-form-item>
 
-        <el-form-item label="使用限制日期" class="center" v-show="formData.itemType==='2'">
-          <el-date-picker
-              v-model="formData.couDate"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始时间"
-              end-placeholder="结束时间"
-              @change="catchs">
-          </el-date-picker>
+        <el-form-item label="使用限制日期" class="center" v-if="formData.itemType==='2'">
+          <el-row>
+            <el-col :span="8">
+              <el-select v-model="formData.coudatelimit" placeholder="限时使用" class="handle-space">
+                <el-option key="1" label="不限时" value="1"></el-option>
+                <el-option key="2" label="限时使用" value="2"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="15" style="text-align: left;margin-right: 20px;">
+              <div v-show="formData.coudatelimit==='2'">
+                <el-date-picker
+                    v-model="formData.couDate"
+                    type="datetimerange"
+                    range-separator="至"
+                    start-placeholder="开抢时间"
+                    end-placeholder="结束时间"
+                    @change="catchs"
+                >
+                </el-date-picker>
+              </div>
+            </el-col>
+          </el-row>
         </el-form-item>
 
 
@@ -135,8 +157,10 @@
                        style="float: left;width: 100px;height: 100px;">
               <el-tag style="margin-top: 35px;">添加新图片</el-tag>
             </el-upload>
-            <li v-for="i in allIcon" :key="i" class="infinite-list-item">
-              <el-image style="width: 100px;height:100px;" :src="'proxy/api/iconImage/'+i">
+            <li v-for="i in allIcon" :key="i" class="infinite-list-item" :ref="imglist">
+              <el-image :class="{'selected':(i===formData.itemIcon)}" style="width: 100px;height:100px;cursor: pointer"
+                        :src="'proxy/api/image/'+i"
+                        @click="handleSelectImage(i)">
 
               </el-image>
             </li>
@@ -220,15 +244,15 @@
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="8" style="text-align: left;margin-right: 20px;">
-              <el-select v-model="formData.level" placeholder="货币种类" class="handle-space">
+              <el-select v-model="formData.xglevel" placeholder="货币种类" class="handle-space">
                 <el-option key="1" label="不限购" value="1"></el-option>
                 <el-option key="2" label="达到等级可购买" value="2"></el-option>
                 <el-option key="3" label="超过等级不可购买" value="3"></el-option>
               </el-select>
             </el-col>
             <el-col :span="8">
-              <div v-show="formData.level!=='1'">
-                <el-input v-model="formData.levelset" style="width: 40%;"
+              <div v-show="formData.xglevel!=='1'">
+                <el-input v-model="formData.xglevelset" style="width: 40%;"
                           placeholder="请输入等级"></el-input>
               </div>
             </el-col>
@@ -250,13 +274,13 @@
         <el-form-item label="限时购买" class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="8">
-              <el-select v-model="formData.xgAll" placeholder="货币种类" class="handle-space">
+              <el-select v-model="formData.xgdatelimit" placeholder="货币种类" class="handle-space">
                 <el-option key="1" label="不限时" value="1"></el-option>
                 <el-option key="2" label="限时购买" value="2"></el-option>
               </el-select>
             </el-col>
             <el-col :span="15" style="text-align: left;margin-right: 20px;">
-              <div v-show="formData.xgAll==='2'">
+              <div v-show="formData.xgdatelimit==='2'">
                 <el-date-picker
                     v-model="formData.xgDate"
                     type="datetimerange"
@@ -271,18 +295,35 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item label="出售限量" class="center" v-if="formData.itemType!==''">
+        <el-form-item label="总限量" class="center" v-if="formData.itemType!==''">
           <el-row>
             <el-col :span="1"></el-col>
             <el-col :span="8" style="text-align: left;margin-right: 20px;">
-              <el-select v-model="formData.xgCount" placeholder="限量出售" class="handle-space">
+              <el-select v-model="formData.xgall" placeholder="限量出售" class="handle-space">
                 <el-option key="1" label="不限量" value="1"></el-option>
                 <el-option key="2" label="限量" value="2"></el-option>
               </el-select>
             </el-col>
             <el-col :span="8">
-              <div v-show="formData.xgCount==='2'">
-                <el-input v-model="formData.stock" style="width: 50%;" placeholder="请输入数量"></el-input>
+              <div v-show="formData.xgall==='2'">
+                <el-input v-model="formData.xgallset" style="width: 50%;" placeholder="请输入数量"></el-input>
+              </div>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item label="每日限量" class="center" v-if="formData.itemType!==''">
+          <el-row>
+            <el-col :span="1"></el-col>
+            <el-col :span="8" style="text-align: left;margin-right: 20px;">
+              <el-select v-model="formData.xgday" placeholder="限量出售" class="handle-space">
+                <el-option key="1" label="不限量" value="1"></el-option>
+                <el-option key="2" label="限量" value="2"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="8">
+              <div v-show="formData.xgday==='2'">
+                <el-input v-model="formData.xgdayset" style="width: 50%;" placeholder="请输入数量"></el-input>
               </div>
             </el-col>
           </el-row>
@@ -351,6 +392,7 @@ export default {
   },
   data() {
     return {
+      imglist: null,
       allIcon: [],
       queryData: null,
       rules: {
@@ -358,17 +400,21 @@ export default {
       },
       formData: {
         id: -1,
-        xgCount: "1",
         stock: "1",
+        xgdatelimit:"1",
+        coudatelimit:"1",
         xgDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
         couDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
         couCurrType: "积分折扣",
         couPrice: "8",
         couCond: "100",
-        xgAll: "1",
+        xgall: "1",
+        xgallset: "1",
+        xgday: "1",
+        xgdayset: "1",
         fallow: "1",
-        level: "1",
-        levelset: "0",
+        xglevel: "1",
+        xglevelset: "0",
         hotset: "0",
         hot: "1",
         sellType: "1",
@@ -437,10 +483,12 @@ export default {
       ElMessage({
         message: '上传成功!',
         type: 'success',
-      })
+      });
+      this.initIconData();
     },
     handleAvatarFaild() {
-      ElMessage.error('上传失败')
+      ElMessage.error('上传失败');
+      this.initIconData();
     },
     handleDelete(id) {
       ElMessageBox.confirm('确定要删除这个商品吗？')
@@ -469,7 +517,6 @@ export default {
       axios.post("proxy/api/queryShopItem", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
-          console.log(JsonData);
           this.queryData = JsonData.data;
         }
       });
@@ -479,13 +526,11 @@ export default {
       axios.post("proxy/api/getIconFile", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
-          console.log(JsonData);
           this.allIcon = JsonData;
         }
       });
     },
     submitForm(formName) {
-      console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let url = "";
@@ -508,30 +553,33 @@ export default {
           });
 
         } else {
-          console.log('error submit!!')
           return false
         }
       })
     },
     openUpdate(scope) {
-      console.log(scope.row)
       //显示窗口
       this.addVisible = true;
       this.formData.id = scope.row.id;
       this.formData.xgCount = scope.row.xgCount;
       this.formData.stock = scope.row.stock + "";
+      this.formData.xgdatelimit=scope.row.xgdatelimit;
       this.formData.xgDate = [scope.row.dateStart.substring(0, 19).replace("T", " "), scope.row.dateEnd.substring(0, 19).replace("T", " ")];
+      this.formData.coudatelimit=scope.row.coudatelimit;
       this.formData.couDate = [scope.row.couDateStart.substring(0, 19).replace("T", " "), scope.row.couDateEnd.substring(0, 19).replace("T", " ")];
       this.formData.couCurrType = scope.row.couCurrType;
       this.formData.couPrice = scope.row.couPrice;
       this.formData.couCond = scope.row.couCond;
-      this.formData.xgAll = scope.row.xgAll;
+      this.formData.xgall = scope.row.xgall;
+      this.formData.xgallset = scope.row.xgallset;
+      this.formData.xgday = scope.row.xgday;
+      this.formData.xgdayset = scope.row.xgdayset;
       this.formData.fallow = scope.row.follow;
-      this.formData.xgLevel = scope.row.level;
-      this.formData.xgLevelset = scope.row.levelset;
-      this.formData.hotset = scope.row.hotSet + "";
+      this.formData.xglevel = scope.row.xglevel;
+      this.formData.xglevelset = scope.row.xglevelset;
+      this.formData.hotset = scope.row.hotset + "";
       this.formData.hot = scope.row.hot;
-      this.formData.sellType = scope.row.sellType + "";
+      this.formData.sellType = scope.row.selltype + "";
       this.formData.desc = scope.row.desc;
       this.formData.prefer = scope.row.prefer + "";
       this.formData.discount = scope.row.discount;
@@ -543,8 +591,8 @@ export default {
       this.formData.itemnum = scope.row.num + "";
       this.formData.quality = scope.row.quality;
       this.formData.itemGroup = scope.row.itemGroup;
-      this.formData.itemIcon = scope.row.itemIcon;
-      this.formData.itemTint = scope.row.itemTint;
+      this.formData.itemIcon = scope.row.itemicon;
+      this.formData.itemTint = scope.row.itemtint;
       this.formData.itemGroup = scope.row.class1;
       this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
 
@@ -563,17 +611,14 @@ export default {
       this.formData.discount = (((parseInt(this.formData.prefer) / parseInt(this.formData.price))) * 10).toFixed(2);
     },
     catchs(v) {
-      console.log(v)
     },
     handleEdtor() {
       if (!this.instance) {
-        console.log("已创建");
         this.editor = new wangEditor("#editor")
 
         // 配置 onchange 回调函数
         let self = this;
         this.editor.config.onchange = function (newHtml) {
-          // console.log("change 之后最新的 html", newHtml);
           self.formData.desc = newHtml;
         };
         // 配置触发 onchange 的时间频率，默认为 200ms
@@ -605,7 +650,6 @@ export default {
             //声明一个数组存储待选项
             let sugestion = [];
             for (var i = 0; i < JsonData.length; i++) {
-              console.log()
               sugestion[i] = {value: JsonData[i].translate[16]};
               this.itemNameCache[JsonData[i].translate[16]] = JsonData[i];
             }
@@ -616,14 +660,15 @@ export default {
     },
     //执行查询
     handleSelect(item) {
-      console.log(this.itemNameCache[item.value])
       this.formData.translate = item.value;
       this.formData.itemName = this.itemNameCache[item.value].itemname;
       this.formData.itemGroup = this.itemNameCache[item.value].group;
       this.formData.itemIcon = this.itemNameCache[item.value].icon === null ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon;
       this.formData.itemTint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-      // console.log(itemNameCache[itemName.value], itemName, item);
       this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
+    },
+    handleSelectImage(item) {
+      this.formData.itemIcon = item;
     }
 
   }
@@ -736,5 +781,28 @@ export default {
   margin: auto;
   width: 40px;
   height: 40px;
+}
+
+.selected {
+  color: greenyellow;
+  border: 0.02rem solid;
+  position: relative;
+  transition: all 0.5s ease;
+}
+
+.selected::after {
+  content: '√';
+  display: block;
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  /**对号大小*/
+  font-size: 10px;
+  line-height: 8px;
+  border: 10px solid;
+  border-color: transparent #4884ff #4884ff transparent;
 }
 </style>
