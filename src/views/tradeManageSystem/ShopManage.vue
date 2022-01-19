@@ -48,9 +48,10 @@
           <template #default="scope">
             <el-tag v-if="scope.row.follow==='2'">跟档</el-tag>
             <el-tag v-if="scope.row.hot==='1'">热卖</el-tag>
+            <el-tag v-if="scope.row.hot==='3'">自动热卖</el-tag>
             <el-tag v-if="scope.row.xgAll==='2'">限时购买</el-tag>
-            <el-tag v-if="scope.row.xgLevel==='2'">等级限购</el-tag>
-            <el-tag v-if="scope.row.xgCount==='2'">限量购买</el-tag>
+            <el-tag v-if="scope.row.xglevel==='2'">等级限购</el-tag>
+            <el-tag v-if="scope.row.xgday==='2'">每日限购</el-tag>
           </template>
         </el-table-column>
 
@@ -609,8 +610,7 @@ export default {
       this.formData.itemIcon = scope.row.itemicon;
       this.formData.itemTint = scope.row.itemtint;
       this.formData.itemGroup = scope.row.class1;
-      this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
-
+      this.src = 'proxy/api/image/' + this.formData.itemIcon;
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -678,9 +678,9 @@ export default {
       this.formData.translate = item.value;
       this.formData.itemName = this.itemNameCache[item.value].itemname;
       this.formData.itemGroup = this.itemNameCache[item.value].group;
-      this.formData.itemIcon = this.itemNameCache[item.value].icon === null ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon;
+      this.formData.itemIcon = (this.itemNameCache[item.value].icon === null ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon) + ".png";
       this.formData.itemTint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-      this.src = 'proxy/api/image/' + this.formData.itemIcon + '.png';
+      this.src = 'proxy/api/image/' + this.formData.itemIcon;
     },
     handleSelectImage(item) {
       this.formData.itemIcon = item;
