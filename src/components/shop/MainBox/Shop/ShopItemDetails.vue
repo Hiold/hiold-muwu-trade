@@ -70,12 +70,15 @@
 
 //导入jquery
 import $ from 'jquery'
+import {getCurrentInstance} from "vue";
 
 export default {
   name: "ShopItemDetails",
   data() {
     return {
-      buyCount: 1
+      buyCount: 1,
+      playerinfo: {},
+      ctx: null,
     }
   },
   props: ["item"],
@@ -137,9 +140,12 @@ export default {
       this.buyCount--	//填充经过校验后的数字
     },
     Buyitem() {	//购买商品
-      if (this.playerinfo.entityId || this.playerinfo.entityId === "") {
-        this.Confirm("您当前未登录，请登录后再来购买！<br>是否前往登录页面？");
-        this.popupCss(25, 14);
+      var ctx = this.ctx.appContext.config.globalProperties;
+      console.log(ctx);
+      this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
+      if (!this.playerinfo.id || this.playerinfo.id === "") {
+        ctx.Confirm("您当前未登录，请登录后再来购买！<br>是否前往登录页面？");
+        ctx.popupCss(25, 14);
         $("#alert>.alert>footer>.confirm").click(function () {
           $("#alert>.alert>section>p").html("");	//清空文本提示内容
           $("#alert").hide();
@@ -149,7 +155,7 @@ export default {
         return;
       }
 
-      var itemName = this.item.name;	//获取商品名称（后面发送到仓库需要用到）------
+      var itemName = this.item.translate;	//获取商品名称（后面发送到仓库需要用到）------
       var sell = this.item.sell;		//获取是否可以购买or是否为VIP物品
       //检测商品是否已过期
       var expired = false;	//默认为没有过期
@@ -185,8 +191,8 @@ export default {
         }
       }
       if (expired == true) {
-        this.Alert("这个商品已经过期，无法购买！");
-        this.popupCss(25, 13);
+        ctx.Alert("这个商品已经过期，无法购买！");
+        ctx.popupCss(25, 13);
         // for (var i = 0; i < $(".Category>li").length; i++) {	//遍历子分类按钮
         //     var ck = $(".Category>li").eq(i).data("click");	//获取子分类按钮的浏览状态
         //     if (ck == "true") {	//如果这个子分类就是玩家正在浏览的子分类
@@ -196,36 +202,36 @@ export default {
         return;
       }
       if (sell == "false") {
-        this.Alert("当前商品暂不可购买<br>有疑问请联系服主");
-        this.popupCss(25, 14);
+        ctx.Alert("当前商品暂不可购买<br>有疑问请联系服主");
+        ctx.popupCss(25, 14);
         return;
       } else if (sell == "vip") {
         var status = this.playerinfo.status;	//检测玩家身份
         if (status != "商店会员" && status != "管理员") {
-          this.Alert("只有 <font color='orangered'>商店会员</font> 才可以购买此物品！<br>你还不是会员，可以从右上角个人资料详情页前往充值。");
-          this.popupCss(34, 15, 1.1);
+          ctx.Alert("只有 <font color='orangered'>商店会员</font> 才可以购买此物品！<br>你还不是会员，可以从右上角个人资料详情页前往充值。");
+          ctx.popupCss(34, 15, 1.1);
           return;
         }
       }
       var stock = this.item.stock;	//获取库存
       if (stock == 0) {
-        this.Alert("当前商品库存不足，请联系服主补货！");
-        this.popupCss(25, 13);
+        ctx.Alert("当前商品库存不足，请联系服主补货！");
+        ctx.popupCss(25, 13);
         return;
       }
       var playerLv = this.playerinfo.level * 1;	//获取玩家等级
       var lvxg = this.item.xgLevel;	//获取等级限购
       if (lvxg > 0 && playerLv < lvxg) {
-        this.Alert("您的等级不符合购买要求！<br>只有 " + lvxg + " 级以上的玩家才可以购买");
-        this.popupCss(25, 14);
+        ctx.Alert("您的等级不符合购买要求！<br>只有 " + lvxg + " 级以上的玩家才可以购买");
+        ctx.popupCss(25, 14);
         // alert("你的等级"+playerLv+"---限购等级："+lvxg)
         // if(playerLv>lvxg){alert("你的等级大于限购等级")}
         // if(playerLv<lvxg){alert("限购等级大于你的等级")}
         return;
       }
       if (lvxg < 0 && playerLv > lvxg * -1) {
-        this.Alert("您的等级不符合购买要求！<br>只有 " + lvxg * -1 + " 级以内的玩家才可以购买");
-        this.popupCss(25, 14);
+        ctx.Alert("您的等级不符合购买要求！<br>只有 " + lvxg * -1 + " 级以内的玩家才可以购买");
+        ctx.popupCss(25, 14);
         return;
       }
       var buyDay = 1;
@@ -233,19 +239,19 @@ export default {
       var xgDay = this.item.xgDay * 1;
       var xgAll = this.item.xgAll * 1;
       if (xgDay - buyDay <= 0) {
-        this.Alert("今日限购已到达上限，请明天再购买！");
-        this.popupCss(25, 13);
+        ctx.Alert("今日限购已到达上限，请明天再购买！");
+        ctx.popupCss(25, 13);
         //console.log("每日限购:"+xgDay+"---今日已购买:"+buyDay);
         return;
       }
       if (xgAll - buyAll <= 0) {
-        this.Alert("总限购已到达上限，不可再购买！");
-        this.popupCss(25, 13);
+        ctx.Alert("总限购已到达上限，不可再购买！");
+        ctx.popupCss(25, 13);
         return;
       }
 
       if (isNaN(this.buyCount)) {	//如果输入的内容不是数字
-        this.Alert("请输入正确的数量！");
+        ctx.Alert("请输入正确的数量！");
         return;
       } else {
         var curr = this.item.currency;	//获取货币类型
@@ -258,11 +264,11 @@ export default {
         } else if (curr == "钻石") {
           //var con = Confirm("您当前选择购买的数量为 <span style='color:dodgerblue;'>"+num+"</span> 件<br>需要支付的价格为 <span style='color:rgb(249,102,112);'>"+price+"</span> "+curr+"<br>是否确认要购买商品？");
         }
-        this.popupCss(25, 16);
+        ctx.popupCss(25, 16);
 
         $("#alert,.alert-buy").show();	//显示订单确认弹窗
-        var icon = this.item.image;
-
+        var icon = 'proxy/api/image/' + this.item.itemicon;
+        // console.log(icon);
         //将物品信息渲染到订单确认页面
         $(".alert-buy>section>.items>.icon>img").attr("src", icon);		//图片
         $(".alert-buy>section>.items>.content>.name").text(itemName);	//名称
@@ -276,7 +282,7 @@ export default {
         }
         $(".alert-buy>section>.items>.content>.price>span").text(unit);	//单价
         $(".alert-buy>section>.items>.count").text("x" + numAll);	//实际发送到背包的数量
-        var offers = this.playerinfo.offers;	//获取玩家购物优惠(%)
+        var offers = this.playerinfo.vipdiscount;	//获取玩家购物优惠(%)
         var disoff = 10;
         if (isNaN(offers) || offers == 0) {
           offers = 0;
@@ -340,15 +346,16 @@ export default {
           }
 
           //获取优惠类型和优惠值
-          var couType = $(this).find(".type").text();		//优惠类型
+          var couType = $(this).find(".curr").text();		//优惠类型
           var couPrice = $(this).find(".s2").text() * 1;	//优惠价格或折扣
-          //console.log(couType);
+          console.log(couType);
           //计算抵用券优惠价格
-          if (couType == "满减券") {
+          if (couType.indexOf("满减")>-1) {
             var prePrice = couPrice * 1;
-          } else if (couType == "折扣券") {
+          } else if (couType.indexOf("折扣")>-1) {
             prePrice = Math.round(payPrice * (1 - couPrice / 10));
           } else if (couType == "优惠券") {
+            //优惠券暂未实现
             prePrice = 0;
           }
           //console.log(prePrice);
@@ -375,16 +382,16 @@ export default {
             point -= payPrice2;
             if (point < 0) {	//如果购买后积分为负数
               point += payPrice2;	//还原积分;
-              this.Alert("您的<span style='color:orange;'>积分</span>不足,购买失败！");
-              this.popupCss(25, 13);
+              ctx.Alert("您的<span style='color:orange;'>积分</span>不足,购买失败！");
+              ctx.popupCss(25, 13);
               return;
             }
           } else if (curr == "钻石") {	//如果货币为钻石
             var zs = this.playerinfo.credit;	//获取玩家的钻石
             zs -= payPrice2;
             if (zs < 0) {	//如果购买后钻石为负数
-              this.Alert("您的<span style='color:rgb(249,102,112);'>钻石</span>不足,购买失败！");
-              this.popupCss(25, 13);
+              ctx.Alert("您的<span style='color:rgb(249,102,112);'>钻石</span>不足,购买失败！");
+              ctx.popupCss(25, 13);
               return;
             }
           } else {	//如果货币类型既不是积分也不是钻石（一般这种情况不可能出现，除非服主在商品数组中设置错误）
@@ -392,8 +399,8 @@ export default {
             return;
           }
 
-          this.Alert("购买成功,物品已发送到您的仓库");
-          this.popupCss(25, 13);
+          ctx.Alert("购买成功,物品已发送到您的仓库");
+          ctx.popupCss(25, 13);
         });
       }
     }
@@ -443,6 +450,7 @@ export default {
       return num > 1;
     }
   }, mounted() {
+    this.ctx = getCurrentInstance();
     $(".alert-buy .coupon>.card>.left,.alert-buy .coupon>.card>.right").unbind("click");
     $(".alert-buy .coupon>.card>.left,.alert-buy .coupon>.card>.right").click(function () {	//点击展开优惠券列表
       //样式特效

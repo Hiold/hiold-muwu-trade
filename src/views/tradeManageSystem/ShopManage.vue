@@ -13,7 +13,9 @@
           <el-option key="1" label="广东省" value="广东省"></el-option>
           <el-option key="2" label="湖南省" value="湖南省"></el-option>
         </el-select>
-        <el-input placeholder="用户名" class="handle-input mr10"></el-input>
+        <el-input placeholder="用户名" class="handle-input mr10" v-model="customData"></el-input>
+
+
         <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
         <el-button type="success" icon="el-icon-plus" @click="handleAdd">添加</el-button>
       </div>
@@ -373,6 +375,7 @@
 import axios from "axios";
 import moment from 'moment'
 import {ElMessage, ElMessageBox} from 'element-plus'
+import { defineAsyncComponent } from "vue"
 
 export default {
   name: "ShopManage",
@@ -408,6 +411,8 @@ export default {
   },
   data() {
     return {
+      customData:0,
+      md1: "md1",
       imglist: null,
       allIcon: [],
       queryData: null,
