@@ -102,6 +102,7 @@
                   <div class="period"><span class="date">{{ item.couDate }} 到期</span> <span
                       class="num">仅剩{{ item.storageCount }}张</span>
                   </div>
+                  <div class="couid" style="display: none">{{ item.id }}</div>
                 </div>
                 <div class="select"><span>✔</span></div>
               </li>

@@ -48,6 +48,25 @@ import $ from 'jquery'
 import axios from "axios";
 
 export default {
+  watch: {
+    class1: {
+      handler(newName, oldName) {
+        if (newName != oldName) {
+          console.log("监听到变化" + newName);
+          this.queryShopItem();
+        }
+      },
+      immediate: true
+    },
+    class2: {
+      handler(newName, oldName) {
+        if (newName != oldName) {
+          console.log("监听到变化" + newName);
+          this.queryShopItem();
+        }
+      }
+    }
+  },
   name: "ShopContent",
   props: ["class1", "class2"],
   components: {"shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
@@ -103,6 +122,15 @@ export default {
     }
   },
   methods: {
+    queryShopItem() {
+      let params = {itemname: ""};
+      axios.post("proxy/api/queryShopItem", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          this.shop = JsonData.data;
+        }
+      });
+    },
     getTime() {	//获取当前时间
       var myDate = new Date();
 
@@ -160,7 +188,7 @@ export default {
         $(".items-box>.none").find("span").html("没有找到你想<br>搜索的商品");
       }
     },
-    showdetail(item, target) {
+    showdetail(item, target, limitData) {
       this.item = item;
       console.log(item)
       //查找父级元素
@@ -204,8 +232,8 @@ export default {
       var desc = item.desc;		//商品说明
 
 
-      var buyDay = "待实现";		//今日已购买数量
-      var buyAll = "待实现";		//历史购买总数量
+      var buyDay = limitData.tdCount;		//今日已购买数量
+      var buyAll = limitData.allCount;		//历史购买总数量
 
       //保存下标
       //下面是在商品详情页面打印商品信息
@@ -356,13 +384,13 @@ export default {
 
   }
   , mounted() {
-    let params = {itemname: ""};
-    axios.post("proxy/api/queryShopItem", params).then(res => {
-      if (res.data.respCode === "1") {
-        let JsonData = res.data.data;
-        this.shop = JsonData.data;
-      }
-    });
+    // let params = {itemname: ""};
+    // axios.post("proxy/api/queryShopItem", params).then(res => {
+    //   if (res.data.respCode === "1") {
+    //     let JsonData = res.data.data;
+    //     this.shop = JsonData.data;
+    //   }
+    // });
 
     // console.log("\n当前分区售卖商品数量:" + this.shop.length + "\n\n");
     //处理当前页面等待元素

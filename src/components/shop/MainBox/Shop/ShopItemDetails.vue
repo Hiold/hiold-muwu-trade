@@ -71,6 +71,8 @@
 //导入jquery
 import $ from 'jquery'
 import {getCurrentInstance} from "vue";
+import axios from "axios";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "ShopItemDetails",
@@ -254,7 +256,7 @@ export default {
         ctx.Alert("请输入正确的数量！");
         return;
       } else {
-        var curr = this.item.currency;	//获取货币类型
+        var curr = this.item.currency == '1' ? '积分' : this.item.currency == '2' ? '钻石' : '未知';	//获取货币类型
         var unit = $(".spxq").find(".price").find(".p1").text();	//获取单价
         var price = this.buyCount * unit;	//物品价格 = 数量 x 单价
         var numBind = this.item.num;	//购买一件实际获得的数量
@@ -282,8 +284,12 @@ export default {
         }
         $(".alert-buy>section>.items>.content>.price>span").text(unit);	//单价
         $(".alert-buy>section>.items>.count").text("x" + numAll);	//实际发送到背包的数量
-        var offers = this.playerinfo.vipdiscount;	//获取玩家购物优惠(%)
+        var offers = this.playerinfo.vipdiscount * 1;	//获取玩家购物优惠(%)
+        // console.log(this.playerinfo);
         var disoff = 10;
+        console.log(this.playerinfo.vipdiscount);
+        console.log(this.playerinfo);
+
         if (isNaN(offers) || offers == 0) {
           offers = 0;
           $(".alert-buy>section>.discount-vip>.val").text("-0%");
@@ -313,6 +319,8 @@ export default {
          *
          */
         var payPrice2 = payPrice;	//使用抵用券后玩家实际支付的价格
+
+        var couid = "";
         $(".choose>.coupon-card").unbind("click");
         $(".choose").on("click", ".coupon-card", function () {			//点击列表中某个优惠券
           //样式特效
@@ -348,13 +356,14 @@ export default {
           //获取优惠类型和优惠值
           var couType = $(this).find(".curr").text();		//优惠类型
           var couPrice = $(this).find(".s2").text() * 1;	//优惠价格或折扣
-          console.log(couType);
+          couid = $(this).find(".couid").text();
+          console.log(couid);
           //计算抵用券优惠价格
-          if (couType.indexOf("满减")>-1) {
+          if (couType.indexOf("满减") > -1) {
             var prePrice = couPrice * 1;
-          } else if (couType.indexOf("折扣")>-1) {
+          } else if (couType.indexOf("折扣") > -1) {
             prePrice = Math.round(payPrice * (1 - couPrice / 10));
-          } else if (couType == "优惠券") {
+          } else {
             //优惠券暂未实现
             prePrice = 0;
           }
@@ -371,36 +380,47 @@ export default {
 
         });
 
-
+        var self = this;
         $(".alert-buy>footer>.confirm").unbind("click");
         $(".alert-buy>footer>.confirm").click(function () {	//如果玩家点击确认付款
           $("#alert,.alert-buy").hide();	//隐藏弹窗
-          //console.log("点击了确认");
-          //alert(payPrice);
-          if (curr == "积分") {	//如果货币为积分
-            var point = this.playerinfo.money;	//获取玩家的积分
-            point -= payPrice2;
-            if (point < 0) {	//如果购买后积分为负数
-              point += payPrice2;	//还原积分;
-              ctx.Alert("您的<span style='color:orange;'>积分</span>不足,购买失败！");
-              ctx.popupCss(25, 13);
-              return;
-            }
-          } else if (curr == "钻石") {	//如果货币为钻石
-            var zs = this.playerinfo.credit;	//获取玩家的钻石
-            zs -= payPrice2;
-            if (zs < 0) {	//如果购买后钻石为负数
-              ctx.Alert("您的<span style='color:rgb(249,102,112);'>钻石</span>不足,购买失败！");
-              ctx.popupCss(25, 13);
-              return;
-            }
-          } else {	//如果货币类型既不是积分也不是钻石（一般这种情况不可能出现，除非服主在商品数组中设置错误）
-            alert("商品货币类型出错！请联系服主");
-            return;
-          }
+          // //console.log("点击了确认");
+          // //alert(payPrice);
+          // if (curr == "积分") {	//如果货币为积分
+          //   var point = this.playerinfo.money;	//获取玩家的积分
+          //   point -= payPrice2;
+          //   if (point < 0) {	//如果购买后积分为负数
+          //     point += payPrice2;	//还原积分;
+          //     ctx.Alert("您的<span style='color:orange;'>积分</span>不足,购买失败！");
+          //     ctx.popupCss(25, 13);
+          //     return;
+          //   }
+          // } else if (curr == "钻石") {	//如果货币为钻石
+          //   var zs = this.playerinfo.credit;	//获取玩家的钻石
+          //   zs -= payPrice2;
+          //   if (zs < 0) {	//如果购买后钻石为负数
+          //     ctx.Alert("您的<span style='color:rgb(249,102,112);'>钻石</span>不足,购买失败！");
+          //     ctx.popupCss(25, 13);
+          //     return;
+          //   }
+          // } else {	//如果货币类型既不是积分也不是钻石（一般这种情况不可能出现，除非服主在商品数组中设置错误）
+          //   alert("商品货币类型出错！请联系服主");
+          //   return;
+          // }
+          //
+          // ctx.Alert("购买成功,物品已发送到您的仓库");
+          // ctx.popupCss(25, 13);
+          var buyParam = {"id": "" + self.item.id + "", "count": "" + self.buyCount + "", "couid": "" + couid + ""};
 
-          ctx.Alert("购买成功,物品已发送到您的仓库");
-          ctx.popupCss(25, 13);
+          axios.post("proxy/api/buyItem", buyParam).then(res => {
+            if (res.data.respCode === "1") {
+              ctx.Alert("购买成功！");
+            } else {
+              ctx.Alert(res.data.respMsg);
+            }
+          });
+          console.log(buyParam);
+          console.log("购买成功");
         });
       }
     }
@@ -441,8 +461,8 @@ export default {
       // }	//数量最大不能超过 总限购 - 总购买数量
       // num += 1;
       // return num <= stock && num <= xgDay - buyDay && num <= xgAll - buyAll;
-      console.log(num, stock)
-      console.log(num <= stock)
+      // console.log(num, stock)
+      // console.log(num <= stock)
       return num <= stock;
     },
     isReduceAllow() {

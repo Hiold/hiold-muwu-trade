@@ -62,7 +62,9 @@ export default {
         ["rgb(200, 200, 255), rgba(255, 255, 255, 0.2)"],
         ["rgb(255, 160, 160), rgba(255, 255, 255, 0.2)"]
       ]
-      $(".Category>div>li").click(function () {		//子分类点击特效+生成商品
+      //子分类点击特效+生成商品
+      $(".Category>div>li").click(function () {
+        console.log($(this).attr("data"));
         $(".head-tool .name-id").val("");
         $(".items-details").hide();
         $(".items-box,.head-tool").show();

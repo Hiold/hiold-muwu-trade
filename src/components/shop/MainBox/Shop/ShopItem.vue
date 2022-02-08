@@ -1,6 +1,6 @@
 <template>
   <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
-  <li class="items" :data-index="index" @click="showdetailsss($event.target)">
+  <li class="items" :data-index="index" @click="showdetailsss($event.target,item.id)">
     <!--渲染名字时使用过滤器去掉bbcode-->
     <header>
       <span
@@ -39,17 +39,36 @@
 </template>
 
 <script>
+import axios from "axios";
+import {getCurrentInstance} from "vue";
+
 export default {
   name: "ShopItem",
   props: ["item", "index", "vip"],
+  data() {
+    return {
+      ctx: null
+    }
+  },
+  mounted() {
+    this.ctx = getCurrentInstance();
+  },
   methods: {
     deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
       return itemName.replace(/([\\[][0-9a-fA-F]{6}[\]])/g, "");
       //return itemName;
     },
-    showdetailsss(target) {
+    showdetailsss(target, id) {
       // console.log(11111)
-      this.$emit('showdetail', this.item, target)
+      var ctx = this.ctx.appContext.config.globalProperties;
+      var buyParam = {"id": "" + id + ""};
+      axios.post("proxy/api/getItemBuyLimit", buyParam).then(res => {
+        if (res.data.respCode === "1") {
+          this.$emit('showdetail', this.item, target,res.data.data)
+        } else {
+          ctx.Alert(res.data.respMsg);
+        }
+      });
     },
     calcDiscount(discount) {
       if (discount < 10 && discount > 0) {

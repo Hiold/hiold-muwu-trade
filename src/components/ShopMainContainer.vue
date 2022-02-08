@@ -22,8 +22,8 @@ export default {
   name: "IndexMainContainer",
   data() {
     return {
-      class1: "活动折扣",
-      class2: "全部",
+      class1: "全部物品",
+      class2: "",
       couProps: [{
         couCurr: "积分",
         couType: "折扣",
@@ -43,48 +43,68 @@ export default {
       }],
       itemMenu: [
         {
+          category: "全部物品", items: [
+            {name: "全部", data: ""},
+            {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "工具/陷阱", data: "Tools/Traps"},
+            {name: "食物/炊具", data: "Food/Cooking"},
+            {name: "书籍", data: "Books"},
+            {name: "化学品", data: "Chemicals"},
+            {name: "模组", data: "Mods"},
+            {name: "资源", data: "Resources"},
+            {name: "科学", data: "Science"},
+            {name: "医疗", data: "Medical"},
+            {name: "装饰/杂项", data: "Decor/Miscellaneous"}
+          ]
+        },
+        {
           category: "活动折扣", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
-          ]
-        },
-        {
-          category: "物块模型", items: [
-            {name: "全部", data: "全部"},
-            {name: "建筑物块", data: "建筑物块"},
-            {name: "家具装饰", data: "家具装饰"},
-            {name: "户外植物", data: "户外植物"},
-            {name: "地形块 ", data: "地形块 "},
-            {name: "建造拆除", data: "建造拆除"},
-            {name: "搜刮奖励", data: "搜刮奖励"},
-            {name: "等级设计", data: "等级设计"}
-          ]
-        },
-        {
-          category: "本服专属", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"}
+            {name: "全部", data: ""},
+            {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "工具/陷阱", data: "Tools/Traps"},
+            {name: "食物/炊具", data: "Food/Cooking"},
+            {name: "书籍", data: "Books"},
+            {name: "化学品", data: "Chemicals"},
+            {name: "模组", data: "Mods"},
+            {name: "资源", data: "Resources"},
+            {name: "科学", data: "Science"},
+            {name: "医疗", data: "Medical"},
+            {name: "装饰/杂项", data: "Decor/Miscellaneous"}
           ]
         },
         {
           category: "特殊商品", items: [
-            {name: "全部", data: "全部"},
-            {name: "货币兑换", data: "货币兑换"},
-            {name: "礼包抽奖", data: "礼包抽奖"},
-            {name: "专属服务", data: "专属服务"},
-            {name: "抵用券 ", data: "抵用券 "},
-            {name: "其它", data: "其它"}
+            {name: "全部", data: "全部"}
           ]
         },
         {
           category: "钻石商城", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
-            {name: "特殊商品", data: "特殊商品"}
+            {name: "全部", data: ""},
+            {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "工具/陷阱", data: "Tools/Traps"},
+            {name: "食物/炊具", data: "Food/Cooking"},
+            {name: "书籍", data: "Books"},
+            {name: "化学品", data: "Chemicals"},
+            {name: "模组", data: "Mods"},
+            {name: "资源", data: "Resources"},
+            {name: "科学", data: "Science"},
+            {name: "医疗", data: "Medical"},
+            {name: "装饰/杂项", data: "Decor/Miscellaneous"}
+          ]
+        },
+        {
+          category: "积分商城", items: [
+            {name: "全部", data: ""},
+            {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "工具/陷阱", data: "Tools/Traps"},
+            {name: "食物/炊具", data: "Food/Cooking"},
+            {name: "书籍", data: "Books"},
+            {name: "化学品", data: "Chemicals"},
+            {name: "模组", data: "Mods"},
+            {name: "资源", data: "Resources"},
+            {name: "科学", data: "Science"},
+            {name: "医疗", data: "Medical"},
+            {name: "装饰/杂项", data: "Decor/Miscellaneous"}
           ]
         }
       ]
