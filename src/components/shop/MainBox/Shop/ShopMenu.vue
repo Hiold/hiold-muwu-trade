@@ -65,6 +65,7 @@ export default {
       //子分类点击特效+生成商品
       $(".Category>div>li").click(function () {
         console.log($(this).attr("data"));
+
         $(".head-tool .name-id").val("");
         $(".items-details").hide();
         $(".items-box,.head-tool").show();
@@ -79,7 +80,7 @@ export default {
         $(".Category>div>li").data("click", "false");
         $(this).data("click", "true");
         // self.class2 = $(this).text();	//获取当前点击的子分类名称
-        $bus.emit('setclass2', $(this).text());
+        $bus.emit('setclass2', $(this).attr("data"));
         //console.log("子分类："+xb);
         self.changeColor(xb);
         //$(".items-details").fadeOut(200);

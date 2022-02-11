@@ -46,6 +46,7 @@ export default {
           category: "全部物品", items: [
             {name: "全部", data: ""},
             {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "防具", data: "Armor"},
             {name: "工具/陷阱", data: "Tools/Traps"},
             {name: "食物/炊具", data: "Food/Cooking"},
             {name: "书籍", data: "Books"},
@@ -61,6 +62,7 @@ export default {
           category: "活动折扣", items: [
             {name: "全部", data: ""},
             {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "防具", data: "Armor"},
             {name: "工具/陷阱", data: "Tools/Traps"},
             {name: "食物/炊具", data: "Food/Cooking"},
             {name: "书籍", data: "Books"},
@@ -74,13 +76,14 @@ export default {
         },
         {
           category: "特殊商品", items: [
-            {name: "全部", data: "全部"}
+            {name: "全部", data: ""}
           ]
         },
         {
           category: "钻石商城", items: [
             {name: "全部", data: ""},
             {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "防具", data: "Armor"},
             {name: "工具/陷阱", data: "Tools/Traps"},
             {name: "食物/炊具", data: "Food/Cooking"},
             {name: "书籍", data: "Books"},
@@ -96,6 +99,7 @@ export default {
           category: "积分商城", items: [
             {name: "全部", data: ""},
             {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "防具", data: "Armor"},
             {name: "工具/陷阱", data: "Tools/Traps"},
             {name: "食物/炊具", data: "Food/Cooking"},
             {name: "书籍", data: "Books"},
