@@ -26,14 +26,20 @@
       <div class="soldout" v-show="item.stock*1===0"></div>
       <div class="vip" v-show="vip===true"></div>
     </section>
-    <footer><i
-        :style="{'background-image:url(images/icon/red-zs.png)':item.currency=='钻石','background-image:url(images/icon/jf2.png)':item.currency=='积分'}"></i><span
-        class="price"
-        :style="{'color:deeppink':item.currency=='钻石','color:rgb(221, 36, 36)':item.currency=='积分'}">
+    <footer>
+      <i style="background-image:url(images/icon/jf2.png)" v-if="item.currency==='1'"></i>
+      <i style="background-image:url(images/icon/red-zs.png)" v-if="item.currency==='2'"></i>
+
+      <span class="price" style="color:rgb(221, 36, 36)" v-if="item.currency=='1'">
             {{ item.price * item.discount / 10 }}
-        </span>
+      </span>
+      <span class="price" style="color:deeppink" v-if="item.currency=='2'">
+            {{ item.price * item.discount / 10 }}
+      </span>
+
+
       <del v-show="item.discount*1 < 10 && item.discount*1 > 0">{{ item.price }}</del>
-      <span class="active" v-show="!isNaN(item.xgLevel) || !isNaN(item.xgDay) || !isNaN(item.xgAll)">限购</span>
+      <span class="active" v-show="item.xgall=='2' || item.xgday=='2' || item.xgdatelimit!='1'">限购</span>
     </footer>
   </li>
 </template>
@@ -52,6 +58,7 @@ export default {
   },
   mounted() {
     this.ctx = getCurrentInstance();
+    console.log(this.item);
   },
   methods: {
     deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
@@ -64,7 +71,7 @@ export default {
       var buyParam = {"id": "" + id + ""};
       axios.post("proxy/api/getItemBuyLimit", buyParam).then(res => {
         if (res.data.respCode === "1") {
-          this.$emit('showdetail', this.item, target,res.data.data)
+          this.$emit('showdetail', this.item, target, res.data.data)
         } else {
           ctx.Alert(res.data.respMsg);
         }

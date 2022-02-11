@@ -281,9 +281,9 @@
                     $(".spxq").find(".price").children("i").show().text(dis);
                 }
                 //货币类型
-                if (curr == "积分") {
+                if (curr == "1") {
                     $(".spxq").find(".price").find(".p1").find("i").css("background-image", "url(images/icon/jf2.png)");
-                } else if (curr == "钻石") {
+                } else if (curr == "2") {
                     $(".spxq").find(".price").find(".p1").find("i").css("background-image", "url(images/icon/red-zs.png)");
                 }
                 //等级限购
