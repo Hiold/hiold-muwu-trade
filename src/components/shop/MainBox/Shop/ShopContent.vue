@@ -46,6 +46,7 @@ import ShopItemDetails from "/src/components/shop/MainBox/Shop/ShopItemDetails.v
 //引入juqery
 import $ from 'jquery'
 import axios from "axios";
+import {ElMessage} from "element-plus";
 
 export default {
   watch: {
@@ -413,38 +414,39 @@ export default {
     });
 
     $(".items-box").on("click", ".collect", function () {	//收藏商品
-      //alert(123)
-      var coll = $(this).data("collect");
-      var xb = $(this).parents(".items").data("index");
-      var id = self.shop.data[xb].id;
-      var qua = self.shop.data[xb].quality;
-      var num = self.shop.data[xb].num;
-      var collnum = self.shop.data[xb].collect * 1;
-      if (coll == "true") {	//取消收藏
-        $(this).css("background-image", "url(images/icon/collect-2.png)");
-        $(this).data("collect", "false");
-        collnum -= 1;
-        for (var i = 0; i < self.playerCollects.data.length; i++) {
-          var cxb = self.playerCollects.data[i].xb;
-          if (cxb == xb) {
-            self.playerCollect[self.playerIndex].splice(i, 1);
-            self.arrCollToObj();
-            break;
+      // var coll = $(this).data("collect");
+      var xb = $(this).parents(".items").attr("data-index");
+      console.log(self.shop[xb])
+      var id = self.shop[xb].id;
+      var qua = self.shop[xb].quality;
+      var num = self.shop[xb].num;
+      var collnum = self.shop[xb].collected * 1;
+      if (collnum == 1) {
+        //取消收藏
+        var buyParam = {"id": "" + id + "", "value": "0"};
+        axios.post("proxy/api/updateCollect", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ElMessage.success('取消收藏成功')
+            self.shop[xb].collected = '0';
+            // $(this).css("background-image", "url(images/icon/collect-1.png)");
+          } else {
+            ElMessage.error(res.data.respMsg);
           }
-        }
-      } else {				//收藏
-        $(this).css("background-image", "url(images/icon/collect-3.png)");
-        $(this).data("collect", "true");
-        collnum += 1;
-        //增加一个数组用于储存玩家收藏的物品
-        self.playerCollect[self.playerIndex][self.playerCollect[self.playerIndex].length] = [id, "品质:" + qua, "数量:" + num];
-        self.arrCollToObj();
+        });
+      } else {
+        //收藏
+        var buyParam = {"id": "" + id + "", "value": "1"};
+        axios.post("proxy/api/updateCollect", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ElMessage.success('收藏成功')
+            self.shop[xb].collected = '1';
+            // $(this).css("background-image", "url(images/icon/collect-3.png)");
+          } else {
+            ElMessage.error(res.data.respMsg);
+          }
+        });
       }
-      //commodity[xb][3][4] = "玩家收藏量:"+collnum;
-      $(".game-items item").eq(xb).find("[name='收藏']").attr("value", collnum);
-      self.shop.data[xb].collect = collnum;
-      setTimeout(function () {
-      }, 100);
+
     });
 
     function cardToIcon() {	//将卡片转换为图标

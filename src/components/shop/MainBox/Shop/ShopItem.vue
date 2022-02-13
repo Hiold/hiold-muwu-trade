@@ -18,8 +18,8 @@
       <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
         <span>{{ item.quality }}</span>
       </div>
-      <div class="collect collected" v-if="item.collected"></div>
-      <div class="collect notcollected" v-if="!item.collected"></div>
+      <div style="z-index: 99999" class="collect collected" v-if="item.collected=='1'"></div>
+      <div style="z-index: 99999" class="collect notcollected" v-if="item.collected=='0'"></div>
       <div class="hot" v-show="calcHot(item)"></div>
       <div class="ex" v-show="item.classMod==='2'">网页专属</div>
       <!--      <div class="ex" v-if="item.class1==='网页专属'">网页专属</div>-->
@@ -66,7 +66,9 @@ export default {
       //return itemName;
     },
     showdetailsss(target, id) {
-      // console.log(11111)
+      if (target.className.indexOf("ollect") > 0) {
+        return;
+      }
       var ctx = this.ctx.appContext.config.globalProperties;
       var buyParam = {"id": "" + id + ""};
       axios.post("proxy/api/getItemBuyLimit", buyParam).then(res => {
@@ -87,7 +89,7 @@ export default {
     },
     calcColor(quality) {
       var color = "";
-      console.log(quality)
+      // console.log(quality)
       if (quality * 1 >= 1) {
         if (quality * 1 === 1) {
           color = "rgb(157, 138, 106)"
