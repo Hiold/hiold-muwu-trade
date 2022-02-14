@@ -35,7 +35,7 @@
 <script>
 
     //导入jquery
-    // import $ from 'jquery'
+    import $ from 'jquery'
     import "../../../../assets/style/warehouse/ware-details.css"
 
     export default {
@@ -47,7 +47,8 @@
         },
         props: ["item"],
         methods: {},
-        computed: {}, mounted() {
+        computed: {},
+        mounted() {
         }
 
     }

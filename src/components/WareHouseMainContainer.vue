@@ -15,6 +15,7 @@ import LeftContainerBox from "/src/components/warehouse/LeftContainerBox.vue";
 import RightMenuBox from "/src/components/warehouse/RightMenuBox.vue";
 import $ from "jquery";
 import AlertCommon from "/src/components/AlertCommon.vue";
+import {getCurrentInstance} from "vue";
 
 export default {
   components: {
@@ -31,14 +32,23 @@ export default {
       itemMenu: [
         {
           category: "普通物品", items: [
-            {name: "全部", data: "全部"},
-            {name: "物块模型", data: "物块模型"},
-            {name: "物品资源", data: "物品资源"},
+            {name: "全部", data: ""},
+            {name: "武器/弹药", data: "Ammo/Weapons"},
+            {name: "防具", data: "Armor"},
+            {name: "工具/陷阱", data: "Tools/Traps"},
+            {name: "食物/炊具", data: "Food/Cooking"},
+            {name: "书籍", data: "Books"},
+            {name: "化学品", data: "Chemicals"},
+            {name: "模组", data: "Mods"},
+            {name: "资源", data: "Resources"},
+            {name: "科学", data: "Science"},
+            {name: "医疗", data: "Medical"},
+            {name: "装饰/杂项", data: "Decor/Miscellaneous"}
           ]
         },
         {
           category: "特殊物品", items: [
-            {name: "全部", data: "全部"},
+            {name: "全部", data: ""},
             {name: "货币兑换", data: "货币兑换"},
             {name: "礼包抽奖", data: "礼包抽奖"},
             {name: "专属服务", data: "专属服务"},
@@ -213,6 +223,15 @@ export default {
   },
   mounted() {
     this.ready();
+    //注册全局时间
+    const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+
+    $bus.on('setclass1', options => {
+      this.class1 = options;
+    });
+    $bus.on('setclass2', options => {
+      this.class2 = options;
+    });
   }
 }
 </script>

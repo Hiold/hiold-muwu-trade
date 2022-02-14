@@ -129,11 +129,31 @@
     import WareItemDetails from "/src/components/warehouse/MainBox/WareHouse/WareItemDetails.vue";
     import WareTereBox from "/src/components/warehouse/MainBox/WareHouse/WareTereBox.vue";
     import $ from "jquery";
-    import common from "/src/common/common.js"
+    import axios from "axios";
+    import {getCurrentInstance} from "vue";
 
     //引入juqery
 
     export default {
+        watch: {
+            class1: {
+                handler(newName, oldName) {
+                    if (newName != oldName) {
+                        console.log("监听到变化" + newName);
+                        this.queryShopItem();
+                    }
+                },
+                immediate: true
+            },
+            class2: {
+                handler(newName, oldName) {
+                    if (newName != oldName) {
+                        console.log("监听到变化" + newName);
+                        this.queryShopItem();
+                    }
+                }
+            }
+        },
         name: "ShopContent",
         props: ["class1", "class2"],
         components: {"ShopItem": WareItem, "WareItemDetails": WareItemDetails, "WareTereBox": WareTereBox},
@@ -142,39 +162,41 @@
                 isdetailShow: false,
                 item: {},
                 formPage: "",
-                shop: [{
-                    "id": "积分",
-                    "name": "积分兑换券",
-                    "image": "images/items/jf2.png",
-                    "quality": "3",
-                    "num": "1000",
-                    "currency": "积分",
-                    "price": "1000",
-                    "discount": "7.8",
-                    "prefer": "999",
-                    "desc": "<span style='color:mediumpurple;font-size:1.2rem;font-weight:bold;'>这个物品可以跟档</span><br><font color='orangered'><b>网页专属积分兑换券</b></font><br>在仓库中使用可获得对应数量积分",
-                    "class1": "特殊商品",
-                    "class2": "货币兑换",
-                    "classMod": true,
-                    "sales": "88888",
-                    "hot": "auto",
-                    "hotSet": "888",
-                    "show": "auto",
-                    "stock": "11",
-                    "collect": "55",
-                    "sell": true,
-                    "xgLevel": false,
-                    "xgDay": "10",
-                    "xgAll": "false",
-                    "follow": false,
-                    "year": 2021,
-                    "mon": 12,
-                    "day": 31,
-                    "hour": 18,
-                    "min": 0,
-                    "sec": 0,
-                    "collected": true
-                }],
+                shop: [
+                    //     {
+                    //     "id": "积分",
+                    //     "name": "积分兑换券",
+                    //     "image": "images/items/jf2.png",
+                    //     "quality": "3",
+                    //     "num": "1000",
+                    //     "currency": "积分",
+                    //     "price": "1000",
+                    //     "discount": "7.8",
+                    //     "prefer": "999",
+                    //     "desc": "<span style='color:mediumpurple;font-size:1.2rem;font-weight:bold;'>这个物品可以跟档</span><br><font color='orangered'><b>网页专属积分兑换券</b></font><br>在仓库中使用可获得对应数量积分",
+                    //     "class1": "特殊商品",
+                    //     "class2": "货币兑换",
+                    //     "classMod": true,
+                    //     "sales": "88888",
+                    //     "hot": "auto",
+                    //     "hotSet": "888",
+                    //     "show": "auto",
+                    //     "stock": "11",
+                    //     "collect": "55",
+                    //     "sell": true,
+                    //     "xgLevel": false,
+                    //     "xgDay": "10",
+                    //     "xgAll": "false",
+                    //     "follow": false,
+                    //     "year": 2021,
+                    //     "mon": 12,
+                    //     "day": 31,
+                    //     "hour": 18,
+                    //     "min": 0,
+                    //     "sec": 0,
+                    //     "collected": true
+                    // }
+                ],
                 comCard: "",
                 playerCollects: [],//收藏
                 playerBuys: [],//购买
@@ -182,23 +204,38 @@
                 Display: "",
                 playerName: "",
                 steamID: "",
-                localization: ""
+                localization: "",
+                ctx: null
 
             }
         },
         methods: {
+            queryShopItem() {
+                let params = {
+                    itemname: this.itemname,
+                    class1: this.class1,
+                    class2: this.class2
+                };
+                axios.post("proxy/api/getPlayerStorage", params).then(res => {
+                    if (res.data.respCode === "1") {
+                        let JsonData = res.data.data;
+                        this.shop = JsonData.data;
+                    }
+                });
+            },
             deleteItemForDetail(item) {	//仓库物品详情页-丢弃物品
+                var ctx = this.ctx.appContext.config.globalProperties;
                 var num = item.num * 1;	//获取物品数量
                 var con;
                 if (num == 1) {
-                    common.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
-                    common.popupCss(25, 14);
+                    ctx.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+                    ctx.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                     });
                 } else {
-                    common.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
-                    common.popupCss(25, 18);
+                    ctx.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
+                    ctx.popupCss(25, 18);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = $("#alert>.alert>section>input").val() * 1;
                     });
@@ -250,18 +287,19 @@
                 }
             },
             deleteItem(item) {	//仓库卡片-丢弃
+                var ctx = this.ctx.appContext.config.globalProperties;
                 var num = item.num * 1;	//获取物品数量
                 var con;
                 if (num == 1) {
-                    common.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
-                    common.popupCss(25, 14);
+                    ctx.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+                    ctx.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                     });
                     //if(con){con=1}
                 } else {
-                    common.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
-                    common.popupCss(25, 18);
+                    ctx.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
+                    ctx.popupCss(25, 18);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = $("#alert>.alert>section>input").val() * 1;
                     });
@@ -271,6 +309,10 @@
                     $("#alert").hide();
                     console.log("确认丢弃" + con)
                 });
+            },
+            deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
+                return itemName.replace(/([\\[][0-9a-fA-F]{6}[\]])/g, "");
+                //return itemName;
             },
             showdetail(item, target) {
                 //仓库卡片-详情
@@ -288,15 +330,18 @@
 
                 $(".ware-list").hide();		//隐藏仓库物品列表
                 $(".ware-details").fadeIn(100);	//显示仓库物品详情页面
-
-                var name = item.name;	//获取物品名称
-                var img = item.image;	//获取物品图片
+                var xb = $(target).data("index");	//获取物品在数组中的下标
+                // console.log($(target))
+                $(".ware-details").data("index",xb);	//将物品下标保存到详情页面
+                var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
+                var img = 'proxy/api/image/' + item.itemicon;				//商品图片
                 var c1 = item.class1;	//获取物品总分类
                 var c2 = item.class2;	//获取物品子分类
                 var c3 = item.mod;		//获取物品是否为mod
-                var num = item.num;		//获取物品拥有数量
+                var num = item.storageCount;		//获取物品拥有数量
                 var qua = item.quality;	//获取物品品质
                 var desc = item.desc;	//获取物品介绍
+
                 //将物品信息渲染到页面
                 $(".ware-details>header>.name").text(name);	//名称
                 $(".ware-details>section>.left>.img>img").attr("src", img);//图片
@@ -323,41 +368,47 @@
                 }
                 $(".ware-details>footer>.desc").html(desc);	//介绍说明
             },
-            pickUpItems(item) {	//提取仓库物品
-                var num = item.num * 1;	//获取物品数量
+            pickUpItems(itemindex) {	//提取仓库物品
+                var item = this.shop[itemindex];
+                var ctx = this.ctx.appContext.config.globalProperties;
+                var num = item.storageCount * 1;	//获取物品数量
                 var con;
                 if (num == 1) {	//如果只有一件物品
-                    common.Confirm("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足");
-                    common.popupCss(25, 14);
+                    ctx.Confirm("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足");
+                    ctx.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         con = 1;
                         extract();
                     });
                 } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
-                    common.Prompt("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足<br>输入你要提取的数量：", num);
-                    common.popupCss(25, 18);
+                    ctx.Prompt("是否确认要将此物品提取到背包？<br>请确保游戏在线且背包容量充足<br>输入你要提取的数量：", num);
+                    ctx.popupCss(25, 18);
+                    //点击确认事件
                     $("#alert>.alert>footer>.confirm").click(function () {
-                        //alert(123)
+                        alert(123)
                         con = $("#alert>.alert>section>input").val() * 1;
                         if (con == "" || con == null) {
                             return
                         }
                         if (isNaN(con) || con <= 0 || (con % con != 0)) {
-                            common.Alert("提取数量必须是 ≥1 的整数！");
-                            common.popupCss(25, 13);
+                            ctx.Alert("提取数量必须是 ≥1 的整数！");
+                            ctx.popupCss(25, 13);
                             return;
                         }
                         if (con > num) {	//如果输入的数量大于拥有的数量
-                            common.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能提取 " + num + " 件物品");
-                            common.popupCss(25, 16);
+                            ctx.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能提取 " + num + " 件物品");
+                            ctx.popupCss(25, 16);
                             return;
                         }
+
+                        ctx.Alert("提取成功");
                         // extract();
                     });
                 }
 
                 //$("#alert>.alert>footer>.confirm").click(function(){
                 function extract() {
+                    var ctx = this.ctx.appContext.config.globalProperties;
                     //alert(con)
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
@@ -366,19 +417,20 @@
                     //........
                     var suc = true;	//假设这是后端传回来的数据，表示验证成功
                     if (suc) {
-                        common.Alert("提取成功！<br>物品已发送到您的背包");
-                        common.popupCss(25, 14);
+                        ctx.Alert("提取成功！<br>物品已发送到您的背包");
+                        ctx.popupCss(25, 14);
                         $(".ware-details>header>.back").click();	//返回仓库物品列表页面
                         // recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>提取物品</span><span><b>"+name+"</b></span><span>"+con+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
                         return true;
                     } else {
-                        common.Alert("提取失败！");
-                        common.popupCss(25, 13);
+                        ctx.Alert("提取失败！");
+                        ctx.popupCss(25, 13);
                         return false;
                     }
                 }
             },
             useItems(item) {
+                var ctx = this.ctx.appContext.config.globalProperties;
                 //使用仓库物品
                 var id = item.id;		//获取物品ID
                 var type = item.class2;	//获取物品所属子分类
@@ -396,20 +448,20 @@
                             var point = this.playerinfo.points * 1;	//获取玩家拥有的积分
                             point += use;	//给玩家增加对应数量的积分
                             this.playerinfo.points = point;	//将玩家积分保存到obj对象
-                            common.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
-                            common.popupCss(25, 14);
+                            ctx.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
+                            ctx.popupCss(25, 14);
                         } else if (id == "钻石") {
                             var zs = this.playerinfo.diamonds * 1;	//获取玩家拥有的钻石
                             zs += use;	//给玩家增加对应数量的钻石
                             this.playerinfo.diamonds = zs;	//将玩家钻石保存到obj对象
-                            common.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
-                            common.popupCss(25, 14);
+                            ctx.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
+                            ctx.popupCss(25, 14);
                             // GeneratePlayer();	//重新在页面渲染玩家数据
                         }
 
                     } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
-                        common.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
-                        common.popupCss(25, 18);
+                        ctx.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
+                        ctx.popupCss(25, 18);
                         $("#alert>.alert>footer>.confirm").click(function () {
                             //alert(1)
                             $("#alert>.alert>section>p").html("");	//清空文本提示内容
@@ -420,13 +472,13 @@
                                 return
                             }
                             if (isNaN(use) || use <= 0 || (use % use != 0)) {
-                                common.Alert("使用数量必须是 ≥1 的整数！");
-                                common.popupCss(25, 13);
+                                ctx.Alert("使用数量必须是 ≥1 的整数！");
+                                ctx.popupCss(25, 13);
                                 return;
                             }
                             if (use > num) {	//如果输入的数量大于拥有的数量
-                                common.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
-                                common.popupCss(25, 16);
+                                ctx.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
+                                ctx.popupCss(25, 16);
                                 return;
                             }
                             num -= use;		//减去使用的数量
@@ -435,14 +487,14 @@
                                 var point = this.playerinfo.points * 1;	//获取玩家拥有的积分
                                 point += use;	//给玩家增加对应数量的积分
                                 this.playerinfo.points = point;	//将玩家积分保存到obj对象
-                                common.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
-                                common.popupCss(25, 14);
+                                ctx.Alert("恭喜你获得了 <font color='orange'>" + use + "</font> 积分！<br>积分已发送至您的账号");
+                                ctx.popupCss(25, 14);
                             } else if (id == "钻石") {
                                 var zs = this.playerinfo.diamonds * 1;	//获取玩家拥有的钻石
                                 zs += use;	//给玩家增加对应数量的钻石
                                 this.playerinfo.diamonds = zs;	//将玩家钻石保存到obj对象
-                                common.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
-                                common.popupCss(25, 14);
+                                ctx.Alert("恭喜你获得了 <span style='color:rgb(249,102,112);'>" + use + "</span> 钻石！<br>钻石已发送至您的账号");
+                                ctx.popupCss(25, 14);
                             }
 
 
@@ -462,8 +514,8 @@
                         use = 1;
                         uselb();
                     } else {	//如果物品数量拥有一件以上，弹出输入框让玩家选择使用多少件
-                        common.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
-                        common.popupCss(25, 18);
+                        ctx.Prompt("您当前拥有 " + num + " 件物品<br>请输入你要使用的数量：", num);
+                        ctx.popupCss(25, 18);
                         $("#alert>.alert>footer>.confirm").click(function () {
                             $("#alert>.alert>section>p").html("");	//清空文本提示内容
                             $("#alert,#alert>.alert").hide();
@@ -473,13 +525,13 @@
                                 return
                             }
                             if (isNaN(use2) || use2 <= 0 || (use2 % use2 != 0)) {
-                                common.Alert("使用数量必须是 ≥1 的整数！");
-                                common.popupCss(25, 13);
+                                ctx.Alert("使用数量必须是 ≥1 的整数！");
+                                ctx.popupCss(25, 13);
                                 return;
                             }
                             if (use2 > num) {	//如果输入的数量大于拥有的数量
-                                common.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
-                                common.popupCss(25, 16);
+                                ctx.Alert("输入的数量不能大于拥有的数量！<br>您当前拥有 " + num + " 件物品<br>最多也只能使用 " + num + " 件物品");
+                                ctx.popupCss(25, 16);
                                 return;
                             }
                             uselb();
@@ -488,12 +540,12 @@
                     }
 
                 } else if (type == "专属服务") {
-                    common.Alert("专属服务可能需要在游戏内与服务器管理员进行互动<br>请联系服务器管理员使用此物品<br>若是已经使用过，请丢弃此物品");
-                    common.popupCss(32, 16, 1.1);
+                    ctx.Alert("专属服务可能需要在游戏内与服务器管理员进行互动<br>请联系服务器管理员使用此物品<br>若是已经使用过，请丢弃此物品");
+                    ctx.popupCss(32, 16, 1.1);
                     return;
                 } else if (type == "抵用券") {
-                    common.Confirm("抵用券需要在商城购买商品时使用<br>是否立即前往？");
-                    common.popupCss(25, 14);
+                    ctx.Confirm("抵用券需要在商城购买商品时使用<br>是否立即前往？");
+                    ctx.popupCss(25, 14);
                     $("#alert>.alert>footer>.confirm").click(function () {
                         $("#alert>.alert>section>p").html("");	//清空文本提示内容
                         $("#alert").hide();
@@ -502,11 +554,11 @@
                     return;
                 } else {
                     if (id == "补签卡") {
-                        common.Alert("此物品需要在签到页面中使用");
-                        common.popupCss(25, 13);
+                        ctx.Alert("此物品需要在签到页面中使用");
+                        ctx.popupCss(25, 13);
                     } else {
-                        common.Alert("该物品没有明确分类，可能为公告说明类提示信息<br>若有疑问请联系服务器管理员进行使用");
-                        common.popupCss(32, 14, 1.1);
+                        ctx.Alert("该物品没有明确分类，可能为公告说明类提示信息<br>若有疑问请联系服务器管理员进行使用");
+                        ctx.popupCss(32, 14, 1.1);
                     }
                     return;
                 }
@@ -518,9 +570,124 @@
         }
         ,
         mounted() {
+            this.ctx = getCurrentInstance();
             $(".loading").hide();
             var self = this;
 
+            //仓库物品详情页-提取/使用
+            $(".ware-details>section>.right>.btn-1").click(function () {
+                console.log($(this).parents(".ware-details"));
+                var xb = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
+                var txt = $(this).text();	//获取按钮文本内容，有“提取物品”和“使用物品”两种情况
+                if (txt == "提取物品") {
+                    var suc = self.pickUpItems(xb);	//调用提取函数
+                    if (suc) {	//如果函数返回true则表示提取成功
+                        $(".ware-list").fadeIn(200);	//显示仓库物品列表
+                        $(".ware-details").hide();		//隐藏物品详情页
+                    }
+                } else if (txt == "使用物品") {
+                    //var xb = $(this).parents(".ware-details").data("index");	//获取物品在仓库数组中的下标
+                    self.useItems(xb);	//调用使用物品函数
+                    //$(".ware-details>header>.back").click();	//返回仓库物品列表页面
+                }
+            });
+            //仓库物品详情页-出售物品
+            $(".ware-details>section>.right>.btn-2").click(function () {
+                var xb = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
+                // Confirm("商品将会放在交易中心进行出售<br>如果有玩家购买你的商品你将会获得奖励<br>是否确认出售？");
+                // popupCss(28,16);
+                // $("#alert>.alert>footer>.confirm").click(function(){
+                // 	$("#alert>.alert>section>p").html("");	//清空文本提示内容
+                // 	$("#alert").hide();
+                // });
+                $("#alert,#alert>.window").show();	//显示出售物品的确认框
+                $("#alert>.window").data("index", xb);
+                var name = playerWares.data[xb].name;	//名称
+                var img = playerWares.data[xb].image;	//图标
+                var num = playerWares.data[xb].num;		//数量
+                var qua = playerWares.data[xb].quality;	//品质
+                if (qua == "" || qua == undefined || qua == 0) {
+                    $("#alert>.window>section>header>.msg>.quality").hide();
+                } else {
+                    $("#alert>.window>section>header>.msg>.quality").show();
+                }
+                //alert(qua)
+                //将物品数据渲染到页面
+                $("#alert>.window>section>header>.head>img").attr("src", img);	//图标
+                $("#alert>.window>section>header>.msg>.name").html(name);		//名称
+                $("#alert>.window>section>header>.msg>.num").text("x" + num);		//数量
+                $("#alert>.window>section>header>.msg>.quality").text("品质：" + qua);	//品质
+                $("#alert>.window>section>div>.val>input").val("");		//清空输入框
+
+            });
+            //仓库物品详情页-配方制作
+            $(".ware-details>section>.right>.btn-3").click(function () {
+                var xb = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
+                var id = playerWares.data[xb].id;	//获取物品ID
+                var name = playerWares.data[xb].name;	//获取物品名称
+                //加载页面
+                console.log(getTime().date + "\n正在加载页面 - 工作台 ......");
+                $("body>.data-recipe").load("Config/recipes.xml", function () {	//先加载配方
+                    console.log(getTime().date + "\n物品配方加载成功！");
+                    $("main>article").load("page/work.html", function () {		//再加载工作台页面
+                        $(".head-tool,.workbench>aside,.work-page").hide();
+                        //GenerateRecipe(id);
+                        console.log(getTime().date + "\n工作台 页面加载成功！");
+                        setTimeout(function () {
+                            $(".workbench>aside").fadeIn(200);
+                            $(".work-page").fadeIn(200);
+                            $(".head-tool").fadeIn(50);
+                            setTimeout(function () {
+                                adaptive();
+                            }, 20);
+                            GenerateRecipe(id);		//生成物品基本信息
+                            $(".citems-search>input").val(name);	//输入物品名称
+                            searchItems();	//搜索这个物品
+                            $(".citems-search>.search-type>.t2").click();	//搜索类型为配方
+                        }, 10);
+                    });
+                });
+
+
+            });
+            //仓库物品详情页-丢弃物品
+            $(".ware-details>section>.right>.btn-4").click(function () {
+                var xb = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
+                var num = playerWares.data[xb].num * 1;	//获取物品数量
+                var con;
+                if (num == 1) {
+                    Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+                    popupCss(25, 14);
+                    $("#alert>.alert>footer>.confirm").click(function () {
+                        con = 1;
+                    });
+                } else {
+                    Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
+                    popupCss(25, 18);
+                    $("#alert>.alert>footer>.confirm").click(function () {
+                        con = $("#alert>.alert>section>input").val() * 1;
+                    });
+                }
+                $("#alert>.alert>footer>.confirm").click(function () {
+                    $("#alert>.alert>section>p").html("");	//清空文本提示内容
+                    $("#alert").hide();
+
+                    discardItems(xb, con);	//调用删除物品函数
+                    if (arrClass1 == "特殊物品") {
+                        changeWareColor(2);
+                    }
+                    $(".ware-list").fadeIn(200);	//显示仓库物品列表
+                    $(".ware-details").hide();		//隐藏物品详情页
+                });
+                // if(con){
+                // 	discardItems(xb,con);	//调用删除物品函数
+                // 	if(arrClass1=="特殊物品"){
+                // 		changeWareColor(2);
+                // 	}
+                // 	$(".ware-list").fadeIn(200);	//显示仓库物品列表
+                // 	$(".ware-details").hide();		//隐藏物品详情页
+                // }
+            });
 
             function cardToIcon() {	//将卡片转换为图标
                 $(".ware-items>header,.ware-items>section>.right,.ware-items>section>.left>footer").hide();	//隐藏头部、脚部 和 侧面
@@ -641,8 +808,9 @@
             });
 
             $(".warehouse>.menu>.l1").click(function () {		//彩色按钮 - 提取到背包
-                self.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
-                common.popupCss(28, 16);
+                var ctx = this.ctx.appContext.config.globalProperties;
+                ctx.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
+                ctx.popupCss(28, 16);
                 $("#alert>.alert>footer>.confirm").click(function () {
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
@@ -654,45 +822,46 @@
                         //暂时声明为true
                         var fn = true;
                         if (fn) {
-                            common.Alert("提取成功！<br>物品已发送到您的背包");
-                            common.popupCss(25, 14);
+                            ctx.Alert("提取成功！<br>物品已发送到您的背包");
+                            ctx.popupCss(25, 14);
                         } else if (!fn) {
-                            common.Alert("仓库没有任何可提取的东西！");
-                            common.popupCss(25, 13);
+                            ctx.Alert("仓库没有任何可提取的东西！");
+                            ctx.popupCss(25, 13);
                         }
                     } else {
-                        common.Alert("提取失败！");
-                        common.popupCss(25, 13);
+                        ctx.Alert("提取失败！");
+                        ctx.popupCss(25, 13);
                     }
                 });
             });
 
 
             $(".warehouse>.menu>.l1-replace").click(function () {	//彩色按钮 - 储存到仓库
+                var ctx = this.ctx.appContext.config.globalProperties;
                 var page = $(".terr-box").data("page");
                 if (page == "box") {
-                    common.Alert("请选择一个箱子");
-                    common.popupCss(25, 13);
+                    ctx.Alert("请选择一个箱子");
+                    ctx.popupCss(25, 13);
                     return;
                 }
                 //判断容器状态
                 var containerStatus = false;
                 if (containerStatus) {
-                    common.Alert("箱子里是空的，没有可以储存的物品！");
-                    common.popupCss(28, 13);
+                    ctx.Alert("箱子里是空的，没有可以储存的物品！");
+                    ctx.popupCss(28, 13);
                     return;
                 }
 
                 var containerCount = 95;
                 self.Confirm("你的箱子里有 " + containerCount + " 件物品<br>是否确认把箱子内所有物品储存到仓库？");
-                common.popupCss(28, 15);
+                ctx.popupCss(28, 15);
                 $("#alert>.alert>footer>.confirm").click(function () {
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
                     //console.log("点击了确认");
                     //arrboxToObj();
-                    common.Alert("储存成功！");
-                    common.popupCss(25, 13);
+                    ctx.Alert("储存成功！");
+                    ctx.popupCss(25, 13);
                 });
                 // if(con){
 

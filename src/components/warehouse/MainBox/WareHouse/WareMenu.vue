@@ -17,6 +17,7 @@
     import $ from 'jquery'
 
     import WareMenuItem from '/src/components/warehouse/MainBox/WareHouse/WareMenuItem.vue'
+    import {getCurrentInstance} from "vue";
 
     export default {
         components: {"ware-mune-item": WareMenuItem},
@@ -27,6 +28,7 @@
         },
         methods: {
             ready() {
+                const $bus = getCurrentInstance().appContext.config.globalProperties.$bus;
                 var self = this;
                 $(".Category-ware>div>li").hide();	//默认隐藏所有子分类
                 //下面会检测打开仓库默认加载的分类
@@ -59,6 +61,7 @@
                 //$(".Category-ware>div>li[class^='b1']").show();
 
                 $(".Category-ware>div>ul").click(function () {	//总分类点击特效+生成商品
+                    console.log(111)
                     var dc = $(this).data("click");		//获取当前分类下的子分类展开状态
                     var xb = $(this).attr("class").split("-")[1];	//从类名中获取序号
                     if (dc == "false" || dc == undefined) {	//情况1:如果子分类为隐藏
@@ -66,7 +69,7 @@
                         $(".Category-ware>div>li[class^='b" + xb + "']").slideDown(100);	//展开当前子分类
                         $(".Category-ware>div>ul").data("click", "false");
                         $(this).data("click", "true");	//将展开状态设置为"展开"
-                        self.class1 = $(this).find("div").text();	//获取当前点击总分类名称
+                        $bus.emit('setclass1', $(this).find("div").text());
                         $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
                         self.changeWareColor(xb);	//改变卡片颜色
                     } else if (dc == "true" || dc == true) {		//情况2:如果子分类为展开
@@ -105,7 +108,7 @@
                     });
                     $(".Category-ware>div>li[class^='b" + xb + "']").data("click", "false");
                     $(this).data("click", "true");
-                    self.class2 = $(this).text();
+                    $bus.emit('setclass2', $(this).attr("data"));
                     // GenerateWare(arrClass1,arrClass2);	//生成对应商品-----
                     // changeWareColor(xb);	//改变卡片颜色
                     return;
