@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^0.2.4",
+    "@rollup/plugin-alias": "^3.1.9",
     "axios": "^0.21.1",
     "element-plus": "1.0.2-beta.52",
     "mitt": "^3.0.0",
     "moment": "^2.29.1",
     "node-sass": "^7.0.1",
+    "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",
     "vue": "^3.1.2",

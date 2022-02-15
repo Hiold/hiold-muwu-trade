@@ -8,7 +8,7 @@
           <div class="quality" title="品质">6</div>
           <div class="soldout"></div>
           <!-- <div class="quality"><span>6</span></div> -->
-          <img src="images/items/decoPumpkinJackOLantern.png">
+          <img src="/public/images/items/ccCoin.png">
         </div>
       </div>
       <div class="collect">

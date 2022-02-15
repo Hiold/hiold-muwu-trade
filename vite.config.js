@@ -1,10 +1,15 @@
 import vue from '@vitejs/plugin-vue'
-
+const path = require('path')
 export default {
-    base: './',
+    base: '',
     plugins: [vue()],
     optimizeDeps: {
         include: ['schart.js']
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src')
+        }
     },
     server: {
         host: '0.0.0.0',

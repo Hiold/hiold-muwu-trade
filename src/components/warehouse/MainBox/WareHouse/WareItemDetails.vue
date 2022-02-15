@@ -12,7 +12,7 @@
                     <div class="c3">Mod物品</div>
                 </header>
                 <div class="img">
-                    <img src="images/items/decoPumpkinJackOLantern.png">
+                    <img src="/public/images/items/ccCoin.png">
                 </div>
                 <footer>
                     <div class="num">数量 :<span>123</span>件</div>

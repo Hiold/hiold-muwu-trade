@@ -31,7 +31,7 @@
                 <header>
                     <div class="head-box">
                         <div class="head">
-                            <img src="images/ItemIcons/cntChest01.png">
+                            <img src="/public/images/ItemIcons/cntChest01.png">
                         </div>
                         <div class="msg">
                             <div class="name">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="head-items" style="display: none;">
                         <div class="head">
-                            <img src="images/ItemIcons/cntChest01.png">
+                            <img src="/public/images/ItemIcons/cntChest01.png">
                         </div>
                         <div class="msg">
                             <div class="name">
@@ -58,13 +58,13 @@
                 <section>
                     <li class="box-items">
                         <div class="filter">
-                            <img src="images/ItemIcons/armorSantaHat.png">
+                            <img src="/public/images/ItemIcons/armorSantaHat.png">
                         </div>
                         <div class="num">123</div>
                     </li>
                     <li class="box-items">
                         <div class="filter">
-                            <img src="images/ItemIcons/casinoCoin.png">
+                            <img src="/public/images/ItemIcons/casinoCoin.png">
                         </div>
                         <div class="num">20000</div>
                     </li>
