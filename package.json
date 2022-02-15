@@ -1,4 +1,10 @@
 {
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    }
+  },
   "name": "vue-manage-system",
   "version": "5.1.0",
   "private": true,
@@ -15,6 +21,7 @@
     "mitt": "^3.0.0",
     "moment": "^2.29.1",
     "node-sass": "^7.0.1",
+    "require": "^2.4.20",
     "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",
