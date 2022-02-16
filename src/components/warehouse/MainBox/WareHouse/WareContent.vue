@@ -285,7 +285,7 @@
                     class1: this.class1,
                     class2: this.class2
                 };
-                axios.post("proxy/api/getPlayerStorage", params).then(res => {
+                axios.post("api/getPlayerStorage", params).then(res => {
                     if (res.data.respCode === "1") {
                         let JsonData = res.data.data;
                         this.shop = JsonData.data;
@@ -403,7 +403,7 @@
                 // console.log($(target))
                 $(".ware-details").data("index", xb);	//将物品下标保存到详情页面
                 var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
-                var img = 'proxy/api/image/' + item.itemicon;				//商品图片
+                var img = 'api/image/' + item.itemicon;				//商品图片
                 var c1 = item.class1;	//获取物品总分类
                 var c2 = item.class2;	//获取物品子分类
                 var c3 = item.mod;		//获取物品是否为mod
@@ -484,7 +484,7 @@
                     //这一步可能需要后端进行验证
 
                     var buyParam = {"id": "" + id + "", "count": "" + count + ""};
-                    axios.post("proxy/api/dispachItemToGame", buyParam).then(res => {
+                    axios.post("api/dispachItemToGame", buyParam).then(res => {
                         if (res.data.respCode === "1") {
                             ctx.Alert("提取成功！<br>物品已发送到您的背包");
                             ctx.popupCss(25, 14);
@@ -686,7 +686,7 @@
                 $("#alert>.window").data("index", itemindex);
                 // console.log(item);
                 var name = self.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
-                var img = 'proxy/api/image/' + item.itemicon;				//商品图片
+                var img = 'api/image/' + item.itemicon;				//商品图片
                 var num = item.storageCount;		//数量
                 var qua = item.quality;	//品质
                 // console.log(name);
@@ -709,7 +709,7 @@
                     console.log($("#alert>.window>section>.count>.val>input"))
 
                     var buyParam = {"id": "" + item.id + "", "count": "" + count + "", "price": "" + price + ""};
-                    axios.post("proxy/api/sellOutItem", buyParam).then(res => {
+                    axios.post("api/sellOutItem", buyParam).then(res => {
                         if (res.data.respCode === "1") {
                             ctx.Alert("出售成功！");
                             ctx.popupCss(25, 14);
@@ -781,7 +781,7 @@
                     $("#alert>.alert>section>p").html("");	//清空文本提示内容
                     $("#alert").hide();
                     var buyParam = {"id": "" + item.id + "", "count": "" + con + ""};
-                    axios.post("proxy/api/deleteItem", buyParam).then(res => {
+                    axios.post("api/deleteItem", buyParam).then(res => {
                         if (res.data.respCode === "1") {
                             ctx.Alert("丢弃成功！");
                             ctx.popupCss(25, 14);

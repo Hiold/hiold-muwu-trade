@@ -1,167 +1,190 @@
 /* 头部工具栏 */
-.head-tool{
-	display: none;
+.head-tool {
+    display: none;
 }
-.head-tool>.sort{
-	float:left;
-	margin-right: 0;
-	margin-left: 1rem;
+
+.head-tool > .sort {
+    float: left !important;
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
 }
-.head-tool>.refresh{
-	float: left;
-	width:2.2rem;
-	height:2rem;
-	background-image: url(../../images/icon/rush.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin: 1rem;
-	margin-left: 2rem;
-	cursor: pointer;
-	transition: all 0.3s;
-	opacity: 0.7;
+
+.head-tool > .refresh {
+    float: left;
+    width: 2.2rem;
+    height: 2rem;
+    background-image: url(../../images/icon/rush.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 1rem;
+    margin-left: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.7;
 }
-.head-tool>.refresh:hover{
-	transform: rotate(180deg);
+
+.head-tool > .refresh:hover {
+    transform: rotate(180deg);
 }
-.head-tool>.back{
-	width: 4rem;
-	height: 4rem;
-	background-image: url(../../images/icon/back.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	float: right;
-	box-sizing: border-box;
-	margin-right: 1rem;
-	transform: scale(0.65);
-	cursor: pointer;
-	transition: all 0.1s;
+
+.head-tool > .back {
+    width: 4rem;
+    height: 4rem;
+    background-image: url(../../images/icon/back.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: right;
+    box-sizing: border-box;
+    margin-right: 1rem;
+    transform: scale(0.65);
+    cursor: pointer;
+    transition: all 0.1s;
 }
-.head-tool>.back:hover{
-	transform: scale(0.75);
+
+.head-tool > .back:hover {
+    transform: scale(0.75);
 }
 
 /* 玩家店铺列表 */
-.player-store{
-	width:100%;
-	height:100%;
-	border:0.5rem solid rgba(255,255,255,0.8);
-	box-sizing: border-box;
-	padding: 2%;
-	padding-top:4.5rem;
-	overflow-y: auto;
-	display:none;
+.player-store {
+    width: 100%;
+    height: 100%;
+    border: 0.5rem solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    padding: 2%;
+    padding-top: 4.5rem;
+    overflow-y: auto;
+    display: none;
 }
-.player-store>header{
-	width:100%;
-	height:2rem;
-	line-height: 2rem;
+
+.player-store > header {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
 }
-.player-store>header>div{
-	float:left;
-	color:rgb(188,188,188);
-	font-size: 0.9rem;
-	/text-align: center;
-	/border:1px solid red;
-	box-sizing: border-box;
+
+.player-store > header > div {
+    float: left;
+    color: rgb(188, 188, 188);
+    font-size: 0.9rem;
+/*/ text-align: center;*/
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
 }
-.player-store>header>.h1{
-	margin-left: 1rem;
-	width:8rem;
+
+.player-store > header > .h1 {
+    margin-left: 1rem;
+    width: 8rem;
 }
-.player-store>header>.h2{
-	width:23rem;
+
+.player-store > header > .h2 {
+    width: 23rem;
 }
-.player-store>header>.h3{
-	width:9rem;
+
+.player-store > header > .h3 {
+    width: 9rem;
 }
-.player-store>header>.h4{
-	/width:5rem;
+
+.player-store > header > .h4 {
+/*/ width: 5 rem;*/
 }
-.player-store>li{
-	width:100%;
-	height:5rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	box-shadow: 0 0 0.3rem rgb(188,188,188);
-	border-radius: 0.5rem;
-	margin-bottom:2%;
-	background-color: rgba(255,255,255,0.5);
-	display:flex;
-	align-items: center;
-	/cursor: pointer;
+
+.player-store > li {
+    width: 100%;
+    height: 5rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    box-shadow: 0 0 0.3rem rgb(188, 188, 188);
+    border-radius: 0.5rem;
+    margin-bottom: 2%;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+/*/ cursor: pointer;*/
 }
-.player-store>li:hover{
-	box-shadow: 0 0 0.4rem gray;
-	background-color: rgba(255,255,255,0.7);
+
+.player-store > li:hover {
+    box-shadow: 0 0 0.4rem gray;
+    background-color: rgba(255, 255, 255, 0.7);
 }
-.player-store>li>div{
-	/float:left;
+
+.player-store > li > div {
+/*/ float: left;*/
 }
-.player-store>li>.num{
-	width:4rem;
-	float:left;
-	text-align: center;
-	color:gray;
-	font-weight: bold;
-	font-size: 2.5rem;
+
+.player-store > li > .num {
+    width: 4rem;
+    float: left;
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    font-size: 2.5rem;
 }
-.player-store>li>.head{
-	width:4rem;
-	height:4rem;
-	float:left;
-	border-radius: 0.5rem;
-	border:0.1rem solid white;
-	box-sizing: border-box;
-	box-shadow: 0 0 0.3rem gray;
-	margin: 0.5rem;
-	background-image: url(../../images/player/muwu.jpg);
-	background-size: cover;
+
+.player-store > li > .head {
+    width: 4rem;
+    height: 4rem;
+    float: left;
+    border-radius: 0.5rem;
+    border: 0.1rem solid white;
+    box-sizing: border-box;
+    box-shadow: 0 0 0.3rem gray;
+    margin: 0.5rem;
+    background-image: url(../../images/player/muwu.jpg);
+    background-size: cover;
 }
-.player-store>li>.name{
-	width:21rem;
-	height:100%;
-	float:left;
-	margin-left: 0.2rem;
+
+.player-store > li > .name {
+    width: 21rem;
+    height: 100%;
+    float: left;
+    margin-left: 0.2rem;
 }
-.player-store>li>.name>.shop-name{
-	font-size: 1.3rem;
-	font-weight: bold;
-	line-height: 2.5rem;
-	margin-top:0.3rem;
-	color:	rgb(123,123,123);
-	color:chocolate;
-	float:left;
+
+.player-store > li > .name > .shop-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 2.5rem;
+    margin-top: 0.3rem;
+    color: rgb(123, 123, 123);
+    color: chocolate;
+    float: left;
 }
-.player-store>li>.name>.vip{
-	width:2.4rem;
-	height:1.2rem;
-	float:left;
-	/border:1px solid red;
-	box-sizing: border-box;
-	background-image:url(../../images/icon/vip2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin-top:0.9rem;
-	margin-left: 0.1rem;
-	display: none;
+
+.player-store > li > .name > .vip {
+    width: 2.4rem;
+    height: 1.2rem;
+    float: left;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    background-image: url(../../images/icon/vip2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 0.9rem;
+    margin-left: 0.1rem;
+    display: none;
 }
-.player-store>li>.name>.owner{
-	font-size: 0.9rem;
-	float:left;
-	color:rgb(123,123,123);
-	/color:rgb(250,128,114);
-	clear:both;
+
+.player-store > li > .name > .owner {
+    font-size: 0.9rem;
+    float: left;
+    color: rgb(123, 123, 123);
+/*/ color: rgb(250, 128, 114);*/
+    clear: both;
 }
-.player-store>li>.name>.owner>b{
-	font-size: 1rem;
+
+.player-store > li > .name > .owner > b {
+    font-size: 1rem;
 }
-.player-store>li>.name>.level{
-	font-size: 0.9rem;
-	font-weight: bold;
-	float:left;
-	color:orangered;
-	margin-left: 0.5rem;
+
+.player-store > li > .name > .level {
+    font-size: 0.9rem;
+    font-weight: bold;
+    float: left;
+    color: orangered;
+    margin-left: 0.5rem;
 }
+
 /* .player-store>li>.level{
 	width:7rem;
 	font-weight: bold;
@@ -170,152 +193,169 @@
 	font-size: 1.3rem;
 	display: none;
 } */
-.player-store>li>.sales{
-	width:10rem;
-	/float:right;
-	line-height: 1.8rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-}
-.player-store>li>.sales>i{
-	width:1.6rem;
-	height:1.6rem;
-	float: left;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-.player-store>li>.sales>span{
-	margin-left: 0.3rem;
-	font-size: 1.25rem;
-	/font-weight: bold;
-	color:orange;
-}
-.player-store>li>.praised{
-	/float:right;
-	cursor: pointer;
-}
-.player-store>li>.praised>i{
-	width:1.3rem;
-	height:1.3rem;
-	float: left;
-	background-image: url(../../images/icon/zan3.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-.player-store>li>.praised>span{
-	margin-left: 0.3rem;
-	font-size: 1.2rem;
-	/font-weight: bold;
-	color:gray;
-	/color:orangered;
+.player-store > li > .sales {
+    width: 10rem;
+/*/ float: right;*/
+    line-height: 1.8rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
 }
 
-.player-store>.empty{
-	width:16rem;
-	height:19rem;
-	color:rgb(166,166,166);
-	font-size: 1.6rem;
-	font-weight: bold;
-	text-align: center;
-	letter-spacing: 0.1rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	position: absolute;
-	left:0;right:0;
-	top:1rem;bottom:0;
-	margin: auto;
-	z-index: 2;
-	/background-color: pink;
-	background-image: url(../../images/empty6.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	/display:none;
+.player-store > li > .sales > i {
+    width: 1.6rem;
+    height: 1.6rem;
+    float: left;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
-.player-store>.empty>span{
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: 0;
+
+.player-store > li > .sales > span {
+    margin-left: 0.3rem;
+    font-size: 1.25rem;
+/*/ font-weight: bold;*/
+    color: orange;
+}
+
+.player-store > li > .praised {
+/*/ float: right;*/
+    cursor: pointer;
+}
+
+.player-store > li > .praised > i {
+    width: 1.3rem;
+    height: 1.3rem;
+    float: left;
+    background-image: url(../../images/icon/zan3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.player-store > li > .praised > span {
+    margin-left: 0.3rem;
+    font-size: 1.2rem;
+/*/ font-weight: bold;*/
+    color: gray;
+/*/ color: orangered;*/
+}
+
+.player-store > .empty {
+    width: 16rem;
+    height: 19rem;
+    color: rgb(166, 166, 166);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.1rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1rem;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
+/*/ background-color: pink;*/
+    background-image: url(../../images/empty6.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+/*/ display: none;*/
+}
+
+.player-store > .empty > span {
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 /* 店铺详情页 */
-.my-shop{
-	width:100%;
-	height:100%;
-	border:0.5rem solid rgba(255,255,255,0.8);
-	box-sizing: border-box;
-	padding: 1%;
-	/padding-top:1rem;
-	overflow: visible;
-	/display:none;
+.my-shop {
+    width: 100%;
+    height: 100%;
+    border: 0.5rem solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    padding: 1%;
+/*/ padding-top: 1 rem;*/
+    overflow: visible;
+/*/ display: none;*/
 }
-.my-shop>header{
-	overflow: visible;
+
+.my-shop > header {
+    overflow: visible;
 }
-.my-shop>header>.back{
-	float:right;
-	width: 3rem;
-	height: 2.5rem;
-	/border: 1px solid red;
-	box-sizing: border-box;
-	/* position: absolute;
-	right: 0rem;
-	top: 0rem; */
-	background-image: url(../../images/icon/back.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	z-index: 2;
-	/transform: scale(0.7);
-	transition: all 0.1s;
-	display: none;
+
+.my-shop > header > .back {
+    float: right;
+    width: 3rem;
+    height: 2.5rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    /* position: absolute;
+    right: 0rem;
+    top: 0rem; */
+    background-image: url(../../images/icon/back.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 2;
+/*/ transform: scale(0.7);*/
+    transition: all 0.1s;
+    display: none;
 }
-.my-shop>header>.back:hover{
-	transform: scale(1.1);
+
+.my-shop > header > .back:hover {
+    transform: scale(1.1);
 }
-.my-shop>header{
-	width:100%;
-	height:7rem;
-	padding: 0.5rem 0;
-	/margin-top:0.5rem;
-	background-color: rgba(255,255,255,0.2);
+
+.my-shop > header {
+    width: 100%;
+    height: 7rem;
+    padding: 0.5rem 0;
+/*/ margin-top: 0.5 rem;*/
+    background-color: rgba(255, 255, 255, 0.2);
 }
-.my-shop>header>.left{
-	width:7rem;
-	height:100%;
-	float: left;
-	box-sizing: border-box;
-	/border:1px solid red;
+
+.my-shop > header > .left {
+    width: 7rem;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+/*/ border: 1 px solid red;*/
 }
-.my-shop>header>.center{
-	/width:70%;
-	height:100%;
-	float: left;
-	box-sizing: border-box;
-	/border:1px solid green;
-	padding:0.5rem 0.7rem;
+
+.my-shop > header > .center {
+/*/ width: 70 %;*/
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+/*/ border: 1 px solid green;*/
+    padding: 0.5rem 0.7rem;
 }
-.my-shop>header>.right{
-	/width:20%;
-	height:100%;
-	float: left;
-	/margin-right:3rem;
-	box-sizing: border-box;
-	/border-right:0.15rem dashed rgb(200,200,200);
-	/border-left:0.15rem dashed rgb(200,200,200);
+
+.my-shop > header > .right {
+/*/ width: 20 %;*/
+    height: 100%;
+    float: left;
+/*/ margin-right: 3 rem;*/
+    box-sizing: border-box;
+/*/ border-right: 0.15 rem dashed rgb(200, 200, 200);*/
+/*/ border-left: 0.15 rem dashed rgb(200, 200, 200);*/
 }
-.my-shop>header>.left>.head{
-	width:6rem;
-	height:6rem;
-	background-image: url(../../images/player/muwu.jpg);
-	background-size: cover;
-	box-sizing: border-box;
-	border:0.2rem solid white;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 0.4rem gray;
-	margin:0.5rem;
+
+.my-shop > header > .left > .head {
+    width: 6rem;
+    height: 6rem;
+    background-image: url(../../images/player/muwu.jpg);
+    background-size: cover;
+    box-sizing: border-box;
+    border: 0.2rem solid white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.4rem gray;
+    margin: 0.5rem;
 }
+
 /* .my-shop>header>.left>.praised{
 	height:1.6rem;
 	/line-height: 1.6rem;
@@ -340,972 +380,1094 @@
 .my-shop>header>.left>.praised>span{
 	float:left;
 } */
-.my-shop>header>.center>.shop-name{
-	float:left;
-	font-size:1.8rem;
-	font-weight:bold;
-	color:chocolate;
-	line-height:2.8rem;
-	/padding-bottom: 0.3rem;
-	letter-spacing: 0.2rem;
-}
-.my-shop>header>.center>.vip{
-	width:3rem;
-	height:1.6rem;
-	float:left;
-	/border:1px solid red;
-	box-sizing: border-box;
-	background-image:url(../../images/icon/vip2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin-top:0.9rem;
-	margin-left: 0.1rem;
-	display: none;
-}
-.my-shop>header>.center>.shopkeeper{
-	font-size: 0.9rem;
-	color:gray;
-	clear:both;
-}
-.my-shop>header>.center>.shopkeeper>.name{
-	/font-weight:bold;
-	color:rgb(250,128,114);
-	color:mediumpurple;
-	font-size: 1.1rem;
-}
-.my-shop>header>.center>.shopkeeper>.open-qq{
-	width:4.8em;
-	height: 1.2rem;
-	box-sizing: border-box;
-	display: inline-block;
-	/float: left;
-	margin-left: 0.5em;
-	cursor: pointer;
-	background-image: url(../../images/QQtalk.gif);
-	background-size: contain;
-	background-repeat: no-repeat;
-	position:relative;
-	top:0.15rem;
-	transition: 0.1s;
-}
-.my-shop>header>.center>.shopkeeper>.open-qq:hover{
-	transform:scale(1.1);
-}
-.my-shop>header>.center>.qq{
-	color:dodgerblue;
-	font-size:1rem;
-	line-height:1.8rem;
-}
-.my-shop>header>.center>.qq>span{
-	font-weight:bold;
-}
-.my-shop>header>.center>.assets{
-	/color:gray;
-	font-size:0.9rem;
-	line-height:1.8rem;
-	/border:1px solid blue;
-	box-sizing:border-box;
-	display: flex;
-	align-items: center;
-}
-.my-shop>header>.center>.assets>span{
-	float:left;
-	font-size: 0.8rem;
-	color:orangered;
-	color:gray;
-}
-.my-shop>header>.center>.assets>div{
-	/height:1.5rem;
-	float:left;
-	/border:1px solid red;
-	box-sizing:border-box;
-	display: flex;
-	align-items: center;
-}
-.my-shop>header>.center>.assets>.point{
-	color:orange;
-}
-.my-shop>header>.center>.assets>.point>i{
-	width:1.2rem;
-	height:1.2rem;
-	float: left;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: scale(0.9);
-}
-.my-shop>header>.center>.assets>.diamond{
-	margin-left: 0.5rem;
-	color:rgb(249,102,112);
-}
-.my-shop>header>.center>.assets>.diamond>i{
-	width:1.2rem;
-	height:1.2rem;
-	float: left;
-	background-image: url(../../images/icon/red-zs.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: scale(0.9);
+.my-shop > header > .center > .shop-name {
+    float: left;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: chocolate;
+    line-height: 2.8rem;
+/*/ padding-bottom: 0.3 rem;*/
+    letter-spacing: 0.2rem;
 }
 
-.my-shop>header>.edit{
-	float:left;
-	width:4rem;
-	height:4rem;
-	border:1px solid white;
-	border-radius: 0.5rem;
-	box-sizing: border-box;
-	padding-top:0.6rem;
-	text-align: center;
-	color:rgb(150,150,150);
-	box-shadow: 0 0 0.3rem rgb(200,200,200);
-	background-color: rgba(255,255,255,0.3);
-	margin:1.5rem 1rem;
-	cursor: pointer;
-	opacity: 0.7;
+.my-shop > header > .center > .vip {
+    width: 3rem;
+    height: 1.6rem;
+    float: left;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    background-image: url(../../images/icon/vip2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 0.9rem;
+    margin-left: 0.1rem;
+    display: none;
 }
-.my-shop>header>.edit:hover{
-	opacity: 1;
+
+.my-shop > header > .center > .shopkeeper {
+    font-size: 0.9rem;
+    color: gray;
+    clear: both;
 }
-.my-shop>header>.right>.sales,
-.my-shop>header>.right>.praised{
-	/border:1px solid red;
-	box-sizing: border-box;
-	padding: 0.2rem 0.6rem;
-	font-size: 0.8rem;
-	color:rgb(150,150,150);
-	background-color: rgba(255,255,255,0.3);
-	margin: 0.5rem 1rem;
-	border:1px solid rgba(255,255,255,0.6);
-	border-radius: 0.5rem;
-	box-shadow: 0 0 0.3rem rgb(200,200,200);
-	/float: left;
+
+.my-shop > header > .center > .shopkeeper > .name {
+/*/ font-weight: bold;*/
+    color: rgb(250, 128, 114);
+    color: mediumpurple;
+    font-size: 1.1rem;
 }
-.my-shop>header>.right>.sales i{
-	width: 1rem;
-	height: 1rem;
-	float: left;
-	box-sizing: border-box;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin-right: 0.2rem;
+
+.my-shop > header > .center > .shopkeeper > .open-qq {
+    width: 4.8em;
+    height: 1.2rem;
+    box-sizing: border-box;
+    display: inline-block;
+/*/ float: left;*/
+    margin-left: 0.5em;
+    cursor: pointer;
+    background-image: url(../../images/QQtalk.gif);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 0.15rem;
+    transition: 0.1s;
 }
-.my-shop>header>.right>.praised i{
-	width: 0.8rem;
-	height: 0.8rem;
-	float: left;
-	box-sizing: border-box;
-	background-image: url(../../images/icon/zan2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin-right: 0.2rem;
+
+.my-shop > header > .center > .shopkeeper > .open-qq:hover {
+    transform: scale(1.1);
 }
-.my-shop>header>.right>.sales>.s1,
-.my-shop>header>.right>.praised>.p1{
-	height:1.05rem;
-	font-size: 0.7rem;
-	text-align: center;
+
+.my-shop > header > .center > .qq {
+    color: dodgerblue;
+    font-size: 1rem;
+    line-height: 1.8rem;
 }
-.my-shop>header>.right>.sales>.s2{
-	height:1.05rem;
-	color:orange;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
+
+.my-shop > header > .center > .qq > span {
+    font-weight: bold;
 }
-.my-shop>header>.right>.praised>.p2{
-	height:1.05rem;
-	color:orangered;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
+
+.my-shop > header > .center > .assets {
+/*/ color: gray;*/
+    font-size: 0.9rem;
+    line-height: 1.8rem;
+/*/ border: 1 px solid blue;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
-.my-shop>section{
-	width:100%;
-	height:10rem;
-	/background-color: rgba(255,255,255,0.2);
-	/border: 3px solid red;
-	box-sizing: border-box;
-	overflow: visible;
+
+.my-shop > header > .center > .assets > span {
+    float: left;
+    font-size: 0.8rem;
+    color: orangered;
+    color: gray;
 }
-.my-shop>section>nav{
-	width:100%;
-	height:2rem;
-	/border:1px solid blue;
-	box-sizing: border-box;
+
+.my-shop > header > .center > .assets > div {
+/*/ height: 1.5 rem;*/
+    float: left;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
-.my-shop>section>nav>div{
-	height:100%;
-	color: gray;
-	line-height: 2rem;
-	width:4rem;
-	float: left;
-	margin:0 0.5rem;
-	text-align: center;
-	/border:1px solid red;
-	box-sizing: border-box;
+
+.my-shop > header > .center > .assets > .point {
+    color: orange;
 }
-.my-shop>section>nav>.sell{
-	font-weight: bold;
-	color:green;
-	border-bottom: 0.2rem solid green;
+
+.my-shop > header > .center > .assets > .point > i {
+    width: 1.2rem;
+    height: 1.2rem;
+    float: left;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scale(0.9);
 }
-.my-shop>section>.sitems-list{
-	width:100%;
-	height:80%;
-	border: 0.1rem solid white;
-	box-sizing: border-box;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 0.4rem gray;
-	margin-top: 0.5rem;
-	overflow: auto;
-	background-color: rgba(255,255,255,0.3);
+
+.my-shop > header > .center > .assets > .diamond {
+    margin-left: 0.5rem;
+    color: rgb(249, 102, 112);
 }
+
+.my-shop > header > .center > .assets > .diamond > i {
+    width: 1.2rem;
+    height: 1.2rem;
+    float: left;
+    background-image: url(../../images/icon/red-zs.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scale(0.9);
+}
+
+.my-shop > header > .edit {
+    float: left;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    padding-top: 0.6rem;
+    text-align: center;
+    color: rgb(150, 150, 150);
+    box-shadow: 0 0 0.3rem rgb(200, 200, 200);
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 1.5rem 1rem;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.my-shop > header > .edit:hover {
+    opacity: 1;
+}
+
+.my-shop > header > .right > .sales,
+.my-shop > header > .right > .praised {
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    color: rgb(150, 150, 150);
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.3rem rgb(200, 200, 200);
+/*/ float: left;*/
+}
+
+.my-shop > header > .right > .sales i {
+    width: 1rem;
+    height: 1rem;
+    float: left;
+    box-sizing: border-box;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 0.2rem;
+}
+
+.my-shop > header > .right > .praised i {
+    width: 0.8rem;
+    height: 0.8rem;
+    float: left;
+    box-sizing: border-box;
+    background-image: url(../../images/icon/zan2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 0.2rem;
+}
+
+.my-shop > header > .right > .sales > .s1,
+.my-shop > header > .right > .praised > .p1 {
+    height: 1.05rem;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.my-shop > header > .right > .sales > .s2 {
+    height: 1.05rem;
+    color: orange;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.my-shop > header > .right > .praised > .p2 {
+    height: 1.05rem;
+    color: orangered;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.my-shop > section {
+    width: 100%;
+    height: 10rem;
+/*/ background-color: rgba(255, 255, 255, 0.2);*/
+/*/ border: 3 px solid red;*/
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.my-shop > section > nav {
+    width: 100%;
+    height: 2rem;
+/*/ border: 1 px solid blue;*/
+    box-sizing: border-box;
+}
+
+.my-shop > section > nav > div {
+    height: 100%;
+    color: gray;
+    line-height: 2rem;
+    width: 4rem;
+    float: left;
+    margin: 0 0.5rem;
+    text-align: center;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+}
+
+.my-shop > section > nav > .sell {
+    font-weight: bold;
+    color: green;
+    border-bottom: 0.2rem solid green;
+}
+
+.my-shop > section > .sitems-list {
+    width: 100%;
+    height: 80%;
+    border: 0.1rem solid white;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.4rem gray;
+    margin-top: 0.5rem;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 .sitems-list::-webkit-scrollbar {
-  /*滚动条整体样式*/
-  width : 0.8rem;  /*高宽分别对应横竖滚动条的尺寸*/
-  height: 1px;
-}
-.sitems-list::-webkit-scrollbar-thumb{
-	background-color: lightgreen;
-}
-.sitems-list>li{
-	width:23%;
-	height:10.5rem;
-	border:0.1rem solid white;
-	box-sizing: border-box;
-	float: left;
-	margin: 1%;
-	background-image: url(../../images/card/green.jpg);
-	background-size: 400%;
-	box-shadow: 0 0 0.3rem gray;
-	cursor: pointer;
-	opacity: 0.8;
-}
-.sitems-list>li:hover{
-	opacity:1;
-}
-.sitems-list>li>.image{
-	width:100%;
-	height:7rem;
-	text-align: center;
-	box-sizing: border-box;
-	background: radial-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.4),rgba(255,255,255,0.2),rgba(155,155,155,0.3));
-}
-.sitems-list>li>.image>img{
-	height:100%;
-	transform:scale(0.8);
-}
-.sitems-list>li>.image>.quality{
-	width:6.5rem;
-	height:0.9rem;
-	background-color: rgb(165, 44, 205);
-	position: absolute;
-	bottom: 0.2rem;
-	left: 0;
-	right: 0;
-	margin: auto;
-	text-align: center;
-	color:white;
-	font-weight: bold;
-	font-size: 1.5rem;
-	overflow: visible;
-	/display: none;
-}
-.sitems-list>li>.image>.quality>span{
-	position:relative;
-	bottom:0.7rem;
-	text-shadow: 0 0 0.15rem black;
-}
-.sitems-list>li>.content{
-	width: 100%;
-	height: 3.5rem;
-	background: rgba(255,255,255,0.5);
-	box-sizing: border-box;
-	padding-left: 0.5rem;
-}
-.sitems-list>li>.content>.price{
-	font-weight: bold;
-	font-size: 1.05rem;
-	padding-top:0.3rem;
-	/line-height: 2rem;
-	color:rgb(221, 36, 36);
-	color:orangered;
-	float:left;
-}
-.sitems-list>li>.content>.price>i{
-	width:1.4rem;
-	height:1.4rem;
-	float: left;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: scale(0.9);
-	/margin-right: 0.3rem;
-}
-.sitems-list>li>.content>.num{
-	font-size: 0.75rem;
-	color:rgb(120,120,120);
-	/float:right;
-	position: absolute;
-	top:0.3rem;
-	right:0.5rem;
-}
-.sitems-list>li>.content>.name{
-	line-height: 1.5rem;
-	font-size:0.95rem;
-	text-indent: 0.3rem;
-	clear:both;
-}
-.sitems-list>.add{
-	width:23%;
-	height:10.5rem;
-	border:0.2rem dashed darkgray;
-	box-sizing: border-box;
-	background-color: rgba(200, 200, 200, 0.2);
-	border-radius: 0.5rem;
-	float: left;
-	text-align: center;
-	margin: 1%;
-	cursor: pointer;
-	color:darkgray;
-	opacity: 0.9;
-	transition:all 0.2s;
-}
-.sitems-list>.add>.add-logo{
-	font-size: 8rem;
-	/line-height: 10.5rem;
-	position: relative;
-	bottom:1rem;
-	transition:all 0.2s;
-}
-.sitems-list>.add>span{
-	color:gray;
-	font-size: 1.5rem;
-	transition:all 0.2s;
-	position: relative;
-	bottom:2.6rem;
-	opacity:0;
+    /*滚动条整体样式*/
+    width: 0.8rem; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
 }
 
-.sitems-list>.empty{
-	/border:1px solid red;
-	box-sizing: border-box;
-	width: 34rem;
-	height:15rem;
-	position: absolute;
-	left:0;right:0;
-	top:0;bottom:0;
-	margin: auto;
-	display: none;
+.sitems-list::-webkit-scrollbar-thumb {
+    background-color: lightgreen;
 }
-.sitems-list>.empty>.image{
-	width:15rem;
-	height:15rem;
-	background-image: url(../../images/empty3.png);
-	background-size: contain;
-	float: left;
+
+.sitems-list > li {
+    width: 23%;
+    height: 10.5rem;
+    border: 0.1rem solid white;
+    box-sizing: border-box;
+    float: left;
+    margin: 1%;
+    background-image: url(../../images/card/green.jpg);
+    background-size: 400%;
+    box-shadow: 0 0 0.3rem gray;
+    cursor: pointer;
+    opacity: 0.8;
 }
-.sitems-list>.empty>span{
-	height: 100%;
-	float: left;
-	font-size: 2rem;
-	margin-left:1rem;
-	font-weight: bold;
-	color:rgba(120, 100, 100, 0.5);
-	display: flex;
-	align-items: center;
-	letter-spacing: 0.1rem;
+
+.sitems-list > li:hover {
+    opacity: 1;
+}
+
+.sitems-list > li > .image {
+    width: 100%;
+    height: 7rem;
+    text-align: center;
+    box-sizing: border-box;
+    background: radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2), rgba(155, 155, 155, 0.3));
+}
+
+.sitems-list > li > .image > img {
+    height: 100%;
+    transform: scale(0.8);
+}
+
+.sitems-list > li > .image > .quality {
+    width: 6.5rem;
+    height: 0.9rem;
+    background-color: rgb(165, 44, 205);
+    position: absolute;
+    bottom: 0.2rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    overflow: visible;
+/*/ display: none;*/
+}
+
+.sitems-list > li > .image > .quality > span {
+    position: relative;
+    bottom: 0.7rem;
+    text-shadow: 0 0 0.15rem black;
+}
+
+.sitems-list > li > .content {
+    width: 100%;
+    height: 3.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+}
+
+.sitems-list > li > .content > .price {
+    font-weight: bold;
+    font-size: 1.05rem;
+    padding-top: 0.3rem;
+/*/ line-height: 2 rem;*/
+    color: rgb(221, 36, 36);
+    color: orangered;
+    float: left;
+}
+
+.sitems-list > li > .content > .price > i {
+    width: 1.4rem;
+    height: 1.4rem;
+    float: left;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scale(0.9);
+/*/ margin-right: 0.3 rem;*/
+}
+
+.sitems-list > li > .content > .num {
+    font-size: 0.75rem;
+    color: rgb(120, 120, 120);
+/*/ float: right;*/
+    position: absolute;
+    top: 0.3rem;
+    right: 0.5rem;
+}
+
+.sitems-list > li > .content > .name {
+    line-height: 1.5rem;
+    font-size: 0.95rem;
+    text-indent: 0.3rem;
+    clear: both;
+}
+
+.sitems-list > .add {
+    width: 23%;
+    height: 10.5rem;
+    border: 0.2rem dashed darkgray;
+    box-sizing: border-box;
+    background-color: rgba(200, 200, 200, 0.2);
+    border-radius: 0.5rem;
+    float: left;
+    text-align: center;
+    margin: 1%;
+    cursor: pointer;
+    color: darkgray;
+    opacity: 0.9;
+    transition: all 0.2s;
+}
+
+.sitems-list > .add > .add-logo {
+    font-size: 8rem;
+/*/ line-height: 10.5 rem;*/
+    position: relative;
+    bottom: 1rem;
+    transition: all 0.2s;
+}
+
+.sitems-list > .add > span {
+    color: gray;
+    font-size: 1.5rem;
+    transition: all 0.2s;
+    position: relative;
+    bottom: 2.6rem;
+    opacity: 0;
+}
+
+.sitems-list > .empty {
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    width: 34rem;
+    height: 15rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+}
+
+.sitems-list > .empty > .image {
+    width: 15rem;
+    height: 15rem;
+    background-image: url(../../images/empty3.png);
+    background-size: contain;
+    float: left;
+}
+
+.sitems-list > .empty > span {
+    height: 100%;
+    float: left;
+    font-size: 2rem;
+    margin-left: 1rem;
+    font-weight: bold;
+    color: rgba(120, 100, 100, 0.5);
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.1rem;
 }
 
 /* 编辑资料页面 */
-#alert>.alert-edit{
-	width:30rem;
-	height:20.5rem;
-	border: 0.3rem solid rgba(135,206,235,0.9);
-	border-radius: 1rem;
-	box-sizing: border-box;
-	box-shadow: 0 0 0.5rem grey;
-	background-color: rgb(255,255,255);
-	position: absolute;
-	left:0;right:0;
-	top:0;bottom:0;
-	margin:auto;
-	display:none;
-	background-image:url(../../images/back2.jpg);
-	background-size: cover;
+#alert > .alert-edit {
+    width: 30rem;
+    height: 20.5rem;
+    border: 0.3rem solid rgba(135, 206, 235, 0.9);
+    border-radius: 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 0 0.5rem grey;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+    background-image: url(../../images/back2.jpg);
+    background-size: cover;
 }
-#alert>.alert-edit>.fil{
-	width: 100%;
-	height: 100%;
-	border-radius: 0 0 0.7rem 0.7rem;
-	background-color: rgba(255,255,255,0.8);
-	position: absolute;
-	top: 0;
-	left: 0;
+
+#alert > .alert-edit > .fil {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 0.7rem 0.7rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-#alert>.alert-edit>header{
-	height: 2.5rem;
-	line-height: 2.5rem;
-	width: 100%;
-	background-color: rgba(135,206,235,0.9);
-	color: white;
-	font-weight: bold;
-	box-sizing: border-box;
-	padding-left: 1rem;
-	letter-spacing: 0.1rem;
-	border-radius: 0.8rem 0.8rem 0 0;
+
+#alert > .alert-edit > header {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    width: 100%;
+    background-color: rgba(135, 206, 235, 0.9);
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    letter-spacing: 0.1rem;
+    border-radius: 0.8rem 0.8rem 0 0;
 }
-#alert>.alert-edit>header>i{
-	float: right;
+
+#alert > .alert-edit > header > i {
+    float: right;
     margin-right: 1rem;
     cursor: pointer;
     font-size: 1.1rem;
 }
-#alert>.alert-edit>section>.left{
-	width:10rem;
-	height:13rem;
-	float:left;
-	/border:1px solid blue;
-	box-sizing: border-box;
+
+#alert > .alert-edit > section > .left {
+    width: 10rem;
+    height: 13rem;
+    float: left;
+/*/ border: 1 px solid blue;*/
+    box-sizing: border-box;
 }
-#alert>.alert-edit>section>.right{
-	width:19rem;
-	height:13rem;
-	float:left;
-	/border:1px solid green;
-	box-sizing: border-box;
-	padding-top:0.5rem;
+
+#alert > .alert-edit > section > .right {
+    width: 19rem;
+    height: 13rem;
+    float: left;
+/*/ border: 1 px solid green;*/
+    box-sizing: border-box;
+    padding-top: 0.5rem;
 }
-#alert>.alert-edit>section>.left>.head{
-	width:8rem;
-	height:8rem;
-	margin:1rem auto;
-	border: 0.2rem solid white;
-	box-sizing: border-box;
-	box-shadow: 0 0 0.4rem rgb(166,166,166);
-	background-image: url(../../images/player/muwu.jpg);
-	background-size: cover;
+
+#alert > .alert-edit > section > .left > .head {
+    width: 8rem;
+    height: 8rem;
+    margin: 1rem auto;
+    border: 0.2rem solid white;
+    box-sizing: border-box;
+    box-shadow: 0 0 0.4rem rgb(166, 166, 166);
+    background-image: url(../../images/player/muwu.jpg);
+    background-size: cover;
 }
-#alert>.alert-edit>section>.left>.choose{
-	width: 7rem;
-	height: 2.6rem;
-	line-height: 2.6rem;
-	margin-left: 1.5rem;
-	float: left;
-	font-weight:bold;
-	text-align: center;
-	position: relative;
-	font-size: 1.1rem;
-	background: linear-gradient(90deg,rgb(247,220,115),pink,rgb(247,220,115));
-	background-size: 200%;
-	color: white;
-	text-shadow: 0px 0px 2px grey;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	cursor: pointer;
-	transition: all 0.3s;
+
+#alert > .alert-edit > section > .left > .choose {
+    width: 7rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    margin-left: 1.5rem;
+    float: left;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, rgb(247, 220, 115), pink, rgb(247, 220, 115));
+    background-size: 200%;
+    color: white;
+    text-shadow: 0px 0px 2px grey;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
 }
-#alert>.alert-edit>section>.left>.choose:hover{
-	background-position-x: 100%;
-	box-shadow: 0 0 0.3rem rgb(255,188,188);
+
+#alert > .alert-edit > section > .left > .choose:hover {
+    background-position-x: 100%;
+    box-shadow: 0 0 0.3rem rgb(255, 188, 188);
 }
-#alert>.alert-edit #chooseImage{
-	width: 7rem;
-	height: 5.2rem;
-	cursor: pointer;
-	position: absolute;
-	left: 0px;
-	top: -2.6rem;
+
+#alert > .alert-edit #chooseImage {
+    width: 7rem;
+    height: 5.2rem;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: -2.6rem;
 }
-#alert>.alert-edit>section>.right>div{
-	/border:1px solid red;
-	box-sizing:border-box;
-	width:100%;
-	/height:3rem;
-	display: flex;
-	align-items: center;
+
+#alert > .alert-edit > section > .right > div {
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    width: 100%;
+/*/ height: 3 rem;*/
+    display: flex;
+    align-items: center;
 }
-#alert>.alert-edit>section>.right>div>.tit{
-	width:5rem;
-	color:gray;
-	text-align: right;
+
+#alert > .alert-edit > section > .right > div > .tit {
+    width: 5rem;
+    color: gray;
+    text-align: right;
 }
-#alert>.alert-edit>section>.right>.uncg{
-	height: 2rem;
-	color:gray;
-	font-size: 0.9rem;
+
+#alert > .alert-edit > section > .right > .uncg {
+    height: 2rem;
+    color: gray;
+    font-size: 0.9rem;
 }
-#alert>.alert-edit>section>.right>.uncg>.val{
-	text-indent: 0.5rem;
+
+#alert > .alert-edit > section > .right > .uncg > .val {
+    text-indent: 0.5rem;
 }
-#alert>.alert-edit>section>.right>.set{
-	height: 2.5rem;
-	color:rgb(99,99,99);
-	font-size: 0.9rem;
+
+#alert > .alert-edit > section > .right > .set {
+    height: 2.5rem;
+    color: rgb(99, 99, 99);
+    font-size: 0.9rem;
 }
+
 /* #alert>.alert-edit>section>.right>.set>input{
 	width:10rem;
 } */
-#alert>.alert-edit>section>.right>p{
-	font-size: 0.8rem;
-	color:brown;
-	padding-left: 0.5rem;
-	padding-top:0.5rem;
+#alert > .alert-edit > section > .right > p {
+    font-size: 0.8rem;
+    color: brown;
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
 }
-.shop-name-val,.myself-qq-val{
-	width:12rem;
-	height:2rem;
-	border:none;
-	border-bottom:0.2rem solid rgb(88,88,88);
-	font-size: 1rem;
-	box-sizing: border-box;
-	background:none;
-	outline: none;
-	color:rgb(99,99,99);
-	text-indent: 0.5rem;
+
+.shop-name-val, .myself-qq-val {
+    width: 12rem;
+    height: 2rem;
+    border: none;
+    border-bottom: 0.2rem solid rgb(88, 88, 88);
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    color: rgb(99, 99, 99);
+    text-indent: 0.5rem;
 }
-#alert>.alert-edit>footer{
-	height: 4rem;
-	width: 100%;
-	border-top: 0.15rem dashed rgb(200,200,200);
-	box-sizing: border-box;
-	position: absolute;
-	bottom: 0;
+
+#alert > .alert-edit > footer {
+    height: 4rem;
+    width: 100%;
+    border-top: 0.15rem dashed rgb(200, 200, 200);
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
 }
-#alert>.alert-edit>footer>div{
-	float: right;
-	height: 2.6rem;
-	line-height: 2.6rem;
-	box-sizing: border-box;
-	border-radius: 0.5rem;
-	text-align: center;
-	color: white;
-	margin-top: 0.7rem;
-	margin-right: 1rem;
-	font-size: 1rem;
-	font-weight: bold;
-	cursor: pointer;
-	opacity: 0.8;
+
+#alert > .alert-edit > footer > div {
+    float: right;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: white;
+    margin-top: 0.7rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
 }
-#alert>.alert-edit>footer>div:hover{
-	opacity: 1;
+
+#alert > .alert-edit > footer > div:hover {
+    opacity: 1;
 }
-#alert>.alert-edit>footer>.close{
-	width: 5rem;
-	background-color: rgba(244,100,100,0.8);
+
+#alert > .alert-edit > footer > .close {
+    width: 5rem;
+    background-color: rgba(244, 100, 100, 0.8);
 }
-#alert>.alert-edit>footer>.confirm{
-	width: 6rem;
-	background-color: rgba(66,200,66,0.8);
+
+#alert > .alert-edit > footer > .confirm {
+    width: 6rem;
+    background-color: rgba(66, 200, 66, 0.8);
 }
 
 
 /* 玩家售卖区 */
-.player-com{
-	width:100%;
-	height:100%;
-	border:0.5rem solid rgba(255,255,255,0.8);
-	box-sizing: border-box;
-	padding: 1%;
-	padding-top:5rem;
-	overflow-y: auto;
-	display:none;
-}
-.player-com::-webkit-scrollbar-thumb{
-	background-color: lightgreen;
-}
-.player-com>li{
-	width:23%;
-	height:12.5rem;
-	border:0.1rem solid white;
-	box-sizing: border-box;
-	float: left;
-	margin: 1%;
-	background-image: url(../../images/card/green.jpg);
-	background-size: 400%;
-	box-shadow: 0 0 0.3rem gray;
-	/cursor: pointer;
-	opacity: 0.8;
-}
-.player-com>li:hover{
-	opacity:1;
-	/border:0.1rem solid orangered;
-}
-.player-com>li>.image{
-	width:100%;
-	height:7rem;
-	text-align: center;
-	box-sizing: border-box;
-	background: radial-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.4),rgba(255,255,255,0.2),rgba(155,155,155,0.3));
-}
-.player-com>li>.image>img{
-	height:100%;
-	transform:scale(0.8);
-}
-.player-com>li>.image>.quality{
-	width:6.5rem;
-	height:0.9rem;
-	background-color: rgb(165, 44, 205);
-	position: absolute;
-	bottom: 0.2rem;
-	left: 0;
-	right: 0;
-	margin: auto;
-	text-align: center;
-	color:white;
-	font-weight: bold;
-	font-size: 1.5rem;
-	overflow: visible;
-	/display: none;
-}
-.player-com>li>.image>.quality>span{
-	position:relative;
-	bottom:0.7rem;
-	text-shadow: 0 0 0.15rem black;
-}
-.player-com>li>.content{
-	width: 100%;
-	height: 5.5rem;
-	background: rgba(255,255,255,0.6);
-	box-sizing: border-box;
-	padding-left: 0.5rem;
-}
-.player-com>li>.content>.price{
-	font-weight: bold;
-	font-size: 1.05rem;
-	padding-top:0.3rem;
-	/line-height: 2rem;
-	color:rgb(221, 36, 36);
-	color:orangered;
-	float:left;
-}
-.player-com>li>.content>.price>i{
-	width:1.4rem;
-	height:1.4rem;
-	float: left;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: scale(0.9);
-	/margin-right: 0.3rem;
-}
-.player-com>li>.content>.num{
-	font-size: 0.75rem;
-	color:rgb(120,120,120);
-	/float:right;
-	position: absolute;
-	top:0.3rem;
-	right:0.5rem;
-}
-.player-com>li>.content>.name{
-	line-height: 1.5rem;
-	font-size:0.95rem;
-	text-indent: 0.3rem;
-	clear:both;
-	margin-top:1.8rem;
-	margin-bottom: 0.3rem;
-	white-space: nowrap;
-}
-.player-com>li>.content>.shop{
-	line-height: 1.5rem;
-	text-indent: 0.3rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	font-size:0.85rem;
-	/text-decoration: underline;
-	color:chocolate;
-	cursor: pointer;
-}
-.player-com>li>.content>.shop>i{
-	width:1.3rem;
-	height:1.3rem;
-	float:left;
-	background-image:url(../../images/player/muwu.jpg);
-	background-size: 100%;
+.player-com {
+    width: 100%;
+    height: 100%;
+    border: 0.5rem solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    padding: 1%;
+    padding-top: 5rem;
+    overflow-y: auto;
+    display: none;
 }
 
-.player-com>.empty{
-	width:16rem;
-	height:19rem;
-	color:rgb(166,166,166);
-	font-size: 1.6rem;
-	font-weight: bold;
-	text-align: center;
-	letter-spacing: 0.1rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	position: absolute;
-	left:0;right:0;
-	top:0;bottom:0;
-	margin: auto;
-	z-index: 2;
-	/background-color: pink;
-	background-image: url(../../images/empty5.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	display:none;
+.player-com::-webkit-scrollbar-thumb {
+    background-color: lightgreen;
 }
-.player-com>.empty>span{
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: 0;
+
+.player-com > li {
+    width: 23%;
+    height: 12.5rem;
+    border: 0.1rem solid white;
+    box-sizing: border-box;
+    float: left;
+    margin: 1%;
+    background-image: url(../../images/card/green.jpg);
+    background-size: 400%;
+    box-shadow: 0 0 0.3rem gray;
+/*/ cursor: pointer;*/
+    opacity: 0.8;
+}
+
+.player-com > li:hover {
+    opacity: 1;
+/*/ border: 0.1 rem solid orangered;*/
+}
+
+.player-com > li > .image {
+    width: 100%;
+    height: 7rem;
+    text-align: center;
+    box-sizing: border-box;
+    background: radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2), rgba(155, 155, 155, 0.3));
+}
+
+.player-com > li > .image > img {
+    height: 100%;
+    transform: scale(0.8);
+}
+
+.player-com > li > .image > .quality {
+    width: 6.5rem;
+    height: 0.9rem;
+    background-color: rgb(165, 44, 205);
+    position: absolute;
+    bottom: 0.2rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    overflow: visible;
+/*/ display: none;*/
+}
+
+.player-com > li > .image > .quality > span {
+    position: relative;
+    bottom: 0.7rem;
+    text-shadow: 0 0 0.15rem black;
+}
+
+.player-com > li > .content {
+    width: 100%;
+    height: 5.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+}
+
+.player-com > li > .content > .price {
+    font-weight: bold;
+    font-size: 1.05rem;
+    padding-top: 0.3rem;
+/*/ line-height: 2 rem;*/
+    color: rgb(221, 36, 36);
+    color: orangered;
+    float: left;
+}
+
+.player-com > li > .content > .price > i {
+    width: 1.4rem;
+    height: 1.4rem;
+    float: left;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scale(0.9);
+/*/ margin-right: 0.3 rem;*/
+}
+
+.player-com > li > .content > .num {
+    font-size: 0.75rem;
+    color: rgb(120, 120, 120);
+/*/ float: right;*/
+    position: absolute;
+    top: 0.3rem;
+    right: 0.5rem;
+}
+
+.player-com > li > .content > .name {
+    line-height: 1.5rem;
+    font-size: 0.95rem;
+    text-indent: 0.3rem;
+    clear: both;
+    margin-top: 1.8rem;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+}
+
+.player-com > li > .content > .shop {
+    line-height: 1.5rem;
+    text-indent: 0.3rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    font-size: 0.85rem;
+/*/ text-decoration: underline;*/
+    color: chocolate;
+    cursor: pointer;
+}
+
+.player-com > li > .content > .shop > i {
+    width: 1.3rem;
+    height: 1.3rem;
+    float: left;
+    background-image: url(../../images/player/muwu.jpg);
+    background-size: 100%;
+}
+
+.player-com > .empty {
+    width: 16rem;
+    height: 19rem;
+    color: rgb(166, 166, 166);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.1rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
+/*/ background-color: pink;*/
+    background-image: url(../../images/empty5.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+.player-com > .empty > span {
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 /* 购买玩家商品时的订单提交页面 */
-.player-order{
-	width:100%;
-	height:100%;
-	/border:5px solid red;
-	box-sizing: border-box;
-	position: absolute;
-	left:0;top:0;
-	background-color: rgba(166,166,166,0.4);
-	display: none;
+.player-order {
+    width: 100%;
+    height: 100%;
+/*/ border: 5 px solid red;*/
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(166, 166, 166, 0.4);
+    display: none;
 }
-.player-order>.window{
-	width:26rem;
-	height:19rem;
-	position: absolute;
-	left:0;right:0;
-	top:0;bottom:0;
-	margin:auto;
-	border:0.2rem solid rgba(255,188,188,0.9);
-	border-radius: 1rem;
-	box-sizing: border-box;
-	background-color: white;
-	box-shadow: 0 0 0.5rem grey;
-	background-image: url(../../images/back2.jpg);
-	background-size: cover;
+
+.player-order > .window {
+    width: 26rem;
+    height: 19rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 0.2rem solid rgba(255, 188, 188, 0.9);
+    border-radius: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 0 0.5rem grey;
+    background-image: url(../../images/back2.jpg);
+    background-size: cover;
 }
-.player-order>.window>.fil{
-	width: 100%;
-	height: 100%;
-	border-radius: 0 0 0.7rem 0.7rem;
-	background-color: rgba(255,255,255,0.8);
-	position: absolute;
-	top: 0;
-	left: 0;
+
+.player-order > .window > .fil {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 0.7rem 0.7rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-.player-order>.window>header{
-	height: 2.5rem;
-	line-height: 2.5rem;
-	width: 100%;
-	background-color: rgba(255,188,188,0.9);
-	color: white;
-	font-weight: bold;
-	box-sizing: border-box;
-	padding-left: 1rem;
-	letter-spacing: 0.1rem;
-	border-radius: 0.8rem 0.8rem 0 0;
+
+.player-order > .window > header {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    width: 100%;
+    background-color: rgba(255, 188, 188, 0.9);
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    letter-spacing: 0.1rem;
+    border-radius: 0.8rem 0.8rem 0 0;
 }
-.player-order>.window>header>i{
-	float: right;
-	margin-right: 1rem;
-	cursor: pointer;
-	font-size: 1.1rem;
+
+.player-order > .window > header > i {
+    float: right;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
 }
-.player-order>.window>section{
-	box-sizing: border-box;
-	padding:1rem;
+
+.player-order > .window > section {
+    box-sizing: border-box;
+    padding: 1rem;
 }
-.player-order>.window>section>header{
-	width:100%;
-	height:4rem;
-	margin:auto;
-	/border: 1px solid red;
-	box-sizing: border-box;
-	background-color: rgba(255,255,255,0.7);
-	box-shadow: 0 0 0.3rem rgb(200 200 200);
-	display: flex;
-	align-items: center;
-	margin-bottom: 0.5rem;
+
+.player-order > .window > section > header {
+    width: 100%;
+    height: 4rem;
+    margin: auto;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0.3rem rgb(200 200 200);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
-.player-order>.window>section>header>.head{
-	width: 3.4rem;
-	height: 3.4rem;
-	float: left;
-	margin-left: 0.5rem;
-	border-radius: 50%;
-	box-sizing: border-box;
-	background-color: rgba(255, 188, 0, 0.2);
+
+.player-order > .window > section > header > .head {
+    width: 3.4rem;
+    height: 3.4rem;
+    float: left;
+    margin-left: 0.5rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: rgba(255, 188, 0, 0.2);
 }
-.player-order>.window>section>header>.head>img{
-	width: 100%;
-	height:100%;
-	transform:scale(0.8);
+
+.player-order > .window > section > header > .head > img {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.8);
 }
-.player-order>.window>section>header>.msg{
-	float:left;
-	/border:1px solid red;
-	box-sizing: border-box;
-	padding-left: 0.8rem;
+
+.player-order > .window > section > header > .msg {
+    float: left;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    padding-left: 0.8rem;
 }
-.player-order>.window>section>header>.msg>.name{
-	font-size: 1rem;
-	font-weight: bold;
-	color:rgb(101,51,14);
-	text-indent: 0.2rem;
+
+.player-order > .window > section > header > .msg > .name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(101, 51, 14);
+    text-indent: 0.2rem;
 }
-.player-order>.window>section>header>.msg>.price{
-	/margin-left: 1rem;
-	font-size: 0.9rem;
-	color:orange;
-	/font-weight: bold;
-	/border:1px solid green;
-	box-sizing: border-box;
-	margin-top:0.2rem;
+
+.player-order > .window > section > header > .msg > .price {
+/*/ margin-left: 1 rem;*/
+    font-size: 0.9rem;
+    color: orange;
+/*/ font-weight: bold;*/
+/*/ border: 1 px solid green;*/
+    box-sizing: border-box;
+    margin-top: 0.2rem;
 }
-.player-order>.window>section>header>.msg>.price>i{
-	float:left;
-	width:1.2rem;
-	height:1.2rem;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	transform: scale(0.9);
+
+.player-order > .window > section > header > .msg > .price > i {
+    float: left;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    transform: scale(0.9);
 }
-.player-order>.window>section>header>.num{
-	/border:1px solid red;
-	box-sizing: border-box;
-	font-size: 1rem;
-	font-weight: bold;
-	font-style: italic;
-	overflow: visible;
-	margin: 1.5rem;
-	color:#F4A460;
-	position: absolute;
-	right:0;
+
+.player-order > .window > section > header > .num {
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    overflow: visible;
+    margin: 1.5rem;
+    color: #F4A460;
+    position: absolute;
+    right: 0;
 }
-.player-order>.window>section>div *{
-	float:left;
+
+.player-order > .window > section > div * {
+    float: left;
 }
-.player-order>.window>section>p{
-	line-height: 1.2rem;
-	padding-left: 1rem;
-	padding-top:0.5rem;
-	font-size:0.8rem;
-	color:brown;
+
+.player-order > .window > section > p {
+    line-height: 1.2rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    color: brown;
 }
-.player-order>.window>section>div{
-	width: 100%;
-	height:3.2rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
+
+.player-order > .window > section > div {
+    width: 100%;
+    height: 3.2rem;
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
-.player-order>.window>section>div>.tit{
-	width:4.5rem;
-	color:rgb(66,66,66);
-	font-size: 0.9rem;
-	text-align: center;
-	margin-left:0.5rem;
+
+.player-order > .window > section > div > .tit {
+    width: 4.5rem;
+    color: rgb(66, 66, 66);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-left: 0.5rem;
 }
-.player-order>.window>section>div>.val{
-	width:18rem;
-	height:2.5rem;
-	/border:1px solid blue;
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
+
+.player-order > .window > section > div > .val {
+    width: 18rem;
+    height: 2.5rem;
+/*/ border: 1 px solid blue;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
-.player-order>.window>section>div>.val>div{
-	width:2.5rem;
-	height:100%;
-	font-size:1.6rem;
-	border: 0.1rem solid rgb(188,188,188);
-	box-sizing: border-box;
-	text-align: center;
-	line-height:1.3em;
-	/background-color: rgba(200,200,200,0.2);
+
+.player-order > .window > section > div > .val > div {
+    width: 2.5rem;
+    height: 100%;
+    font-size: 1.6rem;
+    border: 0.1rem solid rgb(188, 188, 188);
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.3em;
+/*/ background-color: rgba(200, 200, 200, 0.2);*/
 }
-.player-order>.window>section>div>.val>.reduce{
-	background-color: rgba(255,200,200,0.3);
-	cursor: pointer;
-	/transform:scaleX(1.1);
+
+.player-order > .window > section > div > .val > .reduce {
+    background-color: rgba(255, 200, 200, 0.3);
+    cursor: pointer;
+/*/ transform: scaleX(1.1);*/
 }
-.player-order>.window>section>div>.val>.add{
-	background-color: rgba(200,255,200,0.3);
-	cursor: pointer;
+
+.player-order > .window > section > div > .val > .add {
+    background-color: rgba(200, 255, 200, 0.3);
+    cursor: pointer;
 }
-.player-order>.window>section>div>.val>.icon{
-	background-color: rgba(255,255,100,0.3);
-	background-image: url(../../images/icon/jf2.png);
-	background-size: 70%;
-	background-position: 50%;
-	background-repeat: no-repeat;
+
+.player-order > .window > section > div > .val > .icon {
+    background-color: rgba(255, 255, 100, 0.3);
+    background-image: url(../../images/icon/jf2.png);
+    background-size: 70%;
+    background-position: 50%;
+    background-repeat: no-repeat;
 }
-.player-order>.window>section>div>.val>input{
-	width:12rem;
-	height:100%;
-	box-sizing: border-box;
-	border:0.1rem solid rgb(188,188,188);
-	border-left: none;
-	border-right: none;
-	outline:none;
-	font-size: 1.2rem;
-	padding-left: 1rem;
+
+.player-order > .window > section > div > .val > input {
+    width: 12rem;
+    height: 100%;
+    box-sizing: border-box;
+    border: 0.1rem solid rgb(188, 188, 188);
+    border-left: none;
+    border-right: none;
+    outline: none;
+    font-size: 1.2rem;
+    padding-left: 1rem;
 }
-.player-order>.window>section>div>.val>input::placeholder{
-	color:rgb(188,188,188);
-	font-size: 0.9rem;
+
+.player-order > .window > section > div > .val > input::placeholder {
+    color: rgb(188, 188, 188);
+    font-size: 0.9rem;
 }
-.player-order>.window>section>.count>.val>input{
-	color:limegreen;
+
+.player-order > .window > section > .count > .val > input {
+    color: limegreen;
 }
-.player-order>.window>section>.price{
-	/border:1px solid red;
-	box-sizing: border-box;
+
+.player-order > .window > section > .price {
+/*/ border: 1 px solid red;*/
+    box-sizing: border-box;
 }
-.player-order>.window>section>.price>.val>i{
-	float:left;
-	width:1.6rem;
-	height:1.6rem;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	transform: scale(0.9);
+
+.player-order > .window > section > .price > .val > i {
+    float: left;
+    width: 1.6rem;
+    height: 1.6rem;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    transform: scale(0.9);
 }
-.player-order>.window>section>.price>.val>span{
-	color:orange;
-	font-weight: bold;
-	font-size: 1.3rem;
-	padding-left: 0.3rem;
+
+.player-order > .window > section > .price > .val > span {
+    color: orange;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding-left: 0.3rem;
 }
-.player-order>.window>footer{
-	height: 4rem;
-	width: 100%;
-	border-top: 0.15rem dashed rgb(200,200,200);
-	box-sizing: border-box;
-	position: absolute;
-	bottom: 0;
+
+.player-order > .window > footer {
+    height: 4rem;
+    width: 100%;
+    border-top: 0.15rem dashed rgb(200, 200, 200);
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
 }
-.player-order>.window>footer>div{
-	float: right;
-	width: 5rem;
-	height: 2.6rem;
-	line-height: 2.6rem;
-	box-sizing: border-box;
-	border-radius: 0.5rem;
-	text-align: center;
-	color: white;
-	margin-top: 0.7rem;
-	margin-right: 1rem;
-	font-size: 1rem;
-	font-weight: bold;
-	cursor: pointer;
-	opacity: 0.8;
+
+.player-order > .window > footer > div {
+    float: right;
+    width: 5rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: white;
+    margin-top: 0.7rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
 }
-.player-order>.window>footer>div:hover{
-	opacity: 1;
+
+.player-order > .window > footer > div:hover {
+    opacity: 1;
 }
-.player-order>.window>footer>.close{
-	background-color: rgba(244,100,100,0.8);
+
+.player-order > .window > footer > .close {
+    background-color: rgba(244, 100, 100, 0.8);
 }
-.player-order>.window>footer>.confirm{
-	width:6rem;
-	background-color: rgba(66,200,66,0.8);
+
+.player-order > .window > footer > .confirm {
+    width: 6rem;
+    background-color: rgba(66, 200, 66, 0.8);
 }
 
 

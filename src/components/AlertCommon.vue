@@ -170,6 +170,51 @@
                 <div class="confirm">确认出售</div>
             </footer>
         </div>
+
+        <div class="alert-edit" style="display:none;">    <!-- 交易中心编辑个人资料窗口 -->
+            <div class="fil"></div>
+            <header>
+                <span>编辑资料</span>
+                <i>✘</i>
+            </header>
+            <section>
+                <div class="left">
+                    <div class="head" id="Img"></div>
+                    <div class="choose">
+                        选择图片
+                        <input type="file" id="chooseImage">
+                    </div>
+
+                </div>
+                <div class="right">
+                    <div class="steamID uncg">
+                        <span class="tit">steamID：</span>
+                        <span class="val">76561199000000001</span>
+                    </div>
+                    <!-- <div class="player-name uncg">
+                        <span class="tit">游戏名称：</span>
+                        <span class="val">彩色の小木屋</span>
+                    </div> -->
+                    <div class="shop-name set">
+                        <span class="tit">店铺名称：</span>
+                        <input type="text" class="shop-name-val">
+                    </div>
+                    <div class="qq set">
+                        <span class="tit">QQ号码：</span>
+                        <input type="text" class="myself-qq-val">
+                    </div>
+                    <p>
+                        说明：<br>
+                        1. 店铺名称最多只能设置10个字符。<br>
+                        2. 设置QQ号码可以让其它玩家快速与您进行QQ联系，不设置该功能留空即可。
+                    </p>
+                </div>
+            </section>
+            <footer>
+                <div class="close">取消</div>
+                <div class="confirm">保存设置</div>
+            </footer>
+        </div>
     </div>
 </template>
 
@@ -184,7 +229,7 @@
             }
         },
         mounted() {
-            axios.post("proxy/api/getdisCountTicket", "").then(res => {
+            axios.post("api/getdisCountTicket", "").then(res => {
                 if (res.data.respCode === "1") {
                     let JsonData = res.data.data;
                     this.couProps = JsonData;

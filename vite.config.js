@@ -19,10 +19,10 @@ export default {
         // open: true, //在服务器启动时自动在浏览器中打开应用程序
         // 反向代理配置，注意rewrite写法
         proxy: {
-            '/proxy': {
+            '/api': {
                 target: 'http://localhost:26911/', //代理接口
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/proxy/, '')
+                // rewrite: (path) => path.replace(/^\/apis/, '')
             }
         }
     }

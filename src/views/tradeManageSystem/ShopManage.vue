@@ -29,7 +29,7 @@
 
         <el-table-column label="物品图标" :width="100">
           <template #default="scope">
-            <el-image style="width: 50px;height: 50px;" :src="'proxy/api/image/'+scope.row.itemicon"></el-image>
+            <el-image style="width: 50px;height: 50px;" :src="'api/image/'+scope.row.itemicon"></el-image>
           </template>
         </el-table-column>
 
@@ -155,14 +155,14 @@
 
         <el-form-item class="center" v-if="formData.itemType==='2'">
           <ul class="infinite-list" style="overflow-x: scroll">
-            <el-upload action="proxy/api/uploadFile" multiple :on-success="handleAvatarSuccess"
+            <el-upload action="api/uploadFile" multiple :on-success="handleAvatarSuccess"
                        :on-error="handleAvatarFaild"
                        style="float: left;width: 100px;height: 100px;">
               <el-tag style="margin-top: 35px;">添加新图片</el-tag>
             </el-upload>
             <li v-for="i in allIcon" :key="i" class="infinite-list-item" :ref="imglist">
               <el-image :class="{'selected':(i===formData.itemIcon)}" style="width: 100px;height:100px;cursor: pointer"
-                        :src="'proxy/api/image/'+i"
+                        :src="'api/image/'+i"
                         @click="handleSelectImage(i)">
 
               </el-image>
@@ -516,7 +516,7 @@ export default {
           .then((value) => {
             if (value === "confirm") {
               let params = {id: id};
-              axios.post("proxy/api/deleteShopItem", params).then(res => {
+              axios.post("api/deleteShopItem", params).then(res => {
                 if (res.data.respCode === "1") {
                   ElMessage({
                     message: '删除成功!',
@@ -535,7 +535,7 @@ export default {
     },
     initTableData() {
       let params = {itemname: ""};
-      axios.post("proxy/api/queryShopItem", params).then(res => {
+      axios.post("api/queryShopItem", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.queryData = JsonData.data;
@@ -544,7 +544,7 @@ export default {
     },
     initIconData() {
       let params = {itemname: ""};
-      axios.post("proxy/api/getIconFile", params).then(res => {
+      axios.post("api/getIconFile", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.allIcon = JsonData;
@@ -556,9 +556,9 @@ export default {
         if (valid) {
           let url = "";
           if (this.formData.id === -1) {
-            url = "proxy/api/addShopItem";
+            url = "api/addShopItem";
           } else {
-            url = "proxy/api/updateShopItem";
+            url = "api/updateShopItem";
           }
           axios.post(url, this.formData).then(res => {
             if (res.data.respCode === "1") {
@@ -615,7 +615,7 @@ export default {
       this.formData.itemIcon = scope.row.itemicon;
       this.formData.itemTint = scope.row.itemtint;
       this.formData.itemGroup = scope.row.class1;
-      this.src = 'proxy/api/image/' + this.formData.itemIcon;
+      this.src = 'api/image/' + this.formData.itemIcon;
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -663,7 +663,7 @@ export default {
     querySearchAsync(queryString, cb) {
       if (queryString && queryString.length >= 1) {
         let params = {itemname: queryString};
-        axios.get("proxy/api/getSystemItem", {params}).then(res => {
+        axios.get("api/getSystemItem", {params}).then(res => {
           if (res.data.respCode === "1") {
             let JsonData = JSON.parse(res.data.data);
             //处理返回结果
@@ -685,7 +685,7 @@ export default {
       this.formData.itemGroup = this.itemNameCache[item.value].group;
       this.formData.itemIcon = (this.itemNameCache[item.value].icon === null ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon) + ".png";
       this.formData.itemTint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-      this.src = 'proxy/api/image/' + this.formData.itemIcon;
+      this.src = 'api/image/' + this.formData.itemIcon;
     },
     handleSelectImage(item) {
       this.formData.itemIcon = item;

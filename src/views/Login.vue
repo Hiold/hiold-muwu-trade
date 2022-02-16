@@ -66,7 +66,7 @@ export default {
     const Videosrc = ref(`/images/login/video.mov`);
     const submitForm = () => {
       var formData = {username: param.username, password: param.password};
-      axios.post("proxy/api/login", formData).then(res => {
+      axios.post("api/login", formData).then(res => {
         if (res.data.respCode === "1") {
           console.log(res.data.data);
           ElMessage.success("登录成功");

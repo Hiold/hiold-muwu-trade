@@ -131,7 +131,7 @@
                     class2: this.class2,
                     sorttype: this.sorttype
                 };
-                axios.post("proxy/api/queryShopItem", params).then(res => {
+                axios.post("api/queryShopItem", params).then(res => {
                     if (res.data.respCode === "1") {
                         let JsonData = res.data.data;
                         this.shop = JsonData.data;
@@ -230,7 +230,7 @@
                 var xgAll = item.xgall;			//总数限购
                 var xgAllset = item.xgallset;			//总数限购
                 var stock = item.stock;			//剩余库存
-                var img = 'proxy/api/image/' + item.itemicon;				//商品图片
+                var img = 'api/image/' + item.itemicon;				//商品图片
                 var backImg = $(target).css("background-image");//商品展示框背景图片
                 var hot = $(target).find("section").find(".hot").css("display");//热销图标
                 var quality = item.quality;			//品质
@@ -390,7 +390,7 @@
         }
         , mounted() {
             // let params = {itemname: ""};
-            // axios.post("proxy/api/queryShopItem", params).then(res => {
+            // axios.post("api/queryShopItem", params).then(res => {
             //   if (res.data.respCode === "1") {
             //     let JsonData = res.data.data;
             //     this.shop = JsonData.data;
@@ -427,7 +427,7 @@
                 if (collnum == 1) {
                     //取消收藏
                     var buyParam = {"id": "" + id + "", "value": "0"};
-                    axios.post("proxy/api/updateCollect", buyParam).then(res => {
+                    axios.post("api/updateCollect", buyParam).then(res => {
                         if (res.data.respCode === "1") {
                             ElMessage.success('取消收藏成功')
                             self.shop[xb].collected = '0';
@@ -439,7 +439,7 @@
                 } else {
                     //收藏
                     var buyParam = {"id": "" + id + "", "value": "1"};
-                    axios.post("proxy/api/updateCollect", buyParam).then(res => {
+                    axios.post("api/updateCollect", buyParam).then(res => {
                         if (res.data.respCode === "1") {
                             ElMessage.success('收藏成功')
                             self.shop[xb].collected = '1';
