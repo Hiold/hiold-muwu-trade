@@ -124,7 +124,7 @@
             </footer>
         </div>
 
-        <div class="window" style="">    <!-- 仓库出售物品时的确认窗口 -->
+        <div class="window" style="display:none;">    <!-- 仓库出售物品时的确认窗口 -->
             <div class="fil"></div>
             <header>
                 <span>出售物品</span>
