@@ -119,14 +119,14 @@ $(document).ready(function(){
 			 var col = $(".items-details").data("collect");	//获取商品收藏状态
 			 //alert(col)
 			 if(col=="true"){
-				$(".items-shop>li[data-index="+xb+"]").find(".collect").data("collect","true");
-				$(".items-shop>li[data-index="+xb+"]").find(".collect").css("background-image","url(images/icon/collect-3.png)");
+				$(".items-box>li[data-index="+xb+"]").find(".collect").data("collect","true");
+				$(".items-box>li[data-index="+xb+"]").find(".collect").css("background-image","url(images/icon/collect-3.png)");
 			 }else{
-				$(".items-shop>li[data-index="+xb+"]").find(".collect").data("collect","false");
-				$(".items-shop>li[data-index="+xb+"]").find(".collect").css("background-image","url(images/icon/collect-1.png)");
+				$(".items-box>li[data-index="+xb+"]").find(".collect").data("collect","false");
+				$(".items-box>li[data-index="+xb+"]").find(".collect").css("background-image","url(images/icon/collect-1.png)");
 			 }
 			$(".items-details").fadeOut(200);
-			$(".items-shop,.head-tool").fadeIn(200);
+			$(".items-box,.head-tool").fadeIn(200);
 		adaptive();
 		}
 	});
@@ -322,7 +322,7 @@ $(document).ready(function(){
 			if(status=="商店会员"||status=="管理员"){
 				
 			}else{
-				Alert("只有 <font color='orangered'>商店会员</font> 才可以购买此物品！<br>你还不是会员，可以从右上角个人资料详情页前往充值。");
+				Alert("只有 <font color='orangered'>商店会员</font> 才可以购买此物品！<br>你还不是会员，可以联系服主充值会员。");
 				popupCss(34,15,1.1);
 				return;
 			}
@@ -645,8 +645,8 @@ $(document).ready(function(){
 				$(".spxq>.stock").text("（库存 : "+stock+"）");		//更新页面中的库存
 				if(stock==0){	//如库存为0，显示售罄图标
 					$(".items-details>.left>.image").find(".soldout").show();
-					//$(".items-shop>.items").eq(xb).css("opacity","0.7").find(".soldout").show();
-					$(".items-shop>.items[data-index='"+xb+"']").css("opacity","0.7").find(".soldout").show();
+					//$(".items-box>.items").eq(xb).css("opacity","0.7").find(".soldout").show();
+					$(".items-box>.items[data-index='"+xb+"']").css("opacity","0.7").find(".soldout").show();
 				}
 				//更新购买数量
 				buyDay += num;
@@ -662,7 +662,7 @@ $(document).ready(function(){
 				}
 				if(xgDay<=buyDay||xgAll<=buyAll){	//如每日限购或总限购达到上限，显示售罄图标
 					$(".items-details>.left>.image").find(".soldout").show();
-					$(".items-shop>.items[data-index='"+xb+"']").css("opacity","0.7").find(".soldout").show();
+					$(".items-box>.items[data-index='"+xb+"']").css("opacity","0.7").find(".soldout").show();
 				}
 				$(".spxq>.num>input").val(1);	//重置输入框中要购买的数量
 				//给玩家仓库更新购买的物品

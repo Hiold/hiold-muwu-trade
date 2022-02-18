@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	//var clickMain = false;	//默认状态为 可点击主菜单
-	var clickMainInterval = 300;	//点击主菜单的时间间隔（毫秒）
+	
 	//资料卡
 	$("aside>header>.more").click(function(){	//资料卡 - 显示更多
 		var more = $("aside>header").data("more");
@@ -93,7 +93,7 @@ $(document).ready(function(){
 				
 			});
 		}else{
-			console.log(getTime().date+"\n积分商城页面加载失效, 可能是你在短时间内重复点击 或者 制作人员设置了不可点击主菜单");
+			console.log(getTime().date+"\n积分商城页面加载失效, 可能是你在短时间内重复点击");
 		}
 	});
 	$(".Main-menu>.menu-2").click(function(){	//按钮⑵-个人仓库
@@ -119,7 +119,7 @@ $(document).ready(function(){
 			},100);
 			//("warehouse>.loading").show();
 		}else{
-			console.log(getTime().date+"\n个人仓库页面加载失效, 可能是你在短时间内重复点击 或者 制作人员设置了不可点击主菜单");
+			console.log(getTime().date+"\n个人仓库页面加载失效, 可能是你在短时间内重复点击");
 		}
 	});
 	$(".Main-menu>.menu-3").click(function(){	//按钮⑶-交易中心
@@ -148,7 +148,7 @@ $(document).ready(function(){
 				adaptive();
 			},100);
 		}else{
-			console.log(getTime().date+"\n交易中心页面加载失效, 可能是你在短时间内重复点击 或者 制作人员设置了不可点击主菜单");
+			console.log(getTime().date+"\n交易中心页面加载失效, 可能是你在短时间内重复点击");
 		}
 	});
 	$(".Main-menu>.menu-4").click(function(){	//按钮⑷-活动礼包
@@ -159,7 +159,7 @@ $(document).ready(function(){
 				clearInterval(refreshItems);	//禁止定时刷新商品
 			}
 			$("main>article").load("page/activity.html",function(){
-				
+				$(".head-tool").hide();
 				//等页面加载完成后 规定时间间隔外 再将主菜单状态设置为可点击
 				setTimeout(function(){
 					clickMain = true;	
@@ -168,13 +168,13 @@ $(document).ready(function(){
 				},clickMainInterval);
 			});
 			setTimeout(function(){	//延迟淡入显示页面是为了有更好的视觉效果
-				// $(".warehouse").fadeIn(200);
-				// $(".head-tool").fadeIn(50);
-				// $(".Category-ware").fadeIn(50);
+				//$(".Act-lottery").fadeIn(200);
+				$(".head-tool").fadeIn(100);
+				$(".Activity-nav").fadeIn(50);
 				adaptive();
 			},100);
 		}else{
-			console.log(getTime().date+"\n活动礼包页面加载失效, 可能是你在短时间内重复点击 或者 制作人员设置了不可点击主菜单");
+			console.log(getTime().date+"\n活动礼包页面加载失效, 可能是你在短时间内重复点击");
 		}
 	});
 	
@@ -214,17 +214,98 @@ $(document).ready(function(){
 			},100);
 		}
 	});
-	$(".Main-menu>.min>.m2").click(function(){	//兑换
-		Prompt("请输入您的CDK兑换码","");
-		popupCss(25,14);
-		$("#alert>.alert>footer>.confirm").unbind("click");
-		$("#alert>.alert>footer>.confirm").click(function(){
-			//........
-			
-			
-			Alert("兑换失败！");
-			popupCss(25,13);
-		});
+	$(".Main-menu>.min>.m2").click(function(){	//公告
+		
+		if(clickMain){	//如果状态为可点击主菜单
+			clickMain = false;	//将状态设置为不可点击
+			console.log(getTime().date+"\n加载页面 - 公告说明 ......");
+			if(onRefreshItems){	//如果开启了定时刷新商品模式
+				clearInterval(refreshItems);	//禁止定时刷新商品
+			}
+			$(".Main-menu>li").data("click",false);
+			$(".Main-menu>li").css({
+				"opacity":"0.8",
+				"transform":"scale(1.0)"
+			});
+			$("main>article").load("page/announcement.html",function(){
+				//等页面加载完成后 规定时间间隔外 再将主菜单状态设置为可点击
+				setTimeout(function(){
+					clickMain = true;	
+					console.log(getTime().date+"\n公告说明 页面加载完成");
+					$(".Anno-nav>.btn-1").click();
+				},clickMainInterval);
+			});
+			setTimeout(function(){	//延迟淡入显示页面是为了有更好的视觉效果
+				//$(".player-store").fadeIn(200);
+				//$(".More-seting").fadeIn(200);
+				//$(".head-tool").fadeIn(50);
+				$(".Anno-nav").fadeIn(100);
+				adaptive();
+			},100);
+		}else{
+			console.log(getTime().date+"\n公告说明页面加载失效, 可能是你在短时间内重复点击");
+		}
 	});
-	
+	$(".Main-menu>.min>.m3").click(function(){	//排行
+		if(clickMain){	//如果状态为可点击主菜单
+			clickMain = false;	//将状态设置为不可点击
+			console.log(getTime().date+"\n加载页面 - 排行榜 ......");
+			if(onRefreshItems){	//如果开启了定时刷新商品模式
+				clearInterval(refreshItems);	//禁止定时刷新商品
+			}
+			$(".Main-menu>li").data("click",false);
+			$(".Main-menu>li").css({
+				"opacity":"0.8",
+				"transform":"scale(1.0)"
+			});
+			$("main>article").load("page/ranking.html",function(){
+				//等页面加载完成后 规定时间间隔外 再将主菜单状态设置为可点击
+				setTimeout(function(){
+					clickMain = true;	
+					console.log(getTime().date+"\n排行榜 页面加载完成");
+					$(".Rank-nav>.btn-1").click();
+				},clickMainInterval);
+			});
+			setTimeout(function(){	//延迟淡入显示页面是为了有更好的视觉效果
+				//$(".player-store").fadeIn(200);
+				//$(".More-seting").fadeIn(200);
+				//$(".head-tool").fadeIn(50);
+				$(".Rank-nav").fadeIn(100);
+				adaptive();
+			},100);
+		}else{
+			console.log(getTime().date+"\n排行榜页面加载失效, 可能是你在短时间内重复点击");
+		}
+	});
+	$(".Main-menu>.min>.m4").click(function(){	//更多
+		if(clickMain){	//如果状态为可点击主菜单
+			clickMain = false;	//将状态设置为不可点击
+			console.log(getTime().date+"\n加载页面 - 其它功能 ......");
+			if(onRefreshItems){	//如果开启了定时刷新商品模式
+				clearInterval(refreshItems);	//禁止定时刷新商品
+			}
+			$(".Main-menu>li").data("click",false);
+			$(".Main-menu>li").css({
+				"opacity":"0.8",
+				"transform":"scale(1.0)"
+			});
+			$("main>article").load("page/more.html",function(){
+				//等页面加载完成后 规定时间间隔外 再将主菜单状态设置为可点击
+				setTimeout(function(){
+					clickMain = true;	
+					console.log(getTime().date+"\n其它功能 页面加载完成");
+					$(".More-nav>.btn-4").click();
+				},clickMainInterval);
+			});
+			setTimeout(function(){	//延迟淡入显示页面是为了有更好的视觉效果
+				//$(".player-store").fadeIn(200);
+				//$(".More-seting").fadeIn(200);
+				//$(".head-tool").fadeIn(50);
+				$(".More-nav").fadeIn(100);
+				adaptive();
+			},100);
+		}else{
+			console.log(getTime().date+"\n其它功能页面加载失效, 可能是你在短时间内重复点击");
+		}
+	});
 });

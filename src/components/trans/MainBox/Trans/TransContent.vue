@@ -187,8 +187,8 @@
             </div>
             <div class="box">
                 <!--图片渲染-->
-                <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname" :item="item"
-                    :data-index="index">
+                <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname"
+                    :data-index="item.itemname">
                     <div class="image">
                         <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
                         <img v-else :src="'api/image/'+item.itemname+'.png'">
@@ -483,6 +483,100 @@
             },
             ready() {
                 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus;
+
+                //确认发布求购物品
+                $(".buying>.box>.blank>.window>footer>.confirm").click(function () {
+                    //获取输入的内容
+                    var valQua = $(".buying .window>section>.quality>.val>input").val() * 1;
+                    var valNum = $(".buying .window>section>.count>.val>input").val() * 1;
+                    var valPrice = $(".buying .window>section>.price>.val>input").val() * 1;
+                    if (valNum == "") {
+                        ctx.Alert("输入的数量不能为空！");
+                        ctx.popupCss(25, 13);
+                        return;
+                    }
+                    if (valPrice == "") {
+                        ctx.Alert("输入的价格不能为空！");
+                        ctx.popupCss(25, 13);
+                        return;
+                    }
+                    if (isNaN(valQua) || isNaN(valNum) || isNaN(valPrice)) {
+                        ctx.Alert("输入的内容有误！");
+                        ctx.popupCss(25, 13);
+                        return;
+                    }
+                    // var point = players.data[playerIndex].points * 1;	//获取当前玩家拥有积分
+                    // if (valPrice > point) {
+                    //     Alert("输入的价格不能大于你拥有的积分！<br>您当前拥有 <font color='orange'>" + point + "</font> 积分");
+                    //     popupCss(25, 14);
+                    //     $(".buying .window>section>.price>.val>input").val(point);
+                    //     return;
+                    // }
+
+                    //以上操作验证无误后，将发布的物品存到个人数组
+                    var xb = $(".buying>.box>.blank").data("index");
+                    // var id = gameItems[xb].id;		//物品ID
+                    // var name = gameItems[xb].name;	//物品名称
+                    // var img = gameItems[xb].image;	//物品图片
+                    // //var desc = gameItems[xb].desc;	//物品描述
+                    // playerStore[playerIndex][playerStore[playerIndex].length] = ["交易类型:求购", "名称:" + name, "ID:" + id, "数量:" + valNum, "价格:" + valPrice, "品质:" + valQua];
+                    // arrPStoreToObj();
+
+                    // point -= valPrice;	//扣除相应积分
+                    // players.data[playerIndex].points = point;	//保存玩家积分
+                    // playerBasic[playerIndex][2][0] = "积分:" + point;		//保存玩家积分到数组
+                    // $("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
+                    // $(".my-jf>span").text(point);	//同上
+
+
+                    // var point = players.data[playerIndex].points;
+                    // var diamond = players.data[playerIndex].diamonds;
+                    // if (valQua == 0) {
+                    //     recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>求购物品 <b>" + name + "</b> <i>" + valNum + "件</i></span><br><span>求购价格 <font color='orange'><b>" + valPrice + "</b></font> 积分</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
+                    // } else {
+                    //     recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>求购物品 <b>" + name + "</b><font style='font-size:0.9em;'>(品质: " + valQua + ")</font> <i>" + valNum + "件</i></span><br><span>求购价格 <font color='orange'><b>" + valPrice + "</b></font> 积分</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
+                    // }
+                    let res = self.gameItems.filter((item) => {
+                        return item.itemname == xb
+                    });
+
+                    var translate = res[0].itemname
+                    if (res[0].translate != null) {
+                        translate = res[0].translate[16];
+                    }
+
+                    var icon = res[0].itemname;
+                    if (res[0].icon != null) {
+                        icon = res[0].icon.Value;
+                    }
+
+                    let params = {
+                        Itemcount: valNum + "",
+                        Price: valPrice + "",
+                        Itemname: res[0].itemname + "",
+                        Itemchinese: translate + "",
+                        Itemquality: valQua + "",
+                        Itemusetime: "",
+                        Itemicon: icon + "",
+                        Itemicontint: res[0].tint + "",
+                        Itemgroups: res[0].group + "",
+                    };
+                    axios.post("api/postRequire", params).then(res => {
+                        if (res.data.respCode === "1") {
+                            ctx.Alert("发布成功！");
+                            ctx.popupCss(25, 13);
+                            $(".buying>.box>.blank").fadeOut(50);	//发布成功后 关闭求购窗口
+                            $(".buying>.box").css("overflow-y", "auto");
+                        } else {
+                            ctx.Alert("发布失败！" + res.data.respMsg);
+                            ctx.popupCss(25, 13);
+                        }
+                    });
+
+
+                });
+
+
                 //下面是玩家店铺列表相关内容
                 $(".player-store").on("click", "li", function () {	//点击玩家店铺列表查看店铺详情
                     //$(".player-store>li").click(function(){
@@ -500,23 +594,78 @@
                     if (len == 0) {		//如果没有出售的商品
                         $(".my-shop>section>nav>div").click();	//自动跳转到求购列表
                     }
+                });
 
+                $(".buying>.box").on("click", "li", function () {	//点击选中的物品
+                    $(".buying>.box>.blank").fadeIn(100);	//显示求购发布窗口
+                    $(".buying>.box").css("overflow-y", "hidden");	//隐藏物品列表滚动条
+                    var top = $(".buying>.box").scrollTop();
+                    $(".buying>.box>.blank").css("top", top + "px");
+
+                    var xb = $(this).data("index");
+                    let res = self.gameItems.filter((item) => {
+                        return item.itemname == xb
+                    });
+                    $(".buying>.box>.blank").attr("data-index", res[0].itemname);
+                    //将物品图标和名称渲染到页面
+                    if (res[0].translate == null) {
+                        $(".buying .window>section>header>.name").html(res[0].itemname);
+                    } else {
+                        $(".buying .window>section>header>.name").html(res[0].translate[16]);
+                    }
+                    // <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
+                    //         <img v-else :src="'api/image/'+item.itemname+'.png'">
+                    if (res[0].icon == null) {
+                        $(".buying .window>section>header>.head>img").attr("src", 'api/image/' + res[0].itemname + '.png');
+                    } else {
+                        $(".buying .window>section>header>.head>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
+                    }
+                    //清空输入框内的内容
+                    $(".buying .window>section>div>.val>input").val("");
+                });
+
+                //关闭求购发布窗口
+                $(".buying>.box>.blank>.window>footer>.close").click(function () {
+                    $(".buying>.box").css("overflow-y", "auto");
+                    $(".buying>.box>.blank").fadeOut(50);
+                });
+                $(".buying>.box>.blank>.window>header>i").click(function () {
+                    $(".buying>.box").css("overflow-y", "auto");
+                    $(".buying>.box>.blank").fadeOut(50);
+                });
+                //求购发布确认窗口 增加按钮
+                $(".buying .window>section>div>.val>.add").click(function () {
+                    var num = $(this).prev().val() * 1;
+                    num++;
+                    $(this).prev().val(num);
+                });
+                //求购发布确认窗口 减少按钮
+                $(".buying .window>section>div>.val>.reduce").click(function () {
+                    var num = $(this).next().val() * 1;
+                    num--;
+                    if (num <= 0) {		//填入的数字至少为1
+                        num = 1;
+                    }
+                    $(this).next().val(num);
                 });
 
 
                 $(".buying>.box").on("mouseenter", "li", function () {	//鼠标移入显示物品详情
                     var xb = $(this).data("index");
-                    if (self.gameItems[xb].translate == null) {
-                        $(".buying>.content>.name").text(self.gameItems[xb].itemname);
+                    let res = self.gameItems.filter((item) => {
+                        return item.itemname == xb
+                    });
+                    if (res[0].translate == null) {
+                        $(".buying>.content>.name").text(res[0].itemname);
                     } else {
-                        $(".buying>.content>.name").text(self.gameItems[xb].translate[16]);
+                        $(".buying>.content>.name").text(res[0].translate[16]);
                     }
                     // <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
                     //         <img v-else :src="'api/image/'+item.itemname+'.png'">
-                    if (self.gameItems[xb].icon == null) {
-                        $(".buying>.content>.image>img").attr("src", 'api/image/' + self.gameItems[xb].itemname + '.png');
+                    if (res[0].icon == null) {
+                        $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].itemname + '.png');
                     } else {
-                        $(".buying>.content>.image>img").attr("src", 'api/image/' + self.gameItems[xb].icon.Value + '.png');
+                        $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
                     }
                     var min = 0;
                     var max = "无限";

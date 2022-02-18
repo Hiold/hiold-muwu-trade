@@ -7,12 +7,12 @@ function GenerateLottery(xb){	//渲染抽奖页面
 	var price10 = $(".Act-lottery>.read lottery").eq(xb).attr("price10");	//十连抽奖价格
 	var numDay = $(".Act-lottery>.read lottery").eq(xb).attr("numDay");	//每日剩余可抽奖次数
 	if(curr=="积分"){
-		$(".Act-lottery>.shop>.center>.btn>div .price>i").css("background-image","url(images/icon/jf2.png)");
+		$(".Act-lottery>.box>.center>.btn>div .price>i").css("background-image","url(images/icon/jf2.png)");
 	}else if(curr=="钻石"){
-		$(".Act-lottery>.shop>.center>.btn>div .price>i").css("background-image","url(images/icon/red-zs.png)");
+		$(".Act-lottery>.box>.center>.btn>div .price>i").css("background-image","url(images/icon/red-zs.png)");
 	}
-	$(".Act-lottery>.shop>.center>.btn>.b1 .price>span").text(price);	//单次抽奖价格
-	$(".Act-lottery>.shop>.center>.btn>.b2 .price>span").text(price10);	//十连抽奖价格
+	$(".Act-lottery>.box>.center>.btn>.b1 .price>span").text(price);	//单次抽奖价格
+	$(".Act-lottery>.box>.center>.btn>.b2 .price>span").text(price10);	//十连抽奖价格
 	$(".head-tool>.lottery-num>.val-1").text(numDay);	//今日当前登录玩家剩余可抽奖次数
 	$(".head-tool>.lottery-num>.val-2").text(" / "+numDay);	//每日可抽奖次数
 
@@ -45,10 +45,10 @@ function GenerateLottery(xb){	//渲染抽奖页面
 			var img = "images/alert.png";
 		}
 		//开始渲染到页面
-		$(".Act-lottery>.shop .l"+(i+1)).find("header").text(name);	//名称
-		$(".Act-lottery>.shop .l"+(i+1)).find("section>.image>img").attr("src",img);	//图片
-		$(".Act-lottery>.shop .l"+(i+1)).find("section>.right>.num").text(num+" 件");	//数量
-		$(".Act-lottery>.shop .l"+(i+1)).find("section>.right>.pro").text(proPer+"%");	//概率
+		$(".Act-lottery>.box .l"+(i+1)).find("header").text(name);	//名称
+		$(".Act-lottery>.box .l"+(i+1)).find("section>.image>img").attr("src",img);	//图片
+		$(".Act-lottery>.box .l"+(i+1)).find("section>.right>.num").text(num+" 件");	//数量
+		$(".Act-lottery>.box .l"+(i+1)).find("section>.right>.pro").text(proPer+"%");	//概率
 		if(i>=15){	//页面中最多只可以渲染16件物品，如果数量超出停止渲染
 			return;
 		}
@@ -125,7 +125,7 @@ $(document).ready(function(){
 	
 	//抽奖活动"立即抽奖"按钮，为了节省时间，这里只写了动画特效没写逻辑（太累了T_T）
 	var cc = true;	//这个是为了防止在抽奖动画进行中重复点击抽奖
-	$(".Act-lottery>.shop>.center>.btn>.b1").click(function(){		//抽奖一次
+	$(".Act-lottery>.box>.center>.btn>.b1").click(function(){		//抽奖一次
 		if(cc){
 			cc = false;
 			//给边框追加一个动画
@@ -157,7 +157,7 @@ $(document).ready(function(){
 			},1300);
 		}
 	});
-	$(".Act-lottery>.shop>.center>.btn>.b2").click(function(){		//十连抽
+	$(".Act-lottery>.box>.center>.btn>.b2").click(function(){		//十连抽
 		if(cc){
 			cc = false;
 			//给边框追加一个动画
@@ -199,6 +199,17 @@ $(document).ready(function(){
 		}
 	});
 	
-	
+	//定时抢红包的"抢红包"按钮（只写了点击后会出现的样式特效）
+	$(".Act-hb>li>.left>.b2").click(function(){
+		$(this).hide();		//隐藏"抢红包"按钮
+		$(this).parent().find(".b3").show();	//显示"已领取"按钮
+		//.....
+		
+		//假设领取的奖励是"积分兑换券"888件, 显示这个奖品的提示窗口
+		prizeArr = [["积分兑换券","images/items/jf2.png","数量:888","品质:"]];
+		Award();
+		//这里需要把获取的奖品发送至仓库
+		//......
+	});
 	
 });

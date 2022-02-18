@@ -660,7 +660,7 @@ function searchItems(){	//搜索仓库物品: 当输入框获内容改变时，�
 		var find = false;	//默认为没找到物品
 		for(var i=0;i<$(".ware-items").length;i++){	//遍历当前页面显示的物品
 			var xb = $(".ware-items").eq(i).data("index");	//获取每个物品在数组中的下标
-			//var name = $(".items-shop>.items").eq(i).find("header").find(".name").text();
+			//var name = $(".items-box>.items").eq(i).find("header").find(".name").text();
 			var name = playerWares.data[xb].name.toLowerCase();	//获取物品名称
 			var id = playerWares.data[xb].id.toLowerCase();		//获取物品ID
 			if(name.indexOf(txt) != -1||id.indexOf(txt) != -1){	//如果物品名称或ID中包含了你需要搜索的字符串
@@ -1009,7 +1009,7 @@ $(document).ready(function(){
 		});
 	});
 	$(".warehouse>.menu>.l1-replace").click(function(){	//彩色按钮 - 储存到仓库
-		var page = $(".terr-shop").data("page");
+		var page = $(".terr-box").data("page");
 		var xb = $(".page-items").data("index");	//获取箱子下标
 		if(page=="box"){
 			Alert("请选择一个箱子");
@@ -1075,7 +1075,7 @@ $(document).ready(function(){
 	$(".warehouse>.menu>.l2").click(function(){		//彩色按钮 - 领地箱子
 		$(".ware-list,.ware-details,.order-record").hide();	//隐藏其它不相关页面
 		
-		$(".terr-shop").fadeIn(200);			//显示领地箱子页面
+		$(".terr-box").fadeIn(200);			//显示领地箱子页面
 		$(".warehouse>.menu>.l1").hide();	//隐藏 提取到背包 按钮
 		$(".warehouse>.menu>.l1-replace").show();	//显示 储存到仓库 按钮
 		$(".Category-ware>.shield").show();	//禁止点击左侧分类导航栏
@@ -1087,12 +1087,12 @@ $(document).ready(function(){
 	$(".warehouse>.menu>.l3").click(function(){		//彩色按钮 - 收藏夹
 		console.log(getTime().date+"\n加载页面 - 我的收藏 ......");
 		$("main>article").load("page/collect.html",function(){
-			$(".head-tool,.collect-shop,.Collect-ware").hide();
+			$(".head-tool,.collect-box,.Collect-ware").hide();
 			console.log(getTime().date+"\n我的收藏 页面加载成功！");
 			//GenerateColl();
 		});
 		setTimeout(function(){
-			$(".collect-shop").fadeIn(200);
+			$(".collect-box").fadeIn(200);
 			$(".head-tool").fadeIn(50);
 			$(".Collect-ware").fadeIn(50);
 			//GenerateColl("全部");	//渲染收藏列表到页面
@@ -1120,7 +1120,7 @@ $(document).ready(function(){
 	});
 	$(".warehouse>.menu>.l5").click(function(){		//彩色按钮 - 订单记录
 		//alert(123)
-		$(".ware-list,.ware-details,.terr-shop").hide();	//隐藏其它不相关页面
+		$(".ware-list,.ware-details,.terr-box").hide();	//隐藏其它不相关页面
 		$(".order-record").fadeIn(200);			//显示领地箱子页面
 		$(".warehouse>.menu>.l1,.warehouse>.menu>.l1-replace").hide();	//隐藏 提取到背包/储存到仓库 按钮
 		$(".Category-ware>.shield").show();	//禁止点击左侧分类导航栏

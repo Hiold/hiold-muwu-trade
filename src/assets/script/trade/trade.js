@@ -3,13 +3,13 @@ pstoreList = '<li><div class="num">1</div><div class="head"></div><div class="na
 pstoreItem = '<li><div class="image"><img src="images/ItemIcons/decoPumpkinJackOLantern.png"><div class="quality"><span>6</span></div></div><div class="content"><div class="price"><i></i><span>123456</span></div><div class="num"></div><div class="name"></div><div class="shop" title="进入商店"><i></i><span></span></div></div></li>';
 var nowPage = "我的店铺";	//用于记录当前访问的页面
 var pst = "出售";	//用于记录当前访问的玩家店铺是出售的列表还是求购的列表
-	
-	
+
+
 //将玩家商店数组更改为obj储存格式, 以方便在js中调用
 function arrPStoreToObj(){
 	//console.log(4.1);
 	playerStores = [];
-	
+
 	if(playerStore[playerIndex]==undefined){	//如果玩家下标对应的数组没有任何东西，创建一个新的数组
 		playerStore[playerIndex] = [[playerName,steamID]];
 	}
@@ -60,7 +60,7 @@ function arrPStoreToObj(){
 				playerStores[i][j].image = "images/alert.png";
 			}
 		}
-		
+
 	}
 	//console.log(playerStores);
 }
@@ -75,7 +75,7 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 	$(".my-shop>header>.right>.praised>.p2>span").text(playerStores[xb].praised);		//获赞数量
 	$(".my-shop>header>.center>.assets>.point>span").text(players.data[xb].points);		//拥有积分
 	$(".my-shop>header>.center>.assets>.diamond>span").text(players.data[xb].diamonds);//拥有钻石
-	
+
 	$(".my-shop").data("index",xb);
 	if(xb==playerIndex){	//如果打开的商店是当前登录玩家的商店（自己的商店）
 		$(".my-shop>header>.center>.shopkeeper>.open-qq").hide();	//QQ聊天按钮
@@ -86,7 +86,7 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 		$(".my-shop>header>.edit").hide();	//编辑资料按钮
 		$(".sitems-list>.add").hide();	//添加物品按钮
 	}
-	
+
 	$(".sitems-list>li").remove();	//移除所有商品
 	for(var i=1;i<playerStores[xb].length;i++){	//遍历玩家商店物品数组
 		//$(".sitems-list").append(pstoreCard);
@@ -115,8 +115,8 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 			if(qua>=6){color="rgb(165, 44, 205)"}
 			$(".sitems-list>li:last").find(".quality").css("background-color",color);
 		}
-		
-		
+
+
 		var trade = playerStores[xb][i].trade;
 		if(type=="出售"){
 			$(".sitems-list>li:last").find(".num").text("库存："+playerStores[xb][i].num); //数量
@@ -131,7 +131,7 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 				$(".sitems-list>li:last").remove();
 			}
 		}
-		
+
 	}
 	//检测商品数量
 	var num = $(".sitems-list>li").length;
@@ -146,7 +146,7 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 				$(".sitems-list>.empty").show().find("span").html("该玩家暂时没有<br>需要求购的物品");
 			}
 		}
-		
+
 	}else{
 		$(".sitems-list>.empty").hide();
 	}
@@ -164,7 +164,7 @@ function GeneratePStore(xb,type){	//在页面生成玩家商店详情页(玩家�
 	if(status=="商店会员"||status=="管理员"){
 		$(".my-shop>header>.center>.vip").show();
 		//$(".my-shop>header>.center>.shop-name").css("color","rgb(234, 36, 36)");
-		
+
 	}else{
 		$(".my-shop>header>.center>.vip").hide();
 	}
@@ -277,7 +277,7 @@ function GeneratePlayerCom(type){		//生成玩家商品列表（售卖区/求购
 					$(".player-com>li:last").remove();
 				}
 			}
-			
+
 		}
 	}
 	//检测店铺数量
@@ -333,24 +333,24 @@ function searchItems(){		//搜索店铺或物品
 			$(".player-com>.empty").find("span").html("没有找到你想<br>搜索的物品");
 		}
 	}else if(nowPage=="物资求购"){
-		$(".buying>.shop>li").show();	//先默认让所有隐藏物品显示
+		$(".buying>.box>li").show();	//先默认让所有隐藏物品显示
 		var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
 		var find = false;	//默认为没找到商品
-		for(var i=0;i<$(".buying>.shop>li").length;i++){	//遍历当前页面显示的物品
-			var xb = $(".buying>.shop>li").eq(i).data("index");	//获取每个物品在数组中的下标
+		for(var i=0;i<$(".buying>.box>li").length;i++){	//遍历当前页面显示的物品
+			var xb = $(".buying>.box>li").eq(i).data("index");	//获取每个物品在数组中的下标
 			var name = gameItems[xb].name.toLowerCase();	//获取物品名称
 			var id = gameItems[xb].id.toLowerCase();	//获取物品ID
 			if(name.indexOf(txt) != -1||id.indexOf(txt) != -1){	//如果物品名称或ID中包含了你需要搜索的字符串
 				find = true;
-				$(".buying>.shop>.empty").hide();
+				$(".buying>.box>.empty").hide();
 			}else{
-				$(".buying>.shop>li").eq(i).hide();
+				$(".buying>.box>li").eq(i).hide();
 			}
 		}
 		if(!find){	//如果遍历完数组后，仍然没找到要搜索的商品
 			console.log("没找到搜索的物品");
-			$(".buying>.shop>.empty").show();
-			$(".buying>.shop>.empty").find("span").html("没有找到你想<br>搜索的物品");
+			$(".buying>.box>.empty").show();
+			$(".buying>.box>.empty").find("span").html("没有找到你想<br>搜索的物品");
 		}
 	}
 }
@@ -373,7 +373,7 @@ function buyNum(){		//输入购买数量
 		$(".player-order>.window>section>.price>.val>span").text(priceAll);
 	}
 }
-		
+
 function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 	if(xb1==playerIndex){	//如果店主是当前登录的玩家（浏览自己的店铺）
 		if(pst=="出售"){
@@ -409,13 +409,13 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 					console.log(playerWare[xb1]);
 				}
 				arrwareToObj();	//给仓库数组转换储存格式
-				
+
 				playerStores[xb1].splice(xb2,1);	//个人商店数组中删除这个物品
 				//arrPStoreToObj();
 				//console.log(playerStores[xb1]);
 				GeneratePStore(xb1,"出售");	//重新渲染页面商品
 				GeneratePlayerCom("出售");
-				
+
 				var point = players.data[playerIndex].points;
 				var diamond = players.data[playerIndex].diamonds;
 				// var owner = "一二三四五一二三四五";
@@ -445,7 +445,7 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 				$("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
 				$(".my-jf>span").text(point);	//同上
 				$(".my-shop>header>.center>.assets>.point>span").text(point);	//同上
-				
+
 				playerStores[xb1].splice(xb2,1);	//商店数组中删除这个物品
 				//arrPStoreToObj();
 				//console.log(playerStores[xb1]);
@@ -480,7 +480,7 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 			$(".player-order>.window>section>header>.num").text("x"+num);	//数量
 			$(".player-order>.window>section>.count>.val>input").val("");	//清空输入框
 			$(".player-order>.window>section>.price>.val>span").text(0);	//清空支付价格
-			
+
 			//增加数量
 			$(".player-order>.window>section>div>.val>.add").unbind("click");
 			$(".player-order>.window>section>div>.val>.add").click(function(){
@@ -505,7 +505,7 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 				var priceAll = price*numVal;	//计算玩家实际需支付的价格
 				$(".player-order>.window>section>.price>.val>span").text(priceAll);
 			});
-			
+
 			//确认付款
 			$(".player-order>.window>footer>.confirm").unbind("click");
 			$(".player-order>.window>footer>.confirm").click(function(){
@@ -570,8 +570,8 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 					GeneratePlayerCom("出售");
 					//这里需要给对方的账户增加积分 或者以邮件的形式发送给对方
 					//......
-					
-					
+
+
 					//保存一份操作记录
 					var owner = playerStores[xb1].playerName;	//获取店主名称
 					var diamond = players.data[playerIndex].diamonds;
@@ -597,7 +597,7 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 			var price = playerStores[xb1][xb2].price*1;	//获取物品价格
 			var quality = playerStores[xb1][xb2].quality;	//获取物品品质
 			if(quality==""||quality==undefined){quality=0}
-			
+
 			Confirm("是否确认向 <font color='mediumpurple'>"+player+"</font> 提供<br>"+num+" 个 "+name+" ?<br>你可以获得 <font color='orange'>"+price+"</font> 积分奖励");
 			popupCss(27,16);
 			$("#alert>.alert>footer>.confirm").unbind("click");
@@ -631,8 +631,8 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 						GeneratePlayerCom("求购");
 						//这里需要把物品发送至对方的仓库 或者以邮件的形式发送给对方
 						//......
-						
-						
+
+
 						//保存一份操作记录
 						var owner = playerStores[xb1].playerName;	//获取店主名称
 						var diamond = players.data[playerIndex].diamonds;
@@ -653,12 +653,12 @@ function playerCom(xb1,xb2){	//玩家商品卡片相关内容
 					popupCss(25,14);
 					return;
 				}
-				
+
 			});
 		}
 	}
 }
-				
+
 $(document).ready(function(){
 	//下面是玩家店铺列表相关内容
 	$(".player-store").on("click","li",function(){	//点击玩家店铺列表查看店铺详情
@@ -677,14 +677,14 @@ $(document).ready(function(){
 		if(len==0){		//如果没有出售的商品
 			$(".my-shop>section>nav>div").click();	//自动跳转到求购列表
 		}
-		
+
 	});
 	//$(".player-store>li>.praised").off("click");
 	//$(".player-store>li>.praised").unbind("click");
 	$(".player-store").on("click","li>.praised",function(e){	//给玩家店铺点赞
 		e.stopPropagation();	//防止事件冒泡(不触发父元素的点击事件)
 		var ck = $(this).data("click");	//获取是否已点赞
-		
+
 		if(ck=="false"||ck==undefined){	//如果还没点过赞
 			//alert(ck)
 			var xb = $(this).parent().data("index");
@@ -697,12 +697,12 @@ $(document).ready(function(){
 			$(this).find("span").css("color","orangered");
 			$(this).data("click","true");
 		}else if(ck=="true"){ //如果已经点过赞
-			
+
 		}
-		
+
 	});
-	
-	
+
+
 	//下面是店铺详情页相关内容
 	$(".my-shop>section>nav>.need").mouseenter(function(){	//收东西 鼠标移入特效
 		var ck = $(this).data("click");
@@ -714,7 +714,7 @@ $(document).ready(function(){
 		var ck = $(this).data("click");
 		if(ck!="true"){
 			$(this).css("color","green");
-			
+
 		}
 	});
 	$(".my-shop>section>nav>div").mouseleave(function(){	//收/出东西 鼠标移出特效
@@ -726,7 +726,7 @@ $(document).ready(function(){
 			$(this).css("color","gray");
 		}
 	});
-	
+
 	$(".my-shop>section>nav>.need").click(function(){		//点击 收东西
 		$(".my-shop>section>nav>.sell").data("click","false");
 		$(".my-shop>section>nav>.sell").css({
@@ -761,7 +761,7 @@ $(document).ready(function(){
 		var xb = $(".my-shop").data("index");
 		GeneratePStore(xb,"出售");
 	});
-	
+
 	$(".sitems-list>.add").mouseenter(function(){	//添加物品 鼠标移入特效
 		$(this).css({
 			"opacity":"1",
@@ -800,7 +800,7 @@ $(document).ready(function(){
 			$(".Trade-ware>.btn-5").click();
 		}
 	});
-	
+
 	$(".my-shop>header>.center>.shopkeeper>.open-qq").click(function(){	//发起QQ对话
 		var xb = $(this).parents(".my-shop").data("index");	//获取玩家店铺在数组中的下标
 		var qq = playerStores[xb].qq;
@@ -811,7 +811,7 @@ $(document).ready(function(){
 			window.open("tencent://message/?uin="+qq);
 		}
 	});
-	
+
 	$(".my-shop>header>.edit").click(function(){	//编辑个人商店资料
 		$("#alert,#alert>.alert-edit").fadeIn(100);
 		var shopName = playerStores[playerIndex].shopName;
@@ -853,8 +853,8 @@ $(document).ready(function(){
 		playerStores[playerIndex].image = headSrc;	//将新的头像保存到玩家商店数组（player-store.js）
 		$(".my-shop>header>.left>.head").css("background-image","url("+headSrc+")");	//在个人店铺主页渲染新的头像
 		$("aside>header>.player-head").css("background-image","url("+headSrc+")");	//在右上角个人资料卡片渲染新的头像
-		// $(".player-store>li>.head").css("background-image","url("+headSrc+")");	
-		
+		// $(".player-store>li>.head").css("background-image","url("+headSrc+")");
+
 		$("#alert,#alert>.alert-edit").fadeOut(50);		//设置完成后隐藏窗口
 	});
 	$(".shop-name-val, .myself-qq-val").focus(function(){	//正在编辑内容时
@@ -869,7 +869,7 @@ $(document).ready(function(){
 		Src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
 		if( !fileFormat.match(/.png|.jpg|.jpeg|.jfif/) ) {
 			alert('上传错误,图片格式必须为：png/jpg/jpeg/jfif');
-			return;  
+			return;
 		}
 		$('#Img').html("");
 		$('#Img').css("background-image","url("+Src+")");
@@ -896,9 +896,9 @@ $(document).ready(function(){
 				pst = "求购";
 			}
 		}
-		
+
 	});
-	
+
 	$(".sitems-list").on("click","li",function(){	//玩家店铺内物品 点击事件
 		var xb1 = $(".my-shop").data("index");	//获取店主在数组中的下标
 		var xb2 = $(this).data("index");		//获取物品在数组中的下标
@@ -911,7 +911,7 @@ $(document).ready(function(){
 	$(".player-order>.window>header>i").click(function(){
 		$(".player-order").hide();
 	});
-	
+
 	//下面是玩家 售卖/求购区 相关内容
 	$(".player-com").on("click","li",function(){
 	//$(".player-com>li").click(function(){
@@ -983,7 +983,7 @@ $(document).ready(function(){
 	$(".head-tool>.sort").mouseenter(function(){
 		clearTimeout(ycTime);
 	});
-	
+
 	$(".head-tool>.sort>li").click(function(){	//排序选择列表 点击特效
 		$(".head-tool>.sort>li").css("background-color","inherit");
 		$(this).css("background-color","rgb(230,230,230)");
@@ -1009,8 +1009,9 @@ $(document).ready(function(){
 			$(this).css("background-color","inherit");
 		}
 	});
-	
-	$(".head-tool>.back").click(function(){		//头部工具栏返回按钮
+
+	//头部工具栏返回按钮
+	$(".head-tool>.back").click(function(){
 		if(nowPage=="物资求购"){		//如果当前访问的是物资求购界面
 			//隐藏头部工具栏及相关功能
 			$(".head-tool,.head-tool>.serch,.head-tool>.sort,.head-tool>.refresh,.head-tool>.back").hide();

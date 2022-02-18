@@ -33,14 +33,14 @@ $(document).ready(function(){
 	$(".aside-profile>.page2>.tit").click(function(){	//隐藏人员，显示人员
 		var xb = $(this).data("num");
 		var show = $(this).data("show");
-		console.log(show)
+		//console.log(show)
 		if(show=='true'||show==true){
-			console.log("true-")
+			//console.log("true-")
 			$(this).find("i").css("transform","rotate(-90deg)");
 			$(this).next().find(".Customer").slideUp(200);
 			$(this).data("show","false");
 		}else{
-			console.log("false-")
+			//console.log("false-")
 			$(this).find("i").css("transform","rotate(0deg)");
 			$(this).next().find(".Customer").slideDown(200);
 			$(this).data("show","true");

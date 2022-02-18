@@ -1,70 +1,70 @@
-boxCard = '<li class="player-shop"><header>安全储物箱</header><section><img src="images/items/cntChest01.png"></section><footer><div class="num">编号： <span>00</span></div><div class="locked">状态： <span style="color:green;">未锁定</span> <i style="background-image: url(images/icon/lock-2.png);"></i></div><div class="coor">坐标： <i>0,0,0</i></div><div class="owner">归属： <span>未知玩家</span></div></footer></li>';
-boxItemsCard = '<li class="shop-items"><div class="filter"><img src=""></div><div class="num"></div></li>';
+boxCard = '<li class="player-box"><header>安全储物箱</header><section><img src="images/items/cntChest01.png"></section><footer><div class="num">编号： <span>00</span></div><div class="locked">状态： <span style="color:green;">未锁定</span> <i style="background-image: url(images/icon/lock-2.png);"></i></div><div class="coor">坐标： <i>0,0,0</i></div><div class="owner">归属： <span>未知玩家</span></div></footer></li>';
+boxItemsCard = '<li class="box-items"><div class="filter"><img src=""></div><div class="num"></div></li>';
 //将仓库领地箱子渲染到页面
 function GenerateBox(){
-	$(".page-shop>li").remove();	//移除仓库所有箱子卡片
+	$(".page-box>li").remove();	//移除仓库所有箱子卡片
 	for(var i=1;i<playerBoxs.data.length;i++){	//遍历箱子数组
-		$(".terr-shop>section>.page-shop").append(boxCard);
+		$(".terr-box>section>.page-box").append(boxCard);
 		//下标
-		$(".page-shop>li:last").data("index",i);
+		$(".page-box>li:last").data("index",i);
 		//名称
-		$(".page-shop>li:last").find("header").text(playerBoxs.data[i].boxName);
+		$(".page-box>li:last").find("header").text(playerBoxs.data[i].boxName);
 		//图片
-		$(".page-shop>li:last").find("img").attr("src",playerBoxs.data[i].boxImage);
+		$(".page-box>li:last").find("img").attr("src",playerBoxs.data[i].boxImage);
 		//编号
 		var num = i;
 		if(i<10){num="0"+i}
-		$(".page-shop>li:last").find(".num").find("span").text(num);
+		$(".page-box>li:last").find(".num").find("span").text(num);
 		//锁定状态
 		if(playerBoxs.data[i].boxLock=="true"){	//已锁定
 			if(playerBoxs.data[i].password==""||playerBoxs.data[i].password==undefined){	//没设置密码
-				$(".page-shop>li:last").find(".locked").find("span").text("已锁定").css("color","orangered");
+				$(".page-box>li:last").find(".locked").find("span").text("已锁定").css("color","orangered");
 			}else{	//已设置密码
-				$(".page-shop>li:last").find(".locked").find("span").text("密码锁定").css("color","orangered");
+				$(".page-box>li:last").find(".locked").find("span").text("密码锁定").css("color","orangered");
 			}
-			$(".page-shop>li:last").find(".locked").find("i").css("background-image","url(images/icon/lock-1.png)");
+			$(".page-box>li:last").find(".locked").find("i").css("background-image","url(images/icon/lock-1.png)");
 		}else{	//未锁定
-			$(".page-shop>li:last").find(".locked").find("span").text("已解锁").css("color","green");
-			$(".page-shop>li:last").find(".locked").find("i").css("background-image","url(images/icon/lock-2.png)");
+			$(".page-box>li:last").find(".locked").find("span").text("已解锁").css("color","green");
+			$(".page-box>li:last").find(".locked").find("i").css("background-image","url(images/icon/lock-2.png)");
 		}
 		//箱子坐标
-		$(".page-shop>li:last").find(".coor").find("i").text(playerBoxs.data[i].xyz);
+		$(".page-box>li:last").find(".coor").find("i").text(playerBoxs.data[i].xyz);
 		//箱子归属玩家
-		$(".page-shop>li:last").find(".owner").find("span").text(playerBoxs.data[i].owner);
+		$(".page-box>li:last").find(".owner").find("span").text(playerBoxs.data[i].owner);
 	}
 	//检测物品数量
-	var len = $(".page-shop>li").length;
+	var len = $(".page-box>li").length;
 	console.log(getTime().date+"\n领地范围内箱子数量:"+len);
 	if(len==0){
-		$(".terr-shop .page-shop>.empty2").show();
+		$(".terr-box .page-box>.empty2").show();
 	}else{
-		$(".terr-shop .page-shop>.empty2").hide();
+		$(".terr-box .page-box>.empty2").hide();
 	}
 }
 //将领地箱子内物品渲染到页面
 function GenerateBoxItems(xb){
-	$(".page-items .shop-items").remove();	//移除仓库所有物品
+	$(".page-items .box-items").remove();	//移除仓库所有物品
 	for(var i=1;i<playerBoxs.data[xb].length;i++){	//遍历箱子物品数组
 		//console.log("下标："+i+"---物品："+playerBoxs.data[xb][i].itemName)
 		$(".page-items>section").append(boxItemsCard);
 		//下标
-		$(".page-items .shop-items:last").data("index",i);
+		$(".page-items .box-items:last").data("index",i);
 		//图片
-		$(".page-items .shop-items:last").find("img").attr("src",playerBoxs.data[xb][i].itemImage);
+		$(".page-items .box-items:last").find("img").attr("src",playerBoxs.data[xb][i].itemImage);
 		//数量
-		$(".page-items .shop-items:last").find(".num").text(playerBoxs.data[xb][i].itemNum);
+		$(".page-items .box-items:last").find(".num").text(playerBoxs.data[xb][i].itemNum);
 		if(playerBoxs.data[xb][i].itemNum==1){
-			$(".page-items .shop-items:last").find(".num").hide();
+			$(".page-items .box-items:last").find(".num").hide();
 		}
 	}
-	var len = $(".page-items>section>.shop-items").length;
+	var len = $(".page-items>section>.box-items").length;
 	console.log(getTime().date+"\n当前箱子里的物品数量："+len);
 	if(len==0){
-		$(".terr-shop>section>.page-items>.empty2").show();
-		$(".terr-shop .page-items>header,.terr-shop .page-items>section").hide();
+		$(".terr-box>section>.page-items>.empty2").show();
+		$(".terr-box .page-items>header,.terr-box .page-items>section").hide();
 	}else{
-		$(".terr-shop>section>.page-items>.empty2").hide();
-		$(".terr-shop .page-items>header,.terr-shop .page-items>section").show();
+		$(".terr-box>section>.page-items>.empty2").hide();
+		$(".terr-box .page-items>header,.terr-box .page-items>section").show();
 	}
 }
 //对领地箱子数组更改储存格式，以方便在js中调用
@@ -132,22 +132,22 @@ $(document).ready(function(){
 	];
 	arrboxToObj();
 	
-	$(".terr-shop>header>.back").click(function(){	//领地箱子 - 返回
-		var page = $(".terr-shop").data("page");	//获取保存到data的所属页面信息
+	$(".terr-box>header>.back").click(function(){	//领地箱子 - 返回
+		var page = $(".terr-box").data("page");	//获取保存到data的所属页面信息
 		if(page=="box"){	//如果是箱子页面（直接返回到仓库列表页面）
-			$(".terr-shop").hide();
+			$(".terr-box").hide();
 			$(".ware-list").fadeIn(200);
 			$(".warehouse>.menu>.l1").show();	//显示 提取到背包 按钮
 			$(".warehouse>.menu>.l1-replace").hide();	//隐藏 储存到仓库 按钮
 			$(".Category-ware>.shield").hide();	//左侧分类导航栏解除禁止
 		}else if(page=="items"){	//如果是箱子内物品页面（则返回到箱子页面）
-			$(".terr-shop").find(".page-shop").show();	//显示箱子列表
-			$(".terr-shop").find(".page-items").hide();	//隐藏物品列表
-			$(".terr-shop").data("page","box");
+			$(".terr-box").find(".page-box").show();	//显示箱子列表
+			$(".terr-box").find(".page-items").hide();	//隐藏物品列表
+			$(".terr-box").data("page","box");
 		}
 	});
 	
-	$(".page-shop").on("click",".player-shop",function(){		//打开箱子
+	$(".page-box").on("click",".player-box",function(){		//打开箱子
 		var num = $(this).find("footer").find(".num").find("span").text();	//获取箱子编号
 		var name = $(this).find("header").text();	//获取箱子名称
 		var img = $(this).find("section").find("img").attr("src");	//获取箱子图片
@@ -197,25 +197,25 @@ $(document).ready(function(){
 		}
 		//经过上面的验证如果没有出现问题return，说明箱子打开成功
 		function openbox(){
-			$(".terr-shop .page-shop").hide();	//隐藏箱子列表页面
-			$(".terr-shop .page-items").show();	//显示物品列表页面
-			$(".terr-shop .page-items").data("index",xb);	//将箱子下标保存到物品页面data
-			$(".terr-shop").data("page","items");//保存当前所属页面到data，以便于点击返回的时候分辨出当前页面
+			$(".terr-box .page-box").hide();	//隐藏箱子列表页面
+			$(".terr-box .page-items").show();	//显示物品列表页面
+			$(".terr-box .page-items").data("index",xb);	//将箱子下标保存到物品页面data
+			$(".terr-box").data("page","items");//保存当前所属页面到data，以便于点击返回的时候分辨出当前页面
 			
 			//alert(name)
 			//渲染箱子信息
-			$(".page-items .head-shop>.head>img").attr("src",img);
-			$(".page-items .head-shop>.msg>.name>span").text(name);
-			$(".page-items .head-shop>.msg>.name>i").text(num);
-			$(".page-items .head-shop>.msg>.coor>span").text(xyz);
+			$(".page-items .head-box>.head>img").attr("src",img);
+			$(".page-items .head-box>.msg>.name>span").text(name);
+			$(".page-items .head-box>.msg>.name>i").text(num);
+			$(".page-items .head-box>.msg>.coor>span").text(xyz);
 			GenerateBoxItems(xb);	//生成对应箱子物品
 			adaptive();
 		}
 	});
-	$(".page-items>section").on("mouseover",".shop-items",function(){		//鼠标移入箱子内的物品
-		$(".page-items").find(".head-shop").hide();	//隐藏箱子信息
+	$(".page-items>section").on("mouseover",".box-items",function(){		//鼠标移入箱子内的物品
+		$(".page-items").find(".head-box").hide();	//隐藏箱子信息
 		$(".page-items").find(".head-items").show();	//显示物品信息
-		var xbBox = $(".terr-shop .page-items").data("index");	//获取箱子下标
+		var xbBox = $(".terr-box .page-items").data("index");	//获取箱子下标
 		var xb = $(this).data("index");		//获取当前物品下标
 		var name = playerBoxs.data[xbBox][xb].itemName;	//获取物品名称
 		var img = playerBoxs.data[xbBox][xb].itemImage;	//获取物品图标
@@ -233,8 +233,8 @@ $(document).ready(function(){
 			$(".page-items").find(".head-items").find(".quality").show();
 		}
 	});
-	$(".page-items>section").on("mouseout",".shop-items",function(){		//鼠标移出箱子内的物品
-		$(".page-items").find(".head-shop").show();		//显示箱子信息
+	$(".page-items>section").on("mouseout",".box-items",function(){		//鼠标移出箱子内的物品
+		$(".page-items").find(".head-box").show();		//显示箱子信息
 		$(".page-items").find(".head-items").hide();	//隐藏物品信息
 		//清空页面物品渲染信息
 		$(".page-items").find(".head-items").find("img").attr("src","");
@@ -242,8 +242,8 @@ $(document).ready(function(){
 		$(".page-items").find(".head-items").find(".num").find("span").text("");
 		$(".page-items").find(".head-items").find(".quality").find("span").text("");
 	});
-	$(".page-items>section").on("click",".shop-items",function(){		//点击箱子内的物品
-		var xbBox = $(".terr-shop .page-items").data("index");	//获取箱子下标
+	$(".page-items>section").on("click",".box-items",function(){		//点击箱子内的物品
+		var xbBox = $(".terr-box .page-items").data("index");	//获取箱子下标
 		var xb = $(this).data("index");		//获取当前物品下标
 		var id = playerBoxs.data[xbBox][xb].itemId;	//获取物品ID
 		var name = playerBoxs.data[xbBox][xb].itemName;	//获取物品名称
@@ -335,7 +335,7 @@ $(document).ready(function(){
 			recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>储存物品</span><span><b>"+name+"</b></span><span>"+pro+" 件</span>";
 			Alert("储存成功！<br>物品已发送至您的仓库");
 			popupCss(25,14);
-			$(".page-items").find(".head-shop").show();		//显示箱子信息
+			$(".page-items").find(".head-box").show();		//显示箱子信息
 			$(".page-items").find(".head-items").hide();	//隐藏物品信息
 		//});
 		}

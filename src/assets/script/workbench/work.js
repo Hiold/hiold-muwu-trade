@@ -628,10 +628,10 @@ $(document).ready(function(){
 					return;
 				}
 				//遍历当前显示的商品
-				for(var i=0;i<$(".items-shop>.items").length;i++){
-					var index = $(".items-shop>.items").eq(i).data("index");
+				for(var i=0;i<$(".items-box>.items").length;i++){
+					var index = $(".items-box>.items").eq(i).data("index");
 					if(index==xb){		//找到对应商品
-						$(".items-shop>.items").eq(i).click();
+						$(".items-box>.items").eq(i).click();
 						formPage = "workbench";
 						formPageItem = item;
 					}

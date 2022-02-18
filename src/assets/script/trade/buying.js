@@ -76,19 +76,19 @@ function arrGameItemsToObj(){
 		}else if(gameItems[i].desc==""){	//没有填写描述
 			gameItems[i].desc = '<span style="font-size:1em;font-weight:bold;color:gray;">没有找到这个物品的描述</span>';
 		}
-		
+
 	}
 }
 
 
 function GenerateBuyingItems(){	//在物资求购页面生成玩家商店详情页
-	$(".buying>.shop>li").remove();	//移除所有物品元素
+	$(".buying>.box>li").remove();	//移除所有物品元素
 	for(var i=0;i<gameItems.length;i++){	//遍历玩家商店列表
-		$(".buying>.shop").append(itemIcon);
+		$(".buying>.box").append(itemIcon);
 		//下标
-		$(".buying>.shop>li:last").attr("data-index",i);
+		$(".buying>.box>li:last").attr("data-index",i);
 		//图标
-		$(".buying>.shop>li:last").find("img").attr("src",gameItems[i].image);
+		$(".buying>.box>li:last").find("img").attr("src",gameItems[i].image);
 	}
 }
 
@@ -154,8 +154,8 @@ $(document).ready(function(){
 		["resourceMetalPipe","短铁管","auto","最低价:","最高价:","auto"],
 	];
 	arrGameItemsToObj();
-	
-	$(".buying>.shop").on("mouseenter","li",function(){	//鼠标移入显示物品详情
+
+	$(".buying>.box").on("mouseenter","li",function(){	//鼠标移入显示物品详情
 		var xb = $(this).data("index");
 		var name = gameItems[xb].name;
 		var img = gameItems[xb].image;
@@ -164,21 +164,23 @@ $(document).ready(function(){
 		var desc = gameItems[xb].desc;
 		var unit = gameItems[xb].unit;
 		var unit2 = gameItems[xb].unit2;
-		
+
 		$(".buying>.content>.image>img").attr("src",img);
 		$(".buying>.content>.name").text(name);
 		$(".buying>.content>.foot>.price>.min>.val").html(min+"<span style='color:gray;font-size:0.8em;font-weight:normal;'> / "+unit+"</span>");
 		$(".buying>.content>.foot>.price>.max>.val").html(max+"<span style='color:gray;font-size:0.8em;font-weight:normal;'> / "+unit2+"</span>");
 		$(".buying>.content>.foot>.desc").html(desc);
 	});
-	$(".buying>.shop").on("click","li",function(){	//点击选中的物品
-		$(".buying>.shop>.blank").fadeIn(100);	//显示求购发布窗口
-		$(".buying>.shop").css("overflow-y","hidden");	//隐藏物品列表滚动条
-		var top = $(".buying>.shop").scrollTop();
-		$(".buying>.shop>.blank").css("top",top+"px");
-		
+
+
+	$(".buying>.box").on("click","li",function(){	//点击选中的物品
+		$(".buying>.box>.blank").fadeIn(100);	//显示求购发布窗口
+		$(".buying>.box").css("overflow-y","hidden");	//隐藏物品列表滚动条
+		var top = $(".buying>.box").scrollTop();
+		$(".buying>.box>.blank").css("top",top+"px");
+
 		var xb = $(this).data("index");
-		$(".buying>.shop>.blank").data("index",xb);
+		$(".buying>.box>.blank").data("index",xb);
 		var name = gameItems[xb].name;
 		var img = gameItems[xb].image;
 		//将物品图标和名称渲染到页面
@@ -187,15 +189,15 @@ $(document).ready(function(){
 		//清空输入框内的内容
 		$(".buying .window>section>div>.val>input").val("");
 	});
-	
+
 	//关闭求购发布窗口
-	$(".buying>.shop>.blank>.window>footer>.close").click(function(){
-		$(".buying>.shop").css("overflow-y","auto");
-		$(".buying>.shop>.blank").fadeOut(50);
+	$(".buying>.box>.blank>.window>footer>.close").click(function(){
+		$(".buying>.box").css("overflow-y","auto");
+		$(".buying>.box>.blank").fadeOut(50);
 	});
-	$(".buying>.shop>.blank>.window>header>i").click(function(){
-		$(".buying>.shop").css("overflow-y","auto");
-		$(".buying>.shop>.blank").fadeOut(50);
+	$(".buying>.box>.blank>.window>header>i").click(function(){
+		$(".buying>.box").css("overflow-y","auto");
+		$(".buying>.box>.blank").fadeOut(50);
 	});
 	//求购发布确认窗口 增加按钮
 	$(".buying .window>section>div>.val>.add").click(function(){
@@ -212,9 +214,9 @@ $(document).ready(function(){
 		}
 		$(this).next().val(num);
 	});
-	
+
 	//确认发布求购物品
-	$(".buying>.shop>.blank>.window>footer>.confirm").click(function(){
+	$(".buying>.box>.blank>.window>footer>.confirm").click(function(){
 		//获取输入的内容
 		var valQua = $(".buying .window>section>.quality>.val>input").val()*1;
 		var valNum = $(".buying .window>section>.count>.val>input").val()*1;
@@ -241,24 +243,24 @@ $(document).ready(function(){
 			$(".buying .window>section>.price>.val>input").val(point);
 			return;
 		}
-		
+
 		//以上操作验证无误后，将发布的物品存到个人数组
-		var xb = $(".buying>.shop>.blank").data("index");
+		var xb = $(".buying>.box>.blank").data("index");
 		var id = gameItems[xb].id;		//物品ID
 		var name = gameItems[xb].name;	//物品名称
 		var img = gameItems[xb].image;	//物品图片
 		//var desc = gameItems[xb].desc;	//物品描述
 		playerStore[playerIndex][playerStore[playerIndex].length] = ["交易类型:求购","名称:"+name,"ID:"+id,"数量:"+valNum,"价格:"+valPrice,"品质:"+valQua];
 		arrPStoreToObj();
-		
+
 		point -= valPrice;	//扣除相应积分
 		players.data[playerIndex].points = point;	//保存玩家积分
 		playerBasic[playerIndex][2][0] = "积分:"+point;		//保存玩家积分到数组
 		$("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
 		$(".my-jf>span").text(point);	//同上
 
-		$(".buying>.shop>.blank").fadeOut(50);	//发布成功后 关闭求购窗口
-		$(".buying>.shop").css("overflow-y","auto");
+		$(".buying>.box>.blank").fadeOut(50);	//发布成功后 关闭求购窗口
+		$(".buying>.box").css("overflow-y","auto");
 		var point = players.data[playerIndex].points;
 		var diamond = players.data[playerIndex].diamonds;
 		if(valQua==0){
@@ -268,9 +270,9 @@ $(document).ready(function(){
 		}
 		Alert("发布成功！");
 		popupCss(25,13);
-		
+
 	});
-	
-	
-	
+
+
+
 });

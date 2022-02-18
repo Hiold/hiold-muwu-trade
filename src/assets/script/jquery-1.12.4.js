@@ -4275,13 +4275,13 @@ jQuery.fn.extend( {
 		// Check if elements with layout shrink-wrap their children
 		if ( typeof div.style.zoom !== "undefined" ) {
 
-			// Reset CSS: shop-sizing; display; margin; border
+			// Reset CSS: box-sizing; display; margin; border
 			div.style.cssText =
 
 				// Support: Firefox<29, Android 2.3
-				// Vendor-prefix shop-sizing
-				"-webkit-shop-sizing:content-shop;-moz-shop-sizing:content-shop;" +
-				"shop-sizing:content-shop;display:block;margin:0;border:0;" +
+				// Vendor-prefix box-sizing
+				"-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" +
+				"box-sizing:content-box;display:block;margin:0;border:0;" +
 				"padding:1px;width:1px;zoom:1";
 			div.appendChild( document.createElement( "div" ) ).style.width = "5px";
 			shrinkWrapBlocksVal = div.offsetWidth !== 3;
@@ -6536,9 +6536,9 @@ var documentElement = document.documentElement;
 	// (IE uses styleFloat instead of cssFloat)
 	support.cssFloat = !!div.style.cssFloat;
 
-	div.style.backgroundClip = "content-shop";
+	div.style.backgroundClip = "content-box";
 	div.cloneNode( true ).style.backgroundClip = "";
-	support.clearCloneStyle = div.style.backgroundClip === "content-shop";
+	support.clearCloneStyle = div.style.backgroundClip === "content-box";
 
 	container = document.createElement( "div" );
 	container.style.cssText = "border:0;width:8px;height:0;top:0;left:-9999px;" +
@@ -6547,7 +6547,7 @@ var documentElement = document.documentElement;
 	container.appendChild( div );
 
 	// Support: Firefox<29, Android 2.3
-	// Vendor-prefix shop-sizing
+	// Vendor-prefix box-sizing
 	support.boxSizing = div.style.boxSizing === "" || div.style.MozBoxSizing === "" ||
 		div.style.WebkitBoxSizing === "";
 
@@ -6614,8 +6614,8 @@ var documentElement = document.documentElement;
 		div.style.cssText =
 
 			// Support: Android 2.3
-			// Vendor-prefix shop-sizing
-			"-webkit-shop-sizing:border-shop;shop-sizing:border-shop;" +
+			// Vendor-prefix box-sizing
+			"-webkit-box-sizing:border-box;box-sizing:border-box;" +
 			"position:relative;display:block;" +
 			"margin:auto;border:1px;padding:1px;" +
 			"top:1%;width:50%";
@@ -6643,13 +6643,13 @@ var documentElement = document.documentElement;
 			// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
 			contents = div.appendChild( document.createElement( "div" ) );
 
-			// Reset CSS: shop-sizing; display; margin; border; padding
+			// Reset CSS: box-sizing; display; margin; border; padding
 			contents.style.cssText = div.style.cssText =
 
 				// Support: Android 2.3
-				// Vendor-prefix shop-sizing
-				"-webkit-shop-sizing:content-shop;-moz-shop-sizing:content-shop;" +
-				"shop-sizing:content-shop;display:block;margin:0;border:0;padding:0";
+				// Vendor-prefix box-sizing
+				"-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" +
+				"box-sizing:content-box;display:block;margin:0;border:0;padding:0";
 			contents.style.marginRight = contents.style.width = "0";
 			div.style.width = "1px";
 
@@ -6957,14 +6957,14 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 
 	for ( ; i < 4; i += 2 ) {
 
-		// both shop models exclude margin, so add it if we want it
+		// both box models exclude margin, so add it if we want it
 		if ( extra === "margin" ) {
 			val += jQuery.css( elem, extra + cssExpand[ i ], true, styles );
 		}
 
 		if ( isBorderBox ) {
 
-			// border-shop includes padding, so remove it if we want content
+			// border-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
 				val -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 			}
@@ -6990,12 +6990,12 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 
 function getWidthOrHeight( elem, name, extra ) {
 
-	// Start with offset property, which is equivalent to the border-shop value
+	// Start with offset property, which is equivalent to the border-box value
 	var valueIsBorderBox = true,
 		val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 		styles = getStyles( elem ),
 		isBorderBox = support.boxSizing &&
-			jQuery.css( elem, "boxSizing", false, styles ) === "border-shop";
+			jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
 	// some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -7022,7 +7022,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = parseFloat( val ) || 0;
 	}
 
-	// use the active shop-sizing model to add/subtract irrelevant styles
+	// use the active box-sizing model to add/subtract irrelevant styles
 	return ( val +
 		augmentWidthOrHeight(
 			elem,
@@ -7210,7 +7210,7 @@ jQuery.each( [ "height", "width" ], function( i, name ) {
 					name,
 					extra,
 					support.boxSizing &&
-						jQuery.css( elem, "boxSizing", false, styles ) === "border-shop",
+						jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
 					styles
 				) : 0
 			);
@@ -8326,7 +8326,7 @@ jQuery.extend( {
 					if ( jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1 ) {
 
 						// Support: IE6
-						// When new option element is added to select shop we need to
+						// When new option element is added to select box we need to
 						// force reflow of newly added node in order to workaround delay
 						// of initialization properties
 						try {

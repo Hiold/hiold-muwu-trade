@@ -73,28 +73,28 @@ $(document).ready(function(){
 	
 	$(".Activity-nav>.btn-1").click(function(){	//定时抢红包 按钮
 		$(".head-tool>h1").text("定时抢红包");
-		$(".Act-hb").show();
+		$(".Act-hb").fadeIn(200);
 	});
 	$(".Activity-nav>.btn-2").click(function(){	//活动任务 按钮
 		$(".head-tool>h1").text("每日任务");
 		$("li[class^=b2]").slideDown(100);
-		$(".Act-task").show();
+		$(".Act-task").fadeIn(200);
 		$(".Activity-nav>.b2-t0").click();
 	});
 	$(".Activity-nav>.btn-3").click(function(){	//幸运抽奖 按钮
 		$(".head-tool>h1").text("积分抽奖");
 		$(".head-tool>.lottery-num").show();
 		$("li[class^=b3]").slideDown(100);
-		$(".Act-lottery").show();
+		$(".Act-lottery").fadeIn(200);
 		$(".Activity-nav>.b3-t0").click();
 	});
 	$(".Activity-nav>.btn-4").click(function(){	//数字谜团 按钮
 		$(".head-tool>h1").text("数字谜团");
-		$(".Act-number").show();
+		$(".Act-number").fadeIn(200);
 	});
 	$(".Activity-nav>.btn-5").click(function(){	//每日签到 按钮
 		$(".head-tool>h1").text("七日签到领好礼");
-		$(".Act-qd").show();
+		$(".Act-qd").fadeIn(200);
 	});
 	
 	//幸运抽奖 下的子分类

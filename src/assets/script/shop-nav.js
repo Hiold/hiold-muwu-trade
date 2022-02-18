@@ -34,7 +34,7 @@ $(document).ready(function(){
 	$(".Category>li").click(function(){		//子分类点击特效+生成商品
 		$(".head-tool .name-id").val("");
 		$(".items-details").hide();
-		$(".items-shop,.head-tool").show();
+		$(".items-box,.head-tool").show();
 		var xb = $(this).attr("class").split("")[1];	//获取序号
 		//console.log("序号:"+xb)
 		$(".Category>li[class^='b"+xb+"']").css({"background":"none","box-shadow":"none"});	//清除同组子分类的样式
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		changeColor(xb);
 		//$(".items-details").fadeOut(200);
 		//$(".items-details").hide();
-		//$(".items-shop,section>.head-tool").show();
+		//$(".items-box,section>.head-tool").show();
 		//alert("点击子分类："+class2);
 		return;
 	});

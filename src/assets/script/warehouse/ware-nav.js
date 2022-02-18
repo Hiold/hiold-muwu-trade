@@ -66,7 +66,7 @@ $(document).ready(function(){
 		$(".head-tool .name-id").val("");
 		$(".ware-list").fadeIn(200);	//显示仓库物品列表
 		$(".ware-details").hide();		//隐藏物品详情页面
-		//$(".terr-shop").hide();			//隐藏其它不相关页面
+		//$(".terr-box").hide();			//隐藏其它不相关页面
 		// $(".warehouse>.menu>.l1").show();	//显示 提取到背包 按钮
 		// $(".warehouse>.menu>.l1-replace").hide();	//隐藏 储存到仓库 按钮
 		var xb = $(this).attr("class").split("")[1];	//获取序号
