@@ -1018,14 +1018,14 @@
                 //头部工具栏
                 //商品排序方式:展开列表选择排序方式
                 $(".head-tool>.sort>.s-page").click(function () {
-                    if (nowPage == "玩家店铺") {
+                    if (self.class1 == "玩家店铺") {
                         $(".head-tool>.sort").css({
                             "height": "300%",
                             "border-radius": "1rem",
                             "border": "1px solid white",
                             "box-shadow": "0 0 0.4rem rgb(200,200,200)"
                         }).find(".s-page").css("font-weight", "bold");
-                    } else if (nowPage == "物资求购" || nowPage == "玩家售卖区" || nowPage == "玩家求购区") {
+                    } else if (self.class1 == "物资求购" || self.class1 == "玩家售卖区" || self.class1 == "玩家求购区") {
                         $(".head-tool>.sort").css({
                             "height": "200%",
                             "border-radius": "1rem",

@@ -134,7 +134,7 @@
                     $(".head-tool>.sort").find(".t5").show().text("销售额高到低");
                     $(".head-tool>.refresh").show();	//显示刷新按钮
                     $(".head-tool>.back").hide();	//隐藏返回按钮
-                    GenerateStoreList();	//生成玩家店铺列表
+                    // GenerateStoreList();	//生成玩家店铺列表
                     $(".my-shop>header>.right,.my-shop>header>.edit").css("float", "left");
                     // nowPage = "玩家店铺";
                     $bus.emit('setclass1', "玩家店铺");
