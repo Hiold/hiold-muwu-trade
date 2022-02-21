@@ -116,9 +116,12 @@
                     <div class="need">收东西</div>
                 </nav>
                 <ul class="sitems-list">
-                    <TransPstoreCard v-for="(item,index) in pstoreCards" :key="item.id" :item="item"
+                    <TransPstoreCard v-if="class2=='出售'" v-for="(item,index) in pstoreCards" :key="item.id" :item="item"
                                      :index="index"></TransPstoreCard>
 
+                    <TransRequireCard v-if="class2=='求购'" v-for="(item,index) in requireItems" :key="item.id"
+                                      :item="item"
+                                      :index="index"></TransRequireCard>
                     <div class="add">
                         <div class="add-logo">+</div>
                         <span>添加物品</span>
@@ -316,10 +319,12 @@
     import {getCurrentInstance} from "vue";
 
     import TransPstoreCard from "/src/components/trans/MainBox/Trans/TransPstoreCard.vue";
+    import TransRequireCard from "/src/components/trans/MainBox/Trans/TransRequireCard.vue";
 
     export default {
         components: {
             'TransPstoreCard': TransPstoreCard,
+            'TransRequireCard': TransRequireCard
         },
         watch: {
             class1: {
@@ -339,6 +344,12 @@
                     if (newName != oldName) {
                         console.log("监听到变化" + newName);
                         // this.queryShopItem();
+                        if (newName == "求购") {
+                            this.queryPlayerRequireItems(this.playerinfo.gameentityid)
+                        }
+                        if (newName == "出售") {
+                            this.queryPlayerOnSell(this.playerinfo.gameentityid)
+                        }
 
                     }
                 }
@@ -350,9 +361,11 @@
             return {
                 pstoreCards: [],
                 gameItems: [],
+                requireItems: [],
                 ctx: null,
                 playerinfo: {},
-                keyword: ""
+                keyword: "",
+                itemname: ""
             }
         },
         methods: {
@@ -413,9 +426,21 @@
                     }
                 });
             },
-            queryPlayerOnSell() {
+            queryPlayerRequireItems(id) {
                 let params = {
-                    itemname: this.itemname,
+                    id: id + ""
+                }
+                axios.post('api/getUserRequire', params).then(res => {
+                    if (res.data.respCode === "1") {
+                        this.requireItems = res.data.data;
+                        // this.requireItems = JSON.parse(JsonData);
+                    }
+                });
+            },
+            queryPlayerOnSell(id) {
+                let params = {
+                    id: id + "",
+                    itemname: this.itemname + "",
                     // class1: this.class1,
                     // class2: this.class2,
                     class1: "",
@@ -728,7 +753,8 @@
                     }
                 });
 
-                $(".my-shop>section>nav>.need").click(function () {		//点击 收东西
+                //点击 收东西
+                $(".my-shop>section>nav>.need").click(function () {
                     $(".my-shop>section>nav>.sell").data("click", "false");
                     $(".my-shop>section>nav>.sell").css({
                         "color": "gray",
@@ -744,10 +770,11 @@
                     $bus.emit('setclass2', "求购");
                     // pst = "求购";
                     var xb = $(".my-shop").data("index");
-                    GeneratePStore(xb, "求购");
+                    // GeneratePStore(xb, "求购");
                 });
 
-                $(".my-shop>section>nav>.sell").click(function () {		//点击 出东西
+                //点击 出东西
+                $(".my-shop>section>nav>.sell").click(function () {
                     $(".my-shop>section>nav>.need").data("click", "false");
                     $(".my-shop>section>nav>.need").css({
                         "color": "gray",
@@ -803,7 +830,8 @@
                         ctx.Confirm("请从仓库里选择你要出售的商品<br>是否立即前往？");
                         ctx.popupCss(25, 14);
                         $("#alert>.alert>footer>.confirm").click(function () {
-                            $(".Main-menu>.menu-2").click();
+                            // $(".Main-menu>.menu-2").click();
+                            window.location = "/#/userq/warehouse"
                             $("#alert,#alert>.alert").hide();
                         });
                     } else if (self.class2 == "求购") {
@@ -1076,7 +1104,7 @@
                             axios.post("api/TackBackItem", buyParam).then(res => {
                                 if (res.data.respCode === "1") {
                                     ElMessage.success('取回成功')
-                                    self.queryPlayerOnSell();
+                                    self.queryPlayerOnSell(self.playerinfo.gameentityid);
                                     // $(this).css("background-image", "url(images/icon/collect-1.png)");
                                 } else {
                                     ElMessage.error(res.data.respMsg);
@@ -1297,8 +1325,9 @@
             const $bus = this.ctx.appContext.config.globalProperties.$bus;
             this.ready();
             $bus.emit('setclass2', "出售");
-            this.queryPlayerOnSell();
             this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
+            this.queryPlayerOnSell(this.playerinfo.gameentityid);
+            this.queryPlayerRequireItems(this.playerinfo.gameentityid)
             // this.arrPStoreToObj();
         }
     }
