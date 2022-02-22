@@ -1186,7 +1186,7 @@
                         let res = self.pstoreCards.filter((item) => {
                             return item.id == itemid
                         });
-                        console.log(self.pstoreCards, itemid);
+                        // console.log(self.pstoreCards, itemid);
                         if (res[0].itemicon == null) {
                             img = 'api/image/' + res[0].name + '.png';
                         } else {
@@ -1245,75 +1245,33 @@
                             }
                             //todo 模拟成功，这里需要改为调用接口
                             ctx.Alert("购买成功");
-
+                            $(".player-order").hide()
                         });
                     } else if (self.class2 == "求购") {
+                        let res = self.requireItems.filter((item) => {
+                            return item.id == itemid
+                        });
+                        var item = res[0];
+
                         //alert("其它玩家！求购的物品");
-                        var player = playerStores[xb1].playerName;	//获取店主名称
-                        var name = playerStores[xb1][xb2].name;	//获取物品名称
-                        var id = playerStores[xb1][xb2].id;	//获取物品ID
-                        var num = playerStores[xb1][xb2].num * 1;	//获取物品数量
-                        var price = playerStores[xb1][xb2].price * 1;	//获取物品价格
-                        var quality = playerStores[xb1][xb2].quality;	//获取物品品质
+                        var player = self.currentViewPlayer.name;	//获取店主名称
+                        var name = item.Itemchinese;	//获取物品名称
+                        var id = item.id;	//获取物品ID
+                        var num = item.Itemcount * 1;	//获取物品数量
+                        var price = item.Price * 1;	//获取物品价格
+                        var quality = item.Itemquality;	//获取物品品质
                         if (quality == "" || quality == undefined) {
                             quality = 0
                         }
 
-                        Confirm("是否确认向 <font color='mediumpurple'>" + player + "</font> 提供<br>" + num + " 个 " + name + " ?<br>你可以获得 <font color='orange'>" + price + "</font> 积分奖励");
-                        popupCss(27, 16);
+                        ctx.Confirm("是否确认向 <font color='mediumpurple'>" + player + "</font> 提供<br>" + num + " 个 " + name + " ?<br>你可以获得 <font color='orange'>" + price + "</font> 积分奖励");
+                        ctx.popupCss(27, 16);
                         $("#alert>.alert>footer>.confirm").unbind("click");
                         $("#alert>.alert>footer>.confirm").click(function () {	//确认向玩家供货
                             //下面开始检测自己的仓库是否存在这个物品
-                            var xb = queryWareItems(id, quality);
-                            if (xb >= 0) {	//仓库中存在这个物品
-                                var numW = playerWares.data[xb].num * 1;	//获取仓库里这个物品的数量
-                                if (numW < num) {
-                                    Alert("<font color='red'>交易失败！</font><br>你的仓库里没有足够的库存！<br>你需要提供 <font color='dodgerblue'>" + num + "</font> 件 <font color='mediumpurple'>" + name + "</font><br>你的仓库里只有 <font color='green'>" + numW + "</font> 件，还差 <font color='red'>" + (num - numW) + "</font> 件");
-                                    popupCss(28, 17);
-                                    return;
-                                } else if (numW >= num) {
-                                    numW -= num;
-                                    playerWares.data[xb].num = numW;
-                                    playerWare[playerIndex][xb][1][1] = "数量:" + numW;
-                                    if (numW == 0) {
-                                        playerWare[playerIndex].splice(xb, 1);	//删除仓库数组中对应下标物品
-                                    }
-                                    arrwareToObj();		//将更新的数组重新转换obj格式
-                                    var point = players.data[playerIndex].points * 1;	//获取当前拥有积分
-                                    point += price;		//给自己增加对应积分
-                                    players.data[playerIndex].points = point;	//保存积分
-                                    playerBasic[playerIndex][2][0] = "积分:" + point;
-                                    $("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
-                                    $(".my-jf>span").text(point);	//同上
-                                    playerStores[xb1].splice(xb2, 1);	//商店数组中删除这个物品
-                                    //arrPStoreToObj();
-                                    //console.log(playerStores[xb1]);
-                                    GeneratePStore(xb1, "求购");	//重新渲染页面商品
-                                    GeneratePlayerCom("求购");
-                                    //这里需要把物品发送至对方的仓库 或者以邮件的形式发送给对方
-                                    //......
+                            //todo 这里需要实现供货逻辑 默认弹出供货成功提示
+                            ctx.Alert("交易成功");
 
-
-                                    //保存一份操作记录
-                                    var owner = playerStores[xb1].playerName;	//获取店主名称
-                                    var diamond = players.data[playerIndex].diamonds;
-                                    // var owner = "一二三四五一二三四五";
-                                    // var name = "一二三四五一二三"
-                                    //recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>购买 <b>"+owner+"</b> 的商品</span><br><span><b>"+name+"</b></span><span>"+numVal+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
-                                    if (quality == 0) {
-                                        recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                                    } else {
-                                        recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b><font style='font-size:0.9em;'>(品质: " + quality + ")</font></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                                    }
-                                    Alert("交易成功！<br>积分已发送至您的账户");
-                                    popupCss(25, 14);
-                                    return;
-                                }
-                            } else {		//仓库中不存在这个物品
-                                Alert("<font color='red'>交易失败！</font><br>你的仓库里没有这个物品！");
-                                popupCss(25, 14);
-                                return;
-                            }
 
                         });
                     }
