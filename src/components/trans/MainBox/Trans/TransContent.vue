@@ -28,26 +28,11 @@
                 <div class="h3">销售额</div>
                 <div class="h4">获赞</div>
             </header>
-            <!-- <li>
-                <div class="num">1</div>
-                <div class="head"></div>
-                <div class="name">
-                    <div class="shop-name">彩虹糖果屋</div>
-                    <div class="vip"></div>
-                    <div class="owner">店主：彩色の小木屋</div>
-                    <div class="level">lv.520</div>
-                </div>
-                <div class="sales">
-                    <i></i>
-                    <span>1314000</span>
-                </div>
-                <div class="praised">
-                    <i></i>
-                    <span>2345</span>
-                </div>
-            </li> -->
 
-            <div class="empty">
+            <TransPStoreList v-for="(item,index) in playershops" :key="item.id" :item="item"
+                             :index="index"></TransPStoreList>
+
+            <div class="empty" v-show="playershops==null||playershops.length<=0">
                 <span>没有找到你想<br>搜索的店铺</span>
             </div>
         </div>
@@ -320,11 +305,13 @@
 
     import TransPstoreCard from "/src/components/trans/MainBox/Trans/TransPstoreCard.vue";
     import TransRequireCard from "/src/components/trans/MainBox/Trans/TransRequireCard.vue";
+    import TransPStoreList from "/src/components/trans/MainBox/Trans/TransPStoreList.vue";
 
     export default {
         components: {
             'TransPstoreCard': TransPstoreCard,
-            'TransRequireCard': TransRequireCard
+            'TransRequireCard': TransRequireCard,
+            'TransPStoreList': TransPStoreList,
         },
         watch: {
             class1: {
@@ -335,6 +322,15 @@
                         if (newName == "物资求购") {
                             this.GenerateBuyingItems();
                         }
+                        if (newName == "玩家店铺") {
+                            this.playerid = this.playerinfo.gameentityid;
+                            this.queryPlayerOnSell(this.playerid);
+                            this.queryPlayerRequireItems(this.playerid)
+                            this.initUserData(this.playerid);
+                            this.queryPlayerShopList(this.playerid)
+                            $(".my-shop").data("index", this.playerid);
+                        }
+
                     }
                 },
                 immediate: true
@@ -345,10 +341,10 @@
                         console.log("监听到变化" + newName);
                         // this.queryShopItem();
                         if (newName == "求购") {
-                            this.queryPlayerRequireItems(this.playerinfo.gameentityid)
+                            this.queryPlayerRequireItems(this.playerid);
                         }
                         if (newName == "出售") {
-                            this.queryPlayerOnSell(this.playerinfo.gameentityid)
+                            this.queryPlayerOnSell(this.playerid);
                         }
 
                     }
@@ -365,10 +361,42 @@
                 ctx: null,
                 playerinfo: {},
                 keyword: "",
-                itemname: ""
+                itemname: "",
+                playershops: {},
+                orderby: "",
+                playerid: "",
+                currentViewPlayer: {},
             }
         },
         methods: {
+            initUserData(gameentity) {
+                let params = {
+                    id: gameentity + "",
+                }
+                axios.post('api/getUserInfo', params).then(res => {
+                    if (res.data.respCode === "1") {
+                        this.currentViewPlayer = res.data.data;
+                        $(".my-shop>header>.left>.head").css("background-image", `url(api/image/${this.currentViewPlayer.name}.png),url('/images/player/head1.jfif')`);	//玩家头像
+                        $(".my-shop>header>.center>.shop-name").text(this.currentViewPlayer.shopname);	//店铺名称
+                        $(".my-shop>header>.center>.shopkeeper>.name").text(this.currentViewPlayer.name);	//店主名称
+                        //$(".my-shop>header>.center>.opening-time>span").text(playerStores[xb].openTime);	//开店时间
+                        $(".my-shop>header>.right>.sales>.s2>span").text(this.currentViewPlayer.trade_count);		//总销售额
+                        $(".my-shop>header>.right>.praised>.p2>span").text(this.currentViewPlayer.likecount);		//获赞数量
+                        $(".my-shop>header>.center>.assets>.point>span").text(this.currentViewPlayer.money);		//拥有积分
+                        $(".my-shop>header>.center>.assets>.diamond>span").text(this.currentViewPlayer.credit);//拥有钻石
+
+                        if (this.playerinfo.gameentityid == gameentity) {	//如果打开的商店是当前登录玩家的商店（自己的商店）
+                            $(".my-shop>header>.center>.shopkeeper>.open-qq").hide();	//QQ聊天按钮
+                            $(".my-shop>header>.edit").show();	//编辑资料按钮
+                            $(".sitems-list>.add").show();	//添加物品按钮
+                        } else {	//如果打开的是 其它玩家的商店
+                            $(".my-shop>header>.center>.shopkeeper>.open-qq").css("display", "inline-block");	//QQ聊天按钮
+                            $(".my-shop>header>.edit").hide();	//编辑资料按钮
+                            $(".sitems-list>.add").hide();	//添加物品按钮
+                        }
+                    }
+                });
+            },
             searchItems() {		//搜索店铺或物品
                 if (this.class1 == "玩家店铺") {
                     // $(".player-store>li").show();	//先默认让所有隐藏店铺显示
@@ -423,6 +451,19 @@
                     if (res.data.respCode === "1") {
                         let JsonData = res.data.data;
                         this.gameItems = JSON.parse(JsonData);
+                    }
+                });
+            },
+            //查询求购图片
+            queryPlayerShopList() {
+                let params = {
+                    itemname: this.itemname + "",
+                    orderby: this.orderby
+                }
+                axios.post('api/getUserShopList', params).then(res => {
+                    if (res.data.respCode === "1") {
+                        this.playershops = res.data.data;
+                        // this.requireItems = JSON.parse(JsonData);
                     }
                 });
             },
@@ -605,7 +646,7 @@
                 //下面是玩家店铺列表相关内容
                 $(".player-store").on("click", "li", function () {	//点击玩家店铺列表查看店铺详情
                     //$(".player-store>li").click(function(){
-                    var xb = $(this).data("index");		//获取玩家商店在数组中的下标
+                    var xb = $(this).data("gameentityid");		//获取玩家商店在数组中的下标
                     $(".player-store").hide();
                     $(".head-tool").hide();
                     //隐藏头部工具栏及相关功能
@@ -613,7 +654,11 @@
                     $(".my-shop").show();
                     $(".my-shop>header>.back").show();
                     //$(".my-shop").css("padding-top","5rem");
-                    GeneratePStore(xb, "出售");
+                    //GeneratePStore(xb, "出售");
+                    self.playerid = xb;
+                    self.queryPlayerOnSell(self.playerid);
+                    self.queryPlayerRequireItems(self.playerid);
+                    self.initUserData(self.playerid);
                     $(".my-shop>section>nav>.sell").click();
                     var len = $(".sitems-list>li").length;	//获取出售的商品数量
                     if (len == 0) {		//如果没有出售的商品
@@ -933,7 +978,7 @@
 
                 //店铺详情页点击返回（返回到店铺列表）
                 $(".my-shop>header>.back").click(function () {
-                    if (nowPage == "玩家店铺") {
+                    if (self.class1 == "玩家店铺") {
                         $(".player-store").show();	//显示玩家店铺列表
                         $(".my-shop").hide();	//隐藏店铺详情页面
                         $(".head-tool").show();	//显示头部工具栏
@@ -942,15 +987,15 @@
                         $(".head-tool>.refresh").show();	//显示刷新按钮
                         $(".head-tool>h1").text("玩家店铺");	//头部标题命名为'玩家店铺'
                         $(".head-tool>.serch").show();	//显示搜索栏
-                        nowPage = "玩家店铺";
-                    } else if (nowPage == "玩家售卖区" || nowPage == "玩家求购区") {
+                        // nowPage = "玩家店铺";
+                    } else if (self.class1 == "玩家售卖区" || self.class1 == "玩家求购区") {
                         $(".head-tool").show();	//显示头部工具栏
                         $(".my-shop").hide();	//隐藏店铺详情页面
                         $(".player-com").show();	//显示 玩家售卖/求购区 页面
-                        if (nowPage == "玩家售卖区") {
-                            pst = "出售";
+                        if (self.class1 == "玩家售卖区") {
+                            $bus.emit('setclass2', "出售");
                         } else if (nowPage == "玩家求购区") {
-                            pst = "求购";
+                            $bus.emit('setclass2', "求购");
                         }
                     }
 
@@ -959,10 +1004,11 @@
                 //玩家店铺内物品 点击事件
                 $(".sitems-list").on("click", "li", function () {
                     // var xb1 = $(".my-shop").data("index");	//获取店主在数组中的下标
-                    var xb1 = self.playerinfo.id;
-                    var xb2 = $(this).attr("index");		//获取物品在数组中的下标
-                    self.playerCom(xb1, xb2);
+                    // var xb1 = self.playerinfo.id;
+                    var xb2 = $(this).data("itemid");		//获取物品在数组中的下标
+                    self.playerCom(self.playerid, xb2);
                 });
+
                 //购买其它玩家商品 订单确认页面 关闭窗口
                 $(".player-order>.window>footer>.close").click(function () {
                     $(".player-order").hide();
@@ -1062,6 +1108,8 @@
                         "border": "1px solid rgb(180,180,180)",
                         "box-shadow": "none"
                     }).find(".s-page").css("font-weight", "normal");
+                    self.orderby = txt;
+                    self.queryPlayerShopList();
                 });
                 $(".head-tool>.sort>li").hover(function () {	//排序选择列表 悬浮事件
                     var ck = $(this).data("click");
@@ -1086,12 +1134,16 @@
 
             },
 
-            playerCom(id, itemindex) {
+            playerCom(id, itemid) {
                 var self = this;
+                // console.log(id, self.playerinfo.id)
+                let res = self.pstoreCards.filter((item) => {
+                    return item.id == itemid
+                });
                 //玩家商品卡片相关内容
-                var item = self.pstoreCards[itemindex];
+                var item = res[0];
                 var ctx = this.ctx.appContext.config.globalProperties;
-                if (id == self.playerinfo.id) {	//如果店主是当前登录的玩家（浏览自己的店铺）
+                if (id == self.playerinfo.gameentityid) {	//如果店主是当前登录的玩家（浏览自己的店铺）
                     if (self.class2 == "出售") {
                         //alert("店主！出售的物品");
                         ctx.Confirm("是否要下架此物品？<br>下架后物品将返还至仓库");
@@ -1104,7 +1156,7 @@
                             axios.post("api/TackBackItem", buyParam).then(res => {
                                 if (res.data.respCode === "1") {
                                     ElMessage.success('取回成功')
-                                    self.queryPlayerOnSell(self.playerinfo.gameentityid);
+                                    self.queryPlayerOnSell(self.playerid);
                                     // $(this).css("background-image", "url(images/icon/collect-1.png)");
                                 } else {
                                     ElMessage.error(res.data.respMsg);
@@ -1119,204 +1171,152 @@
                         ctx.popupCss(25, 14);
                         $("#alert>.alert>footer>.confirm").unbind("click");
                         $("#alert>.alert>footer>.confirm").click(function () {
+                            //todo 撤销求购模拟实现
                             console.log("OK!", itemindex);
                             $("#alert,#alert>.alert").hide();	//隐藏提示框
                         });
                     }
-                } else {	//如果店主是其它玩家（浏览别人的店铺）
-                    // if (self.class2 == "出售") {
-                    //   $(".player-order").fadeIn(100);	//显示订单确认窗口
-                    //   $(".my-shop").data("index", id);
-                    //   $(".player-order").data("index", itemid);
-                    //   var img = playerStores[xb1][xb2].image;	//获取物品图标
-                    //   var name = playerStores[xb1][xb2].name;	//获取物品名称
-                    //   var price = playerStores[xb1][xb2].price;	//获取物品单价
-                    //   var num = playerStores[xb1][xb2].num;	//获取物品数量
-                    //   //将物品数据渲染到页面
-                    //   $(".player-order>.window>section>header>.head>img").attr("src", img);	//图标
-                    //   $(".player-order>.window>section>header>.msg>.name").text(name);	//名称
-                    //   $(".player-order>.window>section>header>.msg>.price>span").text(price);	//单价
-                    //   $(".player-order>.window>section>header>.num").text("x" + num);	//数量
-                    //   $(".player-order>.window>section>.count>.val>input").val("");	//清空输入框
-                    //   $(".player-order>.window>section>.price>.val>span").text(0);	//清空支付价格
-                    //
-                    //   //增加数量
-                    //   $(".player-order>.window>section>div>.val>.add").unbind("click");
-                    //   $(".player-order>.window>section>div>.val>.add").click(function () {
-                    //     var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
-                    //     numVal++;
-                    //     if (numVal > num) {		//购买数量最多不能超过出售的数量
-                    //       numVal = num;
-                    //     }
-                    //     $(".player-order>.window>section>.count>.val>input").val(numVal);
-                    //     var priceAll = price * numVal;	//计算玩家实际需支付的价格
-                    //     $(".player-order>.window>section>.price>.val>span").text(priceAll);
-                    //   });
-                    //   //减少数量
-                    //   $(".player-order>.window>section>div>.val>.reduce").unbind("click");
-                    //   $(".player-order>.window>section>div>.val>.reduce").click(function () {
-                    //     var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
-                    //     numVal--;
-                    //     if (numVal <= 0) {		//购买数量至少为1
-                    //       numVal = 1;
-                    //     }
-                    //     $(".player-order>.window>section>.count>.val>input").val(numVal);
-                    //     var priceAll = price * numVal;	//计算玩家实际需支付的价格
-                    //     $(".player-order>.window>section>.price>.val>span").text(priceAll);
-                    //   });
-                    //
-                    //   //确认付款
-                    //   $(".player-order>.window>footer>.confirm").unbind("click");
-                    //   $(".player-order>.window>footer>.confirm").click(function () {
-                    //     var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
-                    //     if (isNaN(numVal)) {
-                    //       Alert("请输入正确的数字！");
-                    //       popupCss(25, 13);
-                    //       return;
-                    //     } else if (numVal == "" || numVal == 0) {
-                    //       Alert("请填写购买数量！");
-                    //       popupCss(25, 13);
-                    //       return;
-                    //     }
-                    //     var pay = $(".player-order>.window>section>.price>.val>span").text() * 1;	//玩家需支付价格
-                    //     var point = players.data[playerIndex].points * 1;	//获取玩家拥有积分
-                    //     if (pay > point) {
-                    //       Alert("您的<font color='orange'>积分</font>不足，购买失败！");
-                    //       popupCss(25, 13);
-                    //       return;
-                    //     } else if (pay <= point) {
-                    //       point -= pay;
-                    //       players.data[playerIndex].points = point;
-                    //       playerBasic[playerIndex][2][0] = "积分:" + point;
-                    //       //页面渲染更新的玩家积分
-                    //       $("main>header>.Point>span").text(point);
-                    //       $(".my-jf>span").text(point);
-                    //       $(".my-jf>span").text(point);
-                    //       //将购买的物品发送到仓库
-                    //       var id = playerStores[xb1][xb2].id;	//获取物品ID
-                    //       var quality = playerStores[xb1][xb2].quality;	//获取物品品质
-                    //       //下面的for循环遍历原有仓库数组,如果数组中有相同的物品,那么就合并数量,没有的话就在结尾追加
-                    //       //相同的条件是: 名称、ID、品质 3个属性同时相同
-                    //       var findItem = false;	//默认为没找到相同物品
-                    //       for (var j in playerWare[playerIndex]) {
-                    //         var nameW = playerWares.data[j].name;	//获取数组中物品名称
-                    //         var idW = playerWares.data[j].id;		//获取数组中物品ID
-                    //         var quaW = playerWares.data[j].quality * 1;	//获取数组中物品品质
-                    //         var numW = playerWares.data[j].num * 1;		//获取数组中物品数量
-                    //         if (nameW == name && idW == id && quaW == quality) {	//如果是相同的物品
-                    //           findItem = true;
-                    //           numW += numVal;	//直接给相同的物品增加购买的数量，无需再新创建数组
-                    //           playerWares.data[j].num = numW;	//保存更新的数量
-                    //           playerWare[playerIndex][j][1][1] = "数量:" + numW;
-                    //         }
-                    //         //console.log("品质1:"+quaW+"---品质2:"+itemQua);
-                    //         //console.log("名称1:"+nameW+"---名称2:"+itemName);
-                    //       }
-                    //       if (findItem == false) {	//如果遍历完数组后仍然没找到物品，给数组结尾追加数组
-                    //         playerWare[playerIndex][playerWare[playerIndex].length] = [["auto", "ID:" + id, "图片:auto"], ["品质:" + quality, "数量:" + numVal], ["总分类:auto", "子分类:auto", "mod:auto"], ["auto"]];
-                    //         //console.log(playerWare[xb1]);
-                    //       }
-                    //       arrwareToObj();	//给仓库数组转换储存格式
-                    //       //购买成功后减少玩家店铺这个物品的剩余库存
-                    //       num -= numVal;
-                    //       playerStores[xb1][xb2].num = num;
-                    //       if (num == 0) {	//如果全部买完了
-                    //         playerStores[xb1].splice(xb2, 1);	//玩家商店数组中删除这个物品
-                    //       }
-                    //       //arrPStoreToObj();
-                    //       //console.log(playerStores[xb1]);
-                    //       GeneratePStore(xb1, "出售");	//重新渲染页面商品
-                    //       GeneratePlayerCom("出售");
-                    //       //这里需要给对方的账户增加积分 或者以邮件的形式发送给对方
-                    //       //......
-                    //
-                    //
-                    //       //保存一份操作记录
-                    //       var owner = playerStores[xb1].playerName;	//获取店主名称
-                    //       var diamond = players.data[playerIndex].diamonds;
-                    //       // var owner = "一二三四五一二三四五";
-                    //       // var name = "一二三四五一二三"
-                    //       //recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>购买 <b>"+owner+"</b> 的商品</span><br><span><b>"+name+"</b></span><span>"+numVal+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
-                    //       if (quality == 0) {
-                    //         recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>购买 <b><font color='mediumpurple'>" + owner + "</font></b> 的物品</span><br><span><b>" + name + "</b></span><span>" + numVal + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                    //       } else {
-                    //         recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>购买 <b><font color='mediumpurple'>" + owner + "</font></b> 的物品</span><br><span><b>" + name + "</b><font style='font-size:0.9em;'>(品质: " + quality + ")</font></span><span>" + numVal + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                    //       }
-                    //       Alert("购买成功！<br>物品已发送至您的仓库");
-                    //       popupCss(25, 14);
-                    //       $(".player-order").hide();
-                    //     }
-                    //   });
-                    // } else if (self.class2 == "求购") {
-                    //   //alert("其它玩家！求购的物品");
-                    //   var player = playerStores[xb1].playerName;	//获取店主名称
-                    //   var name = playerStores[xb1][xb2].name;	//获取物品名称
-                    //   var id = playerStores[xb1][xb2].id;	//获取物品ID
-                    //   var num = playerStores[xb1][xb2].num * 1;	//获取物品数量
-                    //   var price = playerStores[xb1][xb2].price * 1;	//获取物品价格
-                    //   var quality = playerStores[xb1][xb2].quality;	//获取物品品质
-                    //   if (quality == "" || quality == undefined) {
-                    //     quality = 0
-                    //   }
-                    //
-                    //   Confirm("是否确认向 <font color='mediumpurple'>" + player + "</font> 提供<br>" + num + " 个 " + name + " ?<br>你可以获得 <font color='orange'>" + price + "</font> 积分奖励");
-                    //   popupCss(27, 16);
-                    //   $("#alert>.alert>footer>.confirm").unbind("click");
-                    //   $("#alert>.alert>footer>.confirm").click(function () {	//确认向玩家供货
-                    //     //下面开始检测自己的仓库是否存在这个物品
-                    //     var xb = queryWareItems(id, quality);
-                    //     if (xb >= 0) {	//仓库中存在这个物品
-                    //       var numW = playerWares.data[xb].num * 1;	//获取仓库里这个物品的数量
-                    //       if (numW < num) {
-                    //         Alert("<font color='red'>交易失败！</font><br>你的仓库里没有足够的库存！<br>你需要提供 <font color='dodgerblue'>" + num + "</font> 件 <font color='mediumpurple'>" + name + "</font><br>你的仓库里只有 <font color='green'>" + numW + "</font> 件，还差 <font color='red'>" + (num - numW) + "</font> 件");
-                    //         popupCss(28, 17);
-                    //         return;
-                    //       } else if (numW >= num) {
-                    //         numW -= num;
-                    //         playerWares.data[xb].num = numW;
-                    //         playerWare[playerIndex][xb][1][1] = "数量:" + numW;
-                    //         if (numW == 0) {
-                    //           playerWare[playerIndex].splice(xb, 1);	//删除仓库数组中对应下标物品
-                    //         }
-                    //         arrwareToObj();		//将更新的数组重新转换obj格式
-                    //         var point = players.data[playerIndex].points * 1;	//获取当前拥有积分
-                    //         point += price;		//给自己增加对应积分
-                    //         players.data[playerIndex].points = point;	//保存积分
-                    //         playerBasic[playerIndex][2][0] = "积分:" + point;
-                    //         $("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
-                    //         $(".my-jf>span").text(point);	//同上
-                    //         playerStores[xb1].splice(xb2, 1);	//商店数组中删除这个物品
-                    //         //arrPStoreToObj();
-                    //         //console.log(playerStores[xb1]);
-                    //         GeneratePStore(xb1, "求购");	//重新渲染页面商品
-                    //         GeneratePlayerCom("求购");
-                    //         //这里需要把物品发送至对方的仓库 或者以邮件的形式发送给对方
-                    //         //......
-                    //
-                    //
-                    //         //保存一份操作记录
-                    //         var owner = playerStores[xb1].playerName;	//获取店主名称
-                    //         var diamond = players.data[playerIndex].diamonds;
-                    //         // var owner = "一二三四五一二三四五";
-                    //         // var name = "一二三四五一二三"
-                    //         //recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>购买 <b>"+owner+"</b> 的商品</span><br><span><b>"+name+"</b></span><span>"+numVal+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
-                    //         if (quality == 0) {
-                    //           recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                    //         } else {
-                    //           recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b><font style='font-size:0.9em;'>(品质: " + quality + ")</font></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
-                    //         }
-                    //         Alert("交易成功！<br>积分已发送至您的账户");
-                    //         popupCss(25, 14);
-                    //         return;
-                    //       }
-                    //     } else {		//仓库中不存在这个物品
-                    //       Alert("<font color='red'>交易失败！</font><br>你的仓库里没有这个物品！");
-                    //       popupCss(25, 14);
-                    //       return;
-                    //     }
-                    //
-                    //   });
-                    // }
+                } else {
+                    //如果店主是其它玩家（浏览别人的店铺）
+                    if (self.class2 == "出售") {
+                        $(".player-order").fadeIn(100);	//显示订单确认窗口
+                        // $(".my-shop").data("index", id);
+                        // $(".player-order").data("index", itemid);
+                        var img = "";
+                        let res = self.pstoreCards.filter((item) => {
+                            return item.id == itemid
+                        });
+                        console.log(self.pstoreCards, itemid);
+                        if (res[0].itemicon == null) {
+                            img = 'api/image/' + res[0].name + '.png';
+                        } else {
+                            img = 'api/image/' + res[0].itemicon;
+                        }
+
+                        var name = res[0].translate;	//获取物品名称
+                        var price = res[0].price;	//获取物品单价
+                        var num = res[0].stock;	//获取物品数量
+                        // //将物品数据渲染到页面
+                        $(".player-order>.window>section>header>.head>img").attr("src", img);	//图标
+                        $(".player-order>.window>section>header>.msg>.name").text(name);	//名称
+                        $(".player-order>.window>section>header>.msg>.price>span").text(price);	//单价
+                        $(".player-order>.window>section>header>.num").text("x" + num);	//数量
+                        $(".player-order>.window>section>.count>.val>input").val("");	//清空输入框
+                        $(".player-order>.window>section>.price>.val>span").text(0);	//清空支付价格
+
+
+                        //增加数量
+                        $(".player-order>.window>section>div>.val>.add").unbind("click");
+                        $(".player-order>.window>section>div>.val>.add").click(function () {
+                            var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
+                            numVal++;
+                            if (numVal > num) {		//购买数量最多不能超过出售的数量
+                                numVal = num;
+                            }
+                            $(".player-order>.window>section>.count>.val>input").val(numVal);
+                            var priceAll = price * numVal;	//计算玩家实际需支付的价格
+                            $(".player-order>.window>section>.price>.val>span").text(priceAll);
+                        });
+                        //减少数量
+                        $(".player-order>.window>section>div>.val>.reduce").unbind("click");
+                        $(".player-order>.window>section>div>.val>.reduce").click(function () {
+                            var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
+                            numVal--;
+                            if (numVal <= 0) {		//购买数量至少为1
+                                numVal = 1;
+                            }
+                            $(".player-order>.window>section>.count>.val>input").val(numVal);
+                            var priceAll = price * numVal;	//计算玩家实际需支付的价格
+                            $(".player-order>.window>section>.price>.val>span").text(priceAll);
+                        });
+
+                        //确认付款
+                        $(".player-order>.window>footer>.confirm").unbind("click");
+                        $(".player-order>.window>footer>.confirm").click(function () {
+                            var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
+                            if (isNaN(numVal)) {
+                                ctx.Alert("请输入正确的数字！");
+                                ctx.popupCss(25, 13);
+                                return;
+                            } else if (numVal == "" || numVal == 0) {
+                                ctx.Alert("请填写购买数量！");
+                                ctx.popupCss(25, 13);
+                                return;
+                            }
+                            //todo 模拟成功，这里需要改为调用接口
+                            ctx.Alert("购买成功");
+
+                        });
+                    } else if (self.class2 == "求购") {
+                        //alert("其它玩家！求购的物品");
+                        var player = playerStores[xb1].playerName;	//获取店主名称
+                        var name = playerStores[xb1][xb2].name;	//获取物品名称
+                        var id = playerStores[xb1][xb2].id;	//获取物品ID
+                        var num = playerStores[xb1][xb2].num * 1;	//获取物品数量
+                        var price = playerStores[xb1][xb2].price * 1;	//获取物品价格
+                        var quality = playerStores[xb1][xb2].quality;	//获取物品品质
+                        if (quality == "" || quality == undefined) {
+                            quality = 0
+                        }
+
+                        Confirm("是否确认向 <font color='mediumpurple'>" + player + "</font> 提供<br>" + num + " 个 " + name + " ?<br>你可以获得 <font color='orange'>" + price + "</font> 积分奖励");
+                        popupCss(27, 16);
+                        $("#alert>.alert>footer>.confirm").unbind("click");
+                        $("#alert>.alert>footer>.confirm").click(function () {	//确认向玩家供货
+                            //下面开始检测自己的仓库是否存在这个物品
+                            var xb = queryWareItems(id, quality);
+                            if (xb >= 0) {	//仓库中存在这个物品
+                                var numW = playerWares.data[xb].num * 1;	//获取仓库里这个物品的数量
+                                if (numW < num) {
+                                    Alert("<font color='red'>交易失败！</font><br>你的仓库里没有足够的库存！<br>你需要提供 <font color='dodgerblue'>" + num + "</font> 件 <font color='mediumpurple'>" + name + "</font><br>你的仓库里只有 <font color='green'>" + numW + "</font> 件，还差 <font color='red'>" + (num - numW) + "</font> 件");
+                                    popupCss(28, 17);
+                                    return;
+                                } else if (numW >= num) {
+                                    numW -= num;
+                                    playerWares.data[xb].num = numW;
+                                    playerWare[playerIndex][xb][1][1] = "数量:" + numW;
+                                    if (numW == 0) {
+                                        playerWare[playerIndex].splice(xb, 1);	//删除仓库数组中对应下标物品
+                                    }
+                                    arrwareToObj();		//将更新的数组重新转换obj格式
+                                    var point = players.data[playerIndex].points * 1;	//获取当前拥有积分
+                                    point += price;		//给自己增加对应积分
+                                    players.data[playerIndex].points = point;	//保存积分
+                                    playerBasic[playerIndex][2][0] = "积分:" + point;
+                                    $("main>header>.Point>span").text(point);	//将更新的积分渲染到页面
+                                    $(".my-jf>span").text(point);	//同上
+                                    playerStores[xb1].splice(xb2, 1);	//商店数组中删除这个物品
+                                    //arrPStoreToObj();
+                                    //console.log(playerStores[xb1]);
+                                    GeneratePStore(xb1, "求购");	//重新渲染页面商品
+                                    GeneratePlayerCom("求购");
+                                    //这里需要把物品发送至对方的仓库 或者以邮件的形式发送给对方
+                                    //......
+
+
+                                    //保存一份操作记录
+                                    var owner = playerStores[xb1].playerName;	//获取店主名称
+                                    var diamond = players.data[playerIndex].diamonds;
+                                    // var owner = "一二三四五一二三四五";
+                                    // var name = "一二三四五一二三"
+                                    //recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date+"<br><span>购买 <b>"+owner+"</b> 的商品</span><br><span><b>"+name+"</b></span><span>"+numVal+" 件</span><div class='money'><div class='point'>"+point+"</div><div class='diamond'>"+diamond+"</div></div>";
+                                    if (quality == 0) {
+                                        recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
+                                    } else {
+                                        recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>向 <b><font color='mediumpurple'>" + owner + "</font></b> 提供了物品</span><br><span><b>" + name + "</b><font style='font-size:0.9em;'>(品质: " + quality + ")</font></span><span>" + num + " 件</span><div class='money'><div class='point'>" + point + "</div><div class='diamond'>" + diamond + "</div></div>";
+                                    }
+                                    Alert("交易成功！<br>积分已发送至您的账户");
+                                    popupCss(25, 14);
+                                    return;
+                                }
+                            } else {		//仓库中不存在这个物品
+                                Alert("<font color='red'>交易失败！</font><br>你的仓库里没有这个物品！");
+                                popupCss(25, 14);
+                                return;
+                            }
+
+                        });
+                    }
                 }
             }
         }
@@ -1326,8 +1326,10 @@
             this.ready();
             $bus.emit('setclass2', "出售");
             this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
-            this.queryPlayerOnSell(this.playerinfo.gameentityid);
-            this.queryPlayerRequireItems(this.playerinfo.gameentityid)
+            this.playerid = this.playerinfo.gameentityid;
+            this.queryPlayerOnSell(this.playerid);
+            this.queryPlayerRequireItems(this.playerid)
+            this.initUserData(this.playerid);
             // this.arrPStoreToObj();
         }
     }

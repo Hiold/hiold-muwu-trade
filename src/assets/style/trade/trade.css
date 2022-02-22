@@ -130,7 +130,7 @@
     box-sizing: border-box;
     box-shadow: 0 0 0.3rem gray;
     margin: 0.5rem;
-    background-image: url(../../images/player/muwu.jpg);
+    /*background-image: url(../../images/player/muwu.jpg);*/
     background-size: cover;
 }
 

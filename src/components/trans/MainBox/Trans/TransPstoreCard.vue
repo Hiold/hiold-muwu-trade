@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li :data-itemid="item.id">
     <div class="image"><img :src="'api/image/'+item.itemicon">
       <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
         <span>{{ item.quality }}</span>
