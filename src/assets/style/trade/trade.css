@@ -1089,7 +1089,9 @@
     height: 5.5rem;
     background: rgba(255, 255, 255, 0.6);
     box-sizing: border-box;
-    padding-left: 0.5rem;
+    padding: 0px;
+    padding-left: 0.5rem !important;
+    overflow-y: hidden;
 }
 
 .player-com > li > .content > .price {

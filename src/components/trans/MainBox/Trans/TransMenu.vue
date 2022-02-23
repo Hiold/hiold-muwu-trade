@@ -162,9 +162,10 @@
                     // nowPage = "玩家售卖区";
                     $bus.emit('setclass1', "玩家售卖区");
                     // pst = "出售";
-                    $bus.emit('setclass2', "出售");
+                    // $bus.emit('setclass2', "出售");
                     $(".Trade-ware>div>li[class^='b" + 3 + "']").slideDown(200);	//展开当前子分类
-                    GeneratePlayerCom("出售");
+                    //由vue进行管理
+                    // GeneratePlayerCom("出售");
                 });
 
                 $(".Trade-ware>div>.btn-4").click(function () {	//玩家求购区
@@ -188,10 +189,11 @@
                     $(".player-com>.empty").hide();	//隐藏没有搜索到物品的提示信息
                     // nowPage = "玩家求购区";
                     // pst = "求购";
+                    // $bus.emit('setclass1', "玩家求购区");
+                    // $bus.emit('setclass2', "求购");
                     $bus.emit('setclass1', "玩家求购区");
-                    $bus.emit('setclass2', "求购");
                     $(".Trade-ware>div>li[class^='b" + 4 + "']").slideDown(200);	//展开当前子分类
-                    GeneratePlayerCom("求购");
+                    // GeneratePlayerCom("求购");
                 });
 
                 $(".Trade-ware>div>.btn-5").click(function () {	//物资求购

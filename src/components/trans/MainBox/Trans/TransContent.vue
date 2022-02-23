@@ -101,10 +101,11 @@
                     <div class="need">收东西</div>
                 </nav>
                 <ul class="sitems-list">
-                    <TransPstoreCard v-if="class2=='出售'" v-for="(item,index) in pstoreCards" :key="item.id" :item="item"
+                    <TransPstoreCard v-if="displayType=='出售'" v-for="(item,index) in pstoreCards" :key="item.id"
+                                     :item="item"
                                      :index="index"></TransPstoreCard>
 
-                    <TransRequireCard v-if="class2=='求购'" v-for="(item,index) in requireItems" :key="item.id"
+                    <TransRequireCard v-if="displayType=='求购'" v-for="(item,index) in requireItems" :key="item.id"
                                       :item="item"
                                       :index="index"></TransRequireCard>
                     <div class="add">
@@ -121,6 +122,12 @@
 
         <!-- 玩家售卖区/玩家求购区 页面 -->
         <div class="player-com">
+            <TransPStoreItem v-if="class1=='玩家售卖区'" v-for="(item,index) in pstoreCardsAll" :key="item.id" :item="item"
+                             :index="index"></TransPStoreItem>
+
+            <TransPRequireItem v-if="class1=='玩家求购区'" v-for="(item,index) in requireItemsAll" :key="item.id"
+                               :item="item"
+                               :index="index"></TransPRequireItem>
             <!-- <li>
                 <div class="image">
                     <img src="images/ItemIcons/decoPumpkinJackOLantern.png">
@@ -306,12 +313,16 @@
     import TransPstoreCard from "/src/components/trans/MainBox/Trans/TransPstoreCard.vue";
     import TransRequireCard from "/src/components/trans/MainBox/Trans/TransRequireCard.vue";
     import TransPStoreList from "/src/components/trans/MainBox/Trans/TransPStoreList.vue";
+    import TransPStoreItem from "/src/components/trans/MainBox/Trans/TransPStoreItem.vue";
+    import TransPRequireItem from "/src/components/trans/MainBox/Trans/TransPRequireItem.vue";
 
     export default {
         components: {
             'TransPstoreCard': TransPstoreCard,
             'TransRequireCard': TransRequireCard,
             'TransPStoreList': TransPStoreList,
+            'TransPStoreItem': TransPStoreItem,
+            "TransPRequireItem": TransPRequireItem,
         },
         watch: {
             class1: {
@@ -330,6 +341,13 @@
                             this.queryPlayerShopList(this.playerid)
                             $(".my-shop").data("index", this.playerid);
                         }
+                        if (newName == "玩家售卖区") {
+                            this.queryPlayerOnSell("", "玩家售卖区");
+                        }
+
+                        if (newName == "玩家求购区") {
+                            this.queryPlayerRequireItems("", "玩家求购区");
+                        }
 
                     }
                 },
@@ -339,25 +357,41 @@
                 handler(newName, oldName) {
                     if (newName != oldName) {
                         console.log("监听到变化" + newName);
-                        // this.queryShopItem();
-                        if (newName == "求购") {
-                            this.queryPlayerRequireItems(this.playerid);
+                        if (this.class1 == "玩家售卖区") {
+                            this.queryPlayerOnSell("", "玩家售卖区");
+                            return;
                         }
-                        if (newName == "出售") {
-                            this.queryPlayerOnSell(this.playerid);
+                        if (this.class1 == "玩家求购区") {
+                            this.queryPlayerRequireItems("", "玩家求购区");
+                            return;
                         }
 
                     }
                 }
             }
+            // displayType: {
+            //     handler(newName, oldName) {
+            //         if (newName == "求购") {
+            //             this.queryPlayerRequireItems(this.playerid);
+            //             return;
+            //         }
+            //         if (newName == "出售") {
+            //             this.queryPlayerOnSell(this.playerid);
+            //             return;
+            //         }
+            //     }
+            // }
+
         },
         name: "ShopContent",
         props: ["class1", "class2"],
         data() {
             return {
                 pstoreCards: [],
+                pstoreCardsAll: [],
                 gameItems: [],
                 requireItems: [],
+                requireItemsAll: [],
                 ctx: null,
                 playerinfo: {},
                 keyword: "",
@@ -369,6 +403,7 @@
                 param_filedata: "",
                 param_qq: "",
                 param_shopname: "",
+                displayType: ""
             }
         },
         methods: {
@@ -402,25 +437,7 @@
             },
             searchItems() {		//搜索店铺或物品
                 if (this.class1 == "玩家店铺") {
-                    // $(".player-store>li").show();	//先默认让所有隐藏店铺显示
-                    // var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
-                    // var find = false;	//默认为没找到商品
-                    // for (var i = 0; i < $(".player-store>li").length; i++) {	//遍历当前页面显示的店铺
-                    //     var xb = $(".player-store>li").eq(i).data("index");	//获取每个店铺在数组中的下标
-                    //     var name = playerStores[i].shopName.toLowerCase();	//获取店铺名称
-                    //     var id = playerStores[i].playerName.toLowerCase();	//获取玩家名称
-                    //     if (name.indexOf(txt) != -1 || id.indexOf(txt) != -1) {	//如果店铺名称或玩家名称中包含了你需要搜索的字符串
-                    //         find = true;
-                    //         $(".player-store>.empty").hide();
-                    //     } else {
-                    //         $(".player-store>li").eq(i).hide();
-                    //     }
-                    // }
-                    // if (!find) {	//如果遍历完数组后，仍然没找到要搜索的商品
-                    //     console.log("没找到搜索的店铺");
-                    //     $(".player-store>.empty").show();
-                    //     $(".player-store>.empty").find("span").html("没有找到你想<br>搜索的店铺");
-                    // }
+                    this.queryPlayerShopList();
                 } else if (this.class1 == "玩家售卖区" || this.class1 == "玩家求购区") {
                     // $(".player-com>li").show();	//先默认让所有隐藏物品显示
                     // var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
@@ -460,7 +477,7 @@
             //查询求购图片
             queryPlayerShopList() {
                 let params = {
-                    itemname: this.itemname + "",
+                    name: this.keyword + "",
                     orderby: this.orderby
                 }
                 axios.post('api/getUserShopList', params).then(res => {
@@ -470,32 +487,41 @@
                     }
                 });
             },
-            queryPlayerRequireItems(id) {
+            queryPlayerRequireItems(id, type) {
                 let params = {
-                    id: id + ""
+                    id: id + "",
+                    class2: this.class2,
                 }
                 axios.post('api/getUserRequire', params).then(res => {
                     if (res.data.respCode === "1") {
-                        this.requireItems = res.data.data;
+                        if (type == "玩家求购区") {
+                            this.requireItemsAll = res.data.data;
+                        } else {
+                            this.requireItems = res.data.data;
+                        }
                         // this.requireItems = JSON.parse(JsonData);
                     }
                 });
             },
-            queryPlayerOnSell(id) {
+            queryPlayerOnSell(id, type) {
                 let params = {
                     id: id + "",
                     itemname: this.itemname + "",
                     // class1: this.class1,
-                    // class2: this.class2,
+                    class2: this.class2,
                     class1: "",
-                    class2: "",
+                    // class2: "",
                     pageIndex: "1",
                     pageSize: "9999"
                 };
                 axios.post("api/getPlayerOnSell", params).then(res => {
                     if (res.data.respCode === "1") {
                         let JsonData = res.data.data;
-                        this.pstoreCards = JsonData.data;
+                        if (type == "玩家售卖区") {
+                            this.pstoreCardsAll = JsonData.data;
+                        } else {
+                            this.pstoreCards = JsonData.data;
+                        }
                     }
                 });
             },
@@ -815,7 +841,8 @@
                         "font-weight": "bold",
                         "border-bottom": "0.2rem solid rgb(221, 36, 36)"
                     });
-                    $bus.emit('setclass2', "求购");
+                    // $bus.emit('setclass2', "求购");
+                    self.displayType = "求购";
                     // pst = "求购";
                     var xb = $(".my-shop").data("index");
                     // GeneratePStore(xb, "求购");
@@ -836,7 +863,8 @@
                         "border-bottom": "0.2rem solid green"
                     });
                     // pst = "出售";
-                    $bus.emit('setclass2', "出售");
+                    // $bus.emit('setclass2', "出售");
+                    self.displayType = "出售";
                     var xb = $(".my-shop").data("index");
                     // GeneratePStore(xb, "出售");
                 });
@@ -874,7 +902,7 @@
                 //添加物品 点击事件
                 $(".sitems-list>.add").click(function () {
                     //
-                    if (self.class2 == "出售") {
+                    if (self.displayType == "出售") {
                         ctx.Confirm("请从仓库里选择你要出售的商品<br>是否立即前往？");
                         ctx.popupCss(25, 14);
                         $("#alert>.alert>footer>.confirm").click(function () {
@@ -882,8 +910,8 @@
                             window.location = "/#/userq/warehouse"
                             $("#alert,#alert>.alert").hide();
                         });
-                    } else if (self.class2 == "求购") {
-                        $(".Trade-ware>.btn-5").click();
+                    } else if (self.displayType == "求购") {
+                        $(".Trade-ware .btn-5").click();
                     }
                 });
                 //
@@ -1022,9 +1050,14 @@
                         $(".my-shop").hide();	//隐藏店铺详情页面
                         $(".player-com").show();	//显示 玩家售卖/求购区 页面
                         if (self.class1 == "玩家售卖区") {
-                            $bus.emit('setclass2', "出售");
+                            // $bus.emit('setclass2', "出售");
+                            self.displayType = "出售";
+                            self.playerid = "";
+
                         } else if (nowPage == "玩家求购区") {
-                            $bus.emit('setclass2', "求购");
+                            // $bus.emit('setclass2', "求购");
+                            self.displayType = "求购";
+                            self.playerid = "";
                         }
                     }
 
@@ -1064,11 +1097,18 @@
                     $(".my-shop").show();
                     $(".my-shop>header>.back").show();
                     $(".my-shop>header>.right,.my-shop>header>.edit").css("float", "left");
-                    var xb = $(this).parents(".player-com>li").data("index1");	//获取店主在数组中的下标
-                    GeneratePStore(xb, pst);
-                    if (pst == "出售") {
+                    var xb = $(this).parents(".player-com>li").data("itemid");	//获取店主在数组中的下标
+                    //加载信息
+                    self.playerid = xb;
+                    self.queryPlayerOnSell(self.playerid);
+                    self.queryPlayerRequireItems(self.playerid);
+                    self.initUserData(self.playerid);
+
+                    self.displayType = "出售";
+                    // GeneratePStore(xb, pst);
+                    if (self.displayType == "出售") {
                         $(".my-shop>section>nav>.sell").click();
-                    } else if (pst == "求购") {
+                    } else if (self.displayType == "求购") {
                         $(".my-shop>section>nav>.need").click();
                     }
                 });
@@ -1173,7 +1213,7 @@
                 var item = res[0];
                 var ctx = this.ctx.appContext.config.globalProperties;
                 if (id == self.playerinfo.gameentityid) {	//如果店主是当前登录的玩家（浏览自己的店铺）
-                    if (self.class2 == "出售") {
+                    if (self.displayType == "出售") {
                         //alert("店主！出售的物品");
                         ctx.Confirm("是否要下架此物品？<br>下架后物品将返还至仓库");
                         ctx.popupCss(25, 14);
@@ -1194,7 +1234,7 @@
 
                             $("#alert,#alert>.alert").hide();
                         });
-                    } else if (self.class2 == "求购") {
+                    } else if (self.displayType == "求购") {
                         //alert("店主！求购的物品");
                         ctx.Confirm("是否要撤销求购？<br>撤销后积分将返还至账户");
                         ctx.popupCss(25, 14);
@@ -1221,7 +1261,7 @@
                     }
                 } else {
                     //如果店主是其它玩家（浏览别人的店铺）
-                    if (self.class2 == "出售") {
+                    if (self.displayType == "出售") {
                         $(".player-order").fadeIn(100);	//显示订单确认窗口
                         // $(".my-shop").data("index", id);
                         // $(".player-order").data("index", itemid);
@@ -1290,7 +1330,7 @@
                             ctx.Alert("购买成功");
                             $(".player-order").hide()
                         });
-                    } else if (self.class2 == "求购") {
+                    } else if (self.displayType == "求购") {
                         let res = self.requireItems.filter((item) => {
                             return item.id == itemid
                         });
@@ -1325,7 +1365,8 @@
             this.ctx = getCurrentInstance();
             const $bus = this.ctx.appContext.config.globalProperties.$bus;
             this.ready();
-            $bus.emit('setclass2', "出售");
+            // $bus.emit('setclass2', "出售");
+            this.displayType = "出售";
             this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
             this.playerid = this.playerinfo.gameentityid;
             this.queryPlayerOnSell(this.playerid);

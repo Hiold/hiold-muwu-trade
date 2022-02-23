@@ -28,7 +28,7 @@ export default {
     return {
       couProps: {},
       class1: "我的店铺",
-      class2: "出售",
+      class2: "",
       itemMenu: [
         {
           category: "我的店铺", items: []
