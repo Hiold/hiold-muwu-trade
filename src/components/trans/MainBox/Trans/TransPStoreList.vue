@@ -2,7 +2,7 @@
     <li :data-gameentityid="item.gameentityid">
         <div class="num">{{index+1}}</div>
         <div class="head" ref="head" :id="'avatar'+index"
-             :style="{'background-image':`url(api/image/${item.name}.png),url('/images/player/head1.jfif')`}"></div>
+             :style="{'background-image':`url(api/image/${item.avatar}),url('/images/player/head1.jfif')`}"></div>
         <div class="name">
             <div class="shop-name">{{item.shopname}}</div>
             <div class="vip" v-show="item.vipdiscount*1>0"></div>
