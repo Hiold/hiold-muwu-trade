@@ -16,7 +16,7 @@
     <!--    </li>-->
 
 
-    <li :data-itemid="item.gameentityid">
+    <li :data-itemid="item.gameentityid" :data-itemid2="item.id">
         <div class="image"><img :src="'api/image/'+item.itemicon">
             <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
                 <span>{{ item.quality }}</span>

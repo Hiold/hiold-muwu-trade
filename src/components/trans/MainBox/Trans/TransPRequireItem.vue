@@ -1,22 +1,22 @@
 <template>
-<!--    <li :data-itemid="item.id">-->
-<!--        <div class="image"><img :src="'api/image/'+item.Itemicon+'.png'">-->
-<!--            <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">-->
-<!--                <span>{{ item.Itemquality }}</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="content">-->
-<!--            <div class="price"><i></i><span>{{ item.Price }}</span></div>-->
-<!--            <div class="num">需求：{{ item.Itemcount }}</div>-->
-<!--            <div class="name">-->
-<!--                {{ deleteBBcode((item.Itemchinese))-->
-<!--                }}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </li>-->
+    <!--    <li :data-itemid="item.id">-->
+    <!--        <div class="image"><img :src="'api/image/'+item.Itemicon+'.png'">-->
+    <!--            <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">-->
+    <!--                <span>{{ item.Itemquality }}</span>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="content">-->
+    <!--            <div class="price"><i></i><span>{{ item.Price }}</span></div>-->
+    <!--            <div class="num">需求：{{ item.Itemcount }}</div>-->
+    <!--            <div class="name">-->
+    <!--                {{ deleteBBcode((item.Itemchinese))-->
+    <!--                }}-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </li>-->
 
 
-    <li :data-itemid="item.gameentityid">
+    <li :data-itemid="item.gameentityid" :data-itemid2="item.id">
         <div class="image"><img :src="'api/image/'+item.Itemicon+'.png'">
             <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">
                 <span>{{ item.Itemquality }}</span>

@@ -2,24 +2,26 @@
   <aside>    <!-- 右侧资料卡和主菜单 -->
     <header data-more="false">    <!-- 右上角资料卡 -->
       <!-- 头像、名称、等级、SteamID -->
-      <div class="player-head"></div>
+      <div class="player-head"
+           :style="{'background-image': `url(api/image/${playerinfo.avatar}),url('/images/player/head1.jfif')`}"></div>
       <div class="player-key">
-        <span class="name">未登录</span><br>
-        <span class="level">lv. 1</span>
+        <span class="name">{{playerinfo.name}}</span><br>
+        <span class="level">lv. {{playerinfo.level}}</span>
       </div>
-      <div class="player-steamId">steamID:<span>76561199000000000</span></div>
+      <div class="player-steamId">steamID:<span>{{playerinfo.gameentityid}}</span></div>
       <div class="more">显示更多▼</div>
       <li class="btn-1">基础信息</li>
       <li class="btn-2">专属客服</li>
       <ul class="aside-profile">
         <div class="page1">    <!-- 基础信息 -->
-          <p class="my-jf">我的积分：<span>0</span></p>
-          <p class="my-zs">我的钻石：<span>0</span></p>
-          <p class="my-ol">在线时长：<span>0</span> 小时</p>
-          <p class="my-sf">个人身份：<span>普通玩家</span></p>
-          <p class="my-yh">购物优惠：<span>0</span> %</p>
-          <p class="all-cz">总充值：<span>0</span> ¥</p>
-          <p class="all-xf">总消费：<span>0</span> 钻石</p>
+          <p class="my-jf">我的积分：<span>{{playerinfo.money}}</span></p>
+          <p class="my-zs">我的钻石：<span>{{playerinfo.credit}}</span></p>
+          <p class="my-ol">在线时长：<span>{{playerinfo.online_time/3600}}</span> 小时</p>
+          <p class="my-sf">
+            个人身份：<span>{{playerinfo.type=="1"?"管理员":playerinfo.vipdiscount*1>0?"VIP用户":"普通用户"}}</span></p>
+          <p class="my-yh">购物优惠：<span>{{playerinfo.vipdiscount}}</span> %</p>
+          <p class="all-cz">总充值：<span>{{playerinfo.creditcharge}}</span> ¥</p>
+          <p class="all-xf">总消费：<span>{{playerinfo.creditcost}}</span> 钻石</p>
           <p class="all-qd">总签到：<span>0</span> 天</p>
         </div>
         <div class="page2">    <!-- 管理员、客服信息 -->
@@ -102,16 +104,24 @@
 
 <script>
 
-import '../../assets/style/aside.css'
+  import '../../assets/style/aside.css'
 
-export default {
-  name: "RightMenuBox"
-}
+  export default {
+    name: "RightMenuBox",
+    data() {
+      return {
+        playerinfo: {}
+      }
+    },
+    mounted() {
+      this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
+    }
+  }
 </script>
 
 <style scoped>
-.active {
-  opacity: 1;
-  transform: scale(1.1);
-}
+  .active {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 </style>

@@ -9,18 +9,26 @@
         </div>
         <div class="Diamond">
             <i></i>
-            <span>0</span>
+            <span>{{playerinfo.credit}}</span>
         </div>
         <div class="Point">
             <i></i>
-            <span>0</span>
+            <span>{{playerinfo.money}}</span>
         </div>
     </header>
 </template>
 
 <script>
     export default {
-        name: "MyHeader"
+        name: "MyHeader",
+        data() {
+            return {
+                playerinfo: {}
+            }
+        },
+        mounted() {
+            this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
+        }
     }
 </script>
 
