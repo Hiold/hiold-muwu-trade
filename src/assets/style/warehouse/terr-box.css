@@ -9,12 +9,10 @@
 	float:right;
 	margin:0.6rem;
 	overflow: hidden;
-	/overflow-y: scroll;
 	padding: 1%;
 	position: relative;
 }
 .terr-box::-webkit-scrollbar{
-	/display: none;
 }
 .terr-box>header{
 	height:2rem;
@@ -41,7 +39,6 @@
 	float:right;
 	width:2rem;
 	height:2rem;
-	/border:1px solid red;
 	box-sizing: border-box;
 	background-image: url(../../images/icon/back.png);
 	background-size: contain;
@@ -57,21 +54,16 @@
 }
 .terr-box>section{
 	width:100%;
-	/height:10rem;
 	padding: 1%;
-	/border:1px solid red;
 	box-sizing: border-box;
 }
 .terr-box .page-box{
-	/border:1px solid red;
 	box-sizing: border-box;
 	overflow-y: auto;
 	width:100%;
 	height:100%;
-	/display:none;
 }
 .terr-box .page-items{
-	/border:1px solid orange;
 	box-sizing: border-box;
 	overflow-y: auto;
 	width:100%;
@@ -80,7 +72,6 @@
 }
 .terr-box .page-box::-webkit-scrollbar,
 .terr-box .page-items::-webkit-scrollbar{
-	/display: none;
 }
 .terr-box .page-box::-webkit-scrollbar,
 .terr-box .page-items::-webkit-scrollbar{
@@ -91,14 +82,12 @@
 .terr-box .page-box::-webkit-scrollbar-thumb,
 .terr-box .page-items::-webkit-scrollbar-thumb{
 	background-color: wheat;
-	/box-shadow: 0 0 0.3rem gray;
 }
 .player-box{
 	width:31.0%;
 	height:12.5rem;
 	float:left;
 	margin: 1%;
-	/border:1px solid red;
 	box-sizing: border-box;
 	background-image: url(../../images/card/beige.jpg);
 	background-size: cover;
@@ -112,9 +101,7 @@
 	height:1.5rem;
 	line-height: 1.5rem;
 	width: 100%;
-	/border:1px solid red;
 	box-sizing: border-box;
-	/box-shadow: 0 0.05rem 0.3rem grey;
 	text-indent: 1rem;
 	font-size: 0.9rem;
 	color:white;
@@ -143,16 +130,13 @@
 	background-color: rgba(255,255,255,0.3);
 	margin-top: 0.5rem;
 	font-size: 0.8rem;
-	/font-weight: bold;
 	color:white;
 	color:rgb(100,100,100);
-	/text-shadow: 0.03rem 0.03rem 0.1rem gray;
 	white-space: nowrap;
 }
 .player-box>footer>.num>span{
 	color:dodgerblue;
 	font-weight: bold;
-	/padding-left: 0.1rem;
 }
 .player-box>footer>.locked>span{
 	font-weight: bold;
@@ -162,20 +146,16 @@
 	display: inline-block;
 	width:0.8rem;
 	height:0.8rem;
-	/border:1px solid red;
 	box-sizing: border-box;
 	background-size: contain;
 	background-repeat: no-repeat;
 	position: relative;
 	top:0.1rem;
-	/left:0.1rem;
 }
 .player-box>footer>.coor>i{
 	color:#FFE4B5;
 	color:rgb(150,150,150);
 	font-size: 0.95em;
-	/text-shadow: 0.03rem 0.03rem 0.1rem white;
-	/text-shadow: none;
 }
 .player-box>footer>.owner>span{
 	color:saddlebrown;
@@ -189,7 +169,6 @@
 	font-weight: bold;
 	text-align: center;
 	letter-spacing: 0.1rem;
-	/border: 1px solid red;
 	box-sizing: border-box;
 	position: absolute;
 	left: 0;
@@ -198,7 +177,6 @@
 	bottom: 3rem;
 	margin: auto;
 	z-index: 2;
-	/background-color: pink;
 	background-image: url(../../images/empty4.png);
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -212,7 +190,6 @@
 .page-items>header{
 	width:100%;
 	height:5.5rem;
-	/border-bottom: 1px solid blue;
 	box-sizing: border-box;
 }
 .page-items>header>.head-box,.page-items>header>.head-items{
@@ -224,10 +201,8 @@
 	height:5rem;
 	float:left;
 	margin-left:0.5rem;
-	/border: 1px solid red;
 	border-radius: 50%;
 	background-color: rgba(245,222,179,0.5);
-	/background-image: url(../../images/card/beige.jpg);
 	background-size: cover;
 	box-sizing: border-box;
 	transform: scale(0.9);
@@ -255,7 +230,6 @@
 .page-items .head-items>.msg{
 	width:18rem;
 	height:5rem;
-	/border: 1px solid red;
 	box-sizing: border-box;
 	float:left;
 	margin-left: 0.5rem;
@@ -276,10 +250,8 @@
 }
 .page-items .head-box>.msg>.coor{
 	font-size: 0.85rem;
-	/font-weight: bold;
 	color:	rgb(150,150,150);
 	line-height: 1.6rem;
-	/letter-spacing: 0.1rem;
 }
 .page-items .head-box>.msg>.coor>span{
 	color:	rgb(100,100,100);
@@ -316,13 +288,10 @@
 	background-image: url(../../images/card/beige.jpg);
 	background-size: cover;
 	border-radius: 0.2rem;
-	/transition: 0.1s;
 	position: relative;
 }
 .box-items:hover{
-	/transform: scale(1.1);
 	outline:0.15rem solid lightsalmon;
-	/box-shadow: 0 0 0.3rem rgb(155,155,155);
 }
 .box-items>.filter{
 	height:100%;
@@ -337,12 +306,10 @@
 	width:100%;
 }
 .box-items>.num{
-	/width: 100%;
 	position: absolute;
 	bottom:0.2rem;right:0.5rem;
 	margin: auto;
 	color:white;
-	/text-align: center;
 	font-size: 1rem;
 	font-weight: bold;
 	text-shadow:0 0 0.2rem rgb(88,88,88);
@@ -357,7 +324,6 @@
 .page-items .head-items>.msg>.quality{
 	float:left;
 	font-size: 0.9rem;
-	/font-weight: bold;
 	color:gray;
 	margin-right: 1rem;
 }

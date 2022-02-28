@@ -7,26 +7,31 @@
         </header>
         <section>
             <div class="page-box">
-                <!-- <li class="player-box">
-                  <header>安全储物箱</header>
-                  <section>
-                    <img src="images/itemIcons/cntChest01.png">
-                  </section>
-                  <footer>
-                    <div class="num">编号： <span>01</span></div>
-                    <div class="locked">
-                      状态：
-                      <span style="color:red;">已锁定</span>
-                      <i style="background-image: url(images/icon/lock-1.png);"></i>
-                    </div>
-                    <div class="coor">坐标： <i>1000,100,2000</i></div>
-                    <div class="owner">归属： <span>热心の小白鼠</span></div>
-                  </footer>
-                </li> -->
-                <div class="empty2">
+                <li class="player-box" v-for="(item,index) in containerList" :key="index">
+                    <header>安全储物箱</header>
+                    <section>
+                        <img v-if="item.icon==null" :src="'api/image/'+item.name+'.png'">
+                        <img v-else :src="'api/image/'+item.icon.Value+'.png'">
+                    </section>
+                    <footer>
+                        <div class="num">编号： <span>{{index+1}}</span></div>
+                        <div class="locked">
+                            状态：
+                            <span v-show="item.locked==1&&item.pw==0" style="color:red;">已锁定</span>
+                            <span v-show="item.locked==1&&item.pw==1" style="color:red;">密码锁定</span>
+                            <span v-show="item.locked==0" style="color:green;">已解锁</span>
+                            <i v-show="item.locked==1" style="background-image: url(images/icon/lock-1.png);"></i>
+                            <i v-show="item.locked==0" style="background-image: url(images/icon/lock-2.png);"></i>
+                        </div>
+                        <div class="coor">坐标： <i>{{item.x}},{{item.y}},{{item.z}}</i></div>
+                        <div class="owner">归属： <span>热心の小白鼠</span></div>
+                    </footer>
+                </li>
+                <div class="empty2" v-show="containerList==null||containerList.length<=0">
                     <span>这里空空如也<br>没有找到你的箱子</span>
                 </div>
             </div>
+
             <div class="page-items">
                 <header>
                     <div class="head-box">
@@ -80,8 +85,10 @@
 
 <script>
     import "../../../../assets/style/warehouse/terr-box.css"
+
     export default {
-        name: "WareTereBox"
+        name: "WareTereBox",
+        props: ["containerList"]
     }
 </script>
 

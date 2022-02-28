@@ -77,7 +77,7 @@
 
             <!--加载detail模板-->
             <WareItemDetails></WareItemDetails>
-            <WareTereBox></WareTereBox>
+            <WareTereBox :containerList="containerList"></WareTereBox>
 
             <div class="order-record">
                 <header>
@@ -206,7 +206,8 @@
                 playerName: "",
                 steamID: "",
                 localization: "",
-                ctx: null
+                ctx: null,
+                containerList: {},
 
             }
         },
@@ -649,6 +650,16 @@
         }
         ,
         mounted() {
+            //加载附近箱子
+            axios.get("api/loadContainerListAround").then(res => {
+                if (res.data.respCode === "1") {
+                    this.containerList = res.data.data;
+                } else {
+                    ElMessage.error(res.data.respMsg);
+                }
+            });
+
+
             this.ctx = getCurrentInstance();
             $(".loading").hide();
             var self = this;
