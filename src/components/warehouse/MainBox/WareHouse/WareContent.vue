@@ -650,6 +650,7 @@
         }
         ,
         mounted() {
+            console.log("正在加载附近容器");
             //加载附近箱子
             axios.get("api/loadContainerListAround").then(res => {
                 if (res.data.respCode === "1") {
@@ -743,26 +744,26 @@
                 var name = playerWares.data[xb].name;	//获取物品名称
                 //加载页面
                 console.log(getTime().date + "\n正在加载页面 - 工作台 ......");
-                $("body>.data-recipe").load("Config/recipes.xml", function () {	//先加载配方
-                    console.log(getTime().date + "\n物品配方加载成功！");
-                    $("main>article").load("page/work.html", function () {		//再加载工作台页面
-                        $(".head-tool,.workbench>aside,.work-page").hide();
-                        //GenerateRecipe(id);
-                        console.log(getTime().date + "\n工作台 页面加载成功！");
-                        setTimeout(function () {
-                            $(".workbench>aside").fadeIn(200);
-                            $(".work-page").fadeIn(200);
-                            $(".head-tool").fadeIn(50);
-                            setTimeout(function () {
-                                adaptive();
-                            }, 20);
-                            GenerateRecipe(id);		//生成物品基本信息
-                            $(".citems-search>input").val(name);	//输入物品名称
-                            searchItems();	//搜索这个物品
-                            $(".citems-search>.search-type>.t2").click();	//搜索类型为配方
-                        }, 10);
-                    });
-                });
+                // $("body>.data-recipe").load("Config/recipes.xml", function () {	//先加载配方
+                //     console.log(getTime().date + "\n物品配方加载成功！");
+                //     $("main>article").load("page/work.html", function () {		//再加载工作台页面
+                //         $(".head-tool,.workbench>aside,.work-page").hide();
+                //         //GenerateRecipe(id);
+                //         console.log(getTime().date + "\n工作台 页面加载成功！");
+                //         setTimeout(function () {
+                //             $(".workbench>aside").fadeIn(200);
+                //             $(".work-page").fadeIn(200);
+                //             $(".head-tool").fadeIn(50);
+                //             setTimeout(function () {
+                //                 adaptive();
+                //             }, 20);
+                //             GenerateRecipe(id);		//生成物品基本信息
+                //             $(".citems-search>input").val(name);	//输入物品名称
+                //             searchItems();	//搜索这个物品
+                //             $(".citems-search>.search-type>.t2").click();	//搜索类型为配方
+                //         }, 10);
+                //     });
+                // });
 
 
             });

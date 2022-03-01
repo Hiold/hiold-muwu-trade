@@ -74,7 +74,7 @@ function arrboxToObj(){
 		playerBox[playerIndex] = [[playerName,steamID]];
 	}
 	playerBoxs.data = playerBox[playerIndex];
-	
+
 	for(var i=1;i<playerBox[playerIndex].length;i++){	//遍历当前登录玩家的领地箱子数组
 		playerBoxs.data[i].boxName = playerBox[playerIndex][i][0][0];		//箱子名称
 		playerBoxs.data[i].boxImage = playerBox[playerIndex][i][0][1];		//箱子图片
@@ -99,7 +99,7 @@ function arrboxToObj(){
 $(document).ready(function(){
 	playerBox = [
 		[["彩色の小木屋","76561199000000001"],
-			
+
 			[["安全储物箱","images/ItemIcons/cntChest01.png","锁定:true","密码:","坐标:200,50,200","归属者:彩色の小木屋","归属者ID:76561199000000001"],
 			["物品名称:Cxx的尿不湿","物品ID:Cxx的尿不湿","图片:images/items/nbs.png","数量:123","品质:"],
 			["物品名称:Cxx的开裆裤","物品ID:Cxx的开裆裤","图片:images/items/kdk.png","数量:45","品质:"],
@@ -109,29 +109,29 @@ $(document).ready(function(){
 			["物品名称:公爵赌场币","物品ID:casinoCoin","图片:images/ItemIcons/casinoCoin.png","数量:20000","品质:"],
 			["物品名称:公爵赌场币","物品ID:casinoCoin","图片:images/ItemIcons/casinoCoin.png","数量:20000","品质:"],
 			["物品名称:公爵赌场币","物品ID:casinoCoin","图片:images/ItemIcons/casinoCoin.png","数量:12345","品质:"]],
-			
+
 			[["密码123","images/ItemIcons/cntStorageHealth.png","锁定:true","密码:123","坐标:529,20,1314","归属:小白兔","归属者ID:76561199000000002"],
 			["物品名称:Cxx的尿不湿","物品ID:Cxx的尿不湿","图片:images/items/nbs.png","数量:10","品质:"],
 			["物品名称:Cxx的开裆裤","物品ID:Cxx的开裆裤","图片:images/items/kdk.png","数量:5","品质:"]],
-			
+
 			[["木储物箱","images/ItemIcons/cntStorageHealth.png","锁定:true","密码:","坐标:123,55,123","归属:大灰狼","归属者ID:76561199000000003"],
 			["物品名称:Cxx的尿不湿","物品ID:Cxx的尿不湿","图片:images/items/nbs.png","数量:10","品质:"],
 			["物品名称:Cxx的开裆裤","物品ID:Cxx的开裆裤","图片:images/items/kdk.png","数量:5","品质:"]],
-			
+
 			[["可写字的储物箱","images/ItemIcons/cntShippingCrateHero.png","锁定:false","密码:","坐标:100,50,100","归属:NAIWAZI_皎哥","归属者ID:76561199000000004"],
 			],
 		],
 		[["匿名玩家","76561199000000002"],
-			
+
 			[["木储物箱 / 家具","images/ItemIcons/cntStorageHealth.png","锁定:true","密码:123","坐标:529,20,1314","归属:匿名玩家","归属者ID:76561199000000002"],
 			],
 
 		],
-		
-		
+
+
 	];
 	arrboxToObj();
-	
+
 	$(".terr-box>header>.back").click(function(){	//领地箱子 - 返回
 		var page = $(".terr-box").data("page");	//获取保存到data的所属页面信息
 		if(page=="box"){	//如果是箱子页面（直接返回到仓库列表页面）
@@ -146,7 +146,7 @@ $(document).ready(function(){
 			$(".terr-box").data("page","box");
 		}
 	});
-	
+
 	$(".page-box").on("click",".player-box",function(){		//打开箱子
 		var num = $(this).find("footer").find(".num").find("span").text();	//获取箱子编号
 		var name = $(this).find("header").text();	//获取箱子名称
@@ -158,7 +158,7 @@ $(document).ready(function(){
 			if(ownid!=steamID){	//如果箱子归属者不属于当前登录的玩家
 				//如果箱子不是自己的并且设置了密码
 				if(playerBoxs.data[xb].password!=""&&playerBoxs.data[xb].password!=undefined){
-					if(playerBoxs.data[xb].password=="[skip]"){	
+					if(playerBoxs.data[xb].password=="[skip]"){
 						//如果之前验证过正确的密码，那么以后都不用再输密码了
 						openbox();
 					}else{
@@ -181,13 +181,13 @@ $(document).ready(function(){
 							openbox();
 						});
 					}
-					
+
 				}else{	//如果箱子不是自己的并且没设置密码
 					Alert("打开失败！<br>这个箱子不是你的并且已经锁定了");
 					popupCss(25,14);
 					return;
 				}
-				
+
 				//alert(playerBoxs.data[xb].password)
 			}else{	//箱子是锁定的但归属者是当前登录玩家
 				openbox();
@@ -201,7 +201,7 @@ $(document).ready(function(){
 			$(".terr-box .page-items").show();	//显示物品列表页面
 			$(".terr-box .page-items").data("index",xb);	//将箱子下标保存到物品页面data
 			$(".terr-box").data("page","items");//保存当前所属页面到data，以便于点击返回的时候分辨出当前页面
-			
+
 			//alert(name)
 			//渲染箱子信息
 			$(".page-items .head-box>.head>img").attr("src",img);
@@ -212,6 +212,8 @@ $(document).ready(function(){
 			adaptive();
 		}
 	});
+
+
 	$(".page-items>section").on("mouseover",".box-items",function(){		//鼠标移入箱子内的物品
 		$(".page-items").find(".head-box").hide();	//隐藏箱子信息
 		$(".page-items").find(".head-items").show();	//显示物品信息
@@ -242,6 +244,10 @@ $(document).ready(function(){
 		$(".page-items").find(".head-items").find(".num").find("span").text("");
 		$(".page-items").find(".head-items").find(".quality").find("span").text("");
 	});
+
+
+
+
 	$(".page-items>section").on("click",".box-items",function(){		//点击箱子内的物品
 		var xbBox = $(".terr-box .page-items").data("index");	//获取箱子下标
 		var xb = $(this).data("index");		//获取当前物品下标
@@ -263,7 +269,7 @@ $(document).ready(function(){
 			// 	return;
 			// });
 			// if(con){
-				
+
 			// }else{	//用户取消储存
 			// 	return;
 			// }
@@ -295,13 +301,13 @@ $(document).ready(function(){
 				//如果经过以上的验证没有出现问题，说明符合储存条件
 				if(pro==num){	//如果输入的数量刚好等于拥有的数量
 					playerBox[playerIndex][xbBox].splice(xb,1);		//删除箱子里对应物品
-					
+
 				}else if(pro<num){	//如果输入的数量小于拥有的数量
 					playerBox[playerIndex][xbBox][xb][3] = "数量:"+(num-pro);		//修改箱子里对应物品的数量
 				}
 				StoreToWare();
 			});
-			
+
 		}
 		//下面的函数是给仓库增加储存的物品
 		//$("#alert>.alert>footer>.confirm").click(function(){
