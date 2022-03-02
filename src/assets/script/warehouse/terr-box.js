@@ -309,6 +309,9 @@ $(document).ready(function(){
 			});
 
 		}
+
+
+
 		//下面的函数是给仓库增加储存的物品
 		//$("#alert>.alert>footer>.confirm").click(function(){
 		function StoreToWare(){

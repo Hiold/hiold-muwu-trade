@@ -647,20 +647,8 @@
                     console.log("使用了物品：" + item.name);
                 }
             }
-        }
-        ,
+        },
         mounted() {
-            console.log("正在加载附近容器");
-            //加载附近箱子
-            axios.get("api/loadContainerListAround").then(res => {
-                if (res.data.respCode === "1") {
-                    this.containerList = res.data.data;
-                } else {
-                    ElMessage.error(res.data.respMsg);
-                }
-            });
-
-
             this.ctx = getCurrentInstance();
             $(".loading").hide();
             var self = this;
@@ -1013,6 +1001,13 @@
                 //$("main>article>section").css("width","95%");
                 // GenerateBox();	//渲染玩家领地箱子到页面
                 // adaptive();	//自适应布局
+                axios.get("api/loadContainerListAround").then(res => {
+                    if (res.data.respCode === "1") {
+                        self.containerList = res.data.data;
+                    } else {
+                        ElMessage.error(res.data.respMsg);
+                    }
+                });
             });
 
             $(".warehouse>.menu>.l3").click(function () {		//彩色按钮 - 收藏夹
@@ -1146,6 +1141,32 @@
             //     Alert("出售成功！<br>可前往交易中心页面<br>查询您出售的物品");
             //     popupCss(22, 15);
             // });
+
+
+            $(".head-tool>.display>.l2").click(function () {	//物品显示类型：图标
+                //点击特效
+                $(".head-tool>.display>li").css({
+                    "opacity": "0.7",
+                    "border-bottom-color": "rgba(255,255,255,0)"
+                }).data("click", "false");
+                $(this).css({
+                    "opacity": "1",
+                    "border-bottom-color": "#ff6969"
+                }).data("click", "true");
+                cardToIcon();
+            });
+            $(".head-tool>.display>.l1").click(function () {	//物品显示类型：卡片
+                //点击特效
+                $(".head-tool>.display>li").css({
+                    "opacity": "0.7",
+                    "border-bottom-color": "rgba(255,255,255,0)"
+                }).data("click", "false");
+                $(this).css({
+                    "opacity": "1",
+                    "border-bottom-color": "#ff6969"
+                }).data("click", "true");
+                iconToCard();
+            });
 
 
         }
