@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 // import warehouse from "../components/WareHouseMainContainer.vue";
 //覆盖更新master
 const routes = [{
-    path: '/', redirect: '/manage/dashboard'
+    path: '/', redirect: '/login'
 }, {
     path: "/userq", name: "Userq",
     component: () => import ( /* webpackChunkName: "dashboard" */ "../components/UserContainer.vue"),

@@ -70,7 +70,7 @@
                    :src="'api/image/'+item.itemStack.itemName+'.png'">
               <img v-else :src="'api/image/'+item.itemStack.CustomIcon+'.png'">
             </div>
-            <div class="num">{{ item.itemCount }}</div>
+            <div class="num">{{ item.itemStack.itemCount }}</div>
           </li>
 
         </section>
