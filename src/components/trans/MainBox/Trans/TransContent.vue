@@ -185,7 +185,7 @@
                 <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname"
                     :data-index="item.itemname">
                     <div class="image">
-                        <img v-if="item.icon!=null" src="404"
+                        <img v-if="item.icon!=null" :src="'404'"
                              @error="$LoadTintImage($event.target,item.icon.Value,item.tint)">
                         <img v-else :src="'api/image/'+item.itemname+'.png'">
                     </div>

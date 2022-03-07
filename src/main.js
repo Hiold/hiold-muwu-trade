@@ -107,12 +107,15 @@ app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
 
     function loadNew(t, m, tint) {
         if (tint == null || tint == "") {
-            tint = "1,1,1";
+            tint = "1|1|1|1";
         }
         if (m.indexOf(".png") > -1) {
-            m.replace(".png", "");
+            m = m.replace(".png", "");
         }
         var src = 'api/image/' + m + '.png';
+
+        console.log(m, tint);
+
         convertImgToBase64(t, src, tint);
     }
 

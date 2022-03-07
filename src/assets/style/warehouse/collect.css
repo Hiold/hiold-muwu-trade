@@ -1,166 +1,168 @@
-.collect-box{
-	width: 100%;
-	height: 100%;
-	border: 0.5rem solid rgba(255,255,255,0.8);
-	box-sizing: border-box;
-	padding: 1%;
-	padding-top: 5rem;
-	overflow-y: auto;
-	/display:none;
-}
-.collect-box::-webkit-scrollbar-thumb{
-	background-color: rgb(255,168,183);
-	/background-color: rgb(255,100,100);
+.collect-box {
+    width: 100%;
+    height: 100%;
+    border: 0.5rem solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    padding: 1%;
+    padding-top: 5rem;
+    overflow-y: auto;
 }
 
-.head-tool>h1{
-	color:rgb(255,163,123);
-	background:linear-gradient(135deg,rgba(255,255,255,0.8),rgb(255,233,213));
-}
-.head-tool>.display{
-	margin-left:2rem;
-}
-.head-tool>.back{
-	width: 4rem;
-	height:4rem;
-	background-image:url(../../images/icon/back.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	float:right;
-	box-sizing: border-box;
-	margin-right: 1rem;
-	transform: scale(0.65);
-	cursor: pointer;
-	transition: all 0.1s;
-}
-.head-tool>.back:hover{
-	transform: scale(0.75);
+.collect-box::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 168, 183);
 }
 
-.collect-box>.empty{
-	width: 16rem;
-	height: 19rem;
-	color: rgb(166,166,166);
-	font-size: 1.6rem;
-	font-weight: bold;
-	text-align: center;
-	letter-spacing: 0.1rem;
-	/border: 1px solid red;
-	box-sizing: border-box;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	z-index: 2;
-	/background-color: pink;
-	background-image: url(../../images/empty5.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	display:none;
-}
-.collect-box>.empty>span{
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: 0;
+.head-tool > h1 {
+    color: rgb(255, 163, 123);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgb(255, 233, 213));
 }
 
-.coll-items{
-	width: 48%;
-	height:8.5rem;
-	border:0.2rem solid white;
-	box-sizing: border-box;
-	border-radius:0.5rem;
-	float:left;
-	margin:1%;
-	/background-image: url(../../images/card/yellow.jpg);
-	background-color: rgba(255,255,255,0.5);
-	background-size: cover;
-	position: relative;
-	transition-property: width , height;
-	transition-duration:0.2s , 0.2s;
-	padding:2%;
-	box-shadow:0 0 0.5rem #ffa500 inset, 0 0 0.3rem #ffa500;
-	
+.head-tool > .display {
+    margin-left: 2rem;
 }
-.coll-items:hover{
-	background-color: rgba(255,255,255,0.9);
+
+.head-tool > .back {
+    width: 4rem;
+    height: 4rem;
+    background-image: url(../../images/icon/back.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: right;
+    box-sizing: border-box;
+    margin-right: 1rem;
+    transform: scale(0.65);
+    cursor: pointer;
+    transition: all 0.1s;
 }
-.coll-items>.left{
-	/width:height;
-	height:100%;
-	float:left;
-	background-color: rgba(255,188,0,0.2);
-	/transform: scale(0.8);
-	border-radius: 0.5rem;
+
+.head-tool > .back:hover {
+    transform: scale(0.75);
 }
-.coll-items>.left>img{
-	height:100%;
-	width:100%;
-	transform: scale(0.8);
+
+.collect-box > .empty {
+    width: 16rem;
+    height: 19rem;
+    color: rgb(166, 166, 166);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
+    background-image: url(../../images/empty5.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: none;
 }
-.coll-items>.right{
-	float:left;
-	margin-left:1rem;
-	margin-top:0.3rem;
-	width:13rem;
-	/border:1px solid red;
-	box-sizing: border-box;
+
+.collect-box > .empty > span {
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
-.coll-items .Name{
-	padding-right: 0.5rem;
-	/white-space: nowrap;
+
+.coll-items {
+    width: 48%;
+    height: 8.5rem;
+    border: 0.2rem solid white;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    float: left;
+    margin: 1%;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-size: cover;
+    position: relative;
+    transition-property: width, height;
+    transition-duration: 0.2s, 0.2s;
+    padding: 2%;
+    box-shadow: 0 0 0.5rem #ffa500 inset, 0 0 0.3rem #ffa500;
+
 }
-.coll-items .name{
-	font-size: 1.15rem;
-	color:rgb(99,99,99);
-	font-weight:bold;
+
+.coll-items:hover {
+    background-color: rgba(255, 255, 255, 0.9);
 }
-.coll-items .num{
-	font-size: 0.95rem;
-	color:#F4A460;
-	/font-weight:bold;
-	font-style: italic;
+
+.coll-items > .left {
+    height: 100%;
+    float: left;
+    background-color: rgba(255, 188, 0, 0.2);
+    border-radius: 0.5rem;
 }
-.coll-items .coll-num{
-	font-size: 0.95rem;
-	line-height:1.8rem;
-	color:gray;
+
+.coll-items > .left > img {
+    height: 100%;
+    width: 100%;
+    transform: scale(0.8);
 }
-.coll-items .price{
-	font-size: 1.25rem;
-	font-weight: bold;
-	color:red;
+
+.coll-items > .right {
+    float: left;
+    margin-left: 1rem;
+    margin-top: 0.3rem;
+    width: 13rem;
+    box-sizing: border-box;
 }
-.coll-items .price>i{
-	/display: inline-block;
-	float:left;
-	width:1.2rem;
-	height:1.2rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	background-image: url(../../images/icon/jf2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	margin-right:0.3rem;
-	position:relative;
-	top:0.25rem;
+
+.coll-items .Name {
+    padding-right: 0.5rem;
 }
-.coll-items>.right>.icon{
-	width:2rem;
-	height:2rem;
-	/border:1px solid red;
-	box-sizing: border-box;
-	background-image: url(../../images/icon/collect-3.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	/transform: scale(0.7);
-	position:absolute;
-	right:1rem;
-	bottom:1rem;
-	cursor:pointer;
+
+.coll-items .name {
+    font-size: 1.15rem;
+    color: rgb(99, 99, 99);
+    font-weight: bold;
+}
+
+.coll-items .num {
+    font-size: 0.95rem;
+    color: #F4A460;
+    font-style: italic;
+}
+
+.coll-items .coll-num {
+    font-size: 0.95rem;
+    line-height: 1.8rem;
+    color: gray;
+}
+
+.coll-items .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: red;
+}
+
+.coll-items .price > i {
+    float: left;
+    width: 1.2rem;
+    height: 1.2rem;
+    box-sizing: border-box;
+    background-image: url(../../images/icon/jf2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 0.3rem;
+    position: relative;
+    top: 0.25rem;
+}
+
+.coll-items > .right > .icon {
+    width: 2rem;
+    height: 2rem;
+    box-sizing: border-box;
+    background-image: url(../../images/icon/collect-3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    cursor: pointer;
 }
 
 

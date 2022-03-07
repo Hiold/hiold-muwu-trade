@@ -79,7 +79,6 @@
       <!--加载detail模板-->
       <WareItemDetails></WareItemDetails>
       <WareTereBox :containerList="containerList" @queryShopItem="queryShopItem"></WareTereBox>
-
       <div class="order-record">
         <header>
           <i></i>
@@ -95,18 +94,42 @@
       </div>
     </div>
 
+
+    <div class="collect-box" style="display: block;">
+      <div class="empty" style="display: none;">
+        <span>收藏夹是空的<br>快去商城逛逛吧</span>
+      </div>
+
+      <li class="coll-items" data-index="1" v-for="(item,index) in CollectItem" :key="item.id"
+          style="box-shadow: rgb(186, 85, 211) 0px 0px 0.5rem inset, rgb(186, 85, 211) 0px 0px 0.3rem; width: 48%; height: 8.5rem; padding: 2%;">
+        <div class="left" style="background-color: rgba(186, 85, 211, 0.2);">
+          <img :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
+        </div>
+        <div class="right">
+          <div class="Name"><span class="name">{{ item.translate }}</span> <span class="num"
+                                                                                 style="display: none;">x1</span></div>
+          <div class="coll-num">32人收藏</div>
+          <div class="price"><i style="background-image: url(&quot;images/icon/jf2.png&quot;);"></i><span>1</span>
+          </div>
+          <div class="icon"></div>
+        </div>
+      </li>
+    </div>
+
   </section>
 </template>
 
 <script>
 //导入样式
 import '../../../../assets/style/warehouse/ware.css'
+import '../../../../assets/style/warehouse/collect.css'
 import '../../../../assets/style/warehouse/order.css'
 import '../../../../assets/style/warehouse/ware-nav.css'
 import '../../../../assets/style/headTool.css'
 import WareItem from "/src/components/warehouse/MainBox/WareHouse/WareItem.vue";
 import WareItemDetails from "/src/components/warehouse/MainBox/WareHouse/WareItemDetails.vue";
 import WareTereBox from "/src/components/warehouse/MainBox/WareHouse/WareTereBox.vue";
+import CollectItem from "/src/components/warehouse/MainBox/WareHouse/CollectItem.vue";
 import $ from "jquery";
 import axios from "axios";
 import {getCurrentInstance} from "vue";
@@ -136,7 +159,12 @@ export default {
   },
   name: "ShopContent",
   props: ["class1", "class2"],
-  components: {"ShopItem": WareItem, "WareItemDetails": WareItemDetails, "WareTereBox": WareTereBox},
+  components: {
+    "CollectItem": CollectItem,
+    "ShopItem": WareItem,
+    "WareItemDetails": WareItemDetails,
+    "WareTereBox": WareTereBox
+  },
   data() {
     return {
       isdetailShow: false,
@@ -189,6 +217,7 @@ export default {
       containerList: {},
       logtype: "all",
       ActionLogs: [],
+      CollectItem: [],
       LogSize: 0,
       page: 1,
       size: 10,
@@ -295,7 +324,20 @@ export default {
         }
       });
     },
-
+    queryCollectItem() {
+      let params = {
+        itemname: this.itemname,
+        class1: this.class1,
+        class2: this.class2
+      };
+      axios.post("api/getCollectItems", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          console.log(JsonData);
+          this.CollectItem = JsonData;
+        }
+      });
+    },
     queryLogs() {
       let params = {
         type: this.logtype,
@@ -1037,23 +1079,25 @@ export default {
     });
 
     $(".warehouse>.menu>.l3").click(function () {		//彩色按钮 - 收藏夹
-      console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
+      self.queryCollectItem();
+      // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
       // $("main>article").load("page/collect.html", function () {
-      //     $(".head-tool,.collect-box,.Collect-ware").hide();
+      $(".head-tool,.collect-box,.warehouse").hide();
       //     console.log(getTime().date + "\n我的收藏 页面加载成功！");
       //     //GenerateColl();
       // });
-      // setTimeout(function () {
-      //     $(".collect-box").fadeIn(200);
-      //     $(".head-tool").fadeIn(50);
-      //     $(".Collect-ware").fadeIn(50);
-      //     //GenerateColl("全部");	//渲染收藏列表到页面
-      //     setTimeout(function () {
-      //         $(".Collect-ware>.btn-1").click();
-      //     }, 100);
-      //     adaptive();	//调整样式
-      // }, 100);
+      setTimeout(function () {
+        $(".collect-box").fadeIn(200);
+        $(".head-tool").fadeIn(50);
+        $(".Collect-ware").fadeIn(50);
+        //GenerateColl("全部");	//渲染收藏列表到页面
+        setTimeout(function () {
+          // $(".Collect-ware>.btn-1").click();
+        }, 100);
+      }, 100);
     });
+
+
     $(".warehouse>.menu>.l4").click(function () {		//彩色按钮 - 工作台
       console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
       //$("body>.data-recipe").load("Config/recipes.xml",function(){	//先加载配方

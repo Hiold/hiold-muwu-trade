@@ -21,7 +21,7 @@
       <div style="z-index: 99999" class="collect collected" v-if="item.collected=='1'"></div>
       <div style="z-index: 99999" class="collect notcollected" v-if="item.collected=='0'"></div>
       <div class="hot" v-show="calcHot(item)"></div>
-      <div class="ex" v-show="item.classMod==='2'">网页专属</div>
+      <div class="ex" v-show="item.itemType=='2'">网页专属</div>
       <!--      <div class="ex" v-if="item.class1==='网页专属'">网页专属</div>-->
       <div class="soldout" v-show="item.stock*1===0"></div>
       <div class="vip" v-show="vip===true"></div>
