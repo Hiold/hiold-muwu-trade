@@ -185,7 +185,8 @@
                 <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname"
                     :data-index="item.itemname">
                     <div class="image">
-                        <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
+                        <img v-if="item.icon!=null" src="404"
+                             @error="$LoadTintImage($event.target,item.icon.Value,item.tint)">
                         <img v-else :src="'api/image/'+item.itemname+'.png'">
                     </div>
                 </li>
@@ -766,7 +767,8 @@
                     if (res[0].icon == null) {
                         $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].itemname + '.png');
                     } else {
-                        $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
+                        ctx.$LoadTintImage($(".buying>.content>.image>img")[0], res[0].icon.Value, res[0].tint);
+                        // $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
                     }
                     var min = 0;
                     var max = "无限";

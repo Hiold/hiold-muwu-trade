@@ -101,3 +101,67 @@ app.config.globalProperties.Prompt = function (text, value) {	//自定义输入�
     $("#alert>.alert>section>p").html(text);	//输出文本提示内容
     //$("#alert>.alert>section>input").val(value);
 }
+
+app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
+    loadNew(t, m, tint);
+
+    function loadNew(t, m, tint) {
+        if (tint == null || tint == "") {
+            tint = "1,1,1";
+        }
+        if (m.indexOf(".png") > -1) {
+            m.replace(".png", "");
+        }
+        var src = 'api/image/' + m + '.png';
+        convertImgToBase64(t, src, tint);
+    }
+
+
+    function convertImgToBase64(t, url, tint) {
+        var img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function () {
+            var canvas = document.createElement('CANVAS');
+            var ctx = canvas.getContext('2d');
+            canvas.height = this.height;
+            canvas.width = this.width;
+            ctx.drawImage(this, 0, 0);
+            handleImg(t, ctx, tint, canvas);
+            canvas = null;
+        };
+        img.src = url;
+    }
+
+    function handleImg(t, ctx, argb, canvas) {
+        let modifyData
+        if (argb.includes(",")) {
+            modifyData = argb.split(",");
+        } else if (argb.includes("|")) {
+            modifyData = argb.split("|");
+        }
+
+        let ma = parseFloat(modifyData[0]);
+        let mr = parseFloat(modifyData[1]);
+        let mg = parseFloat(modifyData[2]);
+        let mb = parseFloat(modifyData[3]);
+
+
+        //获取像素信息
+        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ////console.log(imageData);
+        //处理像素信息
+        for (let p = 0; p < imageData.data.length; p += 4) {
+            let r = imageData.data[p];
+            let g = imageData.data[p + 1];
+            let b = imageData.data[p + 2];
+            let a = imageData.data[p + 3];
+            imageData.data[p] = parseInt(r * (mr));
+            imageData.data[p + 1] = parseInt(g * (mg));
+            imageData.data[p + 2] = parseInt(b * (mb));
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        let newImgUrl = canvas.toDataURL("image/png");
+        t.src = newImgUrl;
+    }
+}
