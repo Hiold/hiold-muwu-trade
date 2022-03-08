@@ -49,6 +49,15 @@ const routes = [{
                 title: '商店管理'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ShopManage.vue")
+        },
+
+        {
+            path: "dailyawardmanage",
+            name: "dailyawardmanage",
+            meta: {
+                title: '红包管理'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/DailyAwardManage.vue")
         }
 
         , {
