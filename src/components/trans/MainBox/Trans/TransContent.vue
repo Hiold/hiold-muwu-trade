@@ -156,7 +156,7 @@
 
         <!-- 物资求购页面 -->
         <div class="buying">
-            <div class="content">
+            <div class="content" style="overflow-y: hidden">
                 <div class="image">
                     <img src="/images/alert.png">
                 </div>

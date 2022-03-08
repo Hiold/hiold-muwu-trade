@@ -58,7 +58,6 @@
     background-image: url(../../images/empty5.png);
     background-size: contain;
     background-repeat: no-repeat;
-    display: none;
 }
 
 .collect-box > .empty > span {
@@ -91,6 +90,7 @@
 }
 
 .coll-items > .left {
+    width: 30%;
     height: 100%;
     float: left;
     background-color: rgba(255, 188, 0, 0.2);
