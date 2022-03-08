@@ -98,7 +98,6 @@
             };
         },
         mounted() {
-            console.log(window.location.href);
             if (window.location.href != null && window.location.href != "" && window.location.href.indexOf("ncode=") > -1) {
                 var ncode = window.location.href.substring(window.location.href.indexOf("ncode=") + 6);
                 console.log("快捷登录模式", ncode);

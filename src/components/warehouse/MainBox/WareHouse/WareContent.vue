@@ -4,7 +4,7 @@
         <!-- 头部工具栏 -->
         <header class="head-tool">
             <h1>个人仓库</h1>
-            <div class="serch">
+            <div class="serch" v-show="formPage!='collect'">
                 <input type="text" class="name-id" placeholder="请输入物品名称或ID" oninput="searchItems()">
                 <div class="btn"></div>
             </div>
@@ -13,7 +13,7 @@
                 <li class="l2">图标</li>
                 <li class="l3">列表</li>
             </div>
-          <div class="back"></div>
+            <div class="back" v-show="formPage=='collect'"></div>
         </header>
         <!-- 物品列表 -->
 
@@ -101,7 +101,10 @@
                 <span>收藏夹是空的<br>快去商城逛逛吧</span>
             </div>
 
-            <li class="coll-items" data-index="1" v-for="(item,index) in CollectItem" :key="item.id"
+            <li @click="toItemDetail(item.id,$event.target)" v-show="CollectItem!=null||CollectItem.length>0"
+                class="coll-items"
+                :data-id="item.id"
+                v-for="(item,index) in CollectItem" :key="item.id"
                 style="box-shadow: rgb(186, 85, 211) 0px 0px 0.5rem inset, rgb(186, 85, 211) 0px 0px 0.3rem; width: 48%; height: 8.5rem; padding: 2%;">
                 <div class="left" style="background-color: rgba(186, 85, 211, 0.2);">
                     <img :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
@@ -119,7 +122,7 @@
                             style="background-image: url(&quot;images/icon/zs.png&quot;);"></i><span>{{item.price}}</span>
                     </div>
 
-                    <div class="icon"></div>
+                    <div class="icon" :data-id="item.id"></div>
                 </div>
             </li>
         </div>
@@ -230,6 +233,13 @@
             }
         },
         methods: {
+            toItemDetail(id, target) {
+                //判断是否点击的是取消收藏按钮
+                console.log(target)
+                if ($(target).attr("class") != "icon") {
+                    window.location = "/#/userq/shop?id=" + id;
+                }
+            },
             //加载更多数据
             handleScroll(e) {
                 if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
@@ -339,8 +349,9 @@
                 axios.post("api/getCollectItems", params).then(res => {
                     if (res.data.respCode === "1") {
                         let JsonData = res.data.data;
-                        console.log(JsonData);
                         this.CollectItem = JsonData;
+                    } else {
+                        this.CollectItem = null;
                     }
                 });
             },
@@ -885,7 +896,8 @@
                 // }
             });
 
-            function cardToIcon() {	//将卡片转换为图标
+            function cardToIcon() {
+                //将卡片转换为图标
                 $(".ware-items>header,.ware-items>section>.right,.ware-items>section>.left>footer").hide();	//隐藏头部、脚部 和 侧面
                 $(".ware-items>section>.left>.img>.quality").css("opacity", "0");		//隐藏品质（仅保留图片）
                 $(".ware-items>section").css({				//调整图片父元素容器1的样式
@@ -905,6 +917,25 @@
                     "height": "5.5rem",
                     "margin": "1%"
                 });
+                //修改收藏样式
+                $(".coll-items>.right").hide();		//隐藏右侧物品信息
+                //$(".ware-items>section>.left>.img>.quality").css("opacity","0");		//隐藏品质（仅保留图片）
+
+                $(".coll-items>.left>.img").css({	//调整图片区域的样式
+                    "transform": "scale(0.9)"
+                });
+
+                $(".coll-items>.left").css({	//调整图片区域的样式
+                    "width": "100%"
+                });
+
+                $(".coll-items").css({	//调整整个卡片的样式
+                    "width": "14.6%",
+                    "height": "7rem",
+                    "padding": "1%"
+                });
+
+
             }
 
             function iconToCard() {	//将图标转换为卡片
@@ -926,6 +957,22 @@
                     "width": "48%",
                     "height": "9rem",
                     "margin": "1%"
+                });
+
+                //修改收藏样式
+                $(".coll-items>.right").show();		//显示右侧物品信息
+                //$(".ware-items>section>.left>.img>.quality").css("opacity","1");
+                //隐藏品质（仅保留图片）
+                $(".coll-items>.left>.img").css({	//调整图片区域的样式
+                    "transform": "scale(0.8)"
+                });
+                $(".coll-items>.left").css({	//调整图片区域的样式
+                    "width": "30%"
+                });
+                $(".coll-items").css({	//调整整个卡片的样式
+                    "width": "48%",
+                    "height": "8.5rem",
+                    "padding": "2%"
                 });
             }
 
@@ -1004,6 +1051,7 @@
             });
 
             $(".warehouse>.menu>.l1").click(function () {		//彩色按钮 - 提取到背包
+                self.formPage = "take";
                 var ctx = this.ctx.appContext.config.globalProperties;
                 ctx.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
                 ctx.popupCss(28, 16);
@@ -1033,6 +1081,7 @@
 
 
             $(".warehouse>.menu>.l1-replace").click(function () {	//彩色按钮 - 储存到仓库
+                self.formPage = "storageTosystem";
                 var ctx = this.ctx.appContext.config.globalProperties;
                 var page = $(".terr-box").data("page");
                 if (page == "box") {
@@ -1065,6 +1114,7 @@
             });
 
             $(".warehouse>.menu>.l2").click(function () {		//彩色按钮 - 领地箱子
+                self.formPage = "landContainer";
                 $(".ware-list,.ware-details,.order-record").hide();	//隐藏其它不相关页面
 
                 $(".terr-box").fadeIn(200);			//显示领地箱子页面
@@ -1085,6 +1135,7 @@
             });
 
             $(".warehouse>.menu>.l3").click(function () {		//彩色按钮 - 收藏夹
+                self.formPage = "collect";
                 self.queryCollectItem();
                 // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
                 // $("main>article").load("page/collect.html", function () {
@@ -1105,6 +1156,7 @@
 
 
             $(".warehouse>.menu>.l4").click(function () {		//彩色按钮 - 工作台
+                self.formPage = "craft";
                 console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
                 //$("body>.data-recipe").load("Config/recipes.xml",function(){	//先加载配方
                 //console.log(getTime().date+"\n物品配方加载成功！");
@@ -1126,6 +1178,7 @@
             });
 
             $(".warehouse>.menu>.l5").click(function () {		//彩色按钮 - 订单记录
+                self.formPage = "orderLog";
                 //alert(123)
                 $(".ware-list,.ware-details,.terr-box").hide();	//隐藏其它不相关页面
                 $(".order-record").fadeIn(200);			//显示领地箱子页面
@@ -1219,8 +1272,8 @@
             //     popupCss(22, 15);
             // });
 
-
-            $(".head-tool>.display>.l2").click(function () {	//物品显示类型：图标
+            //物品显示类型：图标
+            $(".head-tool>.display>.l2").click(function () {
                 //点击特效
                 $(".head-tool>.display>li").css({
                     "opacity": "0.7",
@@ -1232,7 +1285,9 @@
                 }).data("click", "true");
                 cardToIcon();
             });
-            $(".head-tool>.display>.l1").click(function () {	//物品显示类型：卡片
+
+            //物品显示类型：卡片
+            $(".head-tool>.display>.l1").click(function () {
                 //点击特效
                 $(".head-tool>.display>li").css({
                     "opacity": "0.7",
@@ -1245,7 +1300,8 @@
                 iconToCard();
             });
 
-            $(".order-record>header>.back").click(function () {	//订单记录 - 返回
+            //订单记录 - 返回
+            $(".order-record>header>.back").click(function () {
                 //alert(123)
                 $(".order-record").hide();
                 $(".ware-list").fadeIn(200);
@@ -1255,6 +1311,52 @@
                 // }
             });
 
+            //点击返回按钮
+            $(".head-tool>.back").click(function () {
+                self.formPage = "take";
+                // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
+                // $("main>article").load("page/collect.html", function () {
+                $(".head-tool,.collect-box,.warehouse").fadeIn(50);
+                //     console.log(getTime().date + "\n我的收藏 页面加载成功！");
+                //     //GenerateColl();
+                // });
+                setTimeout(function () {
+                    $(".collect-box").hide();
+                    // $(".head-tool").hide();
+                    // $(".Collect-ware").hide();
+                    //GenerateColl("全部");	//渲染收藏列表到页面
+                }, 100);
+            });
+
+            //取消收藏
+            $(".collect-box").on("click", ".icon", function () {
+                var ctx = self.ctx.appContext.config.globalProperties;
+                var id = $(this).data("id");
+                ctx.Confirm("确认取消收藏这个物品吗？");
+                ctx.popupCss(25, 14);
+                $("#alert>.alert>footer>.confirm").click(function () {
+                    //取消收藏
+                    var buyParam = {"id": "" + id + "", "value": "0"};
+                    axios.post("api/updateCollect", buyParam).then(res => {
+                        if (res.data.respCode === "1") {
+                            ElMessage.success('取消收藏成功')
+                            self.queryCollectItem();
+                        } else {
+                            ElMessage.error(res.data.respMsg);
+                            self.queryCollectItem();
+                        }
+                    });
+                    $("#alert").hide();
+                });
+
+            });
+
+            //我的收藏物品: 点击跳转到商品详情界面
+
+            //判读来源
+            if (window.location.href != null && window.location.href != "" && window.location.href.indexOf("fromBack=") > -1) {
+                $(".warehouse>.menu>.l3").click();
+            }
 
         }
     }
