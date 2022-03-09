@@ -103,7 +103,8 @@ app.config.globalProperties.Prompt = function (text, value) {	//自定义输入�
 }
 
 //自定义奖励提示弹窗，用于给玩家提示获得了哪些奖励
-app.config.globalProperties.Award = function (prizeArr) {
+app.config.globalProperties.Award = function (prizeArr, title, foot, confirm, cb) {
+    console.log(prizeArr);
     var awardCard = '<li><div class="image"><img src="images/alert.png"></div><div class="right"><div class="name"></div><div class="count"><span class="tit">数量：</span> <span class="num"></span></div><div class="quality"><span class="tit">品质：</span> <span class="num"></span></div></div></li>';
     $("#alert").fadeIn(100);	//显示弹窗主体页面
     $("#alert>.alert-award").show();	//显示奖励提示窗口
@@ -116,14 +117,25 @@ app.config.globalProperties.Award = function (prizeArr) {
         var img = prizeArr[i][1];	//图标
         var num = prizeArr[i][2].split(":")[1];	//数量
         var qua = prizeArr[i][3].split(":")[1] * 1;	//品质
+        var tint = prizeArr[i][4];	//品质
+        app.config.globalProperties.$LoadTintImage($(".alert-award .p-box>li:last").find("img")[0], img, tint);
         $(".alert-award .p-box>li:last").find(".name").text(name);
-        $(".alert-award .p-box>li:last").find("img").attr("src", img);
         $(".alert-award .p-box>li:last").find(".count>.num").text(num);
         $(".alert-award .p-box>li:last").find(".quality>.num").text(qua);
         if (isNaN(qua) || qua <= 0) {
             $(".alert-award .p-box>li:last").find(".quality").hide();
         }
     }
+
+    $(".alert-award").find(".head").text(title);
+    $(".alert-award").find(".foot").text(foot);
+    $(".alert-award").find(".confirm").text(confirm);
+    $(".alert-award").find(".confirm").on("click", () => {
+        if (cb) {
+            cb();
+        }
+    })
+
     if (len == 1) {
         $("#alert>.alert-award").css("height", "18rem");
         $(".alert-award .p-box").css("height", "5rem");
