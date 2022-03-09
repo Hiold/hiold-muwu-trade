@@ -103,18 +103,18 @@ app.config.globalProperties.Prompt = function (text, value) {	//自定义输入�
 }
 
 app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
+    console.log(m, tint);
     loadNew(t, m, tint);
 
     function loadNew(t, m, tint) {
         if (tint == null || tint == "") {
             tint = "1|1|1|1";
         }
-        if (m.indexOf(".png") > -1) {
+        if (m && m.indexOf(".png") > -1) {
             m = m.replace(".png", "");
         }
         var src = 'api/image/' + m + '.png';
 
-        console.log(m, tint);
 
         convertImgToBase64(t, src, tint);
     }

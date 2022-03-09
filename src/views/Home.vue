@@ -23,6 +23,7 @@ import { useStore } from "vuex";
 import vHeader from "../components/Header.vue";
 import vSidebar from "../components/Sidebar.vue";
 import vTags from "../components/Tags.vue";
+import axios from "axios";
 export default {
     components: {
         vHeader,
@@ -40,5 +41,15 @@ export default {
             collapse,
         };
     },
+    mounted() {
+        axios.get("api/getCurrentUser").then(res => {
+            if (res.data.respCode === "1") {
+                console.log("用户状态正常，保存本地数据");
+                localStorage.setItem("userinfo", JSON.stringify(res.data.data));
+            } else {
+                window.location = "/#/login";
+            }
+        });
+    }
 };
 </script>
