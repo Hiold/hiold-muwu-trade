@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	$(".Trade-ware>ul").click(function(){		//左侧分类按钮点击特效
 		$(".Trade-ware>ul").css({		//让所有分类按钮样式还原默认
 			"transform":"scale(1)",
@@ -17,7 +16,6 @@ $(document).ready(function(){
 		$(this).data("click","true");
 		$(".player-order").hide();
 	});
-
 	$(".Trade-ware>ul").hover(function(){		//左侧分类按钮悬浮特效
 		var ck = $(this).data("click");
 		if(ck!="true"){
@@ -35,7 +33,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-
+	
 	$(".Trade-ware>.btn-1").click(function(){	//我的店铺
 		$(".my-shop").show();	//显示店铺详情页面
 		$(".player-store,.player-com,.buying").hide();	//隐藏其它不相关页面
@@ -49,7 +47,6 @@ $(document).ready(function(){
 		$(".my-shop>header>.right,.my-shop>header>.edit").css("float","right");
 		nowPage = "我的店铺";
 	});
-
 	$(".Trade-ware>.btn-2").click(function(){	//玩家店铺
 		$(".player-store").show();	//显示玩家店铺列表
 		$(".my-shop,.player-com,.buying").hide();	//隐藏其它不相关页面
@@ -67,11 +64,11 @@ $(document).ready(function(){
 		$(".head-tool>.sort").find(".t5").show().text("销售额高到低");
 		$(".head-tool>.refresh").show();	//显示刷新按钮
 		$(".head-tool>.back").hide();	//隐藏返回按钮
-		GenerateStoreList();	//生成玩家店铺列表
+		$(".player-store").scrollTop(0);
+		GenerateStoreList(true);	//生成玩家店铺列表
 		$(".my-shop>header>.right,.my-shop>header>.edit").css("float","left");
 		nowPage = "玩家店铺";
 	});
-
 	$(".Trade-ware>.btn-3").click(function(){	//玩家售卖区
 		$(".player-com").show();	//显示玩家售卖区页面
 		$(".player-store,.my-shop,.buying").hide();	//隐藏其它不相关页面
@@ -94,7 +91,6 @@ $(document).ready(function(){
 		pst = "出售";
 		GeneratePlayerCom("出售");
 	});
-
 	$(".Trade-ware>.btn-4").click(function(){	//玩家求购区
 		$(".player-com").show();	//显示玩家售卖区页面
 		$(".player-store,.my-shop,.buying").hide();	//隐藏其它不相关页面
@@ -117,7 +113,7 @@ $(document).ready(function(){
 		pst = "求购";
 		GeneratePlayerCom("求购");
 	});
-
+	
 	$(".Trade-ware>.btn-5").click(function(){	//物资求购
 		$(".head-tool").show();	//显示头部工具栏
 		$(".head-tool>h1").text("物资求购");	//更改头部标题

@@ -102,6 +102,40 @@ app.config.globalProperties.Prompt = function (text, value) {	//自定义输入�
     //$("#alert>.alert>section>input").val(value);
 }
 
+//自定义奖励提示弹窗，用于给玩家提示获得了哪些奖励
+app.config.globalProperties.Award = function (prizeArr) {
+    var awardCard = '<li><div class="image"><img src="images/alert.png"></div><div class="right"><div class="name"></div><div class="count"><span class="tit">数量：</span> <span class="num"></span></div><div class="quality"><span class="tit">品质：</span> <span class="num"></span></div></div></li>';
+    $("#alert").fadeIn(100);	//显示弹窗主体页面
+    $("#alert>.alert-award").show();	//显示奖励提示窗口
+    $(".alert-award .p-box").scrollTop(0);	//奖品内容默认从顶部开始显示
+    $(".alert-award .p-box>li").remove();	//移除所有奖励卡片
+    var len = prizeArr.length;
+    for (var i = 0; i < len; i++) {		//遍历奖品数组
+        $(".alert-award .p-box").append(awardCard);
+        var name = prizeArr[i][0];	//名称
+        var img = prizeArr[i][1];	//图标
+        var num = prizeArr[i][2].split(":")[1];	//数量
+        var qua = prizeArr[i][3].split(":")[1] * 1;	//品质
+        $(".alert-award .p-box>li:last").find(".name").text(name);
+        $(".alert-award .p-box>li:last").find("img").attr("src", img);
+        $(".alert-award .p-box>li:last").find(".count>.num").text(num);
+        $(".alert-award .p-box>li:last").find(".quality>.num").text(qua);
+        if (isNaN(qua) || qua <= 0) {
+            $(".alert-award .p-box>li:last").find(".quality").hide();
+        }
+    }
+    if (len == 1) {
+        $("#alert>.alert-award").css("height", "18rem");
+        $(".alert-award .p-box").css("height", "5rem");
+    } else if (len == 2) {
+        $("#alert>.alert-award").css("height", "22rem");
+        $(".alert-award .p-box").css("height", "9rem");
+    } else if (len >= 3) {
+        $("#alert>.alert-award").css("height", "27rem");
+        $(".alert-award .p-box").css("height", "14rem");
+    }
+}
+
 app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
     console.log(m, tint);
     loadNew(t, m, tint);

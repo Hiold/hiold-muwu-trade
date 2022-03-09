@@ -32,6 +32,14 @@ const routes = [{
                 title: '交易中心'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../components/TransMainContainer.vue")
+        },
+        {
+            path: "activity",
+            name: "activity",
+            meta: {
+                title: '活动中心'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../components/ActivityMainContainer.vue")
         }
         ,
         {path: "/", redirect: "/shop"}]

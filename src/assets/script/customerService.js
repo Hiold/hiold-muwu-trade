@@ -4,7 +4,7 @@ admin_arr = [	//服务器管理员列表（客服列表）
 	["Cxx","images/player/Cxx.jpg","狗逼","782893487"],
 	["失意","images/player/shiyi.jpg","管理员","355516382"],
 	["旧识","images/player/jiushi.jpg","管理员","461694675"],
-	["彩色の小木屋","images/player/muwu.jfif","建筑师",""],
+	["彩色の小木屋","images/player/muwu.jpg","建筑师",""],
 	["Yuki","images/player/Yuki.jpg","建筑师","1626903155"],
 	["茄子喵","images/player/miao2.png","建筑师","1182381598"],
 	

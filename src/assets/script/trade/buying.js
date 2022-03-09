@@ -76,20 +76,22 @@ function arrGameItemsToObj(){
 		}else if(gameItems[i].desc==""){	//没有填写描述
 			gameItems[i].desc = '<span style="font-size:1em;font-weight:bold;color:gray;">没有找到这个物品的描述</span>';
 		}
-
+		
 	}
 }
 
 
-function GenerateBuyingItems(){	//在物资求购页面生成玩家商店详情页
+function GenerateBuyingItems(){	//在物资求购页面生成物品列表
 	$(".buying>.box>li").remove();	//移除所有物品元素
-	for(var i=0;i<gameItems.length;i++){	//遍历玩家商店列表
+	//$(".buying>.box>.loading").remove();
+	for(var i=0;i<gameItems.length;i++){	//遍历物品列表
 		$(".buying>.box").append(itemIcon);
 		//下标
 		$(".buying>.box>li:last").attr("data-index",i);
 		//图标
 		$(".buying>.box>li:last").find("img").attr("src",gameItems[i].image);
 	}
+	//$(".buying>.box").append("<div class='loading' style='font-size:1.2rem;'>正在加载中<i></i></div>");
 }
 
 $(document).ready(function(){
@@ -152,9 +154,38 @@ $(document).ready(function(){
 		["resourceMechanicalParts","机械零件","auto","最低价:","最高价:","auto"],
 		["resourceSpring","弹簧","auto","最低价:","最高价:","auto"],
 		["resourceMetalPipe","短铁管","auto","最低价:","最高价:","auto"],
+		
+		["decoPumpkinJackOLantern","南瓜灯","images/ItemIcons/decoPumpkinJackOLantern.png","最低价:30","最高价:500","万圣节装饰物品<br>这是一个普通而可爱（可怕）的南瓜灯，敲碎可以回收。<br>散发着微微的黄色光芒，烘托了一丝温暖的气息。<br>听说周围的僵尸都害怕它，让它作为僵尸在万圣节最好的礼物吧~"],
+		["armorSantaHat","圣诞帽","images/ItemIcons/armorSantaHat.png","最低价:100","最高价:2000","圣诞节专属装饰<br>它是一顶红色帽子，据说晚上戴上睡觉除了睡得安稳和有点暖外，第二天你还会发现帽子里多了点心爱的人送的礼物。"],
+		["meleeWpnClubT1CandyClub","拐杖糖棍棒","images/ItemIcons/meleeWpnClubT1CandyClub.png","最低价:500","最高价:5555","圣诞专属武器<br>这跟棍棒看起来好像很好吃，就是咬起来有点费牙齿....."],
+		["casinoCoin","公爵赌场币","auto","最低价:30/组","最高价:500/组","auto"],
+		["drinkJarBoiledWater","开水","auto","最低价:","最高价:100","auto"],
+		["drinkJarGrandpasMoonshine","祖父的私酒","auto","最低价:50","最高价:3000","auto"],
+		["drinkCanMegaCrush","碾压王","auto","最低价:50","最高价:3000","auto"],
+		["foodHoboStew","蔬菜炖肉","auto","最低价:50","最高价:888","auto"],
+		["resourceForgedIron","锻铁","auto","最低价:3333/组","最高价:55555/组","auto"],
+		["resourceForgedSteel","锻钢","auto","最低价:3333/组","最高价:55555/组","auto"],
+		["resourceRockSmall","小石子","auto","最低价:","最高价:","auto"],
+		["resourceClayLump","黏土","auto","最低价:","最高价:","auto"],
+		["resourceYuccaFibers","植物纤维","auto","最低价:","最高价:","auto"],
+		["plantedChrysanthemum1","菊花（种子）","auto","最低价:","最高价:","auto"],
+		["resourcePaper","纸","auto","最低价:","最高价:","auto"],
+		["resourceGlue","胶水","auto","最低价:","最高价:","auto"],
+		["resourceCloth","碎布","auto","最低价:","最高价:","auto"],
+		["resourceWood","木头","auto","最低价:","最高价:","auto"],
+		["resourcePaint","油漆","auto","最低价:","最高价:","auto"],
+		["foodRottingFlesh","腐肉","auto","最低价:","最高价:","auto"],
+		["resourceAnimalFat","脂肪","auto","最低价:","最高价:","auto"],
+		["ammo762mmBulletBall","7.62毫米弹药","auto","最低价:","最高价:","auto"],
+		["ammo9mmBulletBall","9毫米弹药","auto","最低价:","最高价:","auto"],
+		["resourceNail","钉子","auto","最低价:","最高价:","auto"],
+		["resourceElectricParts","电子零件","auto","最低价:","最高价:","auto"],
+		["resourceMechanicalParts","机械零件","auto","最低价:","最高价:","auto"],
+		["resourceSpring","弹簧","auto","最低价:","最高价:","auto"],
+		["resourceMetalPipe","短铁管","auto","最低价:","最高价:","auto"],
 	];
 	arrGameItemsToObj();
-
+	
 	$(".buying>.box").on("mouseenter","li",function(){	//鼠标移入显示物品详情
 		var xb = $(this).data("index");
 		var name = gameItems[xb].name;
@@ -164,21 +195,19 @@ $(document).ready(function(){
 		var desc = gameItems[xb].desc;
 		var unit = gameItems[xb].unit;
 		var unit2 = gameItems[xb].unit2;
-
+		
 		$(".buying>.content>.image>img").attr("src",img);
 		$(".buying>.content>.name").text(name);
 		$(".buying>.content>.foot>.price>.min>.val").html(min+"<span style='color:gray;font-size:0.8em;font-weight:normal;'> / "+unit+"</span>");
 		$(".buying>.content>.foot>.price>.max>.val").html(max+"<span style='color:gray;font-size:0.8em;font-weight:normal;'> / "+unit2+"</span>");
 		$(".buying>.content>.foot>.desc").html(desc);
 	});
-
-
 	$(".buying>.box").on("click","li",function(){	//点击选中的物品
 		$(".buying>.box>.blank").fadeIn(100);	//显示求购发布窗口
 		$(".buying>.box").css("overflow-y","hidden");	//隐藏物品列表滚动条
 		var top = $(".buying>.box").scrollTop();
 		$(".buying>.box>.blank").css("top",top+"px");
-
+		
 		var xb = $(this).data("index");
 		$(".buying>.box>.blank").data("index",xb);
 		var name = gameItems[xb].name;
@@ -189,7 +218,7 @@ $(document).ready(function(){
 		//清空输入框内的内容
 		$(".buying .window>section>div>.val>input").val("");
 	});
-
+	
 	//关闭求购发布窗口
 	$(".buying>.box>.blank>.window>footer>.close").click(function(){
 		$(".buying>.box").css("overflow-y","auto");
@@ -214,7 +243,7 @@ $(document).ready(function(){
 		}
 		$(this).next().val(num);
 	});
-
+	
 	//确认发布求购物品
 	$(".buying>.box>.blank>.window>footer>.confirm").click(function(){
 		//获取输入的内容
@@ -243,7 +272,7 @@ $(document).ready(function(){
 			$(".buying .window>section>.price>.val>input").val(point);
 			return;
 		}
-
+		
 		//以上操作验证无误后，将发布的物品存到个人数组
 		var xb = $(".buying>.box>.blank").data("index");
 		var id = gameItems[xb].id;		//物品ID
@@ -252,7 +281,7 @@ $(document).ready(function(){
 		//var desc = gameItems[xb].desc;	//物品描述
 		playerStore[playerIndex][playerStore[playerIndex].length] = ["交易类型:求购","名称:"+name,"ID:"+id,"数量:"+valNum,"价格:"+valPrice,"品质:"+valQua];
 		arrPStoreToObj();
-
+		
 		point -= valPrice;	//扣除相应积分
 		players.data[playerIndex].points = point;	//保存玩家积分
 		playerBasic[playerIndex][2][0] = "积分:"+point;		//保存玩家积分到数组
@@ -270,9 +299,9 @@ $(document).ready(function(){
 		}
 		Alert("发布成功！");
 		popupCss(25,13);
-
+		
 	});
-
-
-
+	
+	
+	
 });

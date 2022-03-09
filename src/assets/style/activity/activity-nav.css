@@ -73,7 +73,7 @@
 }
 /* .Activity-nav>.b1-t0{
 	background:radial-gradient(rgb(232, 206, 185), rgba(255, 255, 255, 0.2));
-	shop-shadow: 0 0 0.2rem white;
+	box-shadow: 0 0 0.2rem white;
 } */
 .Activity-nav>.b2-t0{
 	background:radial-gradient(rgb(186, 231, 206), rgba(255, 255, 255, 0.2));
@@ -85,5 +85,5 @@
 }
 /* .Activity-nav>.b4-t0{
 	background:radial-gradient(rgb(255, 160, 160), rgba(255, 255, 255, 0.2));
-	shop-shadow: 0 0 0.2rem white;
+	box-shadow: 0 0 0.2rem white;
 } */

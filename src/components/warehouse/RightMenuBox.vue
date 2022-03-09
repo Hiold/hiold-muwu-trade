@@ -82,15 +82,17 @@
                 </li>
             </router-link>
             <router-link custom to="/userq/trans" v-slot="{navigate,isActive}">
-                <li class="menu-2" @click="navigate" :class="{active:isActive}">
+                <li class="menu-3" @click="navigate" :class="{active:isActive}">
                     <span class="cn">交易中心</span><br>
                     <span class="en">Transaction</span>
                 </li>
             </router-link>
-            <li class="menu-4">
-                <span class="cn">活动礼包</span><br>
-                <span class="en">Activity</span>
-            </li>
+            <router-link custom to="/userq/activity" v-slot="{navigate,isActive}">
+                <li class="menu-4" @click="navigate" :class="{active:isActive}">
+                    <span class="cn">活动礼包</span><br>
+                    <span class="en">Activity</span>
+                </li>
+            </router-link>
             <!-- 其它分类（小图标）：签到、兑换、公告、排行 -->
             <div class="min">
                 <div class="m1"><span>签到</span></div>

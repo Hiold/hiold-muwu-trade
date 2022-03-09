@@ -1125,7 +1125,8 @@ $(document).ready(function(){
 		$(".warehouse>.menu>.l1,.warehouse>.menu>.l1-replace").hide();	//隐藏 提取到背包/储存到仓库 按钮
 		$(".Category-ware>.shield").show();	//禁止点击左侧分类导航栏
 		//console.log(recordConsole[playerIndex])
-		GenerateOrder();	//渲染订单详情列表
+		$(".order-record>section").scrollTop(0);
+		GenerateOrder(true);	//渲染订单详情列表
 	});
 	
 	//关闭出售物品窗口

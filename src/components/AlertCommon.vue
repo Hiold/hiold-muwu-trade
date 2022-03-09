@@ -215,6 +215,109 @@
                 <div class="confirm">保存设置</div>
             </footer>
         </div>
+
+        <div class="alert-award" style="display: block; height: 27rem;">    <!-- 奖励提示窗口 -->
+            <div class="fil"></div>
+            <header>
+                <span>奖励信息</span>
+                <i>✘</i>
+            </header>
+            <section>
+                <div class="head">恭喜你获得了以下奖品</div>
+                <div class="p-box" style="height: 14rem;">
+
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/decoPumpkinJackOLantern.png"></div>
+                        <div class="right">
+                            <div class="name">南瓜灯</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">50</span></div>
+                            <div class="quality" style="display: none;"><span class="tit">品质：</span> <span
+                                    class="num">0</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/armorSantaHat.png"></div>
+                        <div class="right">
+                            <div class="name">圣诞帽</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">2</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">5</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/meleeWpnClubT1CandyClub.png"></div>
+                        <div class="right">
+                            <div class="name">拐杖糖棍棒</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">1</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">6</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/decoPumpkinJackOLantern.png"></div>
+                        <div class="right">
+                            <div class="name">南瓜灯</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">50</span></div>
+                            <div class="quality" style="display: none;"><span class="tit">品质：</span> <span
+                                    class="num">0</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/armorSantaHat.png"></div>
+                        <div class="right">
+                            <div class="name">圣诞帽</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">2</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">5</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/meleeWpnClubT1CandyClub.png"></div>
+                        <div class="right">
+                            <div class="name">拐杖糖棍棒</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">1</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">6</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/decoPumpkinJackOLantern.png"></div>
+                        <div class="right">
+                            <div class="name">南瓜灯</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">50</span></div>
+                            <div class="quality" style="display: none;"><span class="tit">品质：</span> <span
+                                    class="num">0</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/armorSantaHat.png"></div>
+                        <div class="right">
+                            <div class="name">圣诞帽</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">2</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">5</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/meleeWpnClubT1CandyClub.png"></div>
+                        <div class="right">
+                            <div class="name">拐杖糖棍棒</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">1</span></div>
+                            <div class="quality"><span class="tit">品质：</span> <span class="num">6</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="image"><img src="images/ItemIcons/decoPumpkinJackOLantern.png"></div>
+                        <div class="right">
+                            <div class="name">南瓜灯</div>
+                            <div class="count"><span class="tit">数量：</span> <span class="num">50</span></div>
+                            <div class="quality" style="display: none;"><span class="tit">品质：</span> <span
+                                    class="num">0</span></div>
+                        </div>
+                    </li>
+                </div>
+                <div class="foot">奖品已发送至您的个人仓库</div>
+            </section>
+            <footer>
+                <div class="confirm">确认领取</div>
+            </footer>
+        </div>
+
     </div>
 </template>
 
