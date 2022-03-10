@@ -5,7 +5,7 @@
                 {{ item.timeend == "" ? "全天有效" : item.timeend }}
             </div>
             <div class="prize-icon">
-                <img src="images/ItemIcons/decoPumpkinJackOLantern.png">
+                <img :src="'images/ItemIcons/decoPumpkinJackOLantern.png'">
             </div>
             <!-- <div class="btn b1">未开始</div>-->
             <!-- <div class="btn b2">抢红包</div>-->

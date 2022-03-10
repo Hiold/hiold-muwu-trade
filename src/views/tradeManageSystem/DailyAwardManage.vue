@@ -181,13 +181,13 @@
 
         <el-table-column label="奖励信息">
           <template #default="scope">
-            <img v-if="scope.row.type == '1'" style="height: 30px" src="'404'"
+            <img v-if="scope.row.type == '1'" style="height: 30px" :src="'404'"
                  @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
-            <img v-if="scope.row.type == '2'" style="height: 30px" src="'404'"
+            <img v-if="scope.row.type == '2'" style="height: 30px" :src="'404'"
                  @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
             <span v-if="scope.row.type == '3'">{{ scope.row.command }}</span>
-            <img v-if="scope.row.type == '5'" style="height: 30px" src="images/items/red-zs.png">
-            <img v-if="scope.row.type == '4'" style="height: 30px" src="images/items/jf2.png">
+            <img v-if="scope.row.type == '5'" style="height: 30px" :src="'images/items/red-zs.png'">
+            <img v-if="scope.row.type == '4'" style="height: 30px" :src="'images/items/jf2.png'">
 
           </template>
         </el-table-column>
