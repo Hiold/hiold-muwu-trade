@@ -86,12 +86,16 @@
                                 awardData[i][4] = this.awards[i].itemtint;
                             }
                         }
-
+                        this.hbClass = "btn b3";
+                        this.hbNotice = "已领取";
+                        this.hbAvaliable = false;
                         ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
                     } else {
                         ctx.Alert(res.data.respMsg);
                     }
                 });
+                //调用重新加载方法
+                this.$emit("initTableData");
             },
             handleStatus(item) {
                 // <div class="btn b1">未开始</div>

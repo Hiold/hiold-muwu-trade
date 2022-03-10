@@ -1,6 +1,6 @@
 <template>
     <div class="Act-hb">        <!-- 定时抢红包 -->
-        <ActHbItem :item="item" v-for="(item,index) in hblist" :key="index"></ActHbItem>
+        <ActHbItem :item="item" v-for="(item,index) in hblist" :key="index" @initTableData="initTableData"></ActHbItem>
     </div>
 </template>
 
