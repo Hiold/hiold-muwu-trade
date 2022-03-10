@@ -331,7 +331,9 @@
                 let params = {
                     itemname: this.itemname,
                     class1: this.class1,
-                    class2: this.class2
+                    class2: this.class2,
+                    pageSize:"1000",
+                    pageIndex:"1",
                 };
                 axios.post("api/getPlayerStorage", params).then(res => {
                     if (res.data.respCode === "1") {

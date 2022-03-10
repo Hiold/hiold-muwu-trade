@@ -216,7 +216,7 @@
       </footer>
     </div>
 
-    <div class="alert-award" style="display: block; height: 27rem;">    <!-- 奖励提示窗口 -->
+    <div class="alert-award" style="display: none; height: 27rem;">    <!-- 奖励提示窗口 -->
       <div class="fil"></div>
       <header>
         <span>奖励信息</span>
