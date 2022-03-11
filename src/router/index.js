@@ -58,7 +58,6 @@ const routes = [{
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ShopManage.vue")
         },
-
         {
             path: "dailyawardmanage",
             name: "dailyawardmanage",
@@ -66,8 +65,15 @@ const routes = [{
                 title: '红包管理'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/DailyAwardManage.vue")
+        },
+        {
+            path: "progression",
+            name: "progression",
+            meta: {
+                title: '活动任务'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Progression.vue")
         }
-
         , {
             path: "table", name: "basetable", meta: {
                 title: '表格'
