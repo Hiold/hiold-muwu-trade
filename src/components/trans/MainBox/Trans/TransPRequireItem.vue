@@ -17,7 +17,7 @@
 
 
     <li :data-itemid="item.gameentityid" :data-itemid2="item.id">
-        <div class="image"><img :src="'api/image/'+item.Itemicon+'.png'">
+        <div class="image"><img :src="'404'" @error="$LoadTintImage($event.target,item.Itemicon,item.ItemTint)">
             <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">
                 <span>{{ item.Itemquality }}</span>
             </div>
@@ -28,7 +28,7 @@
             <div class="name"> {{ deleteBBcode((item.Itemchinese))
                 }}
             </div>
-            <div class="shop" title="进入商店"><i></i><span>{{currentViewPlayer.name}}</span></div>
+            <div class="shop" title="进入商店"><i :style="{'background-image': `url(api/image/${currentViewPlayer.avatar}),url('/images/player/head1.jfif')`}"></i><span>{{currentViewPlayer.name}}</span></div>
         </div>
     </li>
 

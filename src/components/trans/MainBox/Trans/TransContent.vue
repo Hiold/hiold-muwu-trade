@@ -528,6 +528,10 @@
                     }
                 });
             },
+          deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
+            return itemName.replace(/([\\[][0-9a-fA-F]{6}[\]])/g, "");
+            //return itemName;
+          },
             arrPStoreToObj() {
                 if (playerStore[playerIndex] == undefined) {	//如果玩家下标对应的数组没有任何东西，创建一个新的数组
                     playerStore[playerIndex] = [[playerName, steamID]];
@@ -1163,7 +1167,7 @@
                             var num = res[0].stock;	//获取物品数量
 
                             $(".player-order>.window>section>header>.head>img").attr("src", img);	//图标
-                            $(".player-order>.window>section>header>.msg>.name").text(name);	//名称
+                            $(".player-order>.window>section>header>.msg>.name").text(self.deleteBBcode(name));	//名称
                             $(".player-order>.window>section>header>.msg>.price>span").text(price);	//单价
                             $(".player-order>.window>section>header>.num").text("x" + num);	//数量
                             $(".player-order>.window>section>.count>.val>input").val("");	//清空输入框

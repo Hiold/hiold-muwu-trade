@@ -377,7 +377,7 @@ export default {
         $(".items-details>.left").find(".quality").hide();
       }
       //物品图片
-      $(".items-details>.left").find("img").attr("src", img);
+      // $(".items-details>.left").find("img").attr("src", img);
       ctx.$LoadTintImage($(".items-details>.left").find("img")[0], item.itemicon, item.itemtint)
 
       //收藏图标
