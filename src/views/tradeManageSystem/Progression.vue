@@ -70,7 +70,7 @@
 
                 <el-form-item label="任务类型" class="center">
                     <el-select v-model="formData.type" placeholder="任务类型" class="handle-space"
-                               @change="HandleDesc()">
+                               @change="HandleDesc()" :disabled="isDisabled">
                         <el-option key="1" label="主线任务" value="1"></el-option>
                         <el-option key="2" label="每日任务" value="2"></el-option>
                         <el-option key="3" label="每周任务" value="3"></el-option>
@@ -290,6 +290,7 @@
         },
         data() {
             return {
+                isDisabled: false,
                 awardEditVisible: false,
                 awardAddVisible: false,
                 customData: 0,
@@ -369,7 +370,6 @@
         },
         methods: {
             HandleDesc() {
-
                 var tps = {
                     "1": "累计击杀僵尸",
                     "2": "累计击杀动物",
@@ -385,15 +385,29 @@
                     "12": "等级",
                     "13": "累计制作物品数量",
                 };
+                if (this.formData.ProgressionTType == "4" || this.formData.ProgressionTType == "12" || this.formData.ProgressionTType == "13") {
+                    this.isDisabled = true;
+                    this.formData.type = "1";
+                } else {
+                    this.isDisabled = false;
+                }
 
+                var unit = "";
+                if (this.formData.ProgressionTType == "1" || this.formData.ProgressionTType == "2") {
+                    unit = "只";
+                } else if (this.formData.ProgressionTType == "3" || this.formData.ProgressionTType == "5" || this.formData.ProgressionTType == "7" || this.formData.ProgressionTType == "9" || this.formData.ProgressionTType == "11") {
+                    unit = "次";
+                } else if (this.formData.ProgressionTType == "4") {
+                    unit = "小时"
+                }
 
                 if (this.formData.type !== "" && this.formData.ProgressionTType !== "" && this.formData.value !== "") {
                     if (this.formData.type === "1") {
-                        this.formData.desc = "开服至今" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value;
+                        this.formData.desc = "开服至今" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value + unit;
                     } else if (this.formData.type === "2") {
-                        this.formData.desc = "今天" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value;
+                        this.formData.desc = "今天" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value + unit;
                     } else if (this.formData.type === "3") {
-                        this.formData.desc = "本周" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value;
+                        this.formData.desc = "本周" + tps[this.formData.ProgressionTType * 1] + "达到" + this.formData.value + unit;
                     }
                 }
             },
@@ -584,12 +598,16 @@
                 //显示窗口
                 this.addVisible = true;
                 this.formData.id = scope.row.id + "";
-                this.formData.startdate = scope.row.startdate;
-                this.formData.enddate = scope.row.enddate;
-                this.formData.timestart = scope.row.timestart;
-                this.formData.timeend = scope.row.timeend;
                 this.formData.desc = scope.row.desc;
-                this.formData.type = scope.row.type;
+                this.formData.type = scope.row.type + "";
+                this.formData.value = scope.row.value + "";
+                this.formData.ProgressionTType = scope.row.progressionType + "";
+                if (this.formData.ProgressionTType == "4" || this.formData.ProgressionTType == "12" || this.formData.ProgressionTType == "13") {
+                    this.isDisabled = true;
+                    this.formData.type = "1";
+                } else {
+                    this.isDisabled = false;
+                }
             },
             openAddUpdate(scope) {
                 //显示窗口

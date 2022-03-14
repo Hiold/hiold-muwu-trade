@@ -14,6 +14,7 @@
         </header>
 
         <ActHb></ActHb>
+        <ActTask></ActTask>
 
     </section>
 </template>
@@ -32,6 +33,7 @@
     import {ElMessage} from "element-plus";
     import {getCurrentInstance} from "vue";
     import ActHb from "./ActHb.vue";
+    import ActTask from "./ActTask.vue";
 
     export default {
         watch: {
@@ -53,7 +55,7 @@
         },
         name: "ShopContent",
         props: ["class1", "class2"],
-        components: {ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
+        components: {ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
         data() {
             return {
                 ctx: {},
