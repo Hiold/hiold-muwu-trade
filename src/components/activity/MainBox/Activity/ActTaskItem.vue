@@ -5,7 +5,7 @@
       <div class="schedule">{{ progressionComplateData }}/{{ item.value }}</div>
     </header>
     <section>
-      <div class="reward" v-for="(proitem,index) in progressionData">
+      <div class="reward" v-for="(proitem,index) in awards">
         <div>
           <img v-if="proitem.type == '1'" :src="'404'" :alt="proitem.itemchinese" :title="proitem.itemchinese"
                @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
@@ -17,8 +17,9 @@
           <span>{{ proitem.count }}</span>
         </div>
       </div>
-      <div class="btn b1" v-show="progressionComplateData>=item.value" @click="pullGetProgreesion(item)">领取</div>
-      <div class="btn b2" style="display:none;">已领取</div>
+      <div class="btn b1" v-show="progressionComplateData>=item.value&&isGeted<=0" @click="pullGetProgreesion(item)">领取
+      </div>
+      <div class="btn b2" v-show="isGeted>0">已领取</div>
       <div class="btn b3" v-show="progressionComplateData<item.value">未完成</div>
     </section>
   </li>
@@ -55,36 +56,38 @@ export default {
               awardData[i][4] = this.awards[i].itemtint;
             } else if (this.awards[i].type == 4) {
               awardData[i][0] = "积分";
-              awardData[i][1] = this.awards[i].itemicon;
+              awardData[i][1] = 'images/items/jf2.png';
               awardData[i][2] = "数量:" + this.awards[i].count;
               awardData[i][3] = "品质:" + this.awards[i].itemquality;
-              awardData[i][4] = this.awards[i].itemtint;
+              awardData[i][4] = "1|1|1|1";
             } else if (this.awards[i].type == 5) {
               awardData[i][0] = "点券";
-              awardData[i][1] = this.awards[i].itemicon;
+              awardData[i][1] = 'images/items/red-zs.png';
               awardData[i][2] = "数量:" + this.awards[i].count;
               awardData[i][3] = "品质:" + this.awards[i].itemquality;
-              awardData[i][4] = this.awards[i].itemtint;
+              awardData[i][4] = "1|1|1|1";
             }
           }
           this.hbClass = "btn b3";
           this.hbNotice = "已领取";
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
+          this.isGeted = 1;
         } else {
           ctx.Alert(res.data.respMsg);
         }
       });
       //调用重新加载方法
-      this.$emit("initTableData");
+      this.$emit("loadTask");
     },
   },
   data() {
     return {
       ctx: {},
       awardList: [],
-      progressionData: {},
+      awards: {},
       progressionComplateData: {},
+      isGeted: 0
     }
   },
   mounted() {
@@ -93,7 +96,7 @@ export default {
     axios.post("api/getAwardInfo", args).then(res => {
       if (res.data.respCode === "1") {
         let JsonData = res.data.data;
-        this.progressionData = JsonData;
+        this.awards = JsonData;
       }
     });
 
@@ -106,6 +109,13 @@ export default {
           this.progressionComplateData = (this.progressionComplateData / 3600).toFixed(2);
         }
         console.log(this.progressionComplateData);
+      }
+    });
+    //getPregressionPull
+    let aese = {id: this.item.id + ""};
+    axios.post("api/getPregressionPull", aese).then(res => {
+      if (res.data.respCode === "1") {
+        this.isGeted = res.data.data
       }
     });
   }

@@ -118,6 +118,7 @@ app.config.globalProperties.Award = function (prizeArr, title, foot, confirm, cb
         var num = prizeArr[i][2].split(":")[1];	//数量
         var qua = prizeArr[i][3].split(":")[1] * 1;	//品质
         var tint = prizeArr[i][4];	//品质
+
         app.config.globalProperties.$LoadTintImage($(".alert-award .p-box>li:last").find("img")[0], img, tint);
         $(".alert-award .p-box>li:last").find(".name").text(name);
         $(".alert-award .p-box>li:last").find(".count>.num").text(num);
@@ -149,7 +150,6 @@ app.config.globalProperties.Award = function (prizeArr, title, foot, confirm, cb
 }
 
 app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
-    console.log(m, tint);
     loadNew(t, m, tint);
 
     function loadNew(t, m, tint) {
@@ -159,8 +159,15 @@ app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
         if (m && m.indexOf(".png") > -1) {
             m = m.replace(".png", "");
         }
-        var src = 'api/image/' + m + '.png';
-
+        var src = "";
+        if (m == "images/items/red-zs") {
+            src = "images/items/red-zs.png";
+        } else if (m == "images/items/jf2") {
+            src = "images/items/jf2.png";
+        } else {
+            src = 'api/image/' + m + '.png';
+        }
+        console.log(src);
 
         convertImgToBase64(t, src, tint);
     }
