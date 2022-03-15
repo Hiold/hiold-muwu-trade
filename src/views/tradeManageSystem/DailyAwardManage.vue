@@ -346,6 +346,7 @@ export default {
         type: "1",
       },
       awardData: {
+        funcid: "1",
         id: "-1",
         type: "",
         containerid: "",
@@ -499,7 +500,7 @@ export default {
                 } else {
                   ElMessage.error('删除失败')
                 }
-                let args = {containerid: this.awardData.containerid + ""};
+                let args = {containerid: this.awardData.containerid + "", funcid: "1"};
                 axios.post("api/getAwardInfo", args).then(res => {
                   if (res.data.respCode === "1") {
                     let JsonData = res.data.data;
@@ -585,7 +586,7 @@ export default {
               ElMessage.error('保存出错')
             }
 
-            let args = {containerid: this.awardData.containerid + ""};
+            let args = {containerid: this.awardData.containerid + "", funcid: "1"};
             axios.post("api/getAwardInfo", args).then(res => {
               if (res.data.respCode === "1") {
                 let JsonData = res.data.data;
@@ -629,7 +630,7 @@ export default {
     openAwardEdit(scope) {
       this.initIconData();
       this.awardEditVisible = true;
-      let params = {containerid: scope.row.id + ""};
+      let params = {containerid: scope.row.id + "", funcid: "1"};
       this.awardData.containerid = scope.row.id + "";
       axios.post("api/getAwardInfo", params).then(res => {
         if (res.data.respCode === "1") {

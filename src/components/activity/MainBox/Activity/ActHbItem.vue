@@ -192,7 +192,7 @@
         mounted() {
             this.handleStatus(this.item);
             this.ctx = getCurrentInstance();
-            let args = {containerid: this.item.id + ""};
+            let args = {containerid: this.item.id + "",funcid: "1"};
             axios.post("api/getAwardInfo", args).then(res => {
                 if (res.data.respCode === "1") {
                     let JsonData = res.data.data;
