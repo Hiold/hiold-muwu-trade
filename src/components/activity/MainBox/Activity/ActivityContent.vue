@@ -15,6 +15,7 @@
 
     <ActHb></ActHb>
     <ActTask :class1="class1" :class2="class2"></ActTask>
+    <ActLottery></ActLottery>
 
   </section>
 </template>
@@ -34,6 +35,7 @@ import {ElMessage} from "element-plus";
 import {getCurrentInstance} from "vue";
 import ActHb from "./ActHb.vue";
 import ActTask from "./ActTask.vue";
+import ActLottery from "./ActLottery.vue";
 
 export default {
   // watch: {
@@ -55,7 +57,7 @@ export default {
   // },
   name: "ShopContent",
   props: ["class1", "class2"],
-  components: {ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
+  components: {ActLottery, ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
   data() {
     return {
       ctx: {},
@@ -165,7 +167,7 @@ export default {
       var xb = $(this).attr("class").split("")[4];
       var name = $(this).text();	//获取子分类名称
       $(".head-tool>h1").text(name);	//在头部标题渲染名称
-      GenerateLottery(xb);	//渲染抽奖界面
+      // GenerateLottery(xb);	//渲染抽奖界面
     });
 
     //活动任务 下的子分类

@@ -73,6 +73,14 @@ const routes = [{
                 title: '活动任务'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Progression.vue")
+        },
+        {
+            path: "lottery",
+            name: "lottery",
+            meta: {
+                title: '抽奖管理'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Lottery.vue")
         }
         , {
             path: "table", name: "basetable", meta: {
