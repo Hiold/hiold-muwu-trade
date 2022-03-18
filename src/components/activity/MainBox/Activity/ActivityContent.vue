@@ -38,23 +38,23 @@ import ActTask from "./ActTask.vue";
 import ActLottery from "./ActLottery.vue";
 
 export default {
-  // watch: {
-  //   class1: {
-  //     handler(newName, oldName) {
-  //       if (newName != oldName) {
-  //         console.log("监听到变化" + newName);
-  //       }
-  //     },
-  //     immediate: true
-  //   },
-  //   class2: {
-  //     handler(newName, oldName) {
-  //       if (newName != oldName) {
-  //         console.log("监听到变化" + newName);
-  //       }
-  //     }
-  //   }
-  // },
+  watch: {
+    class1: {
+      handler(newName, oldName) {
+        if (newName != oldName) {
+          console.log("监听到变化" + newName);
+        }
+      },
+      immediate: true
+    },
+    class2: {
+      handler(newName, oldName) {
+        if (newName != oldName) {
+          console.log("监听到变化" + newName);
+        }
+      }
+    }
+  },
   name: "ShopContent",
   props: ["class1", "class2"],
   components: {ActLottery, ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
@@ -162,13 +162,6 @@ export default {
       $(".Act-qd").fadeIn(200);
     });
 
-    //幸运抽奖 下的子分类
-    $(".Category").on("click", "li[class^=b3]", function () {
-      var xb = $(this).attr("class").split("")[4];
-      var name = $(this).text();	//获取子分类名称
-      $(".head-tool>h1").text(name);	//在头部标题渲染名称
-      // GenerateLottery(xb);	//渲染抽奖界面
-    });
 
     //活动任务 下的子分类
     $(".Category>div>.b2-t0").click(function () {	//每日任务

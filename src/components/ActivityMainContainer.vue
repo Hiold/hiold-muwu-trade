@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       couProps: {},
-      class1: "我的店铺",
+      class1: "幸运抽奖",
       class2: "",
       itemMenu: [
         {
@@ -41,10 +41,7 @@ export default {
           ]
         },
         {
-          category: "幸运抽奖", items: [
-            {name: "测试1", data: "1"},
-            {name: "测试2", data: "2"},
-          ]
+          category: "幸运抽奖", items: []
         },
         {
           category: "数字谜团", items: []
@@ -62,6 +59,14 @@ export default {
     },
     setclass2(val) {
       this.class2 = val;
+    },
+    setlottert(items) {
+      // [
+      //   {name: "测试1", data: "1"},
+      //   {name: "测试2", data: "2"},
+      // ]
+      this.itemMenu[2].items = items;
+
     },
     adaptive() {
       var Width, Height;	//浏览器窗口宽度和高度//自适应布局（任何设备上保持等比例显示）
@@ -226,6 +231,13 @@ export default {
     });
     $bus.on('setclass2', options => {
       this.class2 = options;
+    });
+    $bus.on('setlottert', options => {
+      // [
+      //   {name: "测试1", data: "1"},
+      //   {name: "测试2", data: "2"},
+      // ]
+      this.itemMenu[2].items = options;
     });
   }
 }

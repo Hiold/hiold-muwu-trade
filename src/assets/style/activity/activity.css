@@ -302,7 +302,6 @@
 .Act-lottery {
     padding: 1rem;
     padding-top: 5.5rem;
-    display: none;
     position: relative;
 }
 
@@ -593,11 +592,16 @@
     width: 1.1rem;
     height: 1.1rem;
     float: left;
-    background-image: url(../../images/icon/jf2.png);
+    /*background-image: url(../../images/icon/jf2.png);*/
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
     box-sizing: border-box;
+}
+
+.Act-lottery > .box > .center > .btn > div .price > i > img {
+    width: 1.1rem;
+    height: 1.1rem;
 }
 
 .Act-lottery > .box > .center > .btn > div .price > span {
@@ -719,9 +723,9 @@
 /* 定时抢红包 */
 .Act-hb {
     padding-top: 5.5rem;
-    display: block;
     position: relative;
     overflow-y: auto;
+    display: none;
 }
 
 .Act-hb > li {

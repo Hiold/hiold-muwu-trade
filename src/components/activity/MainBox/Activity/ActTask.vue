@@ -1,5 +1,5 @@
 <template>
-  <div class="Act-task" style="display: block;">        <!-- 活动任务 -->
+  <div class="Act-task">        <!-- 活动任务 -->
     <div class="task-day">
       <!-- 每日任务 -->
       <ActTaskItem :item="item" v-for="(item,index) in progressionList" :loadTask="loadTask"

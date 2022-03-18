@@ -35,7 +35,12 @@
 
         <el-table-column label="抽奖消耗">
           <template #default="scope">
-            <img :src="'404'" style="width: 30px;height: 30px" :alt="scope.row.itemchinese"
+            <span v-if="scope.row.type=='1'">积分</span>
+            <span v-if="scope.row.type=='2'">点券</span>
+            <img v-if="scope.row.type=='3'" :src="'404'" style="width: 30px;height: 30px" :alt="scope.row.itemchinese"
+                 :title="scope.row.itemchinese"
+                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
+            <img v-if="scope.row.type=='4'" :src="'404'" style="width: 30px;height: 30px" :alt="scope.row.itemchinese"
                  :title="scope.row.itemchinese"
                  @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
           </template>
