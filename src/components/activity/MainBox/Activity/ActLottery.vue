@@ -176,7 +176,7 @@
           <img src="images/lottery.jpg">
         </div>
         <div class="btn">
-          <div class="b1">
+          <div class="b1" @click="doanimation(1)">
             <div class="align">
               <b>立即抽奖</b>
               <div class="price">
@@ -208,7 +208,7 @@
               </div>
             </div>
           </div>
-          <div class="b2">
+          <div class="b2" @click="doanimation(10)">
             <div class="align">
               <b>十连抽</b>
               <div class="price">
@@ -459,10 +459,125 @@ export default {
       awardList: [],
       ctx: {},
       allChanceCount: 0,
-      selectedLotteryId: {}
+      selectedLotteryId: {},
+      isnoticed: false,
+      isanimation: false,
     }
   },
   methods: {
+    doanimation(times) {
+      var self = this;
+      if (!this.isanimation) {
+        var ctx = this.ctx.appContext.config.globalProperties;
+        var target = this.getLottery(this.selectedLotteryId);
+        var cost = times === 1 ? target.one : target.ten;
+        if (!this.isnoticed && target.type == "1") {
+          ctx.Confirm(`本次抽奖将消耗${cost}积分，此提示只显示一次`);
+        } else if (!this.isnoticed && target.type == "2") {
+          ctx.Confirm(`本次抽奖将消耗${cost}点券，此提示只显示一次`);
+        } else if (target.type == "3" || target.type == "4") {
+          if (!this.isnoticed) {
+            ctx.Confirm(`本次抽奖将消耗${cost}个${target.itemchinese}，此提示只显示一次`);
+          }
+        }
+
+        if (this.isnoticed) {
+          self.isanimation = true;
+          //给边框追加一个动画
+          $(".Act-lottery>.top").find("li").eq(0).addClass("topbor");
+          $(".Act-lottery>.bottom").find("li").eq(0).addClass("bottombor");
+          $(".Act-lottery>.left").find("li").eq(0).addClass("leftbor");
+          $(".Act-lottery>.right").find("li").eq(0).addClass("rightbor");
+          //changeBorColor();
+          var kscj = setInterval(function () {	//边框动画特效颜色改变
+            self.changeBorColor();
+          }, 100);
+          setTimeout(function () {	//边框动画特效结束后 显示抽中的奖品并发送到仓库
+            self.isanimation = true;
+            clearInterval(kscj);
+            $(".Act-lottery>.top").find("li").eq(0).removeClass("topbor");
+            $(".Act-lottery>.bottom").find("li").eq(0).removeClass("bottombor");
+            $(".Act-lottery>.left").find("li").eq(0).removeClass("leftbor");
+            $(".Act-lottery>.right").find("li").eq(0).removeClass("rightbor");
+            //这一步需要根据概率进行抽奖
+            self.postlotteryReq(target, times);
+          }, 1300);
+          $("#alert>.alert>footer>.confirm").unbind("click");
+        }
+
+        ctx.popupCss(25, 14);
+        $("#alert>.alert>footer>.confirm").click(function () {
+          $("#alert").hide();
+          $("#alert>.alert>footer>.confirm").unbind("click");
+          self.isanimation = true;
+          //给边框追加一个动画
+          $(".Act-lottery>.top").find("li").eq(0).addClass("topbor");
+          $(".Act-lottery>.bottom").find("li").eq(0).addClass("bottombor");
+          $(".Act-lottery>.left").find("li").eq(0).addClass("leftbor");
+          $(".Act-lottery>.right").find("li").eq(0).addClass("rightbor");
+          //changeBorColor();
+          var kscj = setInterval(function () {	//边框动画特效颜色改变
+            self.changeBorColor();
+          }, 100);
+          setTimeout(function () {	//边框动画特效结束后 显示抽中的奖品并发送到仓库
+            self.isanimation = true;
+            clearInterval(kscj);
+            $(".Act-lottery>.top").find("li").eq(0).removeClass("topbor");
+            $(".Act-lottery>.bottom").find("li").eq(0).removeClass("bottombor");
+            $(".Act-lottery>.left").find("li").eq(0).removeClass("leftbor");
+            $(".Act-lottery>.right").find("li").eq(0).removeClass("rightbor");
+            //这一步需要根据概率进行抽奖
+            self.postlotteryReq(target, times);
+          }, 1300);
+        });
+        this.isnoticed = true;
+      }
+    },
+    postlotteryReq(target, times) {
+      console.log(target, times)
+      var ctx = this.ctx.appContext.config.globalProperties;
+      let params = {id: target.id + "", count: times + ""};
+      axios.post("api/doLottery", params).then(res => {
+        if (res.data.respCode === "1") {
+          var data = res.data.data;
+          var awardData = [[]];
+          for (var i in data) {
+            awardData[i] = [];
+            if (data[i].type == 1 || data[i].type == 2) {
+              awardData[i][0] = data[i].itemchinese;
+              awardData[i][1] = data[i].itemicon;
+              awardData[i][2] = "数量:" + data[i].count;
+              awardData[i][3] = "品质:" + data[i].itemquality;
+              awardData[i][4] = data[i].itemtint;
+            } else if (data[i].type == 3) {
+              awardData[i][0] = "一条神秘指令";
+              awardData[i][1] = data[i].itemicon;
+              awardData[i][2] = "数量:1";
+              awardData[i][3] = "品质:" + data[i].itemquality;
+              awardData[i][4] = data[i].itemtint;
+            } else if (data[i].type == 4) {
+              awardData[i][0] = "积分";
+              awardData[i][1] = 'images/items/jf2.png';
+              awardData[i][2] = "数量:" + data[i].count;
+              awardData[i][3] = "品质:" + data[i].itemquality;
+              awardData[i][4] = "1|1|1|1";
+            } else if (data[i].type == 5) {
+              awardData[i][0] = "点券";
+              awardData[i][1] = 'images/items/jf2.png';
+              awardData[i][2] = "数量:" + data[i].count;
+              awardData[i][3] = "品质:" + data[i].itemquality;
+              awardData[i][4] = "1|1|1|1";
+            }
+          }
+
+          ctx.Award(awardData, "获得如下奖励", "物品已发放到仓库", "关闭", null);
+          this.isanimation = false;
+
+        } else {
+          ctx.Alert(res.data.respMsg);
+        }
+      });
+    },
     initLotteryList() {
       var ctx = this.ctx.appContext.config.globalProperties;
       const $bus = ctx.$bus
@@ -503,8 +618,57 @@ export default {
       let res = this.lotteryList.filter((item) => {
         return item.id == id;
       });
-      console.log(res);
       return res[0];
+    },
+    changeBorColor() {
+      var t0 = $(".Act-lottery>.top").find("li").eq(0).css("background-color");
+      var t1 = $(".Act-lottery>.top").find("li").eq(1).css("background-color");
+      var t2 = $(".Act-lottery>.top").find("li").eq(2).css("background-color");
+      var t3 = $(".Act-lottery>.top").find("li").eq(3).css("background-color");
+      var t4 = $(".Act-lottery>.top").find("li").eq(4).css("background-color");
+      var t5 = $(".Act-lottery>.top").find("li").eq(5).css("background-color");
+      //console.log(t0+"---"+t1+"---"+t2+"---"+t3+"---"+t4);
+      var b0 = $(".Act-lottery>.bottom").find("li").eq(0).css("background-color");
+      var b1 = $(".Act-lottery>.bottom").find("li").eq(1).css("background-color");
+      var b2 = $(".Act-lottery>.bottom").find("li").eq(2).css("background-color");
+      var b3 = $(".Act-lottery>.bottom").find("li").eq(3).css("background-color");
+      var b4 = $(".Act-lottery>.bottom").find("li").eq(4).css("background-color");
+      var b5 = $(".Act-lottery>.bottom").find("li").eq(5).css("background-color");
+
+      var l0 = $(".Act-lottery>.left").find("li").eq(0).css("background-color");
+      var l1 = $(".Act-lottery>.left").find("li").eq(1).css("background-color");
+      var l2 = $(".Act-lottery>.left").find("li").eq(2).css("background-color");
+      var l3 = $(".Act-lottery>.left").find("li").eq(3).css("background-color");
+
+      var r0 = $(".Act-lottery>.right").find("li").eq(0).css("background-color");
+      var r1 = $(".Act-lottery>.right").find("li").eq(1).css("background-color");
+      var r2 = $(".Act-lottery>.right").find("li").eq(2).css("background-color");
+      var r3 = $(".Act-lottery>.right").find("li").eq(3).css("background-color");
+
+
+      $(".Act-lottery>.top").find("li").eq(0).css("background-color", l1);
+      $(".Act-lottery>.top").find("li").eq(1).css("background-color", t0);
+      $(".Act-lottery>.top").find("li").eq(2).css("background-color", t1);
+      $(".Act-lottery>.top").find("li").eq(3).css("background-color", t2);
+      $(".Act-lottery>.top").find("li").eq(4).css("background-color", t3);
+      $(".Act-lottery>.top").find("li").eq(5).css("background-color", t4);
+
+      $(".Act-lottery>.right").find("li").eq(0).css("background-color", t4);
+      $(".Act-lottery>.right").find("li").eq(1).css("background-color", r0);
+      $(".Act-lottery>.right").find("li").eq(2).css("background-color", r1);
+      $(".Act-lottery>.right").find("li").eq(3).css("background-color", r2);
+
+      $(".Act-lottery>.bottom").find("li").eq(0).css("background-color", b1);
+      $(".Act-lottery>.bottom").find("li").eq(1).css("background-color", b2);
+      $(".Act-lottery>.bottom").find("li").eq(2).css("background-color", b3);
+      $(".Act-lottery>.bottom").find("li").eq(3).css("background-color", b4);
+      $(".Act-lottery>.bottom").find("li").eq(4).css("background-color", b5);
+      $(".Act-lottery>.bottom").find("li").eq(5).css("background-color", r2);
+
+      $(".Act-lottery>.left").find("li").eq(0).css("background-color", l1);
+      $(".Act-lottery>.left").find("li").eq(1).css("background-color", l2);
+      $(".Act-lottery>.left").find("li").eq(2).css("background-color", l3);
+      $(".Act-lottery>.left").find("li").eq(3).css("background-color", b1);
     }
   },
   mounted() {
