@@ -563,7 +563,7 @@ export default {
               awardData[i][4] = "1|1|1|1";
             } else if (data[i].type == 5) {
               awardData[i][0] = "点券";
-              awardData[i][1] = 'images/items/jf2.png';
+              awardData[i][1] = 'images/items/red-zs.png';
               awardData[i][2] = "数量:" + data[i].count;
               awardData[i][3] = "品质:" + data[i].itemquality;
               awardData[i][4] = "1|1|1|1";
@@ -575,6 +575,7 @@ export default {
 
         } else {
           ctx.Alert(res.data.respMsg);
+          this.isanimation = false;
         }
       });
     },

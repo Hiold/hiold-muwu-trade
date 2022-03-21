@@ -179,7 +179,7 @@ export default {
           awardData[i][4] = "1|1|1|1";
         } else if (this.awards[i].type == 5) {
           awardData[i][0] = "点券";
-          awardData[i][1] = 'images/items/jf2.png';
+          awardData[i][1] = 'images/items/red-zs.png';
           awardData[i][2] = "数量:" + this.awards[i].count;
           awardData[i][3] = "品质:" + this.awards[i].itemquality;
           awardData[i][4] = "1|1|1|1";

@@ -16,6 +16,7 @@
     <ActHb></ActHb>
     <ActTask :class1="class1" :class2="class2"></ActTask>
     <ActLottery></ActLottery>
+    <ActSign></ActSign>
 
   </section>
 </template>
@@ -36,6 +37,7 @@ import {getCurrentInstance} from "vue";
 import ActHb from "./ActHb.vue";
 import ActTask from "./ActTask.vue";
 import ActLottery from "./ActLottery.vue";
+import ActSign from "./ActSign.vue";
 
 export default {
   watch: {
@@ -57,7 +59,7 @@ export default {
   },
   name: "ShopContent",
   props: ["class1", "class2"],
-  components: {ActLottery, ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
+  components: {ActSign, ActLottery, ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
   data() {
     return {
       ctx: {},
