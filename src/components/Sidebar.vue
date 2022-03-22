@@ -66,6 +66,11 @@ export default {
         title: "抽奖管理",
       },
       {
+        icon: "el-icon-goods",
+        index: "/manage/dailysign",
+        title: "签到奖励",
+      },
+      {
         icon: "el-icon-lx-cascades",
         index: "/manage/table",
         title: "基础表格",
