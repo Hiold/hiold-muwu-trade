@@ -9,14 +9,6 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-select placeholder="地址" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
-                </el-select>
-                <el-input placeholder="用户名" class="handle-input mr10" v-model="customData"></el-input>
-
-
-                <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
                 <el-button type="success" icon="el-icon-plus" @click="handleAdd">添加</el-button>
             </div>
             <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header" :data="queryData">

@@ -81,6 +81,14 @@ const routes = [{
                 title: '抽奖管理'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Lottery.vue")
+        },
+        {
+            path: "dailysign",
+            name: "dailysign",
+            meta: {
+                title: '签到奖励'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/DailySIgn.vue")
         }
         , {
             path: "table", name: "basetable", meta: {

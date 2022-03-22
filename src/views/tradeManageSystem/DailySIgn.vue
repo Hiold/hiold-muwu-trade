@@ -19,40 +19,9 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="每日限制">
-          <template #default="scope">
-            {{ scope.row.limit == "-1" ? "无限" : scope.row.limit }}
-          </template>
-        </el-table-column>
-
-        <el-table-column label="抽奖消耗">
-          <template #default="scope">
-            <span v-if="scope.row.type=='1'">积分</span>
-            <span v-if="scope.row.type=='2'">点券</span>
-            <img v-if="scope.row.type=='3'" :src="'404'" style="width: 30px;height: 30px" :alt="scope.row.itemchinese"
-                 :title="scope.row.itemchinese"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
-            <img v-if="scope.row.type=='4'" :src="'404'" style="width: 30px;height: 30px" :alt="scope.row.itemchinese"
-                 :title="scope.row.itemchinese"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
-          </template>
-        </el-table-column>
-
-        <el-table-column label="单次抽奖消耗">
-          <template #default="scope">
-            {{ scope.row.one }}
-          </template>
-        </el-table-column>
-
-        <el-table-column label="十连抽奖消耗">
-          <template #default="scope">
-            {{ scope.row.ten }}
-          </template>
-        </el-table-column>
-
         <el-table-column label="操作" width="350" align="center">
           <template #default="scope">
-            <el-button type="primary" icon="el-icon-edit" size="small" @click="openUpdate(scope)">编辑抽奖
+            <el-button type="primary" icon="el-icon-edit" size="small" @click="openUpdate(scope)">编辑任务
             </el-button>
             <el-button type="success" icon="el-icon-edit" size="small" @click="openAwardEdit(scope)">编辑奖品
             </el-button>
@@ -71,12 +40,35 @@
       <el-form :rules="rules" ref="formData" :model="formData">
         <!--物品种类-->
 
-        <el-form-item label="奖池名称" class="center">
-          <el-input class="handle-space" placeholder="请输入任务描述" v-model="formData.desc"></el-input>
+
+        <el-form-item label="奖励日期" class="center">
+          <el-select v-model="formData.day" placeholder="奖励日期" class="handle-space" :disabled="isDayDisable">
+            <el-option key="1" label="星期一" value="1"></el-option>
+            <el-option key="2" label="星期二" value="2"></el-option>
+            <el-option key="3" label="星期三" value="3"></el-option>
+            <el-option key="4" label="星期四" value="4"></el-option>
+            <el-option key="5" label="星期五" value="5"></el-option>
+            <el-option key="6" label="星期六" value="6"></el-option>
+            <el-option key="0" label="星期日" value="0"></el-option>
+          </el-select>
         </el-form-item>
 
-        <el-form-item label="抽奖消耗" class="center">
-          <el-select v-model="formData.type" placeholder="请选择抽奖消耗" class="handle-space">
+        <el-form-item label="签到日期" class="center">
+          <el-date-picker
+              @change="changeDate"
+              v-model="formData.date"
+              align="right"
+              type="date"
+              format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD"
+              placeholder="默认即日起">
+          </el-date-picker>
+        </el-form-item>
+
+
+        <el-form-item label="补签消耗" class="center">
+          <el-select v-model="formData.type" placeholder="补签消耗" class="handle-space">
+            <el-option key="-1" label="禁止补签" value="-1"></el-option>
             <el-option key="1" label="积分" value="1"></el-option>
             <el-option key="2" label="点券" value="2"></el-option>
             <el-option key="3" label="游戏内物品" value="3"></el-option>
@@ -136,22 +128,6 @@
           </el-form-item>
           <br/>
         </template>
-
-
-        <el-form-item label="每日限制" class="center">
-          <el-input class="handle-space" placeholder="请输入限制数量-1为无限" v-model="formData.limit"
-                    @input=""></el-input>
-        </el-form-item>
-
-        <el-form-item label="单抽消耗" class="center">
-          <el-input class="handle-space" placeholder="请输入单抽消耗" v-model="formData.one"
-                    @input=""></el-input>
-        </el-form-item>
-
-        <el-form-item label="十连消耗" class="center">
-          <el-input class="handle-space" placeholder="请输入十连消耗" v-model="formData.ten"
-                    @input=""></el-input>
-        </el-form-item>
 
 
       </el-form>
@@ -221,13 +197,6 @@
             <img v-if="scope.row.type == '5'" style="height: 30px" :src="'images/items/red-zs.png'">
             <img v-if="scope.row.type == '4'" style="height: 30px" :src="'images/items/jf2.png'">
 
-          </template>
-        </el-table-column>
-
-
-        <el-table-column label="中奖概率">
-          <template #default="scope">
-            {{ ((scope.row.chance / this.allChanceCount) * 100).toFixed(2) + "%" }}
           </template>
         </el-table-column>
 
@@ -321,7 +290,7 @@
                       placeholder="请输入内容"></el-input>
           </el-form-item>
           <el-form-item class="center">
-            <img class="imgDesc" style="display: none;">
+            <img id="imgDesc" style="display: none;">
           </el-form-item>
 
           <el-form-item label="品质" class="center">
@@ -334,10 +303,6 @@
             <el-input class="handle-space" placeholder="请输入物品数量" v-model="awardData.count"></el-input>
           </el-form-item>
         </template>
-
-        <el-form-item label="中奖权重" class="center">
-          <el-input class="handle-space" placeholder="请输入权重，值越大中奖概率越高" v-model="awardData.chance"></el-input>
-        </el-form-item>
 
       </el-form>
 
@@ -369,6 +334,7 @@ export default {
   },
   data() {
     return {
+      isDayDisable: false,
       isDisabled: false,
       awardEditVisible: false,
       awardAddVisible: false,
@@ -378,17 +344,14 @@ export default {
       allIcon: [],
       queryData: null,
       awardInfo: null,
-      allChanceCount: 0,
       rules: {
         itemType: [{required: true, trigger: 'blur', message: "请选择物品类型"}]
       },
       formData: {
-        id: "",
+        id: "-1",
+        date: "",
+        day: "",
         type: "",
-        desc: "",
-        limit: "",
-        one: "",
-        ten: "",
         itemname: "",
         itemicon: "",
         itemtint: "",
@@ -397,7 +360,7 @@ export default {
       },
       awardData: {
         id: "-1",
-        funcid: "3",
+        funcid: "2",
         type: "",
         containerid: "",
         count: "",
@@ -407,7 +370,6 @@ export default {
         itemicon: "",
         itemtint: "",
         command: "",
-        chance: "",
       },
       instance: false,
       editor: "",
@@ -456,6 +418,31 @@ export default {
     }
   },
   methods: {
+    handleSelectImageLottery(item) {
+      this.formData.itemicon = item;
+    },
+    handleSelectLottery(item) {
+      var ctx = this.ctx.appContext.config.globalProperties;
+      console.log(this.itemNameCache[item.value]);
+      if (this.formData.type == "3") {
+        this.formData.itemchinese = item.value;
+        this.formData.itemname = this.itemNameCache[item.value].itemname;
+        this.formData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
+        this.formData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
+        // this.src = 'api/image/' + this.formData.itemIcon;
+        ctx.$LoadTintImage($(".imgDesc")[0], this.formData.itemicon, this.formData.itemtint);
+        $(".imgDesc").show();
+      }
+    },
+    changeDate() {
+      if (this.formData.date === "" || this.formData.date === null) {
+        this.isDayDisable = false;
+      } else {
+        this.isDayDisable = true;
+        var tdate = new Date(this.formData.date);
+        this.formData.day = tdate.getDay() + "";
+      }
+    },
     HandleDesc() {
       var tps = {
         "1": "累计击杀僵尸",
@@ -524,9 +511,6 @@ export default {
     handleSelectImage(item) {
       this.awardData.itemicon = item;
     },
-    handleSelectImageLottery(item) {
-      this.formData.itemicon = item;
-    },
     handleAvatarSuccess() {
       ElMessage({
         message: '上传成功!',
@@ -556,29 +540,16 @@ export default {
         this.awardData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.awardData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
         // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($(".imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
-        $(".imgDesc").show();
-      }
-    },
-    handleSelectLottery(item) {
-      var ctx = this.ctx.appContext.config.globalProperties;
-      console.log(this.itemNameCache[item.value]);
-      if (this.formData.type == "3") {
-        this.formData.itemchinese = item.value;
-        this.formData.itemname = this.itemNameCache[item.value].itemname;
-        this.formData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
-        this.formData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($(".imgDesc")[0], this.formData.itemicon, this.formData.itemtint);
-        $(".imgDesc").show();
+        ctx.$LoadTintImage($("#imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
+        $("#imgDesc").show();
       }
     },
     handleDelete(id) {
-      ElMessageBox.confirm('确定要删除这个抽奖吗？')
+      ElMessageBox.confirm('确定要删除这个商品吗？')
           .then((value) => {
             if (value === "confirm") {
               let params = {id: id + ""};
-              axios.post("api/deletegetLottery", params).then(res => {
+              axios.post("api/deleteDailyAward", params).then(res => {
                 if (res.data.respCode === "1") {
                   ElMessage({
                     message: '删除成功!',
@@ -609,16 +580,12 @@ export default {
                 } else {
                   ElMessage.error('删除失败')
                 }
-                let args = {containerid: this.awardData.containerid + "", funcid: "3"};
+                let args = {containerid: this.awardData.containerid + "", funcid: "2"};
                 axios.post("api/getAwardInfo", args).then(res => {
                   if (res.data.respCode === "1") {
                     let JsonData = res.data.data;
                     this.awardInfo = JsonData;
                     this.awardAddVisible = false;
-                    for (var i in this.awardInfo) {
-                      this.allChanceCount += this.awardInfo[i].chance * 1;
-                    }
-                    console.log(this.allChanceCount);
                   }
                 });
               });
@@ -630,7 +597,7 @@ export default {
     },
     initTableData() {
       let params = {itemname: ""};
-      axios.post("api/getLottery", params).then(res => {
+      axios.post("api/getProgression", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.queryData = JsonData;
@@ -642,12 +609,10 @@ export default {
         if (valid) {
           let url = "";
           if (this.formData.id == "-1") {
-            url = "api/postLottery";
+            url = "api/postProgression";
           } else {
-            url = "api/updateLottery";
+            url = "api/updateProgression";
           }
-
-          this.formData.quality = this.formData.quality + "";
 
           axios.post(url, this.formData).then(res => {
             if (res.data.respCode === "1") {
@@ -688,16 +653,12 @@ export default {
               ElMessage.error('保存出错')
             }
 
-            let args = {containerid: this.awardData.containerid + "", funcid: "3"};
+            let args = {containerid: this.awardData.containerid + "", funcid: "2"};
             axios.post("api/getAwardInfo", args).then(res => {
               if (res.data.respCode === "1") {
                 let JsonData = res.data.data;
                 this.awardInfo = JsonData;
                 this.awardAddVisible = false;
-                for (var i in this.awardInfo) {
-                  this.allChanceCount += this.awardInfo[i].chance * 1;
-                }
-                console.log(this.allChanceCount);
               }
             });
           });
@@ -713,15 +674,14 @@ export default {
       this.formData.id = scope.row.id + "";
       this.formData.desc = scope.row.desc;
       this.formData.type = scope.row.type + "";
-      this.formData.itemname = scope.row.itemname + "";
-      this.formData.itemchinese = scope.row.itemchinese + "";
-      this.formData.itemicon = scope.row.itemicon + "";
-      this.formData.itemtint = scope.row.itemtint + "";
-      this.formData.quality = parseInt(scope.row.quality);
-      this.formData.one = scope.row.one;
-      this.formData.ten = scope.row.ten;
-      this.formData.limit = scope.row.limit;
-
+      this.formData.value = scope.row.value + "";
+      this.formData.ProgressionTType = scope.row.progressionType + "";
+      if (this.formData.ProgressionTType == "4" || this.formData.ProgressionTType == "12" || this.formData.ProgressionTType == "13") {
+        this.isDisabled = true;
+        this.formData.type = "1";
+      } else {
+        this.isDisabled = false;
+      }
     },
     openAddUpdate(scope) {
       //显示窗口
@@ -736,21 +696,17 @@ export default {
       this.awardData.itemicon = scope.row.itemicon + "";
       this.awardData.itemtint = scope.row.itemtint + "";
       this.awardData.command = scope.row.command + "";
-      this.awardData.chance = scope.row.chance + "";
+
     },
     openAwardEdit(scope) {
       this.initIconData();
       this.awardEditVisible = true;
-      let params = {containerid: scope.row.id + "", funcid: "3"};
+      let params = {containerid: scope.row.id + "", funcid: "2"};
       this.awardData.containerid = scope.row.id + "";
       axios.post("api/getAwardInfo", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.awardInfo = JsonData;
-          for (var i in this.awardInfo) {
-            this.allChanceCount += this.awardInfo[i].chance * 1;
-          }
-          console.log(this.allChanceCount);
         }
       });
     },
@@ -774,10 +730,6 @@ export default {
       this.addVisible = true;
     },
     handleAddAward() {
-      if (this.awardInfo != null && this.awardInfo.length >= 12) {
-        ElMessage.error("最多只能添加12个奖品");
-        return;
-      }
       this.awardData.id = "-1";
       this.awardAddVisible = true;
     },
