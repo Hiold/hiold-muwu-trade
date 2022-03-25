@@ -66,7 +66,7 @@ export default {
         title: "抽奖管理",
       },
       {
-        icon: "el-icon-goods",
+        icon: "el-icon-s-claim",
         index: "/manage/dailysign",
         title: "签到奖励",
       },
