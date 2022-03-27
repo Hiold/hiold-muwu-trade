@@ -46,6 +46,31 @@ export default {
         title: "系统信息",
       },
       {
+        icon: "el-icon-lx-people",
+        index: "3",
+        title: "用户管理",
+        subs: [
+          {
+            index: "/manage/player",
+            title: "账户管理",
+          },
+          {
+            index: "/manage/storage",
+            title: "库存管理",
+          }, {
+            index: "/manage/trade",
+            title: "交易管理",
+          }, {
+            index: "/manage/action",
+            title: "操作记录",
+          }, {
+            index: "/manage/gameevent",
+            title: "游戏事件",
+          },
+
+        ],
+      },
+      {
         icon: "el-icon-lx-shop",
         index: "/manage/shopmanage",
         title: "系统商店",

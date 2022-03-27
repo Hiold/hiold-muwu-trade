@@ -89,6 +89,14 @@ const routes = [{
                 title: '签到奖励'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/DailySIgn.vue")
+        },
+        {
+            path: "player",
+            name: "player",
+            meta: {
+                title: '账户管理'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Player.vue")
         }
         , {
             path: "table", name: "basetable", meta: {
