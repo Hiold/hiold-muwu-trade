@@ -43,7 +43,7 @@
               v-if="signinfos[index+1]==null||signinfos[index+1].awards==null||signinfos[index+1].awards.length===0||signinfos[index+1].info==null"
               class="name"
               style="line-height: 65px; font-size: 1.1rem; color: peru; cursor: default; background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));">
-            无法领取
+            无法签到
           </div>
         </template>
         <template v-else>
@@ -70,14 +70,11 @@
                style="line-height: 65px; font-size: 1.1rem; color: peru; cursor: default; background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));">
             已签到
           </div>
+          <div class="received" v-show="signinfos[index+1].signed*1>0">
+            <img src="images/received.png">
+          </div>
         </template>
-
-
-        <div class="received" style="display: none">
-          <img src="images/received.png">
-        </div>
       </li>
-
     </div>
     <div class="right">
       <li :data-index="7">
@@ -112,7 +109,9 @@
               :src="'images/items/red-zs.png'">
 
 
-          <b v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1">5</b>
+          <b v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type!='3'">{{
+              signinfos[0].awards[0].count
+            }}</b>
         </div>
         <template
             v-if="signinfos[0]==null||signinfos[0].awards==null||signinfos[0].awards.length===0||signinfos[0].info==null">
@@ -120,15 +119,15 @@
               v-if="signinfos[0]==null||signinfos[0].awards==null||signinfos[0].awards.length===0||signinfos[0].info==null"
               class="name"
               style="line-height: 65px; font-size: 1.1rem; color: peru; cursor: default; background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));">
-            无法领取
+            无法签到
           </div>
         </template>
         <template v-else>
-          <div v-if="7-calcWeek()<0&&signinfos[0].signed*1<=0" class="name"
+          <div v-if="7-calcWeek()<0&&signinfos[0].signed*1<=0" class="name" @click="resign(signinfos[0].info.id)"
                style="line-height: 65px; font-size: 1.3rem; color: peru; cursor: pointer; background-color: rgba(255, 215, 0, 0.8);">
             补签
           </div>
-          <div v-if="7-calcWeek()===0&&signinfos[0].signed*1<=0" class="name"
+          <div v-if="7-calcWeek()===0&&signinfos[0].signed*1<=0" class="name" @click="sign(signinfos[0].info.id)"
                style="line-height: 65px; font-size: 1.3rem; color: peru; cursor: pointer; background-color: rgba(255, 215, 0, 0.8);">
             签到
           </div>
@@ -145,12 +144,10 @@
                style="line-height: 65px; font-size: 1.1rem; color: peru; cursor: default; background: linear-gradient(90deg, rgba(250, 250, 210, 0.5), rgba(245, 245, 220, 0.7));">
             已签到
           </div>
+          <div class="received" v-show="signinfos[0].signed*1>0">
+            <img src="images/received.png">
+          </div>
         </template>
-
-
-        <div class="received" style="display: none">
-          <img src="images/received.png">
-        </div>
       </li>
     </div>
     <div class="read" style="display:none;"><!-- value: 1表示开启每周签到的功能, 填写其它值表示关闭签到功能。 -->
