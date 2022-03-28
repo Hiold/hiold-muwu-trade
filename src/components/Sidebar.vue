@@ -60,12 +60,6 @@ export default {
           }, {
             index: "/manage/trade",
             title: "交易管理",
-          }, {
-            index: "/manage/action",
-            title: "操作记录",
-          }, {
-            index: "/manage/gameevent",
-            title: "游戏事件",
           },
 
         ],
@@ -94,6 +88,15 @@ export default {
         icon: "el-icon-s-claim",
         index: "/manage/dailysign",
         title: "签到奖励",
+      }
+      , {
+        icon: "el-icon-lx-calendar",
+        index: "/manage/action",
+        title: "操作记录",
+      }, {
+        icon: "el-icon-lx-rank",
+        index: "/manage/gameevent",
+        title: "游戏事件",
       },
       {
         icon: "el-icon-lx-cascades",

@@ -9,14 +9,23 @@
     </div>
 
     <div class="handle-box">
-      <el-select v-model="queryParam.sorttype" placeholder="地址" class="handle-select mr10" @change="initTableData">
-        <el-option key="默认排序" label="默认排序" value="默认排序"></el-option>
-        <el-option key="等级高到低" label="等级高到低" value="等级高到低"></el-option>
-        <el-option key="积分高到低" label="积分高到低" value="积分高到低"></el-option>
-        <el-option key="获赞高到低" label="获赞高到低" value="获赞高到低"></el-option>
-        <el-option key="销售额高到低" label="销售额高到低" value="销售额高到低"></el-option>
+      <el-select v-model="queryParam.itemtype" placeholder="物品类型" class="handle-select mr10" @change="initTableData">
+        <el-option key="普通物品" label="普通物品" value="普通物品"></el-option>
+        <el-option key="特殊物品" label="特殊物品" value="特殊物品"></el-option>
       </el-select>
-      <el-input v-model="queryParam.name" placeholder="用户名或者店铺名" class="handle-input mr10"></el-input>
+      <el-select v-model="queryParam.getchanel" placeholder="获取的途径" class="handle-select mr10" @change="initTableData">
+        <el-option key="1" label="系统中获得" value="1"></el-option>
+        <el-option key="2" label="下架物品" value="2"></el-option>
+        <el-option key="3" label="玩家交易" value="3"></el-option>
+        <el-option key="4" label="供货" value="4"></el-option>
+        <el-option key="5" label="游戏内容器" value="5"></el-option>
+        <el-option key="6" label="签到" value="6"></el-option>
+        <el-option key="7" label="补签" value="7"></el-option>
+        <el-option key="8" label="抽奖" value="8"></el-option>
+        <el-option key="9" label="阶段任务" value="9"></el-option>
+        <el-option key="10" label="红包" value="10"></el-option>
+      </el-select>
+      <el-input v-model="queryParam.username" placeholder="用户名或者店铺名" class="handle-input mr10"></el-input>
       <el-input v-model="queryParam.steamid" placeholder="SteamID" class="handle-input mr10"></el-input>
       <el-input v-model="queryParam.eosid" placeholder="EOSID" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="initTableData">搜索</el-button>
@@ -25,50 +34,33 @@
     <div class="container">
       <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header" :data="queryData">
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column label="用户名" align="center">
+        <el-table-column label="归属" align="center">
           <template #default="scope">
-            {{ scope.row.name }}
+            {{ scope.row.username }}
           </template>
         </el-table-column>
-        <el-table-column label="积分" align="center">
+        <el-table-column label="物品名" align="center">
           <template #default="scope">
-            {{ scope.row.money }}
+            {{
+              (scope.row.translate === null || scope.row.translate === "") ? scope.row.couCurrType : scope.row.translate
+            }}
           </template>
         </el-table-column>
-        <el-table-column label="点券" align="center">
+        <el-table-column label="获得时间" align="center">
           <template #default="scope">
-            {{ scope.row.credit }}
+            {{
+              scope.row.collectTime.substring(0, 19).replace("T", " ")
+            }}
           </template>
         </el-table-column>
-        <el-table-column label="权限" align="center">
+        <el-table-column label="获得途径" align="center">
           <template #default="scope">
-            {{ scope.row.vipdiscount == '0' ? '普通用户' : "vip" }}
+            {{
+              getchanel(scope.row.itemGetChenal)
+            }}
           </template>
         </el-table-column>
-        <el-table-column label="状态" align="center">
-          <template #default="scope">
-            {{ scope.row.status == '1' ? '正常' : "封禁交易系统" }}
-          </template>
-        </el-table-column>
-        <el-table-column label="SteamID" align="center">
-          <template #default="scope">
-            {{ scope.row.gameentityid }}
-          </template>
-        </el-table-column>
-        <el-table-column label="EOSID" align="center">
-          <template #default="scope">
-            {{ scope.row.platformid }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center">
-          <template #default="scope">
-            <el-button type="primary" icon="el-icon-edit" size="small" @click="openUpdate(scope)">编辑
-            </el-button>
-<!--            <el-button icon="el-icon-delete" size="small" class="red"-->
-<!--                       @click="handleDelete(scope.row.id)">删除-->
-<!--            </el-button>-->
-          </template>
-        </el-table-column>
+
       </el-table>
       <el-pagination
           v-model:currentPage="currentPage"
@@ -490,16 +482,35 @@ export default {
       addVisible: false,
       itemNameCache: [],
       queryParam: {
-        sorttype: "默认排序",
-        name: "",
         steamid: "",
         eosid: "",
+        username: "",
+        itemname: "",
+        getchanel: "",
+        status: "",
+        group: "",
+        itemtype: "",
         page: "1",
-        limit: "10",
+        limit: "10"
+      },
+      getchanels: {
+        "1": "系统中获得",
+        "2": "下架物品",
+        "3": "玩家交易",
+        "4": "供货",
+        "5": "游戏内容器",
+        "6": "签到",
+        "7": "补签",
+        "8": "抽奖",
+        "9": "阶段任务",
+        "10": "红包"
       }
     }
   },
   methods: {
+    getchanel(chanel) {
+      return this.getchanels[chanel + ""];
+    },
     getmd5(str) {
       return md5(str);
     },
@@ -529,10 +540,10 @@ export default {
       this.initTableData();
     },
     initTableData() {
-      axios.post("api/getUserByPage", this.queryParam).then(res => {
+      axios.post("api/getStorageByPage", this.queryParam).then(res => {
         if (res.data.respCode === "1") {
           this.queryData = res.data.data.data;
-          this.total = res.data.data.totalCount;
+          this.total = res.data.data.count;
         } else {
           this.queryData = null;
           ElMessage.error(res.data.respMsg);

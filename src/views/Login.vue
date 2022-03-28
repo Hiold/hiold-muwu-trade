@@ -81,7 +81,7 @@
                         ctx.$currentUser = res.data.data;
                         localStorage.setItem("userinfo", JSON.stringify(res.data.data));
                     } else {
-                        ElMessage.error('登录失败，账号或密码错误')
+                        ElMessage.error(res.data.respMsg)
                     }
                 });
             };
