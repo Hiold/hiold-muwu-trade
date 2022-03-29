@@ -105,6 +105,14 @@ const routes = [{
                 title: '库存管理'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Storage.vue")
+        },
+        {
+            path: "trade",
+            name: "trade",
+            meta: {
+                title: '交易管理'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Trade.vue")
         }
         , {
             path: "table", name: "basetable", meta: {

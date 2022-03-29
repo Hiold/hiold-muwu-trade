@@ -10,32 +10,15 @@
 
     <div class="handle-box">
       <el-select v-model="queryParam.itemtype" placeholder="物品类型" class="handle-select mr10" @change="initTableData">
+        <el-option key="0" label="全部" value=""></el-option>
         <el-option key="普通物品" label="普通物品" value="普通物品"></el-option>
         <el-option key="特殊物品" label="特殊物品" value="特殊物品"></el-option>
       </el-select>
-      <el-select v-model="queryParam.getchanel" placeholder="获取的途径" class="handle-select mr10" @change="initTableData">
-        <el-option key="0" label="全部" value=""></el-option>
-        <el-option key="1" label="系统中获得" value="1"></el-option>
-        <el-option key="2" label="下架物品" value="2"></el-option>
-        <el-option key="3" label="玩家交易" value="3"></el-option>
-        <el-option key="4" label="供货" value="4"></el-option>
-        <el-option key="5" label="游戏内容器" value="5"></el-option>
-        <el-option key="6" label="签到" value="6"></el-option>
-        <el-option key="7" label="补签" value="7"></el-option>
-        <el-option key="8" label="抽奖" value="8"></el-option>
-        <el-option key="9" label="阶段任务" value="9"></el-option>
-        <el-option key="10" label="红包" value="10"></el-option>
-      </el-select>
       <el-select v-model="queryParam.status" placeholder="物品状态" class="handle-select mr10" @change="initTableData">
         <el-option key="0" label="全部" value=""></el-option>
-        <el-option key="1" label="正常在库" value="1"></el-option>
-        <el-option key="2" label="已发放到游戏内" value="2"></el-option>
-        <el-option key="3" label="自行删除" value="3"></el-option>
-        <el-option key="4" label="自行卖出" value="5"></el-option>
-        <el-option key="5" label="供货消耗" value="6"></el-option>
-        <el-option key="6" label="抽奖消耗" value="6"></el-option>
-        <el-option key="7" label="补签消耗" value="7"></el-option>
-        <el-option key="8" label="管理员删除" value="8"></el-option>
+        <el-option key="1" label="正常在售" value="1"></el-option>
+        <el-option key="2" label="已售出" value="2"></el-option>
+        <el-option key="3" label="已下架取回" value="3"></el-option>
       </el-select>
       <el-input v-model="queryParam.username" placeholder="用户名或者店铺名" class="handle-input mr10"></el-input>
       <el-input v-model="queryParam.steamid" placeholder="SteamID" class="handle-input mr10"></el-input>
@@ -74,21 +57,14 @@
         <el-table-column label="数量" align="center">
           <template #default="scope">
             {{
-              scope.row.storageCount
+              scope.row.stock
             }}
           </template>
         </el-table-column>
         <el-table-column label="获得时间" align="center">
           <template #default="scope">
             {{
-              scope.row.collectTime.substring(0, 19).replace("T", " ")
-            }}
-          </template>
-        </el-table-column>
-        <el-table-column label="获得途径" align="center">
-          <template #default="scope">
-            {{
-              getchanel(scope.row.itemGetChenal)
+              scope.row.forSellTime.substring(0, 19).replace("T", " ")
             }}
           </template>
         </el-table-column>
@@ -187,14 +163,9 @@
         <el-col :span="16">
           <div class="grid-content">
             <el-select v-model="currentViewStorage.itemStatus" placeholder="物品状态" class="handle-select mr10">
-              <el-option key="1" label="正常在库" :value=1></el-option>
-              <el-option key="2" label="已发放到游戏内" :value=2></el-option>
-              <el-option key="3" label="自行删除" :value=3></el-option>
-              <el-option key="4" label="自行卖出" :value=4></el-option>
-              <el-option key="5" label="供货消耗" :value=5></el-option>
-              <el-option key="6" label="抽奖消耗" :value=6></el-option>
-              <el-option key="7" label="补签消耗" :value=7></el-option>
-              <el-option key="8" label="管理员删除" :value=8></el-option>
+              <el-option key="1" label="正常在售" :value=1></el-option>
+              <el-option key="2" label="已售出" :value=2></el-option>
+              <el-option key="3" label="已下架取回" :value=3></el-option>
             </el-select>
           </div>
         </el-col>
@@ -236,12 +207,12 @@
         </el-col>
         <el-col :span="16">
           <div class="grid-content">
-            <el-input v-model="currentViewStorage.storageCount"/>
+            <el-input v-model="currentViewStorage.stock"/>
           </div>
         </el-col>
         <el-col :span="4">
           <div class="grid-content">
-            <el-button type="primary" @click="updateStorage('storageCount',currentViewStorage.storageCount)">修改
+            <el-button type="primary" @click="updateStorage('stock',currentViewStorage.stock)">修改
             </el-button>
           </div>
         </el-col>
@@ -249,10 +220,10 @@
 
       <el-row :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
         <el-col :span="4">
-          <div class="grid-content center">获得时间</div>
+          <div class="grid-content center">上架时间</div>
         </el-col>
         <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.collectTime.substring(0, 19).replace('T', ' ')">
+          <div class="grid-content" v-text="currentViewStorage.forSellTime.substring(0, 19).replace('T', ' ')">
           </div>
         </el-col>
         <el-col :span="4">
@@ -262,27 +233,16 @@
       <el-row v-if="currentViewStorage.itemStatus==2" :gutter="20" style="line-height: 40px;margin-top: 10px"
               type="flex" justify="center" align="middle">
         <el-col :span="4">
-          <div class="grid-content center">发放到游戏内时间</div>
+          <div class="grid-content center">售出时间</div>
         </el-col>
         <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.obtainTime.substring(0, 19).replace('T', ' ')">
+          <div class="grid-content" v-text="currentViewStorage.selledTime.substring(0, 19).replace('T', ' ')">
           </div>
         </el-col>
         <el-col :span="4">
         </el-col>
       </el-row>
 
-      <el-row :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">获得渠道</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="getchanel(currentViewStorage.itemGetChenal)">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
       <el-row :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
         <el-col :span="4">
           <div class="grid-content center">物品标签</div>
@@ -301,88 +261,6 @@
         </el-col>
         <el-col :span="16">
           <div class="grid-content" v-text="currentViewStorage.itemdata">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-
-
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">优惠券类型</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.couCurrType">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">折扣</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.couPrice">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">使用条件</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.couCond">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">使用条件</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.coudatelimit==1?'限期使用':'不限期'">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'&&currentViewStorage.coudatelimit=='1'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">有效期始</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.couDateStart.substring(0, 19).replace('T', ' ')">
-          </div>
-        </el-col>
-        <el-col :span="4">
-        </el-col>
-      </el-row>
-
-      <el-row
-          v-if="currentViewStorage.couCurrType!=''&&currentViewStorage.couCurrType!=null&&currentViewStorage.couCurrType!='0'&&currentViewStorage.coudatelimit=='1'"
-          :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
-        <el-col :span="4">
-          <div class="grid-content center">有效期止</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content" v-text="currentViewStorage.couDateEnd.substring(0, 19).replace('T', ' ')">
           </div>
         </el-col>
         <el-col :span="4">
@@ -430,34 +308,16 @@ export default {
         eosid: "",
         username: "",
         itemname: "",
-        getchanel: "",
         status: "",
         group: "",
         itemtype: "",
         page: "1",
         limit: "10"
       },
-      chanels: {
-        "1": "系统中获得",
-        "2": "下架物品",
-        "3": "玩家交易",
-        "4": "供货",
-        "5": "游戏内容器",
-        "6": "签到",
-        "7": "补签",
-        "8": "抽奖",
-        "9": "阶段任务",
-        "10": "红包"
-      },
       status: {
-        "1": "正常在库",
-        "2": "已发放到游戏内",
-        "3": "自行删除",
-        "4": "自行卖出",
-        "5": "供货消耗",
-        "6": "抽奖消耗",
-        "7": "补签消耗",
-        "8": "管理员删除",
+        "1": "正常在售",
+        "2": "已售出",
+        "3": "已下架取回",
       }
     }
   },
@@ -477,7 +337,7 @@ export default {
         id: this.currentViewStorage.id + "",
         data: data + "",
       };
-      axios.post("api/updateUserStorageParam", param).then(res => {
+      axios.post("api/updateTradeeParam", param).then(res => {
         if (res.data.respCode === "1") {
           ElMessage.success("修改成功")
         } else {
@@ -498,7 +358,7 @@ export default {
       this.initTableData();
     },
     initTableData() {
-      axios.post("api/getStorageByPage", this.queryParam).then(res => {
+      axios.post("api/getTradeByPage", this.queryParam).then(res => {
         if (res.data.respCode === "1") {
           this.queryData = res.data.data.data;
           this.total = res.data.data.count;
@@ -518,7 +378,7 @@ export default {
                 id: item.id + "",
                 data: "8",
               };
-              axios.post("api/updateUserStorageParam", param).then(res => {
+              axios.post("api/updateTradeeParam", param).then(res => {
                 if (res.data.respCode === "1") {
                   ElMessage.success("修改成功")
                 } else {

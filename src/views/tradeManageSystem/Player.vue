@@ -76,7 +76,7 @@
           :page-sizes="[10, 50, 200, 1000]"
           :disabled="false"
           :background="true"
-          layout="sizes, prev, pager, next"
+          layout="total, sizes, prev, pager, next"
           :total="total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
