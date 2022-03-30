@@ -114,6 +114,23 @@ const routes = [{
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Trade.vue")
         }
+        ,
+        {
+            path: "action",
+            name: "action",
+            meta: {
+                title: '操作记录'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/Action.vue")
+        },
+        {
+            path: "gameevent",
+            name: "gameevent",
+            meta: {
+                title: '游戏事件'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/GameAction.vue")
+        }
         , {
             path: "table", name: "basetable", meta: {
                 title: '表格'

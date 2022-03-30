@@ -389,6 +389,19 @@
         </el-col>
       </el-row>
 
+      <el-row :gutter="20" style="line-height: 40px;margin-top: 10px" type="flex" justify="center" align="middle">
+        <el-col :span="20">
+          <div class="container">
+            <div class="plugins-tips">
+              物品描述
+            </div>
+            <div class="mgb20" id='editor'></div>
+            <el-button type="primary" @click="updateStorage('desc',currentViewStorage.desc)">修改描述
+            </el-button>
+          </div>
+        </el-col>
+      </el-row>
+
       <template #footer>
                 <span class="dialog-footer">
                     <el-button type="primary" @click="()=>{this.storageDetailVisible=false;}">关闭</el-button>
@@ -416,6 +429,8 @@ export default {
   },
   data() {
     return {
+      instance: false,
+      editor: "",
       allIcon: null,
       currentViewStorage: {},
       storageDetailVisible: false,
@@ -462,6 +477,23 @@ export default {
     }
   },
   methods: {
+    handleEdtor() {
+      if (!this.instance) {
+        console.log($("#editor"))
+        this.editor = new wangEditor("#editor")
+
+        // 配置 onchange 回调函数
+        let self = this;
+        this.editor.config.onchange = function (newHtml) {
+          self.currentViewStorage.desc = newHtml;
+        };
+        // 配置触发 onchange 的时间频率，默认为 200ms
+        this.editor.config.onchangeTimeout = 100; // 修改为 500ms
+        this.editor.create()
+        this.instance = true;
+      }
+      this.editor.txt.html(this.currentViewStorage.desc);
+    },
     getchanel(chanel) {
       return this.chanels[chanel + ""];
     },
@@ -537,6 +569,9 @@ export default {
       this.storageDetailVisible = true;
       this.currentViewStorage = item.row;
       $(".imgDescDetail").attr("src", "'404'");
+      this.$nextTick(() => {
+        this.handleEdtor();
+      })
     },
     handleAvatarSuccess() {
       ElMessage({
