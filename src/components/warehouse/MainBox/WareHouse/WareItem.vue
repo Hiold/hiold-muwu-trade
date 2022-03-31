@@ -1,7 +1,7 @@
 <template>
     <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
     <li class="ware-items" :data-index="index" @click="showdetailsss($event.target)">
-        <header>{{ deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
+        <header>{{ HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
             }}
         </header>
         <section>

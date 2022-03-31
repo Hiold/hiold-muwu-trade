@@ -139,16 +139,19 @@ export default {
 
 
     $(".Category>div>.btn-1").click(function () {	//定时抢红包 按钮
+      console.log("定时抢红包");
       $(".head-tool>h1").text("定时抢红包");
       $(".Act-hb").fadeIn(200);
     });
     $(".Category>div>.btn-2").click(function () {	//活动任务 按钮
+      console.log("每日任务");
       $(".head-tool>h1").text("每日任务");
       $("li[class^=b2]").slideDown(100);
       $(".Act-task").fadeIn(200);
       $(".Category>div>.b2-t0").click();
     });
     $(".Category>div>.btn-3").click(function () {	//幸运抽奖 按钮
+      console.warn("积分抽奖");
       $(".head-tool>h1").text("积分抽奖");
       $(".head-tool>.lottery-num").show();
       $("li[class^=b3]").slideDown(100);
@@ -156,10 +159,12 @@ export default {
       $(".Category>div>.b3-t0").click();
     });
     $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
+      console.log("数字谜团");
       $(".head-tool>h1").text("数字谜团");
       $(".Act-number").fadeIn(200);
     });
     $(".Category>div>.btn-5").click(function () {	//每日签到 按钮
+      console.log("七日签到领好礼");
       $(".head-tool>h1").text("七日签到领好礼");
       $(".Act-qd").fadeIn(200);
     });
@@ -181,6 +186,11 @@ export default {
       // $(".task-main").show();
       $(".head-tool>h1").text("每周任务");
     });
+    //判断是否跳转到签到页面
+    if (window.location.href.indexOf("tosign") > 0) {
+      $(".Category>div>.btn-5").click();
+      console.log("惦记了")
+    }
   }
 }
 </script>

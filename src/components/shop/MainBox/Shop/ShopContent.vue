@@ -223,7 +223,7 @@ export default {
       $(".items-box,.head-tool").fadeOut(100);
       //arrcomToObj();	//将商品数据转换为obj格式
       //下面是获取商品的基本信息
-      var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
+      var name = ctx.HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
       var num = item.num;				//数量
       var sales = item.sales;			//销量
       var class1 = item.class1;			//总分类

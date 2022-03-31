@@ -99,7 +99,9 @@
             <!--      </li>-->
             <!-- 其它分类（小图标）：签到、兑换、公告、排行 -->
             <div class="min">
-                <div class="m1"><span>签到</span></div>
+              <router-link custom to="/userq/activity?tosign" v-slot="{navigate,isActive}">
+                <div class="m1" @click="navigate"><span>签到</span></div>
+              </router-link>
                 <div class="m2"><span>兑换</span></div>
                 <div class="m3"><span>公告</span></div>
                 <div class="m4"><span>排行</span></div>

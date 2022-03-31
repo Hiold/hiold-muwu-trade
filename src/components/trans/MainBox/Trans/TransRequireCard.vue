@@ -9,7 +9,7 @@
             <div class="price"><i></i><span>{{ item.Price }}</span></div>
             <div class="num">需求：{{ item.Itemcount }}</div>
             <div class="name">
-                {{ deleteBBcode((item.Itemchinese))
+                {{ HandleItemName((item.Itemchinese))
                 }}
             </div>
         </div>

@@ -71,7 +71,7 @@
             已签到
           </div>
           <div class="received" v-show="signinfos[index+1].signed*1>0">
-            <img src="images/received.png">
+            <img :src="'images/received.png'">
           </div>
         </template>
       </li>
@@ -145,7 +145,7 @@
             已签到
           </div>
           <div class="received" v-show="signinfos[0].signed*1>0">
-            <img src="images/received.png">
+            <img :src="'images/received.png'">
           </div>
         </template>
       </li>
@@ -240,7 +240,7 @@ export default {
           for (var i in this.awards) {
             awardData[i] = [];
             if (this.awards[i].type == 1 || this.awards[i].type == 2) {
-              awardData[i][0] = this.awards[i].itemchinese;
+              awardData[i][0] = ctx.HandleItemName(this.awards[i].itemchinese);
               awardData[i][1] = this.awards[i].itemicon;
               awardData[i][2] = "数量:" + this.awards[i].count;
               awardData[i][3] = "品质:" + this.awards[i].itemquality;
@@ -284,7 +284,7 @@ export default {
       for (var i in data) {
         awardData[i] = [];
         if (data[i].type == 1 || data[i].type == 2) {
-          awardData[i][0] = data[i].itemchinese;
+          awardData[i][0] = ctx.HandleItemName(data[i].itemchinese);
           awardData[i][1] = data[i].itemicon;
           awardData[i][2] = "数量:" + data[i].count;
           awardData[i][3] = "品质:" + data[i].itemquality;

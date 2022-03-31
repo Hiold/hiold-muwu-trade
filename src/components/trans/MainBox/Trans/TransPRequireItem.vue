@@ -25,7 +25,7 @@
         <div class="content">
             <div class="price"><i></i><span>{{ item.Price }}</span></div>
             <div class="num">需求：{{ item.Itemcount }}</div>
-            <div class="name"> {{ deleteBBcode((item.Itemchinese))
+            <div class="name"> {{ HandleItemName((item.Itemchinese))
                 }}
             </div>
             <div class="shop" title="进入商店"><i :style="{'background-image': `url(api/image/${currentViewPlayer.avatar}),url('/images/player/head1.jfif')`}"></i><span>{{currentViewPlayer.name}}</span></div>

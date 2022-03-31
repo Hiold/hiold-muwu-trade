@@ -7,9 +7,9 @@
     <section>
       <div class="reward" v-for="(proitem,index) in awards">
         <div>
-          <img v-if="proitem.type == '1'" :src="'404'" :alt="proitem.itemchinese" :title="proitem.itemchinese"
+          <img v-if="proitem.type == '1'" :src="'404'" :alt="HandleItemName(proitem.itemchinese)" :title="HandleItemName(proitem.itemchinese)"
                @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
-          <img v-if="proitem.type == '2'" :src="'404'" :alt="proitem.itemchinese" :title="proitem.itemchinese"
+          <img v-if="proitem.type == '2'" :src="'404'" :alt="HandleItemName(proitem.itemchinese)" :title="HandleItemName(proitem.itemchinese)"
                @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
           <span v-if="proitem.type == '3'">{{ proitem.command }}</span>
           <img v-if="proitem.type == '5'" :src="'images/items/red-zs.png'">

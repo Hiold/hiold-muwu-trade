@@ -221,3 +221,9 @@ app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
         t.src = newImgUrl;
     }
 }
+
+app.config.globalProperties.HandleItemName = function (text) {
+    text = text.replace(/([\\[][\w\/]*[\]])/g, "");
+    text = text.replace(/([\\{].*[\\}])/g, "");
+    return text;
+}

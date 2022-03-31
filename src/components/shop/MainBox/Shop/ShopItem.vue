@@ -5,7 +5,7 @@
     <header>
       <span
           class="name">{{
-          deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
+          HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
         }}</span>
       <!--同时满足折扣1~10之间并不是跟档道具才展示折扣-->
       <span class="num" v-show="item.num>0">x{{ item.num }}</span><i

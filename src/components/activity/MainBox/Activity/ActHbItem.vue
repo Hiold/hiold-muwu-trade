@@ -16,7 +16,7 @@
       <header>{{ item.desc }}</header>
       <div class="prize-name">
         <span class="tit">红包物品：</span>
-        <span class="val" v-if="awards!=null&&awards.length===1">{{ awards[0].itemchinese }}</span>
+        <span class="val" v-if="awards!=null&&awards.length===1">{{ HandleItemName(awards[0].itemchinese) }}</span>
         <span class="val" v-if="awards!=null&&awards.length>1" @click="showAwards">点击查看奖励</span>
         <span class="val" v-if="awards==null||awards.length===0">无</span>
       </div>
@@ -61,7 +61,7 @@ export default {
           for (var i in this.awards) {
             awardData[i] = [];
             if (this.awards[i].type == 1 || this.awards[i].type == 2) {
-              awardData[i][0] = this.awards[i].itemchinese;
+              awardData[i][0] = ctx.HandleItemName(this.awards[i].itemchinese);
               awardData[i][1] = this.awards[i].itemicon;
               awardData[i][2] = "数量:" + this.awards[i].count;
               awardData[i][3] = "品质:" + this.awards[i].itemquality;
@@ -160,7 +160,7 @@ export default {
       for (var i in this.awards) {
         awardData[i] = [];
         if (this.awards[i].type == 1 || this.awards[i].type == 2) {
-          awardData[i][0] = this.awards[i].itemchinese;
+          awardData[i][0] = ctx.HandleItemName(this.awards[i].itemchinese);
           awardData[i][1] = this.awards[i].itemicon;
           awardData[i][2] = "数量:" + this.awards[i].count;
           awardData[i][3] = "品质:" + this.awards[i].itemquality;

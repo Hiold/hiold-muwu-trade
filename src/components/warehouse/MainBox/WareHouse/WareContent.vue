@@ -89,7 +89,7 @@
         <section id="logContainer">
           <li v-for="(item,index) in ActionLogs" :key="item.id" :item="item" :index="index">
             {{ parseDate(item.actTime) }}<br>
-            {{ item.desc }}
+            {{ HandleItemName(item.desc) }}
           </li>
         </section>
       </div>
@@ -111,7 +111,7 @@
         </div>
         <div class="right">
           <div class="Name">
-            <span class="name">{{ item.translate }}</span>
+            <span class="name">{{ HandleItemName(item.translate) }}</span>
             <span class="num" style="display: none;">x1</span>
           </div>
           <div class="coll-num">{{ item.collect }}人收藏</div>
@@ -484,7 +484,7 @@ export default {
       var xb = $(target).data("index");	//获取物品在数组中的下标
       // console.log($(target))
       $(".ware-details").data("index", xb);	//将物品下标保存到详情页面
-      var name = this.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
+      var name = ctx.HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
       var img = 'api/image/' + item.itemicon;				//商品图片
       var c1 = item.class1;	//获取物品总分类
       var c2 = item.class2;	//获取物品子分类
@@ -1053,6 +1053,7 @@ export default {
     $(".ware-details>header>.back").click(function () {			//仓库物品详情页-返回按钮
       $(".ware-list").fadeIn(200);
       $(".ware-details").hide();
+      $(".head-tool>h1").html("个人仓库");
     });
 
     $(".warehouse>.menu>.l1").click(function () {		//彩色按钮 - 提取到背包
@@ -1142,6 +1143,9 @@ export default {
     $(".warehouse>.menu>.l3").click(function () {		//彩色按钮 - 收藏夹
       self.formPage = "collect";
       self.queryCollectItem();
+
+      $(".head-tool>h1").html("我的收藏");
+
       // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
       // $("main>article").load("page/collect.html", function () {
       $(".head-tool,.collect-box,.warehouse").hide();
@@ -1314,6 +1318,7 @@ export default {
       // if (arrClass1 == "普通物品") {
       //   $(".warehouse>.menu>.l1").show();	//显示"提取到背包"按钮
       // }
+      $(".head-tool>h1").html("个人仓库");
     });
 
     //点击返回按钮
@@ -1325,6 +1330,7 @@ export default {
       //     console.log(getTime().date + "\n我的收藏 页面加载成功！");
       //     //GenerateColl();
       // });
+      $(".head-tool>h1").html("个人仓库");
       setTimeout(function () {
         $(".collect-box").hide();
         // $(".head-tool").hide();

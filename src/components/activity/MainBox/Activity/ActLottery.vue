@@ -3,18 +3,18 @@
     <div class="box">
 
       <li class="l1" v-if="awardList!=null&&awardList.length>=1">
-        <header v-if="awardList[0].type=='1'">{{ awardList[0].itemchinese }}</header>
-        <header v-if="awardList[0].type=='2'">{{ awardList[0].itemchinese }}</header>
+        <header v-if="awardList[0].type=='1'">{{ HandleItemName(awardList[0].itemchinese) }}</header>
+        <header v-if="awardList[0].type=='2'">{{ HandleItemName(awardList[0].itemchinese) }}</header>
         <header v-if="awardList[0].type=='3'">指令</header>
         <header v-if="awardList[0].type=='4'">积分</header>
         <header v-if="awardList[0].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[0].type == '1'" :src="'404'" :alt="awardList[0].itemchinese"
-                 :title="awardList[0].itemchinese"
+            <img v-if="awardList[0].type == '1'" :src="'404'" :alt="HandleItemName(awardList[0].itemchinese)"
+                 :title="HandleItemName(awardList[0].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[0].itemicon,awardList[0].itemtint)">
-            <img v-if="awardList[0].type == '2'" :src="'404'" :alt="awardList[0].itemchinese"
-                 :title="awardList[0].itemchinese"
+            <img v-if="awardList[0].type == '2'" :src="'404'" :alt="HandleItemName(awardList[0].itemchinese)"
+                 :title="HandleItemName(awardList[0].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[0].itemicon,awardList[0].itemtint)">
             <span v-if="awardList[0].type == '3'">一条神秘指令</span>
             <img v-if="awardList[0].type == '5'" :src="'images/items/red-zs.png'">
@@ -30,18 +30,18 @@
       </li>
 
       <li class="l2" v-if="awardList&&awardList.length>=2">
-        <header v-if="awardList[1].type=='1'">{{ awardList[1].itemchinese }}</header>
-        <header v-if="awardList[1].type=='2'">{{ awardList[1].itemchinese }}</header>
+        <header v-if="awardList[1].type=='1'">{{ HandleItemName(awardList[1].itemchinese) }}</header>
+        <header v-if="awardList[1].type=='2'">{{ HandleItemName(awardList[1].itemchinese) }}</header>
         <header v-if="awardList[1].type=='3'">指令</header>
         <header v-if="awardList[1].type=='4'">积分</header>
         <header v-if="awardList[1].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[1].type == '1'" :src="'404'" :alt="awardList[1].itemchinese"
-                 :title="awardList[1].itemchinese"
+            <img v-if="awardList[1].type == '1'" :src="'404'" :alt="HandleItemName(awardList[1].itemchinese)"
+                 :title="HandleItemName(awardList[1].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[1].itemicon,awardList[1].itemtint)">
-            <img v-if="awardList[1].type == '2'" :src="'404'" :alt="awardList[1].itemchinese"
-                 :title="awardList[1].itemchinese"
+            <img v-if="awardList[1].type == '2'" :src="'404'" :alt="HandleItemName(awardList[1].itemchinese)"
+                 :title="HandleItemName(awardList[1].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[1].itemicon,awardList[1].itemtint)">
             <span v-if="awardList[1].type == '3'">一条神秘指令</span>
             <img v-if="awardList[1].type == '5'" :src="'images/items/red-zs.png'">
@@ -58,18 +58,18 @@
       </li>
 
       <li class="l3" v-if="awardList&&awardList.length>=3">
-        <header v-if="awardList[2].type=='1'">{{ awardList[2].itemchinese }}</header>
-        <header v-if="awardList[2].type=='2'">{{ awardList[2].itemchinese }}</header>
+        <header v-if="awardList[2].type=='1'">{{ HandleItemName(awardList[2].itemchinese) }}</header>
+        <header v-if="awardList[2].type=='2'">{{ HandleItemName(awardList[2].itemchinese) }}</header>
         <header v-if="awardList[2].type=='3'">指令</header>
         <header v-if="awardList[2].type=='4'">积分</header>
         <header v-if="awardList[2].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[2].type == '1'" :src="'404'" :alt="awardList[2].itemchinese"
-                 :title="awardList[2].itemchinese"
+            <img v-if="awardList[2].type == '1'" :src="'404'" :alt="HandleItemName(awardList[2].itemchinese)"
+                 :title="HandleItemName(awardList[2].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[2].itemicon,awardList[2].itemtint)">
-            <img v-if="awardList[2].type == '2'" :src="'404'" :alt="awardList[2].itemchinese"
-                 :title="awardList[2].itemchinese"
+            <img v-if="awardList[2].type == '2'" :src="'404'" :alt="HandleItemName(awardList[2].itemchinese)"
+                 :title="HandleItemName(awardList[2].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[2].itemicon,awardList[2].itemtint)">
             <span v-if="awardList[2].type == '3'">一条神秘指令</span>
             <img v-if="awardList[2].type == '5'" :src="'images/items/red-zs.png'">
@@ -86,18 +86,18 @@
       </li>
 
       <li class="l4" v-if="awardList&&awardList.length>=4">
-        <header v-if="awardList[3].type=='1'">{{ awardList[3].itemchinese }}</header>
-        <header v-if="awardList[3].type=='2'">{{ awardList[3].itemchinese }}</header>
+        <header v-if="awardList[3].type=='1'">{{ HandleItemName(awardList[3].itemchinese) }}</header>
+        <header v-if="awardList[3].type=='2'">{{ HandleItemName(awardList[3].itemchinese) }}</header>
         <header v-if="awardList[3].type=='3'">指令</header>
         <header v-if="awardList[3].type=='4'">积分</header>
         <header v-if="awardList[3].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[3].type == '1'" :src="'404'" :alt="awardList[3].itemchinese"
-                 :title="awardList[3].itemchinese"
+            <img v-if="awardList[3].type == '1'" :src="'404'" :alt="HandleItemName(awardList[3].itemchinese)"
+                 :title="HandleItemName(awardList[3].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[3].itemicon,awardList[3].itemtint)">
-            <img v-if="awardList[3].type == '2'" :src="'404'" :alt="awardList[3].itemchinese"
-                 :title="awardList[3].itemchinese"
+            <img v-if="awardList[3].type == '2'" :src="'404'" :alt="HandleItemName(awardList[3].itemchinese)"
+                 :title="HandleItemName(awardList[3].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[3].itemicon,awardList[3].itemtint)">
             <span v-if="awardList[3].type == '3'">一条神秘指令</span>
             <img v-if="awardList[3].type == '5'" :src="'images/items/red-zs.png'">
@@ -115,18 +115,18 @@
 
       <div class="left">
         <li class="l12" v-if="awardList&&awardList.length>=5">
-          <header v-if="awardList[4].type=='1'">{{ awardList[4].itemchinese }}</header>
-          <header v-if="awardList[4].type=='2'">{{ awardList[4].itemchinese }}</header>
+          <header v-if="awardList[4].type=='1'">{{ HandleItemName(awardList[4].itemchinese) }}</header>
+          <header v-if="awardList[4].type=='2'">{{ HandleItemName(awardList[4].itemchinese) }}</header>
           <header v-if="awardList[4].type=='3'">指令</header>
           <header v-if="awardList[4].type=='4'">积分</header>
           <header v-if="awardList[4].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[4].type == '1'" :src="'404'" :alt="awardList[4].itemchinese"
-                   :title="awardList[4].itemchinese"
+              <img v-if="awardList[4].type == '1'" :src="'404'" :alt="HandleItemName(awardList[4].itemchinese)"
+                   :title="HandleItemName(awardList[4].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[4].itemicon,awardList[4].itemtint)">
-              <img v-if="awardList[4].type == '2'" :src="'404'" :alt="awardList[4].itemchinese"
-                   :title="awardList[4].itemchinese"
+              <img v-if="awardList[4].type == '2'" :src="'404'" :alt="HandleItemName(awardList[4].itemchinese)"
+                   :title="HandleItemName(awardList[4].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[4].itemicon,awardList[4].itemtint)">
               <span v-if="awardList[4].type == '3'">一条神秘指令</span>
               <img v-if="awardList[4].type == '5'" :src="'images/items/red-zs.png'">
@@ -143,18 +143,18 @@
         </li>
 
         <li class="l11" v-if="awardList&&awardList.length>=6">
-          <header v-if="awardList[5].type=='1'">{{ awardList[5].itemchinese }}</header>
-          <header v-if="awardList[5].type=='2'">{{ awardList[5].itemchinese }}</header>
+          <header v-if="awardList[5].type=='1'">{{ HandleItemName(awardList[5].itemchinese) }}</header>
+          <header v-if="awardList[5].type=='2'">{{ HandleItemName(awardList[5].itemchinese) }}</header>
           <header v-if="awardList[5].type=='3'">指令</header>
           <header v-if="awardList[5].type=='4'">积分</header>
           <header v-if="awardList[5].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[5].type == '1'" :src="'404'" :alt="awardList[5].itemchinese"
-                   :title="awardList[5].itemchinese"
+              <img v-if="awardList[5].type == '1'" :src="'404'" :alt="HandleItemName(awardList[5].itemchinese)"
+                   :title="HandleItemName(awardList[5].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[5].itemicon,awardList[5].itemtint)">
-              <img v-if="awardList[5].type == '2'" :src="'404'" :alt="awardList[5].itemchinese"
-                   :title="awardList[5].itemchinese"
+              <img v-if="awardList[5].type == '2'" :src="'404'" :alt="HandleItemName(awardList[5].itemchinese)"
+                   :title="HandleItemName(awardList[5].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[5].itemicon,awardList[5].itemtint)">
               <span v-if="awardList[5].type == '3'">一条神秘指令</span>
               <img v-if="awardList[5].type == '5'" :src="'images/items/red-zs.png'">
@@ -173,7 +173,7 @@
 
       <div class="center">
         <div class="image">
-          <img src="images/lottery.jpg">
+          <img :src="'images/lottery.jpg'">
         </div>
         <div class="btn">
           <div class="b1" @click="doanimation(1)">
@@ -246,18 +246,18 @@
 
       <div class="right">
         <li class="l5" v-if="awardList&&awardList.length>=7">
-          <header v-if="awardList[6].type=='1'">{{ awardList[6].itemchinese }}</header>
-          <header v-if="awardList[6].type=='2'">{{ awardList[6].itemchinese }}</header>
+          <header v-if="awardList[6].type=='1'">{{ HandleItemName(awardList[6].itemchinese) }}</header>
+          <header v-if="awardList[6].type=='2'">{{ HandleItemName(awardList[6].itemchinese) }}</header>
           <header v-if="awardList[6].type=='3'">指令</header>
           <header v-if="awardList[6].type=='4'">积分</header>
           <header v-if="awardList[6].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[6].type == '1'" :src="'404'" :alt="awardList[6].itemchinese"
-                   :title="awardList[6].itemchinese"
+              <img v-if="awardList[6].type == '1'" :src="'404'" :alt="HandleItemName(awardList[6].itemchinese)"
+                   :title="HandleItemName(awardList[6].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[6].itemicon,awardList[6].itemtint)">
-              <img v-if="awardList[6].type == '2'" :src="'404'" :alt="awardList[6].itemchinese"
-                   :title="awardList[6].itemchinese"
+              <img v-if="awardList[6].type == '2'" :src="'404'" :alt="HandleItemName(awardList[6].itemchinese)"
+                   :title="HandleItemName(awardList[6].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[6].itemicon,awardList[6].itemtint)">
               <span v-if="awardList[6].type == '3'">一条神秘指令</span>
               <img v-if="awardList[6].type == '5'" :src="'images/items/red-zs.png'">
@@ -274,18 +274,18 @@
         </li>
 
         <li class="l6" v-if="awardList&&awardList.length>=8">
-          <header v-if="awardList[7].type=='1'">{{ awardList[7].itemchinese }}</header>
-          <header v-if="awardList[7].type=='2'">{{ awardList[7].itemchinese }}</header>
+          <header v-if="awardList[7].type=='1'">{{ HandleItemName(awardList[7].itemchinese) }}</header>
+          <header v-if="awardList[7].type=='2'">{{ HandleItemName(awardList[7].itemchinese) }}</header>
           <header v-if="awardList[7].type=='3'">指令</header>
           <header v-if="awardList[7].type=='4'">积分</header>
           <header v-if="awardList[7].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[7].type == '1'" :src="'404'" :alt="awardList[7].itemchinese"
-                   :title="awardList[7].itemchinese"
+              <img v-if="awardList[7].type == '1'" :src="'404'" :alt="HandleItemName(awardList[7].itemchinese)"
+                   :title="HandleItemName(awardList[7].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[7].itemicon,awardList[7].itemtint)">
-              <img v-if="awardList[7].type == '2'" :src="'404'" :alt="awardList[7].itemchinese"
-                   :title="awardList[7].itemchinese"
+              <img v-if="awardList[7].type == '2'" :src="'404'" :alt="HandleItemName(awardList[7].itemchinese)"
+                   :title="HandleItemName(awardList[7].itemchinese)"
                    @error="$LoadTintImage($event.target,awardList[7].itemicon,awardList[7].itemtint)">
               <span v-if="awardList[7].type == '3'">一条神秘指令</span>
               <img v-if="awardList[7].type == '5'" :src="'images/items/red-zs.png'">
@@ -303,18 +303,18 @@
       </div>
 
       <li class="l10" v-if="awardList&&awardList.length>=9">
-        <header v-if="awardList[8].type=='1'">{{ awardList[8].itemchinese }}</header>
-        <header v-if="awardList[8].type=='2'">{{ awardList[8].itemchinese }}</header>
+        <header v-if="awardList[8].type=='1'">{{ HandleItemName(awardList[8].itemchinese) }}</header>
+        <header v-if="awardList[8].type=='2'">{{ HandleItemName(awardList[8].itemchinese) }}</header>
         <header v-if="awardList[8].type=='3'">指令</header>
         <header v-if="awardList[8].type=='4'">积分</header>
         <header v-if="awardList[8].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[8].type == '1'" :src="'404'" :alt="awardList[8].itemchinese"
-                 :title="awardList[8].itemchinese"
+            <img v-if="awardList[8].type == '1'" :src="'404'" :alt="HandleItemName(awardList[8].itemchinese)"
+                 :title="HandleItemName(awardList[8].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[8].itemicon,awardList[8].itemtint)">
-            <img v-if="awardList[8].type == '2'" :src="'404'" :alt="awardList[8].itemchinese"
-                 :title="awardList[8].itemchinese"
+            <img v-if="awardList[8].type == '2'" :src="'404'" :alt="HandleItemName(awardList[8].itemchinese)"
+                 :title="HandleItemName(awardList[8].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[8].itemicon,awardList[8].itemtint)">
             <span v-if="awardList[8].type == '3'">一条神秘指令</span>
             <img v-if="awardList[8].type == '5'" :src="'images/items/red-zs.png'">
@@ -331,18 +331,18 @@
       </li>
 
       <li class="l9" v-if="awardList&&awardList.length>=10">
-        <header v-if="awardList[9].type=='1'">{{ awardList[9].itemchinese }}</header>
-        <header v-if="awardList[9].type=='2'">{{ awardList[9].itemchinese }}</header>
+        <header v-if="awardList[9].type=='1'">{{ HandleItemName(awardList[9].itemchinese) }}</header>
+        <header v-if="awardList[9].type=='2'">{{ HandleItemName(awardList[9].itemchinese) }}</header>
         <header v-if="awardList[9].type=='3'">指令</header>
         <header v-if="awardList[9].type=='4'">积分</header>
         <header v-if="awardList[9].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[9].type == '1'" :src="'404'" :alt="awardList[9].itemchinese"
-                 :title="awardList[9].itemchinese"
+            <img v-if="awardList[9].type == '1'" :src="'404'" :alt="HandleItemName(awardList[9].itemchinese)"
+                 :title="HandleItemName(awardList[9].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[9].itemicon,awardList[9].itemtint)">
-            <img v-if="awardList[9].type == '2'" :src="'404'" :alt="awardList[9].itemchinese"
-                 :title="awardList[9].itemchinese"
+            <img v-if="awardList[9].type == '2'" :src="'404'" :alt="HandleItemName(awardList[9].itemchinese)"
+                 :title="HandleItemName(awardList[9].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[9].itemicon,awardList[9].itemtint)">
             <span v-if="awardList[9].type == '3'">一条神秘指令</span>
             <img v-if="awardList[9].type == '5'" :src="'images/items/red-zs.png'">
@@ -359,18 +359,18 @@
       </li>
 
       <li class="l8" v-if="awardList&&awardList.length>=11">
-        <header v-if="awardList[10].type=='1'">{{ awardList[10].itemchinese }}</header>
-        <header v-if="awardList[10].type=='2'">{{ awardList[10].itemchinese }}</header>
+        <header v-if="awardList[10].type=='1'">{{ HandleItemName(awardList[10].itemchinese) }}</header>
+        <header v-if="awardList[10].type=='2'">{{ HandleItemName(awardList[10].itemchinese) }}</header>
         <header v-if="awardList[10].type=='3'">指令</header>
         <header v-if="awardList[10].type=='4'">积分</header>
         <header v-if="awardList[10].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[10].type == '1'" :src="'404'" :alt="awardList[10].itemchinese"
-                 :title="awardList[10].itemchinese"
+            <img v-if="awardList[10].type == '1'" :src="'404'" :alt="HandleItemName(awardList[10].itemchinese)"
+                 :title="HandleItemName(awardList[10].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[10].itemicon,awardList[10].itemtint)">
-            <img v-if="awardList[10].type == '2'" :src="'404'" :alt="awardList[10].itemchinese"
-                 :title="awardList[10].itemchinese"
+            <img v-if="awardList[10].type == '2'" :src="'404'" :alt="HandleItemName(awardList[10].itemchinese)"
+                 :title="HandleItemName(awardList[10].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[10].itemicon,awardList[10].itemtint)">
             <span v-if="awardList[10].type == '3'">一条神秘指令</span>
             <img v-if="awardList[10].type == '5'" :src="'images/items/red-zs.png'">
@@ -387,18 +387,18 @@
       </li>
 
       <li class="l7" v-if="awardList&&awardList.length>=12">
-        <header v-if="awardList[11].type=='1'">{{ awardList[11].itemchinese }}</header>
-        <header v-if="awardList[11].type=='2'">{{ awardList[11].itemchinese }}</header>
+        <header v-if="awardList[11].type=='1'">{{ HandleItemName(awardList[11].itemchinese) }}</header>
+        <header v-if="awardList[11].type=='2'">{{ HandleItemName(awardList[11].itemchinese) }}</header>
         <header v-if="awardList[11].type=='3'">指令</header>
         <header v-if="awardList[11].type=='4'">积分</header>
         <header v-if="awardList[11].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[11].type == '1'" :src="'404'" :alt="awardList[11].itemchinese"
-                 :title="awardList[11].itemchinese"
+            <img v-if="awardList[11].type == '1'" :src="'404'" :alt="HandleItemName(awardList[11].itemchinese)"
+                 :title="HandleItemName(awardList[11].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[11].itemicon,awardList[11].itemtint)">
-            <img v-if="awardList[11].type == '2'" :src="'404'" :alt="awardList[11].itemchinese"
-                 :title="awardList[11].itemchinese"
+            <img v-if="awardList[11].type == '2'" :src="'404'" :alt="HandleItemName(awardList[11].itemchinese)"
+                 :title="HandleItemName(awardList[11].itemchinese)"
                  @error="$LoadTintImage($event.target,awardList[11].itemicon,awardList[11].itemtint)">
             <span v-if="awardList[11].type == '3'">一条神秘指令</span>
             <img v-if="awardList[11].type == '5'" :src="'images/items/red-zs.png'">
@@ -544,7 +544,7 @@ export default {
           for (var i in data) {
             awardData[i] = [];
             if (data[i].type == 1 || data[i].type == 2) {
-              awardData[i][0] = data[i].itemchinese;
+              awardData[i][0] = ctx.HandleItemName(data[i].itemchinese);
               awardData[i][1] = data[i].itemicon;
               awardData[i][2] = "数量:" + data[i].count;
               awardData[i][3] = "品质:" + data[i].itemquality;
