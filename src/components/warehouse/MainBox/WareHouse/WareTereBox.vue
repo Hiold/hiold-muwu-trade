@@ -215,7 +215,7 @@ export default {
       } else {
         $(".page-items").find(".head-items").find("img").attr("src", 'api/image/' + itemInfo.itemStack.CustomIcon + '.png');
       }
-      $(".page-items").find(".head-items").find(".name").find("span").text(itemInfo.itemStack.translate);
+      $(".page-items").find(".head-items").find(".name").find("span").text(ctx.HandleItemName(itemInfo.itemStack.translate));
       $(".page-items").find(".head-items").find(".num").find("span").text(itemInfo.itemStack.itemCount);
       $(".page-items").find(".head-items").find(".quality").find("span").text(itemInfo.itemStack.itemQuality);
       if (itemInfo.itemStack.itemQuality == "" || itemInfo.itemStack.itemQuality == undefined || itemInfo.itemStack.itemQuality == "0") {
@@ -244,7 +244,7 @@ export default {
       var xb = $(this).data("index");		//获取当前物品下标
       var itemInfo = self.itemList[xb];
       // var id = playerBoxs.data[xbBox][xb].itemId;	//获取物品ID
-      var name = itemInfo.itemStack.translate;	//获取物品名称
+      var name = ctx.HandleItemName(itemInfo.itemStack.translate);	//获取物品名称
       var img = "";
       if (itemInfo.itemStack.CustomIcon == null) {
         img = 'api/image/' + itemInfo.itemStack.itemName + '.png';

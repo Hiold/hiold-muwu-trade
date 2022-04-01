@@ -7,10 +7,13 @@
     <section>
       <div class="reward" v-for="(proitem,index) in awards">
         <div>
-          <img v-if="proitem.type == '1'" :src="'404'" :alt="HandleItemName(proitem.itemchinese)" :title="HandleItemName(proitem.itemchinese)"
-               @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
-          <img v-if="proitem.type == '2'" :src="'404'" :alt="HandleItemName(proitem.itemchinese)" :title="HandleItemName(proitem.itemchinese)"
-               @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
+          <el-tooltip v-if="proitem.type == '1'" :content="HandleItemName(proitem.itemchinese)" placement="top">
+            <img v-if="proitem.type == '1'" :src="'404'"
+                 @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
+          </el-tooltip>
+          <el-tooltip v-if="proitem.type == '2'" :content="HandleItemName(proitem.itemchinese)" placement="top">
+            <img v-if="proitem.type == '2'" :src="'api/image/'+proitem.itemicon">
+          </el-tooltip>
           <span v-if="proitem.type == '3'">{{ proitem.command }}</span>
           <img v-if="proitem.type == '5'" :src="'images/items/red-zs.png'">
           <img v-if="proitem.type == '4'" :src="'images/items/jf2.png'">
@@ -73,6 +76,7 @@ export default {
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           this.isGeted = 1;
+          ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
         }

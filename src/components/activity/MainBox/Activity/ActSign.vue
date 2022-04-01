@@ -12,15 +12,19 @@
                v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length>1"
                @click="showAward(index+1)">点击查看奖励
           </div>
-          <img
-              v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='1'"
-              :src="'404'"
-              @error="$LoadTintImage($event.target,signinfos[index+1].awards[0].itemicon,signinfos[index+1].awards[0].itemtint)">
-          <img
-              v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='2'"
-              :src="'404'"
-              @error="$LoadTintImage($event.target,signinfos[index+1].awards[0].itemicon,signinfos[index+1].awards[0].itemtint)">
-
+          <el-tooltip :content="signinfos[index+1].awards[0].itemchinese" placement="top"
+                      v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='1'">
+            <img
+                v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='1'"
+                :src="'404'"
+                @error="$LoadTintImage($event.target,signinfos[index+1].awards[0].itemicon,signinfos[index+1].awards[0].itemtint)">
+          </el-tooltip>
+          <el-tooltip :content="signinfos[index+1].awards[0].itemchinese" placement="top"
+                      v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='2'">
+            <img
+                v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='2'"
+                :src="'api/image/'+signinfos[index+1].awards[0].itemicon">
+          </el-tooltip>
           <div class="text-button"
                v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='3'">
             神秘指令
@@ -88,15 +92,21 @@
                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length>1"
                @click="showAward(1)">点击查看奖励
           </div>
-          <img
+          <el-tooltip
               v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='1'"
-              :src="'404'"
-              @error="$LoadTintImage($event.target,signinfos[0].awards[0].itemicon,signinfos[0].awards[0].itemtint)">
-          <img
+              :content="signinfos[0].awards[0].itemchinese" placement="top">
+            <img
+                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='1'"
+                :src="'404'"
+                @error="$LoadTintImage($event.target,signinfos[0].awards[0].itemicon,signinfos[0].awards[0].itemtint)">
+          </el-tooltip>
+          <el-tooltip
               v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='2'"
-              :src="'404'"
-              @error="$LoadTintImage($event.target,signinfos[0].awards[0].itemicon,signinfos[0].awards[0].itemtint)">
-
+              :content="signinfos[0].awards[0].itemchinese" placement="top">
+            <img
+                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='2'"
+                :src="'api/image/'+signinfos[0].awards[0].itemicon">
+          </el-tooltip>
           <div class="text-button"
                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='3'">
             神秘指令
@@ -222,6 +232,7 @@ export default {
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           this.isGeted = 1;
+          ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
         }
@@ -270,6 +281,7 @@ export default {
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           this.isGeted = 1;
+          ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
         }

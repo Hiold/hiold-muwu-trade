@@ -602,8 +602,13 @@ export default {
           ctx.popupCss(25, 13);
           return;
         }
-        if (isNaN(valQua) || isNaN(valNum) || isNaN(valPrice)) {
+        if (isNaN(valNum) || isNaN(valPrice)) {
           ctx.Alert("输入的内容有误！");
+          ctx.popupCss(25, 13);
+          return;
+        }
+        if(!isNaN(valQua)&&valQua*1>0&&valNum*1>1){
+          ctx.Alert("带品质的物品只能求购一份！");
           ctx.popupCss(25, 13);
           return;
         }
@@ -669,6 +674,7 @@ export default {
             ctx.popupCss(25, 13);
             $(".buying>.box>.blank").fadeOut(50);	//发布成功后 关闭求购窗口
             $(".buying>.box").css("overflow-y", "auto");
+            ctx.loadUserInfo();
           } else {
             ctx.Alert("发布失败！" + res.data.respMsg);
             ctx.popupCss(25, 13);
@@ -1243,7 +1249,7 @@ export default {
 
             //alert("其它玩家！求购的物品");
             var player = self.currentViewPlayer.name;	//获取店主名称
-            var name = item.Itemchinese;	//获取物品名称
+            var name = ctx.HandleItemName(item.Itemchinese);	//获取物品名称
             var id = item.id;	//获取物品ID
             var num = item.Itemcount * 1;	//获取物品数量
             var price = item.Price * 1;	//获取物品价格
@@ -1262,11 +1268,11 @@ export default {
                 if (res.data.respCode === "1") {
                   self.queryPlayerOnSell("", "玩家求购区");
                   ctx.Alert("交易成功");
-                  $(".player-order").hide()
                 } else {
-                  ElMessage.error(res.data.respMsg);
+                  ctx.Alert(res.data.respMsg);
                 }
               });
+              $(".player-order").hide()
             });
           }
         }
@@ -1532,7 +1538,7 @@ export default {
 
           //alert("其它玩家！求购的物品");
           var player = self.currentViewPlayer.name;	//获取店主名称
-          var name = item.Itemchinese;	//获取物品名称
+          var name = ctx.HandleItemName(item.Itemchinese);	//获取物品名称
           var id = item.id;	//获取物品ID
           var num = item.Itemcount * 1;	//获取物品数量
           var price = item.Price * 1;	//获取物品价格
@@ -1551,12 +1557,11 @@ export default {
               if (res.data.respCode === "1") {
                 self.queryPlayerOnSell(self.playerid);
                 ctx.Alert("交易成功");
-                $(".player-order").hide()
               } else {
-                ElMessage.error(res.data.respMsg);
+                ctx.Alert(res.data.respMsg);
               }
             });
-
+            $(".player-order").hide()
 
           });
         }

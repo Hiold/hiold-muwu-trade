@@ -35,9 +35,10 @@ export default {
         },
         {
           category: "活动任务", items: [
-            {name: "主线任务", data: "主线任务"},
-            {name: "每日任务", data: "每日任务"},
-            {name: "每周任务", data: "每周任务"},
+            {name: "全部", data: ""},
+            {name: "主线任务", data: "1"},
+            {name: "每日任务", data: "2"},
+            {name: "每周任务", data: "3"},
           ]
         },
         {

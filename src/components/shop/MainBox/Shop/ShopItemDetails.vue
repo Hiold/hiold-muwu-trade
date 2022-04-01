@@ -157,7 +157,7 @@ export default {
         return;
       }
 
-      var itemName = this.item.translate;	//获取商品名称（后面发送到仓库需要用到）------
+      var itemName = ctx.HandleItemName(this.item.translate);	//获取商品名称（后面发送到仓库需要用到）------
       var sell = this.item.sell;		//获取是否可以购买or是否为VIP物品
       //检测商品是否已过期
       var expired = false;	//默认为没有过期
@@ -415,6 +415,7 @@ export default {
           axios.post("api/buyItem", buyParam).then(res => {
             if (res.data.respCode === "1") {
               ctx.Alert("购买成功！");
+              ctx.loadUserInfo();
             } else {
               ctx.Alert(res.data.respMsg);
             }

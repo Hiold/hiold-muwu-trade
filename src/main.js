@@ -7,6 +7,7 @@ import './assets/css/icon.css'
 import mitt from 'mitt'
 import $ from 'jquery'
 import {useRouter} from "vue-router";
+import axios from "axios";
 
 const app = createApp(App);
 
@@ -27,6 +28,14 @@ app.config.globalProperties.$currentUser = null;
 
 
 //全局挂载用户数据
+app.config.globalProperties.loadUserInfo = function () {
+    axios.get("api/getCurrentUser").then(res => {
+        if (res.data.respCode === "1") {
+            localStorage.setItem("userinfo", JSON.stringify(res.data.data));
+            store.state.playerinfo = res.data.data;
+        }
+    });
+}
 //绑定Alert
 app.config.globalProperties.Confirm = function (text) {
     $("#alert").hide();

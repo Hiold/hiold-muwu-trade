@@ -90,6 +90,7 @@ export default {
           this.hbNotice = "已领取";
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
+          ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
         }

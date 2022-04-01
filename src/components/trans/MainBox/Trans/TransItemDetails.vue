@@ -415,6 +415,7 @@ export default {
           axios.post("api/buyItem", buyParam).then(res => {
             if (res.data.respCode === "1") {
               ctx.Alert("购买成功！");
+              ctx.loadUserInfo();
             } else {
               ctx.Alert(res.data.respMsg);
             }

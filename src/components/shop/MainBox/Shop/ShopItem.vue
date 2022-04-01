@@ -14,7 +14,8 @@
       <div class="follow" v-show="item.follow==='2'">跟档</div>
     </header>
     <section>
-      <img :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
+      <img v-if="item.itemtype=='1'" :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
+      <img v-if="item.itemtype=='2'" :src="'api/image/'+item.itemicon">
       <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
         <span>{{ item.quality }}</span>
       </div>

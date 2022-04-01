@@ -1,9 +1,11 @@
 import {createStore} from 'vuex'
+import axios from "axios";
 
 export default createStore({
     state: {
         tagsList: [],
-        collapse: false
+        collapse: false,
+        userinfo: {},
     },
     mutations: {
         delTagsItem(state, data) {

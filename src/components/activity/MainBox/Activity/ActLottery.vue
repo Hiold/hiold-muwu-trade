@@ -10,12 +10,13 @@
         <header v-if="awardList[0].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[0].type == '1'" :src="'404'" :alt="HandleItemName(awardList[0].itemchinese)"
-                 :title="HandleItemName(awardList[0].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[0].itemicon,awardList[0].itemtint)">
-            <img v-if="awardList[0].type == '2'" :src="'404'" :alt="HandleItemName(awardList[0].itemchinese)"
-                 :title="HandleItemName(awardList[0].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[0].itemicon,awardList[0].itemtint)">
+            <el-tooltip v-if="awardList[0].type == '1'" :content="awardList[0].itemchinese" placement="top">
+              <img v-if="awardList[0].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[0].itemicon,awardList[0].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[0].type == '2'" :content="awardList[0].itemchinese" placement="top">
+              <img v-if="awardList[0].type == '2'" :src="'api/image/'+awardList[0].itemicon">
+            </el-tooltip>
             <span v-if="awardList[0].type == '3'">一条神秘指令</span>
             <img v-if="awardList[0].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[0].type == '4'" :src="'images/items/jf2.png'">
@@ -37,12 +38,13 @@
         <header v-if="awardList[1].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[1].type == '1'" :src="'404'" :alt="HandleItemName(awardList[1].itemchinese)"
-                 :title="HandleItemName(awardList[1].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[1].itemicon,awardList[1].itemtint)">
-            <img v-if="awardList[1].type == '2'" :src="'404'" :alt="HandleItemName(awardList[1].itemchinese)"
-                 :title="HandleItemName(awardList[1].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[1].itemicon,awardList[1].itemtint)">
+            <el-tooltip v-if="awardList[1].type == '1'" :content="awardList[1].itemchinese" placement="top">
+              <img v-if="awardList[1].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[1].itemicon,awardList[1].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[1].type == '2'" :content="awardList[1].itemchinese" placement="top">
+              <img v-if="awardList[1].type == '2'" :src="'api/image/'+awardList[1].itemicon">
+            </el-tooltip>
             <span v-if="awardList[1].type == '3'">一条神秘指令</span>
             <img v-if="awardList[1].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[1].type == '4'" :src="'images/items/jf2.png'">
@@ -65,12 +67,13 @@
         <header v-if="awardList[2].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[2].type == '1'" :src="'404'" :alt="HandleItemName(awardList[2].itemchinese)"
-                 :title="HandleItemName(awardList[2].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[2].itemicon,awardList[2].itemtint)">
-            <img v-if="awardList[2].type == '2'" :src="'404'" :alt="HandleItemName(awardList[2].itemchinese)"
-                 :title="HandleItemName(awardList[2].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[2].itemicon,awardList[2].itemtint)">
+            <el-tooltip v-if="awardList[2].type == '1'" :content="awardList[2].itemchinese" placement="top">
+              <img v-if="awardList[2].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[2].itemicon,awardList[2].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[2].type == '2'" :content="awardList[2].itemchinese" placement="top">
+              <img v-if="awardList[2].type == '2'" :src="'api/image/'+awardList[2].itemicon">
+            </el-tooltip>
             <span v-if="awardList[2].type == '3'">一条神秘指令</span>
             <img v-if="awardList[2].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[2].type == '4'" :src="'images/items/jf2.png'">
@@ -93,12 +96,13 @@
         <header v-if="awardList[3].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[3].type == '1'" :src="'404'" :alt="HandleItemName(awardList[3].itemchinese)"
-                 :title="HandleItemName(awardList[3].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[3].itemicon,awardList[3].itemtint)">
-            <img v-if="awardList[3].type == '2'" :src="'404'" :alt="HandleItemName(awardList[3].itemchinese)"
-                 :title="HandleItemName(awardList[3].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[3].itemicon,awardList[3].itemtint)">
+            <el-tooltip v-if="awardList[3].type == '1'" :content="awardList[3].itemchinese" placement="top">
+              <img v-if="awardList[3].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[3].itemicon,awardList[3].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[3].type == '2'" :content="awardList[3].itemchinese" placement="top">
+              <img v-if="awardList[3].type == '2'" :src="'api/image/'+awardList[3].itemicon">
+            </el-tooltip>
             <span v-if="awardList[3].type == '3'">一条神秘指令</span>
             <img v-if="awardList[3].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[3].type == '4'" :src="'images/items/jf2.png'">
@@ -122,12 +126,13 @@
           <header v-if="awardList[4].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[4].type == '1'" :src="'404'" :alt="HandleItemName(awardList[4].itemchinese)"
-                   :title="HandleItemName(awardList[4].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[4].itemicon,awardList[4].itemtint)">
-              <img v-if="awardList[4].type == '2'" :src="'404'" :alt="HandleItemName(awardList[4].itemchinese)"
-                   :title="HandleItemName(awardList[4].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[4].itemicon,awardList[4].itemtint)">
+              <el-tooltip v-if="awardList[4].type == '1'" :content="awardList[4].itemchinese" placement="top">
+                <img v-if="awardList[4].type == '1'" :src="'404'"
+                     @error="$LoadTintImage($event.target,awardList[4].itemicon,awardList[4].itemtint)">
+              </el-tooltip>
+              <el-tooltip v-if="awardList[4].type == '2'" :content="awardList[4].itemchinese" placement="top">
+                <img v-if="awardList[4].type == '2'" :src="'api/image/'+awardList[4].itemicon">
+              </el-tooltip>
               <span v-if="awardList[4].type == '3'">一条神秘指令</span>
               <img v-if="awardList[4].type == '5'" :src="'images/items/red-zs.png'">
               <img v-if="awardList[4].type == '4'" :src="'images/items/jf2.png'">
@@ -150,12 +155,13 @@
           <header v-if="awardList[5].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[5].type == '1'" :src="'404'" :alt="HandleItemName(awardList[5].itemchinese)"
-                   :title="HandleItemName(awardList[5].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[5].itemicon,awardList[5].itemtint)">
-              <img v-if="awardList[5].type == '2'" :src="'404'" :alt="HandleItemName(awardList[5].itemchinese)"
-                   :title="HandleItemName(awardList[5].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[5].itemicon,awardList[5].itemtint)">
+              <el-tooltip v-if="awardList[5].type == '1'" :content="awardList[5].itemchinese" placement="top">
+                <img v-if="awardList[5].type == '1'" :src="'404'"
+                     @error="$LoadTintImage($event.target,awardList[5].itemicon,awardList[5].itemtint)">
+              </el-tooltip>
+              <el-tooltip v-if="awardList[5].type == '2'" :content="awardList[5].itemchinese" placement="top">
+                <img v-if="awardList[5].type == '2'" :src="'api/image/'+awardList[5].itemicon">
+              </el-tooltip>
               <span v-if="awardList[5].type == '3'">一条神秘指令</span>
               <img v-if="awardList[5].type == '5'" :src="'images/items/red-zs.png'">
               <img v-if="awardList[5].type == '4'" :src="'images/items/jf2.png'">
@@ -176,70 +182,72 @@
           <img :src="'images/lottery.jpg'">
         </div>
         <div class="btn">
-          <div class="b1" @click="doanimation(1)">
-            <div class="align">
-              <b>立即抽奖</b>
-              <div class="price">
-                <i>
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
-                       :src="'images/icon/jf2.png'"
-                       :alt="积分"
-                       :title="积分"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+          <el-tooltip
+              v-if="(lotteryList!=null&&lotteryList.length>0)"
+              :content="getLottery(selectedLotteryId).itemchinese" placement="top">
+            <div class="b1" @click="doanimation(1)">
+              <div class="align">
+                <b>立即抽奖</b>
+                <div class="price">
+                  <i>
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
+                         :src="'images/icon/jf2.png'"
+                         :alt="积分"
+                         :title="积分"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
 
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
-                       :src="'images/icon/red-zs.png'"
-                       :alt="点券"
-                       :title="点券"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
+                         :src="'images/icon/red-zs.png'"
+                         :alt="点券"
+                         :title="点券"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
 
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
-                       :src="'404'"
-                       :alt="getLottery(selectedLotteryId).itemchinese"
-                       :title="getLottery(selectedLotteryId).itemchinese"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
-                       :src="'404'"
-                       :alt="getLottery(selectedLotteryId).itemchinese"
-                       :title="getLottery(selectedLotteryId).itemchinese"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                </i>
-                <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).one }}</span>
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
+                         :src="'404'"
+                         :alt="getLottery(selectedLotteryId).itemchinese"
+                         :title="getLottery(selectedLotteryId).itemchinese"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
+                         :src="'api/image/'+getLottery(selectedLotteryId).itemicon">
+                  </i>
+                  <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).one }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="b2" @click="doanimation(10)">
-            <div class="align">
-              <b>十连抽</b>
-              <div class="price">
-                <i>
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
-                       :src="'images/icon/jf2.png'"
-                       :alt="积分"
-                       :title="积分"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+          </el-tooltip>
+          <el-tooltip
+              v-if="(lotteryList!=null&&lotteryList.length>0)"
+              :content="getLottery(selectedLotteryId).itemchinese" placement="top">
+            <div class="b2" @click="doanimation(10)">
+              <div class="align">
+                <b>十连抽</b>
+                <div class="price">
+                  <i>
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
+                         :src="'images/icon/jf2.png'"
+                         :alt="积分"
+                         :title="积分"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
 
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
-                       :src="'images/icon/red-zs.png'"
-                       :alt="点券"
-                       :title="点券"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
+                         :src="'images/icon/red-zs.png'"
+                         :alt="点券"
+                         :title="点券"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
 
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
-                       :src="'404'"
-                       :alt="getLottery(selectedLotteryId).itemchinese"
-                       :title="getLottery(selectedLotteryId).itemchinese"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                  <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
-                       :src="'404'"
-                       :alt="getLottery(selectedLotteryId).itemchinese"
-                       :title="getLottery(selectedLotteryId).itemchinese"
-                       @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                </i>
-                <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).ten }}</span>
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
+                         :src="'404'"
+                         :alt="getLottery(selectedLotteryId).itemchinese"
+                         :title="getLottery(selectedLotteryId).itemchinese"
+                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
+                         :src="'api/image/'+getLottery(selectedLotteryId).itemicon">
+                  </i>
+                  <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).ten }}</span>
+                </div>
               </div>
             </div>
-          </div>
+          </el-tooltip>
         </div>
       </div>
 
@@ -253,12 +261,13 @@
           <header v-if="awardList[6].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[6].type == '1'" :src="'404'" :alt="HandleItemName(awardList[6].itemchinese)"
-                   :title="HandleItemName(awardList[6].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[6].itemicon,awardList[6].itemtint)">
-              <img v-if="awardList[6].type == '2'" :src="'404'" :alt="HandleItemName(awardList[6].itemchinese)"
-                   :title="HandleItemName(awardList[6].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[6].itemicon,awardList[6].itemtint)">
+              <el-tooltip v-if="awardList[6].type == '1'" :content="awardList[6].itemchinese" placement="top">
+                <img v-if="awardList[6].type == '1'" :src="'404'"
+                     @error="$LoadTintImage($event.target,awardList[6].itemicon,awardList[6].itemtint)">
+              </el-tooltip>
+              <el-tooltip v-if="awardList[6].type == '2'" :content="awardList[6].itemchinese" placement="top">
+                <img v-if="awardList[6].type == '2'" :src="'api/image/'+awardList[6].itemicon">
+              </el-tooltip>
               <span v-if="awardList[6].type == '3'">一条神秘指令</span>
               <img v-if="awardList[6].type == '5'" :src="'images/items/red-zs.png'">
               <img v-if="awardList[6].type == '4'" :src="'images/items/jf2.png'">
@@ -281,12 +290,13 @@
           <header v-if="awardList[7].type=='5'">点券</header>
           <section>
             <div class="image">
-              <img v-if="awardList[7].type == '1'" :src="'404'" :alt="HandleItemName(awardList[7].itemchinese)"
-                   :title="HandleItemName(awardList[7].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[7].itemicon,awardList[7].itemtint)">
-              <img v-if="awardList[7].type == '2'" :src="'404'" :alt="HandleItemName(awardList[7].itemchinese)"
-                   :title="HandleItemName(awardList[7].itemchinese)"
-                   @error="$LoadTintImage($event.target,awardList[7].itemicon,awardList[7].itemtint)">
+              <el-tooltip v-if="awardList[7].type == '1'" :content="awardList[7].itemchinese" placement="top">
+                <img v-if="awardList[7].type == '1'" :src="'404'"
+                     @error="$LoadTintImage($event.target,awardList[7].itemicon,awardList[7].itemtint)">
+              </el-tooltip>
+              <el-tooltip v-if="awardList[7].type == '2'" :content="awardList[7].itemchinese" placement="top">
+                <img v-if="awardList[7].type == '2'" :src="'api/image/'+awardList[7].itemicon">
+              </el-tooltip>
               <span v-if="awardList[7].type == '3'">一条神秘指令</span>
               <img v-if="awardList[7].type == '5'" :src="'images/items/red-zs.png'">
               <img v-if="awardList[7].type == '4'" :src="'images/items/jf2.png'">
@@ -310,12 +320,13 @@
         <header v-if="awardList[8].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[8].type == '1'" :src="'404'" :alt="HandleItemName(awardList[8].itemchinese)"
-                 :title="HandleItemName(awardList[8].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[8].itemicon,awardList[8].itemtint)">
-            <img v-if="awardList[8].type == '2'" :src="'404'" :alt="HandleItemName(awardList[8].itemchinese)"
-                 :title="HandleItemName(awardList[8].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[8].itemicon,awardList[8].itemtint)">
+            <el-tooltip v-if="awardList[8].type == '1'" :content="awardList[8].itemchinese" placement="top">
+              <img v-if="awardList[8].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[8].itemicon,awardList[8].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[8].type == '2'" :content="awardList[8].itemchinese" placement="top">
+              <img v-if="awardList[8].type == '2'" :src="'api/image/'+awardList[8].itemicon">
+            </el-tooltip>
             <span v-if="awardList[8].type == '3'">一条神秘指令</span>
             <img v-if="awardList[8].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[8].type == '4'" :src="'images/items/jf2.png'">
@@ -338,12 +349,13 @@
         <header v-if="awardList[9].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[9].type == '1'" :src="'404'" :alt="HandleItemName(awardList[9].itemchinese)"
-                 :title="HandleItemName(awardList[9].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[9].itemicon,awardList[9].itemtint)">
-            <img v-if="awardList[9].type == '2'" :src="'404'" :alt="HandleItemName(awardList[9].itemchinese)"
-                 :title="HandleItemName(awardList[9].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[9].itemicon,awardList[9].itemtint)">
+            <el-tooltip v-if="awardList[9].type == '1'" :content="awardList[9].itemchinese" placement="top">
+              <img v-if="awardList[9].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[9].itemicon,awardList[9].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[9].type == '2'" :content="awardList[9].itemchinese" placement="top">
+              <img v-if="awardList[9].type == '2'" :src="'api/image/'+awardList[9].itemicon">
+            </el-tooltip>
             <span v-if="awardList[9].type == '3'">一条神秘指令</span>
             <img v-if="awardList[9].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[9].type == '4'" :src="'images/items/jf2.png'">
@@ -366,12 +378,13 @@
         <header v-if="awardList[10].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[10].type == '1'" :src="'404'" :alt="HandleItemName(awardList[10].itemchinese)"
-                 :title="HandleItemName(awardList[10].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[10].itemicon,awardList[10].itemtint)">
-            <img v-if="awardList[10].type == '2'" :src="'404'" :alt="HandleItemName(awardList[10].itemchinese)"
-                 :title="HandleItemName(awardList[10].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[10].itemicon,awardList[10].itemtint)">
+            <el-tooltip v-if="awardList[10].type == '1'" :content="awardList[10].itemchinese" placement="top">
+              <img v-if="awardList[10].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[10].itemicon,awardList[10].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[10].type == '2'" :content="awardList[10].itemchinese" placement="top">
+              <img v-if="awardList[10].type == '2'" :src="'api/image/'+awardList[10].itemicon">
+            </el-tooltip>
             <span v-if="awardList[10].type == '3'">一条神秘指令</span>
             <img v-if="awardList[10].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[10].type == '4'" :src="'images/items/jf2.png'">
@@ -394,12 +407,13 @@
         <header v-if="awardList[11].type=='5'">点券</header>
         <section>
           <div class="image">
-            <img v-if="awardList[11].type == '1'" :src="'404'" :alt="HandleItemName(awardList[11].itemchinese)"
-                 :title="HandleItemName(awardList[11].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[11].itemicon,awardList[11].itemtint)">
-            <img v-if="awardList[11].type == '2'" :src="'404'" :alt="HandleItemName(awardList[11].itemchinese)"
-                 :title="HandleItemName(awardList[11].itemchinese)"
-                 @error="$LoadTintImage($event.target,awardList[11].itemicon,awardList[11].itemtint)">
+            <el-tooltip v-if="awardList[11].type == '1'" :content="awardList[11].itemchinese" placement="top">
+              <img v-if="awardList[11].type == '1'" :src="'404'"
+                   @error="$LoadTintImage($event.target,awardList[11].itemicon,awardList[11].itemtint)">
+            </el-tooltip>
+            <el-tooltip v-if="awardList[11].type == '2'" :content="awardList[11].itemchinese" placement="top">
+              <img v-if="awardList[11].type == '2'" :src="'api/image/'+awardList[11].itemicon">
+            </el-tooltip>
             <span v-if="awardList[11].type == '3'">一条神秘指令</span>
             <img v-if="awardList[11].type == '5'" :src="'images/items/red-zs.png'">
             <img v-if="awardList[11].type == '4'" :src="'images/items/jf2.png'">
@@ -572,7 +586,7 @@ export default {
 
           ctx.Award(awardData, "获得如下奖励", "物品已发放到仓库", "关闭", null);
           this.isanimation = false;
-
+          ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
           this.isanimation = false;

@@ -253,6 +253,62 @@
           </el-form-item>
         </template>
 
+        <template
+            v-if="awardData.couCurrType==='积分折扣'||awardData.couCurrType==='钻石折扣'||awardData.couCurrType==='积分满减'||awardData.couCurrType==='钻石满减'">
+          <el-form-item label="优惠券类型" class="center" v-show="awardData.type==='2'">
+            <el-input class="handle-space" v-model="awardData.couCurrType" :disabled="true"></el-input>
+          </el-form-item>
+
+          <el-form-item label="优惠类型" class="center" v-show="awardData.type==='2'"
+                        v-if="awardData.couCurrType==='积分满减'||awardData.couCurrType==='钻石满减'">
+            <el-row>
+              <el-col :span="6">满</el-col>
+              <el-col :span="6">
+                <el-input class="handle-space" v-model="awardData.couCond"></el-input>
+              </el-col>
+              <el-col :span="6">减</el-col>
+              <el-col :span="6">
+                <el-input class="handle-space" v-model="awardData.couPrice"></el-input>
+              </el-col>
+            </el-row>
+          </el-form-item>
+
+          <el-form-item label="优惠类型" class="center" v-show="awardData.type==='2'"
+                        v-if="awardData.couCurrType==='积分折扣'||awardData.couCurrType==='钻石折扣'">
+            <el-row>
+              <el-col :span="12">
+                <el-input class="handle-space" v-model="awardData.couPrice"></el-input>
+              </el-col>
+              <el-col :span="12">折</el-col>
+            </el-row>
+
+          </el-form-item>
+
+          <el-form-item label="使用限制日期" class="center" v-if="awardData.type==='2'">
+            <el-row>
+              <el-col :span="8">
+                <el-select v-model="awardData.coudatelimit" placeholder="限时使用" class="handle-space">
+                  <el-option key="1" label="不限时" value="1"></el-option>
+                  <el-option key="2" label="限时使用" value="2"></el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="15" style="text-align: left;margin-right: 20px;">
+                <div v-show="awardData.coudatelimit==='2'">
+                  <el-date-picker
+                      v-model="awardData.couDate"
+                      type="datetimerange"
+                      range-separator="至"
+                      start-placeholder="开抢时间"
+                      end-placeholder="结束时间"
+                      @change="catchs"
+                  >
+                  </el-date-picker>
+                </div>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </template>
+
       </el-form>
 
       <template #footer>
@@ -303,8 +359,8 @@ export default {
         desc: "",
       },
       awardData: {
+        funcid: "1",
         id: "-1",
-        funcid: "2",
         type: "",
         containerid: "",
         count: "",
@@ -314,6 +370,13 @@ export default {
         itemicon: "",
         itemtint: "",
         command: "",
+        couDate: [moment().format("YYYY-MM-DD HH:mm:ss"), moment().add("7", "days").format("YYYY-MM-DD HH:mm:ss")],
+        couCurrType: "",
+        couPrice: "",
+        couCond: "",
+        coudatelimit: "",
+        couDateStart: "",
+        couDateEnd: "",
       },
       instance: false,
       editor: "",
@@ -454,6 +517,7 @@ export default {
       var ctx = this.ctx.appContext.config.globalProperties;
       console.log(this.itemNameCache[item.value]);
       if (this.awardData.type == "1") {
+        this.awardData.couCurrType = "";
         this.awardData.itemchinese = item.value;
         this.awardData.itemname = this.itemNameCache[item.value].itemname;
         this.awardData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
@@ -461,6 +525,8 @@ export default {
         // this.src = 'api/image/' + this.formData.itemIcon;
         ctx.$LoadTintImage($("#imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
         $("#imgDesc").show();
+      } else {
+        this.awardData.couCurrType = item.value;
       }
     },
     handleDelete(id) {
@@ -562,6 +628,14 @@ export default {
           }
 
           this.awardData.itemquality = this.awardData.itemquality + "";
+          //处理时间
+          if (this.awardData.couDate && this.awardData.couDate.length === 2) {
+            this.awardData.couDateStart = this.awardData.couDate[0];
+            this.awardData.couDateEnd = this.awardData.couDate[1];
+            this.awardData.couDate = "";
+          }
+
+
           axios.post(url, this.awardData).then(res => {
             if (res.data.respCode === "1") {
               ElMessage({
@@ -572,7 +646,7 @@ export default {
               ElMessage.error('保存出错')
             }
 
-            let args = {containerid: this.awardData.containerid + "", funcid: "2"};
+            let args = {containerid: this.awardData.containerid + "", funcid: "1"};
             axios.post("api/getAwardInfo", args).then(res => {
               if (res.data.respCode === "1") {
                 let JsonData = res.data.data;
@@ -615,7 +689,13 @@ export default {
       this.awardData.itemicon = scope.row.itemicon + "";
       this.awardData.itemtint = scope.row.itemtint + "";
       this.awardData.command = scope.row.command + "";
-
+      this.awardData.couCurrType = scope.row.couCurrType + "";
+      this.awardData.couPrice = scope.row.couPrice + "";
+      this.awardData.couCond = scope.row.couCond + "";
+      this.awardData.coudatelimit = scope.row.coudatelimit + "";
+      this.awardData.couDateStart = scope.row.couDateStart + "";
+      this.awardData.couDateEnd = scope.row.couDateEnd + "";
+      this.awardData.couDate = [this.awardData.couDateStart, this.awardData.couDateEnd];
     },
     openAwardEdit(scope) {
       this.initIconData();

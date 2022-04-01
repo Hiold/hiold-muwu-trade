@@ -22,25 +22,26 @@ export default {
   watch: {
     class1: {
       handler(newName, oldName) {
-        if (newName != oldName) {
-        }
       },
       immediate: true
     },
     class2: {
       handler(newName, oldName) {
         if (newName != oldName) {
-          this.loadTask()
+          this.loadTask(newName)
         }
       }
-    }
+    },
+  },
+  mounted() {
+    this.loadTask("");
   },
   name: "ActTask",
   props: ["class1", "class2"],
   components: {ActTaskItem},
   methods: {
-    loadTask() {
-      let params = {type: this.type + ""};
+    loadTask(type) {
+      let params = {type: type + ""};
       axios.post("api/getProgression", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;

@@ -123,7 +123,7 @@ export default {
       itemname: "",
       sorttype: "默认排序",
       idDetail: "",
-      ctx:{},
+      ctx: {},
     }
   },
   methods: {
@@ -378,8 +378,11 @@ export default {
       }
       //物品图片
       // $(".items-details>.left").find("img").attr("src", img);
-      ctx.$LoadTintImage($(".items-details>.left").find("img")[0], item.itemicon, item.itemtint)
-
+      if (item.itemtype == '1') {
+        ctx.$LoadTintImage($(".items-details>.left").find("img")[0], item.itemicon, item.itemtint)
+      } else {
+        $(".items-details>.left").find("img").attr("src", "api/image/" + item.itemicon);
+      }
       //收藏图标
       if (item.collected == "1") {
         $(".items-details").data("collect", "true");

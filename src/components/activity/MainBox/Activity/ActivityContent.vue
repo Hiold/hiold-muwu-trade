@@ -176,12 +176,17 @@ export default {
       // $(".task-main").hide();
       $(".head-tool>h1").text("主线任务");
     });
-    $(".Category>div>.b2-t1").click(function () {	//主线任务
+    $(".Category>div>.b2-t1").click(function () {	//每日任务
+      $(".task-day").show();
+      // $(".task-main").hide();
+      $(".head-tool>h1").text("主线任务");
+    });
+    $(".Category>div>.b2-t2").click(function () {	//主线任务
       $(".task-day").show();
       // $(".task-main").show();
       $(".head-tool>h1").text("每日任务");
     });
-    $(".Category>div>.b2-t2").click(function () {	//主线任务
+    $(".Category>div>.b2-t3").click(function () {	//主线任务
       $(".task-day").show();
       // $(".task-main").show();
       $(".head-tool>h1").text("每周任务");

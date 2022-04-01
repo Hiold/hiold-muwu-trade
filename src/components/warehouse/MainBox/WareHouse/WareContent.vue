@@ -406,6 +406,7 @@ export default {
 
     },
     sellOut(item) {	//仓库物品详情页-出售物品
+      var ctx = this.ctx.appContext.config.globalProperties;
       $("#alert,#alert>.window").show();	//显示出售物品的确认框
       var name = item.name;	//名称
       var img = item.image;	//图标
@@ -419,7 +420,7 @@ export default {
       //alert(qua)
       //将物品数据渲染到页面
       $("#alert>.window>section>header>.head>img").attr("src", img);	//图标
-      $("#alert>.window>section>header>.msg>.name").html(name);		//名称
+      $("#alert>.window>section>header>.msg>.name").html(ctx.HandleItemName(name));		//名称
       $("#alert>.window>section>header>.msg>.num").text("x" + num);		//数量
       $("#alert>.window>section>header>.msg>.quality").text("品质：" + qua);	//品质
       $("#alert>.window>section>div>.val>input").val("");		//清空输入框
@@ -496,8 +497,11 @@ export default {
       //将物品信息渲染到页面
       $(".ware-details>header>.name").text(name);	//名称
       // $(".ware-details>section>.left>.img>img").attr("src", img);//图片
-      ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
-
+      if (item.itemtype == "1") {
+        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
+      } else {
+        $(".ware-details>section>.left>.img>img").attr("src", img);
+      }
       $(".ware-details>section>.left>header>.c1").text(c1);	//总分类
       $(".ware-details>section>.left>header>.c2").text(c2);	//子分类
       if (c1 == "特殊商品") {
@@ -771,7 +775,7 @@ export default {
       $("#alert,#alert>.window").show();	//显示出售物品的确认框
       $("#alert>.window").data("index", itemindex);
       // console.log(item);
-      var name = self.deleteBBcode((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
+      var name = ctx.HandleItemName(((item.translate === null || item.translate === "") ? item.couCurrType : item.translate));//名称
       var img = 'api/image/' + item.itemicon;				//商品图片
       var num = item.storageCount;		//数量
       var qua = item.quality;	//品质
