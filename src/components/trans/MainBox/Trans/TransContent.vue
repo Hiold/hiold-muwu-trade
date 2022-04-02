@@ -607,7 +607,7 @@ export default {
           ctx.popupCss(25, 13);
           return;
         }
-        if(!isNaN(valQua)&&valQua*1>0&&valNum*1>1){
+        if (!isNaN(valQua) && valQua * 1 > 0 && valNum * 1 > 1) {
           ctx.Alert("带品质的物品只能求购一份！");
           ctx.popupCss(25, 13);
           return;
@@ -797,22 +797,23 @@ export default {
       //$(".player-store>li>.praised").unbind("click");
       $(".player-store").on("click", "li>.praised", function (e) {	//给玩家店铺点赞
         e.stopPropagation();	//防止事件冒泡(不触发父元素的点击事件)
-        var ck = $(this).data("click");	//获取是否已点赞
+        console.log($(e.currentTarget).children("span"));
+        var gameentityid = $(this).parent().data("gameentityid");
+        console.log(gameentityid);
+        let params = {
+          steamid: gameentityid + "",
+        };
+        axios.post("api/like", params).then(res => {
+          if (res.data.respCode === "1") {
+            ctx.Alert("点赞成功！");
+            ctx.popupCss(25, 13);
+            $(e.currentTarget).children("span").html(($(e.currentTarget).children("span").html() * 1) + 1);
+          } else {
+            ctx.Alert(res.data.respMsg);
+            ctx.popupCss(25, 13);
+          }
+        });
 
-        if (ck == "false" || ck == undefined) {	//如果还没点过赞
-          //alert(ck)
-          var xb = $(this).parent().data("index");
-          var num = playerStores[xb].praised * 1;	//获取当前店铺获赞数量
-          num += 1;	//获赞+1
-          playerStores[xb][0][6] = "获赞:" + num;
-          playerStores[xb].praised = num;
-          $(this).find("span").text(num);
-          $(this).find("i").css("background-image", "url(images/icon/zan2.png)");
-          $(this).find("span").css("color", "orangered");
-          $(this).data("click", "true");
-        } else if (ck == "true") { //如果已经点过赞
-
-        }
 
       });
 

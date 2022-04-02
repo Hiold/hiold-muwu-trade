@@ -46,6 +46,11 @@ export default {
         title: "系统信息",
       },
       {
+        icon: "el-icon-pie-chart",
+        index: "/manage/specialitem",
+        title: "特殊物品",
+      },
+      {
         icon: "el-icon-lx-people",
         index: "3",
         title: "用户管理",

@@ -18,7 +18,7 @@
       </div>
       <div class="right">
         <div class="btn-1">详情</div>
-        <div class="btn-2">提取</div>
+        <div class="btn-2" v-if="item.itemtype=='1'">提取</div>
         <div class="btn-3">丢弃</div>
       </div>
     </section>

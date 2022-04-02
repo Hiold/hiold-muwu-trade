@@ -33,6 +33,8 @@ app.config.globalProperties.loadUserInfo = function () {
         if (res.data.respCode === "1") {
             localStorage.setItem("userinfo", JSON.stringify(res.data.data));
             store.state.playerinfo = res.data.data;
+        } else {
+            window.location = "/#/login"
         }
     });
 }

@@ -49,7 +49,14 @@ const routes = [{
             title: '系统首页'
         }, component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
     },
-
+        {
+            path: "specialitem",
+            name: "specialitem",
+            meta: {
+                title: '特殊物品'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/SpecialItem.vue")
+        },
         {
             path: "shopmanage",
             name: "shopmanage",

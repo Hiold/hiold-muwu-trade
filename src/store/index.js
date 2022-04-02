@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default createStore({
     state: {
+        awardEditVisible: false,
         tagsList: [],
         collapse: false,
         userinfo: {},

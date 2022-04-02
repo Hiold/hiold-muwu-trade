@@ -494,16 +494,15 @@ export default {
       var qua = item.quality;	//获取物品品质
       var desc = item.desc;	//获取物品介绍
 
+      if (item.itemtype == '2') {
+        $(".ware-details>section>.right>.btn-1").hide();
+      } else {
+        $(".ware-details>section>.right>.btn-1").show();
+      }
       //将物品信息渲染到页面
       $(".ware-details>header>.name").text(name);	//名称
       // $(".ware-details>section>.left>.img>img").attr("src", img);//图片
-      if (item.itemtype == "1") {
-        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
-      } else {
-        $(".ware-details>section>.left>.img>img").attr("src", img);
-      }
-      $(".ware-details>section>.left>header>.c1").text(c1);	//总分类
-      $(".ware-details>section>.left>header>.c2").text(c2);	//子分类
+
       if (c1 == "特殊商品") {
         $(".ware-details>section>.left>header>.c3").show().text("网页专属");	//mod
         $(".ware-details>section>.right>.btn-1").text("使用物品");
@@ -523,6 +522,23 @@ export default {
       } else {
         $(".ware-details>section>.left>footer>.quality").hide();
       }
+
+      if (item.itemtype == "1") {
+        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
+        $(".ware-details>section>.left>header>.c1").show();
+        $(".ware-details>section>.left>header>.c2").show();
+        $(".ware-details>section>.left>header>.c3").hide();
+        //
+        $(".ware-details>section>.left>header>.c1").text(c1);	//总分类
+        $(".ware-details>section>.left>header>.c2").text(c2);	//子分类
+      } else {
+        $(".ware-details>section>.left>.img>img").attr("src", img);
+        $(".ware-details>section>.left>header>.c1").hide();
+        $(".ware-details>section>.left>header>.c2").hide();
+        $(".ware-details>section>.left>header>.c3").show();
+        $(".ware-details>section>.left>header>.c3").text("特殊物品");
+      }
+
       $(".ware-details>footer>.desc").html(desc);	//介绍说明
     },
     pickUpItems(itemindex) {	//提取仓库物品
