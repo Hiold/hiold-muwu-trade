@@ -93,6 +93,11 @@ export default {
         icon: "el-icon-s-claim",
         index: "/manage/dailysign",
         title: "签到奖励",
+      },
+      {
+        icon: "el-icon-lx-shop",
+        index: "/manage/itemexchange",
+        title: "物品转换",
       }
       , {
         icon: "el-icon-lx-calendar",

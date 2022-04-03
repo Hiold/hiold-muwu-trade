@@ -137,6 +137,14 @@ const routes = [{
                 title: '游戏事件'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/GameAction.vue")
+        },
+        {
+            path: "itemexchange",
+            name: "itemexchange",
+            meta: {
+                title: '游戏事件'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ItemExchange.vue")
         }]
 }, {
     path: "/login", name: "Login", meta: {

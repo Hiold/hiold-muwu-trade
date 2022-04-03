@@ -1,111 +1,83 @@
 <template>
   <div>
     <!-- 弹出框奖励编辑框 -->
-    <el-dialog title="奖品编辑" v-model="$store.state.awardEditVisible" width="80%" :append-to-body="true"
-               :close-on-click-modal="false">
-      <div class="handle-box">
-        <el-input placeholder="名称" class="handle-input mr10"></el-input>
+
+    <div class="handle-box">
+      <el-button type="success" icon="el-icon-plus" @click="handleAddAward">添加</el-button>
+    </div>
+
+    <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header" :data="awardInfo">
+      <el-table-column prop="data.id" label="ID" width="55" align="center"></el-table-column>
+
+      <el-table-column label="类型">
+        <template #default="scope">
+          {{
+            scope.row.data.type == '1' ? '游戏内物品制作' : scope.row.data.type == '2' ? '游戏内物品兑换' : scope.row.data.type == '3' ? '特殊物品制作' : scope.row.data.type == '4' ? '特殊物品兑换' : '未知'
+          }}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="物品名称">
+        <template #default="scope">
+            <span>
+              {{
+                scope.row.data.itemchinese
+              }} 品质：{{
+                !scope.row.data.itemquality || scope.row.data.itemquality == "" ? "无" : scope.row.data.itemquality
+              }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="数量">
+        <template #default="scope">
+          <span>{{ scope.row.data.count }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="奖励信息">
+        <template #default="scope">
+          <img v-if="scope.row.data.type == '1'||scope.row.data.type == '2'" style="height: 30px" :src="'404'"
+               @error="$LoadTintImage($event.target,scope.row.data.itemicon,scope.row.data.itemtint)">
+          <img v-if="scope.row.data.type == '3'||scope.row.data.type == '4'" style="height: 30px"
+               :src="'api/image/'+scope.row.data.itemicon">
+
+        </template>
+      </el-table-column>
 
 
-        <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
-        <el-button type="success" icon="el-icon-plus" @click="handleAddAward">添加</el-button>
-      </div>
+      <el-table-column label="操作" width="350" align="center">
+        <template #default="scope">
+          <el-button type="primary" icon="el-icon-edit"
+                     size="small" @click="openAddUpdate(scope)">编辑转换
+          </el-button>
+          <el-button v-if="scope.row.data.type == '1'||scope.row.data.type == '3'" type="primary" icon="el-icon-edit"
+                     size="small" @click="openAwardEdit(scope)">编辑合成材料
+          </el-button>
+          <el-button v-if="scope.row.data.type == '2'||scope.row.data.type == '4'" type="primary" icon="el-icon-edit"
+                     size="small" @click="openAwardEdit(scope)">编辑兑换物品
+          </el-button>
+          <el-button type="delete" icon="el-icon-delete" size="small" class="red"
+                     @click="handleAddDelete(scope.row.id)">删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-      <el-table border class="table" ref="multipleTable" header-cell-class-name="table-header" :data="awardInfo">
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-
-        <el-table-column label="物品类型">
-          <template #default="scope">
-            {{
-              scope.row.type == "1" ? "游戏内物品" : scope.row.type == "2" ? "特殊物品" : scope.row.type == "3" ?
-                  "指令" : scope.row.type == "4" ? "积分" : scope.row.type == "5" ? "点券" : "未知"
-            }}
-          </template>
-        </el-table-column>
-
-        <el-table-column label="物品名称">
-          <template #default="scope">
-            <span
-                v-if="scope.row.type == '1'">{{
-                scope.row.itemchinese
-              }} 品质：{{ !scope.row.itemquality || scope.row.itemquality == "" ? "无" : scope.row.itemquality }}</span>
-            <span v-if="scope.row.type == '2'">{{ scope.row.itemchinese }}</span>
-            <span v-if="scope.row.type == '3'">指令</span>
-            <span v-if="scope.row.type == '4'">积分</span>
-            <span v-if="scope.row.type == '5'">点券</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="数量">
-          <template #default="scope">
-            <span v-if="scope.row.type == '1'">{{ scope.row.count }}</span>
-            <span v-if="scope.row.type == '2'">{{ scope.row.count }}</span>
-            <span v-if="scope.row.type == '3'">无</span>
-            <span v-if="scope.row.type == '4'">{{ scope.row.count }}</span>
-            <span v-if="scope.row.type == '5'">{{ scope.row.count }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="奖励信息">
-          <template #default="scope">
-            <img v-if="scope.row.type == '1'" style="height: 30px" :src="'404'"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
-            <img v-if="scope.row.type == '2'" style="height: 30px" :src="'api/image/'+scope.row.itemicon">
-            <span v-if="scope.row.type == '3'">{{ scope.row.command }}</span>
-            <img v-if="scope.row.type == '5'" style="height: 30px" :src="'images/items/red-zs.png'">
-            <img v-if="scope.row.type == '4'" style="height: 30px" :src="'images/items/jf2.png'">
-
-          </template>
-        </el-table-column>
-
-
-        <el-table-column label="操作" width="350" align="center">
-          <template #default="scope">
-            <el-button type="primary" icon="el-icon-edit" size="small" @click="openAddUpdate(scope)">编辑
-            </el-button>
-            <el-button type="delete" icon="el-icon-delete" size="small" class="red"
-                       @click="handleAddDelete(scope.row.id)">删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-
-    </el-dialog>
 
     <!--弹出添加奖励物品层-->
-    <el-dialog title="新增奖品" v-model="awardAddVisible" width="50%" :append-to-body="true"
+    <el-dialog title="新增转换" v-model="awardAddVisible" width="50%" :append-to-body="true"
                :close-on-click-modal="false">
       <el-form ref="awardData" :model="awardData">
-        <el-form-item label="奖品类型" class="center">
+        <el-form-item label="转换类型" class="center">
           <el-select v-model="awardData.type" placeholder="请选择奖品类型" class="handle-space">
-            <el-option key="1" label="游戏内物品" value="1"></el-option>
-            <el-option key="2" label="特殊物品" value="2"></el-option>
-            <el-option key="3" label="指令" value="3"></el-option>
-            <el-option key="4" label="积分" value="4"></el-option>
-            <el-option key="5" label="点券" value="5"></el-option>
+            <el-option key="1" label="游戏内物品制作" value="1"></el-option>
+            <el-option key="2" label="游戏内物品兑换" value="2"></el-option>
+            <el-option key="3" label="特殊物品制作" value="3"></el-option>
+            <el-option key="4" label="特殊物品兑换" value="4"></el-option>
           </el-select>
         </el-form-item>
-        <!--点券-->
-        <template v-if="awardData.type=='5'">
-          <el-form-item label="点券数量" class="center">
-            <el-input class="handle-space" placeholder="请输入点券数量" v-model="awardData.count"></el-input>
-          </el-form-item>
-        </template>
-        <!--积分-->
-        <template v-if="awardData.type=='4'">
-          <el-form-item label="积分数量" class="center">
-            <el-input class="handle-space" placeholder="请输入积分数量" v-model="awardData.count"></el-input>
-          </el-form-item>
-        </template>
-        <!--指令-->
-        <template v-if="awardData.type=='3'">
-          <el-form-item label="指令" class="center">
-            <el-input class="handle-space" placeholder="请输入指令，{name}可代表用户名，{id}可代表id"
-                      v-model="awardData.command"></el-input>
-          </el-form-item>
-        </template>
         <!--特殊物品-->
-        <template v-if="awardData.type=='2'">
+        <template v-if="awardData.type=='3'||awardData.type=='4'">
           <el-form-item label="预设物品" class="center">
             <el-select placeholder="请选预设特殊物品" class="handle-space" v-model="selectspeitem" @change="selectspecialitem">
               <el-option v-for="item in speitems" :key="item.id" :label="item.itemchinese"
@@ -118,7 +90,7 @@
           </el-form-item>
         </template>
         <!--游戏内物品-->
-        <template v-if="awardData.type=='1'">
+        <template v-if="awardData.type=='1'||awardData.type=='2'">
           <el-form-item label="物品名称" class="center">
             <el-autocomplete style="width: 70%;" :minlength="2" v-model="awardData.itemchinese"
                              :fetch-suggestions="querySearchAsync"
@@ -142,10 +114,18 @@
           <el-form-item label="物品数量" class="center">
             <el-input class="handle-space" placeholder="请输入物品数量" v-model="awardData.count"></el-input>
           </el-form-item>
-        </template>
 
-        <el-form-item label="中奖权重" class="center" v-if="fid=='3'">
-          <el-input class="handle-space" placeholder="请输入权重，值越大中奖概率越高" v-model="awardData.chance"></el-input>
+          <el-form-item v-if="awardData.type=='1'||awardData.type=='3'" label="制作时间" class="center">
+            <el-input class="handle-space" placeholder="请输入制作耗时，单位秒" v-model="awardData.crafttime"></el-input>
+          </el-form-item>
+        </template>
+        <el-form-item>
+          <div class="container">
+            <div class="plugins-tips">
+              物品描述
+            </div>
+            <div class="mgb20" id='editor'></div>
+          </div>
         </el-form-item>
 
       </el-form>
@@ -158,6 +138,7 @@
                 </span>
       </template>
     </el-dialog>
+    <AawrdComponent :fid="fid" :cid="cid"></AawrdComponent>
   </div>
 </template>
 
@@ -167,23 +148,26 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import axios from "axios";
 import {computed, getCurrentInstance} from "vue";
 import $ from "jquery";
+import AawrdComponent from "./AawrdComponent.vue";
 
 export default {
-  props: ["cid", "fid"],
-  name: "AawrdComponent",
+  name: "ItemexchangeComponent",
+  components: {AawrdComponent},
   data() {
     return {
-      ctx:{},
+      fid: "5",
+      cid: "",
+      ctx: {},
       itemNameCache: [],
+      instance: false,
+      editor: "",
       speitems: {},
       selectspeitem: "",
       awardInfo: [],
       awardAddVisible: false,
       awardData: {
-        funcid: this.fid,
         id: "-1",
         type: "",
-        containerid: this.cid,
         count: "",
         itemname: "",
         itemquality: "",
@@ -198,6 +182,8 @@ export default {
         coudatelimit: "",
         couDateStart: "",
         couDateEnd: "",
+        desc: "",
+        crafttime: "",
       },
       marks: {
         0: {
@@ -242,23 +228,27 @@ export default {
   },
   mounted() {
     this.ctx = getCurrentInstance();
+    this.initTableData();
     this.initTempateSPE();
   },
-  watch: {
-    cid: {
-      handler(newName, oldName) {
-        if (newName != oldName) {
-          if (newName != "") {
-            this.awardData.id = "-1";
-            this.initTableData();
-            this.awardData.containerid = newName + "";
-          }
-        }
-      },
-      immediate: true
-    },
-  },
   methods: {
+    handleEdtor() {
+      if (!this.instance) {
+        console.log($("#editor"))
+        this.editor = new wangEditor("#editor")
+
+        // 配置 onchange 回调函数
+        let self = this;
+        this.editor.config.onchange = function (newHtml) {
+          self.awardData.desc = newHtml;
+        };
+        // 配置触发 onchange 的时间频率，默认为 200ms
+        this.editor.config.onchangeTimeout = 100; // 修改为 500ms
+        this.editor.create()
+        this.instance = true;
+      }
+      // this.editor.txt.html(this.currentViewStorage.desc);
+    },
     initTempateSPE() {
       let params = {containerid: "0", funcid: "0"};
       axios.post("api/getAwardInfo", params).then(res => {
@@ -269,8 +259,8 @@ export default {
       });
     },
     initTableData() {
-      let params = {containerid: this.cid + "", funcid: this.fid + ""};
-      axios.post("api/getAwardInfo", params).then(res => {
+      let params = {type: "'1','2','3','4'"};
+      axios.post("api/getExchange", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.awardInfo = JsonData;
@@ -285,9 +275,9 @@ export default {
         if (valid) {
           let url = "";
           if (this.awardData.id == "-1") {
-            url = "api/postAwardInfo";
+            url = "api/postExchange";
           } else {
-            url = "api/updateAwardInfo";
+            url = "api/updateExchange";
           }
 
           this.awardData.itemquality = this.awardData.itemquality + "";
@@ -309,20 +299,25 @@ export default {
               ElMessage.error('保存出错')
             }
 
-            let args = {containerid: this.cid + "", funcid: this.fid};
-            axios.post("api/getAwardInfo", args).then(res => {
+            let args = {type: "'1','2','3','4'"};
+            axios.post("api/getExchange", args).then(res => {
               if (res.data.respCode === "1") {
                 let JsonData = res.data.data;
                 this.awardInfo = JsonData;
                 this.awardAddVisible = false;
               }
             });
+
           });
 
         } else {
           return false
         }
       })
+    },
+    openAwardEdit(scope) {
+      this.$store.state.awardEditVisible = true;
+      this.cid = scope.row.data.id;
     },
     handleSelect(item) {
       var ctx = this.ctx.appContext.config.globalProperties;
@@ -369,28 +364,37 @@ export default {
     handleAddAward() {
       this.awardData.id = "-1";
       this.awardAddVisible = true;
+      this.$nextTick(() => {
+        this.handleEdtor();
+      })
     },
     openAddUpdate(scope) {
       //显示窗口
       this.awardAddVisible = true;
-      this.awardData.id = scope.row.id + "";
-      this.awardData.type = scope.row.type + "";
-      this.awardData.containerid = scope.row.containerid + "";
-      this.awardData.count = scope.row.count + "";
-      this.awardData.itemname = scope.row.itemname + "";
-      this.awardData.itemquality = scope.row.itemquality + "";
-      this.awardData.itemchinese = scope.row.itemchinese + "";
-      this.awardData.itemicon = scope.row.itemicon + "";
-      this.awardData.itemtint = scope.row.itemtint + "";
-      this.awardData.command = scope.row.command + "";
-      this.awardData.couCurrType = scope.row.couCurrType + "";
-      this.awardData.couPrice = scope.row.couPrice + "";
-      this.awardData.couCond = scope.row.couCond + "";
-      this.awardData.coudatelimit = scope.row.coudatelimit + "";
-      this.awardData.couDateStart = scope.row.couDateStart + "";
-      this.awardData.couDateEnd = scope.row.couDateEnd + "";
+      this.$nextTick(() => {
+        this.handleEdtor();
+        this.editor.txt.html(scope.row.data.desc);
+      })
+      this.awardData.id = scope.row.data.id + "";
+      this.awardData.type = scope.row.data.type + "";
+      this.awardData.containerid = scope.row.data.containerid + "";
+      this.awardData.count = scope.row.data.count + "";
+      this.awardData.itemname = scope.row.data.itemname + "";
+      this.awardData.itemquality = scope.row.data.itemquality + "";
+      this.awardData.itemchinese = scope.row.data.itemchinese + "";
+      this.awardData.itemicon = scope.row.data.itemicon + "";
+      this.awardData.itemtint = scope.row.data.itemtint + "";
+      this.awardData.command = scope.row.data.command + "";
+      this.awardData.couCurrType = scope.row.data.couCurrType + "";
+      this.awardData.couPrice = scope.row.data.couPrice + "";
+      this.awardData.couCond = scope.row.data.couCond + "";
+      this.awardData.coudatelimit = scope.row.data.coudatelimit + "";
+      this.awardData.couDateStart = scope.row.data.couDateStart + "";
+      this.awardData.couDateEnd = scope.row.data.couDateEnd + "";
       this.awardData.couDate = [this.awardData.couDateStart, this.awardData.couDateEnd];
       this.selectspeitem = this.awardData.itemname;
+      this.awardData.crafttime = scope.row.data.crafttime;
+
     },
     handleAddDelete(id) {
       ElMessageBox.confirm('确定要删除这个商品吗？')
@@ -449,5 +453,7 @@ export default {
 </script>
 
 <style scoped>
-
+.handle-space {
+  width: 70%;
+}
 </style>
