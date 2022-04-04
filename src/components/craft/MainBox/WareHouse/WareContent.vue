@@ -1186,8 +1186,7 @@ export default {
 
     $(".warehouse>.menu>.l4").click(function () {		//彩色按钮 - 工作台
       self.formPage = "craft";
-      window.location='/#/userq/craft/'
-      // console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
+      console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
       //$("body>.data-recipe").load("Config/recipes.xml",function(){	//先加载配方
       //console.log(getTime().date+"\n物品配方加载成功！");
       // $("main>article").load("page/work.html", function () {		//加载工作台页面
