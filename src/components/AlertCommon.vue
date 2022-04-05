@@ -32,7 +32,7 @@
           <div class="icon">
             <img src="/public/images/ItemIcons/armorSantaHat.png">
           </div>
-          <div class="content">
+          <div class="content" style="overflow-y: hidden">
             <div class="name">圣诞帽</div>
             <div class="price">
               <i></i>

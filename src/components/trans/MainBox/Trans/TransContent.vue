@@ -112,9 +112,15 @@
             <div class="add-logo">+</div>
             <span>添加物品</span>
           </div>
-          <div class="empty">
+          <div v-if="displayType=='出售'&&(pstoreCards==null||pstoreCards.length<=0)" class="empty"
+               style="display: block">
             <div class="image"></div>
             <span>该玩家暂时没有<br>需要出售的东西</span>
+          </div>
+          <div v-if="displayType=='求购'&&(requireItems==null||requireItems.length<=0)" class="empty"
+               style="display: block">
+            <div class="image"></div>
+            <span>该玩家暂时没有<br>需要求购的东西</span>
           </div>
         </ul>
       </section>
@@ -275,7 +281,7 @@
             <div class="val">
               <div class="reduce">-</div>
               <input type="text" placeholder="请输入购买的数量"
-                     onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')" oninput="buyNum()">
+                     onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')" @input="buyNum">
               <div class="add">+</div>
             </div>
           </div>
@@ -410,6 +416,28 @@ export default {
     }
   },
   methods: {
+    buyNum() {		//输入购买数量
+      var self = this;
+      var xb2 = $(".player-order").data("index");		//获取物品在数组中的下标
+      let res = self.pstoreCardsAll.filter((item) => {
+        return item.id == xb2
+      });
+
+      var price = res[0].price;	//获取物品单价
+      var num = res[0].stock;	//获取物品数量
+      var numVal = $(".player-order>.window>section>.count>.val>input").val() * 1;
+      if (numVal > num) {		//购买数量最多不能超过出售的数量
+        numVal = num;
+        $(".player-order>.window>section>.count>.val>input").val(numVal);
+      } else if (numVal <= 0) {		//购买数量至少为1
+        numVal = 1;
+        $(".player-order>.window>section>.count>.val>input").val(1);
+      }
+      if (numVal > 0) {
+        var priceAll = price * numVal;	//计算玩家实际需支付的价格
+        $(".player-order>.window>section>.price>.val>span").text(priceAll);
+      }
+    },
     initUserData(gameentity) {
       let params = {
         id: gameentity + "",
@@ -939,6 +967,7 @@ export default {
           ctx.Alert("对方暂未设置QQ联系方式，无法发起对话<br>请尝试用其它方式联系该成员");
           ctx.popupCss(28, 14);
         } else {
+          ctx.Alert("已经尝试拉起QQ，如果没有跳转到QQ，请尝试自行联系对方，QQ:" + qq);
           window.open("tencent://message/?uin=" + qq);
         }
       });

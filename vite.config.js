@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue'
+
 const path = require('path')
 export default {
     base: '',
@@ -20,6 +21,7 @@ export default {
         // 反向代理配置，注意rewrite写法
         proxy: {
             '/api': {
+                // target: "http://103.239.247.51:26911/",
                 target: 'http://dx.s1.hiold.net:18311/', //代理接口
                 // target: 'http://localhost:26911/', //代理接口
                 changeOrigin: true,

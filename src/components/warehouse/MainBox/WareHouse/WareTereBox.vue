@@ -67,9 +67,10 @@
           <li class="box-items" :data-index="index" v-for="(item,index) in itemList" :key="index">
             <div class="filter">
               <!--              -->
-              <img v-if="item.itemStack.CustomIcon==null"
+              <img v-if="item.itemStack.CustomIcon==null||item.itemStack.CustomIcon==''"
                    :src="'404'" @error="$LoadTintImage($event.target,item.itemStack.itemName,item.CustomIconTint)">
-              <img v-else :src="'404'" @error="$LoadTintImage($event.target,item.itemStack.CustomIcon,item.CustomIconTint)">
+              <img v-else :src="'404'"
+                   @error="$LoadTintImage($event.target,item.itemStack.CustomIcon,item.itemStack.CustomIconTint)">
             </div>
             <div class="num">{{ item.itemStack.itemCount }}</div>
           </li>
