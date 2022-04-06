@@ -112,13 +112,17 @@
             <div class="add-logo">+</div>
             <span>添加物品</span>
           </div>
-          <div v-if="displayType=='出售'&&(pstoreCards==null||pstoreCards.length<=0)" class="empty"
-               style="display: block">
+          <div
+              v-if="(displayType=='出售'&&(pstoreCards==null||pstoreCards.length<=0))&&currentViewPlayer.id!=$store.state.playerinfo.id"
+              class="empty"
+              style="display: block">
             <div class="image"></div>
             <span>该玩家暂时没有<br>需要出售的东西</span>
           </div>
-          <div v-if="displayType=='求购'&&(requireItems==null||requireItems.length<=0)" class="empty"
-               style="display: block">
+          <div
+              v-if="(displayType=='求购'&&(requireItems==null||requireItems.length<=0))&&currentViewPlayer.id!=$store.state.playerinfo.id"
+              class="empty"
+              style="display: block">
             <div class="image"></div>
             <span>该玩家暂时没有<br>需要求购的东西</span>
           </div>
@@ -445,6 +449,8 @@ export default {
       axios.post('api/getUserInfo', params).then(res => {
         if (res.data.respCode === "1") {
           this.currentViewPlayer = res.data.data;
+          console.log(this.currentViewPlayer);
+          console.log(this.$store.state.playerinfo)
           $(".my-shop>header>.left>.head").css("background-image", `url(api/image/${this.currentViewPlayer.avatar}),url('/images/player/head1.jfif')`);	//玩家头像
           $(".my-shop>header>.center>.shop-name").text(this.currentViewPlayer.shopname);	//店铺名称
           $(".my-shop>header>.center>.shopkeeper>.name").text(this.currentViewPlayer.name);	//店主名称
@@ -1276,9 +1282,10 @@ export default {
               return item.id == xb2
             });
             var item = res[0];
+            console.log(item);
 
             //alert("其它玩家！求购的物品");
-            var player = self.currentViewPlayer.name;	//获取店主名称
+            var player = item.username;	//获取店主名称
             var name = ctx.HandleItemName(item.Itemchinese);	//获取物品名称
             var id = item.id;	//获取物品ID
             var num = item.Itemcount * 1;	//获取物品数量

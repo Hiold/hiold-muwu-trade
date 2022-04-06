@@ -173,7 +173,7 @@ export default {
   name: "AawrdComponent",
   data() {
     return {
-      ctx:{},
+      ctx: {},
       itemNameCache: [],
       speitems: {},
       selectspeitem: "",
@@ -198,6 +198,7 @@ export default {
         coudatelimit: "",
         couDateStart: "",
         couDateEnd: "",
+        chance: ""
       },
       marks: {
         0: {
@@ -391,6 +392,7 @@ export default {
       this.awardData.couDateEnd = scope.row.couDateEnd + "";
       this.awardData.couDate = [this.awardData.couDateStart, this.awardData.couDateEnd];
       this.selectspeitem = this.awardData.itemname;
+      this.awardData.chance = scope.row.chance + "";
     },
     handleAddDelete(id) {
       ElMessageBox.confirm('确定要删除这个商品吗？')

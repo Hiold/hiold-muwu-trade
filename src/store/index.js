@@ -6,7 +6,7 @@ export default createStore({
         awardEditVisible: false,
         tagsList: [],
         collapse: false,
-        userinfo: {},
+        playerinfo: {},
     },
     mutations: {
         delTagsItem(state, data) {

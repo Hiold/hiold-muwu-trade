@@ -251,6 +251,7 @@ export default {
         coudatelimit: "",
         couDateStart: "",
         couDateEnd: "",
+        chance: "",
       },
       instance: false,
       editor: "",

@@ -236,7 +236,7 @@
         </el-col>
         <el-col :span="4">
           <div class="grid-content">
-            <el-button type="primary" @click="updateUser('newpassword',getmd5(currentViewPlayer.newpassword))">修改
+            <el-button type="primary" @click="updateUser('password',getmd5(currentViewPlayer.newpassword))">修改
             </el-button>
           </div>
         </el-col>

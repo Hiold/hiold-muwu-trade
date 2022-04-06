@@ -78,60 +78,11 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="物品名称" class="center" v-show="formData.itemType==='2'">
-          <el-autocomplete style="width: 70%;" v-model="formData.couCurrType" :fetch-suggestions="loadCouCurr"
-                           placeholder="请选择系统预置特殊物品，或者输入自定义物品"
-                           @input="(msg)=>{formData.translate=msg;formData.itemName=msg;}"
-                           @select="handleSelect"></el-autocomplete>
-        </el-form-item>
-
-        <el-form-item label="优惠类型" class="center" v-show="formData.itemType==='2'"
-                      v-if="formData.couCurrType==='积分满减'||formData.couCurrType==='钻石满减'">
-          <el-row>
-            <el-col :span="6">满</el-col>
-            <el-col :span="6">
-              <el-input class="handle-space" v-model="formData.couCond"></el-input>
-            </el-col>
-            <el-col :span="6">减</el-col>
-            <el-col :span="6">
-              <el-input class="handle-space" v-model="formData.couPrice"></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-
-        <el-form-item label="优惠类型" class="center" v-show="formData.itemType==='2'"
-                      v-if="formData.couCurrType==='积分折扣'||formData.couCurrType==='钻石折扣'">
-          <el-row>
-            <el-col :span="12">
-              <el-input class="handle-space" v-model="formData.couPrice"></el-input>
-            </el-col>
-            <el-col :span="12">折</el-col>
-          </el-row>
-
-        </el-form-item>
-
-        <el-form-item label="使用限制日期" class="center" v-if="formData.itemType==='2'">
-          <el-row>
-            <el-col :span="8">
-              <el-select v-model="formData.coudatelimit" placeholder="限时使用" class="handle-space">
-                <el-option key="1" label="不限时" value="1"></el-option>
-                <el-option key="2" label="限时使用" value="2"></el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="15" style="text-align: left;margin-right: 20px;">
-              <div v-show="formData.coudatelimit==='2'">
-                <el-date-picker
-                    v-model="formData.couDate"
-                    type="datetimerange"
-                    range-separator="至"
-                    start-placeholder="开抢时间"
-                    end-placeholder="结束时间"
-                    @change="catchs"
-                >
-                </el-date-picker>
-              </div>
-            </el-col>
-          </el-row>
+        <el-form-item label="预设物品" class="center">
+          <el-select placeholder="请选预设特殊物品" class="handle-space" v-model="selectspeitem" @change="selectspecialitem">
+            <el-option v-for="item in speitems" :key="item.id" :label="item.itemchinese"
+                       :value="item.id"></el-option>
+          </el-select>
         </el-form-item>
 
 
@@ -146,24 +97,6 @@
                     placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item class="center" v-if="formData.itemType==='2'">
-          <ul class="infinite-list" style="overflow-x: scroll">
-            <el-upload action="api/uploadFile" multiple :on-success="handleAvatarSuccess"
-                       :on-error="handleAvatarFaild"
-                       style="float: left;width: 100px;height: 100px;">
-              <el-tag style="margin-top: 35px;">添加新图片</el-tag>
-            </el-upload>
-            <li v-for="i in allIcon" :key="i" class="infinite-list-item" :ref="imglist">
-              <el-image :class="{'selected':(i===formData.itemIcon)}"
-                        style="width: 100px;height:100px;cursor: pointer"
-                        :src="'api/image/'+i"
-                        @click="handleSelectImage(i)">
-
-              </el-image>
-            </li>
-          </ul>
-
-        </el-form-item>
 
         <el-form-item class="center"
                       v-if="formData.itemType==='1'&&formData.itemName!==''&&formData.itemName!==null">
@@ -370,7 +303,7 @@
 import axios from "axios";
 import moment from 'moment'
 import {ElMessage, ElMessageBox} from 'element-plus'
-import {defineAsyncComponent, getCurrentInstance} from "vue"
+import {computed, defineAsyncComponent, getCurrentInstance} from "vue"
 import $ from "jquery";
 
 export default {
@@ -405,13 +338,16 @@ export default {
     this.ctx = getCurrentInstance();
     this.initTableData();
     this.initIconData();
+    this.initTempateSPE();
   },
   data() {
     return {
+      speitems: {},
       customData: 0,
       md1: "md1",
       imglist: null,
       allIcon: [],
+      selectspeitem: "",
       queryData: null,
       rules: {
         itemType: [{required: true, trigger: 'blur', message: "请选择物品类型"}]
@@ -497,6 +433,15 @@ export default {
     }
   },
   methods: {
+    initTempateSPE() {
+      let params = {containerid: "0", funcid: "0"};
+      axios.post("api/getAwardInfo", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          this.speitems = JsonData;
+        }
+      });
+    },
     handleAvatarSuccess() {
       ElMessage({
         message: '上传成功!',
@@ -613,6 +558,8 @@ export default {
       this.formData.itemTint = scope.row.itemtint;
       this.formData.itemGroup = scope.row.class1;
       this.src = 'api/image/' + this.formData.itemIcon;
+      this.selectspeitem = scope.row.name;
+      console.log(scope.row.name)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -700,8 +647,30 @@ export default {
     },
     handleSelectImage(item) {
       this.formData.itemIcon = item;
-    }
-
+    },
+    selectspecialitem(itemid) {
+      console.log(itemid);
+      const list = computed(() => {
+        return this.speitems.filter((item) => {
+          return item.id === itemid;
+        });
+      });
+      if (list.value && list.value[0]) {
+        this.formData.itemName = list.value[0].itemname;
+        this.formData.itemquality = list.value[0].itemquality;
+        this.formData.translate = list.value[0].itemchinese;
+        this.formData.itemIcon = list.value[0].itemicon;
+        this.formData.itemTint = list.value[0].itemtint;
+        this.formData.command = list.value[0].command;
+        this.formData.couDate = [list.value[0].couDateStart, list.value[0].couDateEnd];
+        this.formData.couCurrType = list.value[0].couCurrType;
+        this.formData.couPrice = list.value[0].couPrice;
+        this.formData.couCond = list.value[0].couCond;
+        this.formData.coudatelimit = list.value[0].coudatelimit;
+        this.formData.couDateStart = list.value[0].couDateStart;
+        this.formData.couDateEnd = list.value[0].couDateEnd;
+      }
+    },
   }
 }
 </script>
