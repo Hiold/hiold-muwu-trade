@@ -7,6 +7,10 @@ export default createStore({
         tagsList: [],
         collapse: false,
         playerinfo: {},
+        shop: {
+            cardcolor: "",
+            cardbg: "",
+        }
     },
     mutations: {
         delTagsItem(state, data) {

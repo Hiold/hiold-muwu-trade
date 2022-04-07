@@ -1,7 +1,7 @@
 /* 头部工具栏 */
-.head-tool {
-    display: none;
-}
+/*.head-tool {*/
+/*    display: none;*/
+/*}*/
 
 .head-tool > .sort {
     float: left !important;

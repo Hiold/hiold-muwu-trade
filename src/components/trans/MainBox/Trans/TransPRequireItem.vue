@@ -17,7 +17,7 @@
 
 
     <li :data-itemid="item.gameentityid" :data-itemid2="item.id">
-        <div class="image"><img :src="'404'" @error="$LoadTintImage($event.target,item.Itemicon,item.Itemicontint)">
+        <div class="image" style="position: relative;"><img :src="'404'" @error="$LoadTintImage($event.target,item.Itemicon,item.Itemicontint)">
             <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">
                 <span>{{ item.Itemquality }}</span>
             </div>

@@ -1,6 +1,7 @@
 <template>
   <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
-  <li class="items" :data-index="index" @click="showdetailsss($event.target,item.id)">
+  <li class="items" :style="{'background-image':$store.state.shop.cardbg}" :data-index="index"
+      @click="showdetailsss($event.target,item.id)">
     <!--渲染名字时使用过滤器去掉bbcode-->
     <header>
       <span
@@ -13,7 +14,7 @@
         v-text="calcDiscount(item.discount)"></i>
       <div class="follow" v-show="item.follow==='2'">跟档</div>
     </header>
-    <section>
+    <section :style="{'background':$store.state.shop.cardcolor}">
       <img v-if="item.itemtype=='1'" :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
       <img v-if="item.itemtype=='2'" :src="'api/image/'+item.itemicon">
       <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
