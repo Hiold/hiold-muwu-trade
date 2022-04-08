@@ -1,0 +1,1 @@
+import{r as e,o as r,c as a,w as o}from"./vendor.531192b1.js";const t={name:"UserContainer",mounted(){}},n=o()(((o,t,n,s,d,c)=>{const m=e("router-view");return r(),a(m)}));t.render=n,t.__scopeId="data-v-ad9bcaf6";export default t;
