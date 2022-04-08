@@ -33,27 +33,27 @@
                 //$(".Category>div>li[class^='b1']").show();	//默认显示第一组子分类（活动折扣）
                 //$(".Category>div>li[class$='t0']").data("click","true");
 
-                $(".Category>div>ul").click(function () {	//总分类点击特效+生成商品
-                    var dc = $(this).data("click");		//获取当前分类下的子分类展开状态
-                    var xb = $(this).attr("class").split("-")[1];	//从类名中获取序号
-                    // console.log(dc, xb);
-                    if (dc == "false" || dc == undefined) {	//情况1:如果子分类为隐藏
-                        $(".Category>div>li").slideUp(100);	//先隐藏所有分组的子分类
-                        $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
-                        $(".Category>div>ul").data("click", "false");
-                        $(this).data("click", "true");	//将展开状态设置为"展开"
-                        $bus.emit('setclass1', $(this).find("div").text());
-                        //alert("展开总分类："+class1)
-                        $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
-                        //console.log("总分类："+xb);
-                        self.changeColor(xb);
-                    } else if (dc == "true" || dc == true) {		//情况2:如果子分类为展开
-                        $(".Category>div>li").slideUp(100);	//隐藏所有分组的子分类
-                        $(this).data("click", "false");	//将展开状态设置为"隐藏"
-                    }
-                    return;
-                    //$(".Category>div>li[class$='t0']").click();	//默认显示第一个子分类的内容
-                });
+                // $(".Category>div>ul").click(function () {	//总分类点击特效+生成商品
+                //     var dc = $(this).data("click");		//获取当前分类下的子分类展开状态
+                //     var xb = $(this).attr("class").split("-")[1];	//从类名中获取序号
+                //     // console.log(dc, xb);
+                //     if (dc == "false" || dc == undefined) {	//情况1:如果子分类为隐藏
+                //         $(".Category>div>li").slideUp(100);	//先隐藏所有分组的子分类
+                //         $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
+                //         $(".Category>div>ul").data("click", "false");
+                //         $(this).data("click", "true");	//将展开状态设置为"展开"
+                //         $bus.emit('setclass1', $(this).find("div").text());
+                //         //alert("展开总分类："+class1)
+                //         $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
+                //         //console.log("总分类："+xb);
+                //         self.changeColor(xb);
+                //     } else if (dc == "true" || dc == true) {		//情况2:如果子分类为展开
+                //         $(".Category>div>li").slideUp(100);	//隐藏所有分组的子分类
+                //         $(this).data("click", "false");	//将展开状态设置为"隐藏"
+                //     }
+                //     return;
+                //     //$(".Category>div>li[class$='t0']").click();	//默认显示第一个子分类的内容
+                // });
                 var navColor = [	//子分类背景颜色
                     ["rgb(254, 227, 171), rgba(254, 208, 171, 0.2)"],
                     ["rgb(186, 231, 206), rgba(255, 255, 255, 0.2)"],

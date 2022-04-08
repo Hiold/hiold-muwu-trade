@@ -21,7 +21,7 @@
     </header>
 
     <!-- 玩家店铺列表 -->
-    <div class="player-store">
+    <div class="player-store" id="userContainer">
       <header>
         <div class="h1">排名</div>
         <div class="h2">店铺/玩家 信息</div>
@@ -190,7 +190,7 @@
           </div>
         </div>
       </div>
-      <div class="box">
+      <div class="box" style="position:relative">
         <!--图片渲染-->
         <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname"
             :data-index="item.itemname">
@@ -344,12 +344,23 @@ export default {
           if (newName == "物资求购") {
             this.GenerateBuyingItems();
           }
-          if (newName == "玩家店铺") {
-            this.playerid = this.playerinfo.gameentityid;
+
+          if (newName == "我的店铺") {
+            this.playerid = this.$store.state.playerinfo.gameentityid;
             this.queryPlayerOnSell(this.playerid);
             this.queryPlayerRequireItems(this.playerid)
             this.initUserData(this.playerid);
-            this.queryPlayerShopList(this.playerid)
+            $(".my-shop").data("index", this.playerid);
+          }
+
+          if (newName == "玩家店铺") {
+            // this.playerid = this.playerinfo.gameentityid;
+            // this.queryPlayerOnSell(this.playerid);
+            // this.queryPlayerRequireItems(this.playerid)
+            // this.initUserData(this.playerid);
+            if (this.playershops.length == 0) {
+              this.queryPlayerShopList();
+            }
             $(".my-shop").data("index", this.playerid);
           }
           if (newName == "玩家售卖区") {
@@ -409,14 +420,16 @@ export default {
       playerinfo: {},
       keyword: "",
       itemname: "",
-      playershops: {},
+      playershops: [],
       orderby: "",
       playerid: "",
       currentViewPlayer: {},
       param_filedata: "",
       param_qq: "",
       param_shopname: "",
-      displayType: ""
+      displayType: "",
+      page: 1,
+      size: 10,
     }
   },
   methods: {
@@ -474,6 +487,8 @@ export default {
     },
     searchItems() {		//搜索店铺或物品
       if (this.class1 == "玩家店铺") {
+        this.page = 1;
+        this.playershops = [];
         this.queryPlayerShopList();
       } else if (this.class1 == "玩家售卖区" || this.class1 == "玩家求购区") {
         // $(".player-com>li").show();	//先默认让所有隐藏物品显示
@@ -508,18 +523,32 @@ export default {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.gameItems = JSON.parse(JsonData);
+          $(".box").scrollTop(0);
         }
       });
     },
     //查询求购图片
+    //加载更多数据
+    handleScroll(e) {
+      if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+        this.page++;
+        this.queryPlayerShopList();
+      }
+    },
     queryPlayerShopList() {
       let params = {
+        page: this.page + "",
+        limit: this.size + "",
         name: this.keyword + "",
         orderby: this.orderby
       }
       axios.post('api/getUserShopList', params).then(res => {
         if (res.data.respCode === "1") {
-          this.playershops = res.data.data;
+          let JsonData = res.data.data;
+          for (var i in JsonData) {
+            this.playershops.push(JsonData[i]);
+          }
+          // this.playershops = res.data.data;
           // this.requireItems = JSON.parse(JsonData);
         }
       });
@@ -841,7 +870,14 @@ export default {
           if (res.data.respCode === "1") {
             ctx.Alert("点赞成功！");
             ctx.popupCss(25, 13);
-            $(e.currentTarget).children("span").html(($(e.currentTarget).children("span").html() * 1) + 1);
+            // $(e.currentTarget).children("span").html(($(e.currentTarget).children("span").html() * 1) + 1);
+
+            let res = self.playershops.filter((item) => {
+              return item.gameentityid == gameentityid
+            });
+            //修改点赞数，后端利用此字段最为当前用户是否点赞依据
+            res[0].password = "1";
+            res[0].likecount++;
           } else {
             ctx.Alert(res.data.respMsg);
             ctx.popupCss(25, 13);
@@ -1408,6 +1444,8 @@ export default {
           "box-shadow": "none"
         }).find(".s-page").css("font-weight", "normal");
         self.orderby = txt;
+        self.page = 0;
+        self.playershops = [];
         self.queryPlayerShopList();
       });
       $(".head-tool>.sort>li").hover(function () {	//排序选择列表 悬浮事件
@@ -1606,6 +1644,7 @@ export default {
     }
   }
   , mounted() {
+    $("#userContainer")[0].addEventListener('scroll', this.handleScroll, true);
     this.ctx = getCurrentInstance();
     const $bus = this.ctx.appContext.config.globalProperties.$bus;
     this.ready();

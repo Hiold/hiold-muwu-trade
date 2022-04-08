@@ -120,7 +120,7 @@
               style="background-image: url(&quot;images/icon/jf2.png&quot;);"></i><span>{{ item.price }}</span>
           </div>
           <div class="price" v-if="item.currency=='2'"><i
-              style="background-image: url(&quot;images/icon/zs.png&quot;);"></i><span>{{ item.price }}</span>
+              style="background-image: url(&quot;images/icon/red-zs.png&quot;);"></i><span>{{ item.price }}</span>
           </div>
 
           <div class="icon" :data-id="item.id"></div>

@@ -690,12 +690,18 @@ export default {
         //下面是从仓库数组中获取物品数量
         var wNum = 0;
 
-
+        console.log(item.data.type)
         //渲染到页面
-        if (item.data.type == '1') {
+        if (item.award[j].type == '1') {
           ctx.$LoadTintImage($(".recipe-list>li:last").find(".icon").find("i").find("img")[0], item.award[j].itemicon, item.award[j].itemtint);
-        } else if (item.data.type == '2') {
+        } else if (item.award[j].type == '2') {
           $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "/api/image/" + item.award[j].itemicon);
+        } else if (item.award[j].type == '4') {
+          $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "images/items/jf2.png");
+          rName = "积分";
+        } else if (item.award[j].type == '5') {
+          $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "images/items/red-zs.png");
+          rName = "钻石";
         }
 
         $(".recipe-list>li:last").find(".name").text(rName);		//渲染配方名称

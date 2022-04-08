@@ -91,12 +91,15 @@ export default {
           this.hbAvaliable = false;
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           ctx.loadUserInfo();
+          //调用重新加载方法
+          this.$emit("initTableData");
         } else {
           ctx.Alert(res.data.respMsg);
+          //调用重新加载方法
+          this.$emit("initTableData");
         }
       });
-      //调用重新加载方法
-      this.$emit("initTableData");
+
     },
     handleStatus(item) {
       // <div class="btn b1">未开始</div>

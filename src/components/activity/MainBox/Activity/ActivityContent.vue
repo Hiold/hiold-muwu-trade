@@ -67,6 +67,7 @@ export default {
   },
   methods: {}
   , mounted() {
+    const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
     $(".Category>div>ul").click(function () {		//左侧分类按钮点击特效
       $(".Category>div>ul").css({		//让所有分类按钮样式还原默认
         "transform": "scale(1)",
@@ -80,12 +81,33 @@ export default {
         "border-radius": "0.1rem",
         "margin": "0.8em auto"
       });
-      $(".Category>div>ul").data("click", "false");
-      $(this).data("click", "true");
-      $(".Category>div>li").slideUp(100);	//隐藏所有子分类
+      // $(".Category>div>ul").data("click", "false");
+      // $(this).data("click", "true");
+      // // $(".Category>div>li").slideUp(100);	//隐藏所有子分类
+      // $(".head-tool>.lottery-num").hide();
+
       $(".Activity-page>div").hide();		//隐藏所有活动页面
-      $(".head-tool>.lottery-num").hide();
+      var dc = $(this).data("click");		//获取当前分类下的子分类展开状态
+      var xb = $(this).attr("class").split("-")[1];	//从类名中获取序号
+      console.log(dc, xb);
+      if (dc == "false" || dc == undefined) {	//情况1:如果子分类为隐藏
+        $(".Category>div>li").slideUp(100);	//先隐藏所有分组的子分类
+        $(".Category>div>li[class^='b" + xb + "']").slideDown(200);	//展开当前子分类
+        $(".Category>div>ul").data("click", "false");
+        $(this).data("click", "true");	//将展开状态设置为"展开"
+        $bus.emit('setclass1', $(this).find("div").text());
+        //alert("展开总分类："+class1)
+        $(this).next().click();		//默认显示当前总分类下第一个子分类的内容
+        //console.log("总分类："+xb);
+      } else if (dc == "true" || dc == true) {		//情况2:如果子分类为展开
+        $(".Category>div>li").slideUp(100);	//隐藏所有分组的子分类
+        $(this).data("click", "false");	//将展开状态设置为"隐藏"
+      }
+      return;
+      //$(".Category>div>li[class$='t0']").click();	//默认显示第一个子分类的内容
+
     });
+
     $(".Category>div>ul").hover(function () {		//左侧分类按钮悬浮特效
       var ck = $(this).data("click");
       if (ck != "true") {
@@ -146,7 +168,7 @@ export default {
     $(".Category>div>.btn-2").click(function () {	//活动任务 按钮
       console.log("每日任务");
       $(".head-tool>h1").text("每日任务");
-      $("li[class^=b2]").slideDown(100);
+      // $("li[class^=b2]").slideDown(100);
       $(".Act-task").fadeIn(200);
       $(".Category>div>.b2-t0").click();
     });
@@ -154,7 +176,7 @@ export default {
       console.warn("积分抽奖");
       $(".head-tool>h1").text("积分抽奖");
       $(".head-tool>.lottery-num").show();
-      $("li[class^=b3]").slideDown(100);
+      // $("li[class^=b3]").slideDown(100);
       $(".Act-lottery").fadeIn(200);
       $(".Category>div>.b3-t0").click();
     });
