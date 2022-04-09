@@ -338,6 +338,7 @@ export default {
   watch: {
     class1: {
       handler(newName, oldName) {
+        this.keyword = "";
         if (newName != oldName) {
           console.log("监听到变化" + newName);
           // this.queryShopItem();

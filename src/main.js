@@ -238,3 +238,32 @@ app.config.globalProperties.HandleItemName = function (text) {
     text = text.replace(/([\\{].*[\\}])/g, "");
     return text;
 }
+//allgroups信息
+const allgroups = [
+    {name: "武器/弹药", data: "Ammo/Weapons"},
+    {name: "防具", data: "Armor"},
+    {name: "工具/陷阱", data: "Tools/Traps"},
+    {name: "食物/炊具", data: "Food/Cooking"},
+    {name: "书籍", data: "Books"},
+    {name: "化学品", data: "Chemicals"},
+    {name: "模组", data: "Mods"},
+    {name: "资源", data: "Resources"},
+    {name: "科学", data: "Science"},
+    {name: "医疗", data: "Medical"},
+    {name: "特殊", data: "Special Items"},
+    {name: "装饰/杂项", data: "Decor/Miscellaneous"},
+    {name: "工具/武器", data: "Tool/Weapon"},
+    {name: "穿戴物", data: "clothing"},
+]
+
+app.config.globalProperties.getItemType = function (groups) {
+    console.log(groups);
+    var groupsinfos = [];
+    var n = 0;
+    for (var i in allgroups) {
+        if (groups.indexOf(allgroups[i].data) >= 0) {
+            groupsinfos[n++] = allgroups[i].name;
+        }
+    }
+    return groupsinfos;
+}

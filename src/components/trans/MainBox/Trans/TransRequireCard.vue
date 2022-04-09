@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="price"><i></i><span>{{ item.Price }}</span></div>
+      <div class="price"><i></i><span>{{ Math.floor(item.Price) }}</span></div>
       <div class="num">需求：{{ item.Itemcount }}</div>
       <div class="name">
         {{

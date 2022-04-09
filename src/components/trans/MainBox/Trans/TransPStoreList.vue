@@ -9,10 +9,10 @@
       <div class="owner">店主：{{ item.name }}</div>
       <div class="level">lv.{{ item.level }}</div>
     </div>
-    <div class="sales"><i></i><span>{{ item.trade_money }}</span></div>
+    <div class="sales"><i></i><span>{{ Math.floor(item.trade_money) }}</span></div>
     <div class="praised">
       <i :style="'background-image: url(\'images/icon/zan2.png\');'" v-if="item.password*1>=1"></i>
-      <span v-if="item.password*1>=1" style="'color: orangered;">{{ item.likecount }}</span>
+      <span v-if="item.password*1>=1" style="color: orangered;">{{ item.likecount }}</span>
       <i v-if="item.password*1==0"></i>
       <span v-if="item.password*1==0">{{ item.likecount }}</span></div>
   </li>

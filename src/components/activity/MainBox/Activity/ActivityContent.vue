@@ -3,11 +3,11 @@
     <!-- 专题区域、详细内容 -->
     <!-- 头部工具栏 -->
     <header class="head-tool">
-      <h1>活动礼包</h1>
+      <h1>{{ $store.state.lotename }}</h1>
       <div class="lottery-num">
         <span class="tit">今日剩余可抽奖次数：</span>
-        <span class="val-1">88</span>
-        <span class="val-2"> / 100</span>
+        <span class="val-1">{{ $store.state.loted }}</span>
+        <span class="val-2"> / {{ $store.state.lotLimit == "-1" ? "无限" : $store.state.lotLimit }}</span>
       </div>
       <div class="refresh" title="刷新"></div>
       <div class="back" title="返回"></div>
@@ -67,6 +67,7 @@ export default {
   },
   methods: {}
   , mounted() {
+    $(".head-tool>.lottery-num").show();
     const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
     $(".Category>div>ul").click(function () {		//左侧分类按钮点击特效
       $(".Category>div>ul").css({		//让所有分类按钮样式还原默认
@@ -163,9 +164,11 @@ export default {
     $(".Category>div>.btn-1").click(function () {	//定时抢红包 按钮
       console.log("定时抢红包");
       $(".head-tool>h1").text("定时抢红包");
+      $(".head-tool>.lottery-num").hide();
       $(".Act-hb").fadeIn(200);
     });
     $(".Category>div>.btn-2").click(function () {	//活动任务 按钮
+      $(".head-tool>.lottery-num").hide();
       console.log("每日任务");
       $(".head-tool>h1").text("每日任务");
       // $("li[class^=b2]").slideDown(100);
@@ -181,11 +184,13 @@ export default {
       $(".Category>div>.b3-t0").click();
     });
     $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
+      $(".head-tool>.lottery-num").hide();
       console.log("数字谜团");
       $(".head-tool>h1").text("数字谜团");
       $(".Act-number").fadeIn(200);
     });
     $(".Category>div>.btn-5").click(function () {	//每日签到 按钮
+      $(".head-tool>.lottery-num").hide();
       console.log("七日签到领好礼");
       $(".head-tool>h1").text("七日签到领好礼");
       $(".Act-qd").fadeIn(200);

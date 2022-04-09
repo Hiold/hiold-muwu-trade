@@ -31,14 +31,14 @@
       <i style="background-image:url(images/icon/red-zs.png)" v-if="item.currency==='2'"></i>
 
       <span class="price" style="color:rgb(221, 36, 36)" v-if="item.currency=='1'">
-            {{ item.price * item.discount / 10 }}
+            {{ Math.floor(item.price * item.discount / 10) }}
       </span>
       <span class="price" style="color:deeppink" v-if="item.currency=='2'">
-            {{ item.price * item.discount / 10 }}
+            {{ Math.floor(item.price * item.discount / 10) }}
       </span>
 
 
-      <del v-show="item.discount*1 < 10 && item.discount*1 > 0">{{ item.price }}</del>
+      <del v-show="item.discount*1 < 10 && item.discount*1 > 0">{{ Math.floor(item.price) }}</del>
       <span class="active" v-show="item.xgall=='2' || item.xgday=='2' || item.xgdatelimit!='1'">限购</span>
     </footer>
   </li>

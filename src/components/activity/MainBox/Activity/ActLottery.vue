@@ -625,7 +625,16 @@ export default {
             totalcount += this.awardList[i].chance * 1;
           }
           this.allChanceCount = totalcount;
-          console.log(this.allChanceCount);
+
+          this.$store.state.lotLimit = this.getLottery(id).limit;
+          this.$store.state.lotename = this.getLottery(id).desc;
+          var pa = {"id": id + ""};
+          axios.post("api/QueryLotteryCount", pa).then(res => {
+            if (res.data.respCode === "1") {
+              this.$store.state.loted = res.data.data;
+            }
+          });
+
         }
       });
     },
@@ -696,7 +705,7 @@ export default {
       var name = $(this).text();	//获取子分类名称
       $(".head-tool>h1").text(name);	//在头部标题渲染名称
       // GenerateLottery(xb);	//渲染抽奖界面
-      console.log($(this).attr("data"))
+      console.warn($(this).attr("data"))
       self.selectedLotteryId = $(this).attr("data");
       self.loadAward(self.selectedLotteryId);
     });

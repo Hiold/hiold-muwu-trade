@@ -14,10 +14,10 @@
       </header>
       <aside class="citems-list" style="display: block;">    <!-- 物品列表（显示可以制作的物品） -->
         <div class="citems-search">  <!-- 列表头部 -->
-          <input type="text" class="search" placeholder="搜索物品" oninput="searchItems()">
+          <input type="text" class="search" v-model="itemname" placeholder="搜索物品" @input="searchItems()">
           <div class="select-page">  <!-- 选择第几页 -->
             <div class="prev"></div>
-            <input type="text" class="num" value="1" oninput="jumpPage()">
+            <input type="text" class="num" v-model="page" @input="initCraftList()">
             <div class="next"></div>
           </div>
           <div class="search-type">  <!-- 搜索类型: 制作物、配方 -->
@@ -122,6 +122,9 @@ export default {
       ctx: {},
       craftList: [],
       craftingList: [],
+      page: 1,
+      limit: 10,
+      itemname: ""
       // class1: "活动折扣",
       // class2: "全部"
     }
@@ -231,13 +234,17 @@ export default {
       });
     },
     initCraftList() {
-      let args = {type: "'1','3'"};
+      let args = {type: "'1','3'", name: this.itemname + "", page: this.page + "", limit: this.limit + ""};
       axios.post("api/getExchange", args).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.craftList = JsonData;
         }
       });
+    },
+    searchItems() {
+      this.page = 1;
+      this.initCraftList();
     },
     leftready() {
       // setTimeout(function(){},1000);
@@ -263,26 +270,42 @@ export default {
       //   var id = recipes[xb].id
       //   GenerateRecipe(id);
       // });
-
+      var self = this;
+      var ctx = this.ctx.appContext.config.globalProperties;
       $(".citems-search>.select-page>.next").click(function () {	//制作物列表: 下一页
-        pageCra += 1;
-        var pg = GenerateCraftable();	//渲染物品列表
-        if (pg == "false") {	//如果是最后一页
-          pageCra -= 1;
-        }
-        $(".citems-search>.select-page>input").val(pageCra);	//渲染当前页数
-        //$(".citems-search>input").val("");	//将搜索物品清空
-        lastTxt = pageCra;
+        self.page++;
+        let args = {type: "'1','3'", name: self.itemname + "", page: self.page + "", limit: self.limit + ""};
+        axios.post("api/getExchange", args).then(res => {
+          let JsonData = res.data.data;
+          if (res.data.respCode === "1") {
+            if (JsonData.length <= 0) {
+              ctx.Alert("没有更多数据了");
+              self.page--;
+            } else {
+              self.craftList = JsonData;
+            }
+          } else {
+            ctx.Alert("没有更多数据了");
+            self.page--;
+          }
+        });
       });
       $(".citems-search>.select-page>.prev").click(function () {	//制作物列表: 上一页
-        pageCra -= 1;
-        if (pageCra <= 0) {		//至少只能是第一页
-          pageCra = 1
+        if (self.page == '1') {
+          ctx.Alert("已经到第一页了");
+          return;
         } else {
-          $(".citems-search>.select-page>input").val(pageCra);	//渲染当前页数
-          GenerateCraftable();	//渲染物品列表
+          self.page--;
         }
-        lastTxt = pageCra;
+        let args = {type: "'1','3'", name: self.itemname + "", page: self.page + "", limit: self.limit + ""};
+        axios.post("api/getExchange", args).then(res => {
+          if (res.data.respCode === "1") {
+            let JsonData = res.data.data;
+            self.craftList = JsonData;
+          } else {
+            ctx.Alert("没有更多数据了");
+          }
+        });
       });
 
       $(".citems-search>.search-type>.t1").click(function () {	//搜索类型: 制作物
@@ -316,7 +339,7 @@ export default {
     },
     rightready() {
       var self = this;
-
+      var ctx = this.ctx.appContext.config.globalProperties;
       $(".head-tool>li:not(:first)").click(function () {	//选择工作台
         alert("请使用钥匙解锁该功能！");
       });

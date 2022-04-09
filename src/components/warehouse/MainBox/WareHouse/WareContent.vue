@@ -490,6 +490,10 @@ export default {
       var c1 = item.class1;	//获取物品总分类
       var c2 = item.class2;	//获取物品子分类
       var c3 = item.mod;		//获取物品是否为mod
+      //获取物品分类信息
+      var groupinfos = ctx.getItemType(item.class1);
+      console.log(groupinfos);
+
       var num = item.storageCount;		//获取物品拥有数量
       var qua = item.quality;	//获取物品品质
       var desc = item.desc;	//获取物品介绍
@@ -525,12 +529,22 @@ export default {
 
       if (item.itemtype == "1") {
         ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
-        $(".ware-details>section>.left>header>.c1").show();
-        $(".ware-details>section>.left>header>.c2").show();
+        $(".ware-details>section>.left>header>.c1").hide();
+        $(".ware-details>section>.left>header>.c2").hide();
         $(".ware-details>section>.left>header>.c3").hide();
-        //
-        $(".ware-details>section>.left>header>.c1").text(c1);	//总分类
-        $(".ware-details>section>.left>header>.c2").text(c2);	//子分类
+        //显示物品分组信息
+        if (groupinfos != null && groupinfos.length >= 1) {
+          $(".ware-details>section>.left>header>.c1").show();
+          $(".ware-details>section>.left>header>.c1").text(groupinfos[0]);	//总分类
+        }
+        if (groupinfos != null && groupinfos.length >= 2) {
+          $(".ware-details>section>.left>header>.c2").show();
+          $(".ware-details>section>.left>header>.c2").text(groupinfos[1]);	//子分类
+        }
+        if (groupinfos != null && groupinfos.length >= 3) {
+          $(".ware-details>section>.left>header>.c3").show();
+          $(".ware-details>section>.left>header>.c3").text(groupinfos[2]);	//子分类
+        }
       } else {
         $(".ware-details>section>.left>.img>img").attr("src", img);
         $(".ware-details>section>.left>header>.c1").hide();
@@ -1186,7 +1200,7 @@ export default {
 
     $(".warehouse>.menu>.l4").click(function () {		//彩色按钮 - 工作台
       self.formPage = "craft";
-      window.location='/#/userq/craft/'
+      window.location = '/#/userq/craft/'
       // console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
       //$("body>.data-recipe").load("Config/recipes.xml",function(){	//先加载配方
       //console.log(getTime().date+"\n物品配方加载成功！");

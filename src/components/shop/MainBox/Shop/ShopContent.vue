@@ -273,6 +273,32 @@ export default {
         $(".spxq").find(".cs1").text(class1);			//总分类
         $(".spxq").find(".cs2").text(class2);			//子分类
       }
+      var groupinfos = ctx.getItemType(item.class1);
+      if (item.itemtype == "1") {
+        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
+        $(".spxq").find(".cs1").hide();
+        $(".spxq").find(".cs2").hide();
+        $(".spxq").find(".cs3").hide();
+        //显示物品分组信息
+        if (groupinfos != null && groupinfos.length >= 1) {
+          $(".spxq").find(".cs1").show();
+          $(".spxq").find(".cs1").text(groupinfos[0]);	//总分类
+        }
+        if (groupinfos != null && groupinfos.length >= 2) {
+          $(".spxq").find(".cs2").show();
+          $(".spxq").find(".cs2").text(groupinfos[1]);	//子分类
+        }
+        if (groupinfos != null && groupinfos.length >= 3) {
+          $(".spxq").find(".cs3").show();
+          $(".spxq").find(".cs3").text(groupinfos[2]);	//子分类
+        }
+      } else {
+        $(".ware-details>section>.left>.img>img").attr("src", img);
+        $(".spxq").find(".cs1").hide();
+        $(".spxq").find(".cs2").hide();
+        $(".spxq").find(".cs3").show();
+        $(".spxq").find(".cs3").text("特殊物品");
+      }
 
       if (sell == "vip") {
         $(".spxq").find(".cs4").show().text("会员专属");		//VIP专属

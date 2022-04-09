@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="price"><i></i><span>{{ item.price }}</span></div>
+      <div class="price"><i></i><span>{{ Math.floor(item.price) }}</span></div>
       <div class="num">库存：{{ item.stock }}</div>
       <div class="name">
         {{
