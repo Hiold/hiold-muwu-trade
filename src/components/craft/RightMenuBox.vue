@@ -217,8 +217,8 @@
 </script>
 
 <style scoped>
-    .active {
-        opacity: 1;
-        transform: scale(1.1);
-    }
+.active {
+  opacity: 1 !important;
+  transform: scale(1.1);
+}
 </style>

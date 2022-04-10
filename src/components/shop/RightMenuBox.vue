@@ -220,7 +220,7 @@ export default {
 
 <style scoped>
 .active {
-  opacity: 1;
+  opacity: 1 !important;
   transform: scale(1.1);
 }
 </style>

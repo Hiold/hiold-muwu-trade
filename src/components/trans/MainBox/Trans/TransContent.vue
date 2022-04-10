@@ -5,8 +5,8 @@
     <header class="head-tool">
       <h1>我的店铺</h1>
       <div class="serch">
-        <input type="text" class="name-id" v-model="keyword" placeholder="请输入玩家或店铺名称" @change="searchItems()">
-        <div class="btn"></div>
+        <input type="text" class="name-id" v-model="keyword" placeholder="请输入玩家或店铺名称">
+        <div class="btn" @click="searchItems()"></div>
       </div>
       <div class="sort">
         <div class="s-page">默认排序</div>
@@ -38,7 +38,7 @@
     </div>
 
     <!-- 店铺详情 页面 -->
-    <div class="my-shop">
+    <div class="my-shop" id="my-shop">
 
       <header>
         <div class="left">
@@ -131,7 +131,7 @@
     </div>
 
     <!-- 玩家售卖区/玩家求购区 页面 -->
-    <div class="player-com">
+    <div class="player-com" id="player-com">
       <TransPStoreItem v-if="class1=='玩家售卖区'" v-for="(item,index) in pstoreCardsAll" :key="item.id" :item="item"
                        :index="index"></TransPStoreItem>
 
@@ -431,6 +431,8 @@ export default {
       displayType: "",
       page: 1,
       size: 10,
+      onsellpage: 1,
+      onsellsize: 12,
     }
   },
   methods: {
@@ -492,26 +494,9 @@ export default {
         this.playershops = [];
         this.queryPlayerShopList();
       } else if (this.class1 == "玩家售卖区" || this.class1 == "玩家求购区") {
-        // $(".player-com>li").show();	//先默认让所有隐藏物品显示
-        // var txt = $(".head-tool .name-id").val().toLowerCase();	//获取输入框输入的内容
-        // var find = false;	//默认为没找到商品
-        // for (var i = 0; i < $(".player-com>li").length; i++) {	//遍历当前页面显示的物品
-        //     var xb1 = $(".player-com>li").eq(i).data("index1");	//获取每个物品在数组中的下标
-        //     var xb2 = $(".player-com>li").eq(i).data("index2");	//获取每个物品在数组中的下标
-        //     var name = playerStores[xb1][xb2].name.toLowerCase();	//获取物品名称
-        //     var id = playerStores[xb1][xb2].id.toLowerCase();	//获取物品ID
-        //     if (name.indexOf(txt) != -1 || id.indexOf(txt) != -1) {	//如果物品名称或ID中包含了你需要搜索的字符串
-        //         find = true;
-        //         $(".player-com>.empty").hide();
-        //     } else {
-        //         $(".player-com>li").eq(i).hide();
-        //     }
-        // }
-        // if (!find) {	//如果遍历完数组后，仍然没找到要搜索的商品
-        //     console.log("没找到搜索的物品");
-        //     $(".player-com>.empty").show();
-        //     $(".player-com>.empty").find("span").html("没有找到你想<br>搜索的物品");
-        // }
+        this.onsellpage = 1;
+        this.pstoreCardsAll = [];
+        this.queryPlayerOnSell("", this.class1)
       } else if (this.class1 == "物资求购") {
         $(".buying>.box>li").show();	//先默认让所有隐藏物品显示
         this.GenerateBuyingItems();
@@ -534,6 +519,40 @@ export default {
       if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
         this.page++;
         this.queryPlayerShopList();
+      }
+    },
+    handleScrollOnsell(e) {
+      if (this.class1 == "玩家售卖区") {
+        this.currentViewPlayer.gameentityid = "";
+      }
+      if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+        this.onsellpage++;
+        let params = {
+          id: this.currentViewPlayer.gameentityid + "",
+          itemname: this.keyword + "",
+          // class1: this.class1,
+          class2: this.class2,
+          class1: "",
+          // class2: "",
+          pageIndex: this.onsellpage + "",
+          pageSize: this.onsellsize + ""
+        };
+        axios.post("api/getPlayerOnSell", params).then(res => {
+          if (res.data.respCode === "1") {
+            let JsonData = res.data.data;
+            if (this.class1 == "玩家售卖区") {
+              for (var i in JsonData.data) {
+                this.pstoreCardsAll.push(JsonData.data[i]);
+              }
+            } else if ((this.class1 == "我的店铺" || this.class1 == "玩家店铺") && this.class2 == "出东西") {
+              this.pstoreCards.push(JsonData.data[i]);
+            } else {
+              for (var i in JsonData.data) {
+                this.pstoreCards.push(JsonData.data[i]);
+              }
+            }
+          }
+        });
       }
     },
     queryPlayerShopList() {
@@ -573,13 +592,13 @@ export default {
     queryPlayerOnSell(id, type) {
       let params = {
         id: id + "",
-        itemname: this.itemname + "",
+        itemname: this.keyword + "",
         // class1: this.class1,
         class2: this.class2,
         class1: "",
         // class2: "",
-        pageIndex: "1",
-        pageSize: "9999"
+        pageIndex: this.onsellpage + "",
+        pageSize: this.onsellsize + ""
       };
       axios.post("api/getPlayerOnSell", params).then(res => {
         if (res.data.respCode === "1") {
@@ -1646,6 +1665,9 @@ export default {
   }
   , mounted() {
     $("#userContainer")[0].addEventListener('scroll', this.handleScroll, true);
+    $("#player-com")[0].addEventListener('scroll', this.handleScrollOnsell, true);
+    $("#my-shop")[0].addEventListener('scroll', this.handleScrollOnsell, true);
+
     this.ctx = getCurrentInstance();
     const $bus = this.ctx.appContext.config.globalProperties.$bus;
     this.ready();

@@ -338,6 +338,10 @@ aside > header > .rech:hover {
     opacity: 1;
 }
 
+.Main-menu > li:hover {
+    opacity: 1 !important;
+}
+
 .Main-menu > .min > div > span {
     position: absolute;
     left: 0;

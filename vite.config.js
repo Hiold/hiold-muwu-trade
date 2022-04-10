@@ -22,7 +22,7 @@ export default {
         proxy: {
             '/api': {
                 // target: "http://103.239.247.51:26911/",
-                target: 'http://dx.s1.hiold.net:18311/', //代理接口
+                target: 'http://dx.s1.hiold.net:26911/', //代理接口
                 // target: 'http://localhost:26911/', //代理接口
                 changeOrigin: true,
                 // rewrite: (path) => path.replace(/^\/apis/, '')

@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="collect">
-        <i></i>
-        <span class="txt">收藏</span>
+        <i @click="collect"></i>
+        <span class="txt" @click="collect">收藏</span>
         <span class="num">10</span>
       </div>
     </div>
@@ -81,10 +81,45 @@ export default {
       buyCount: 1,
       playerinfo: {},
       ctx: null,
+      collected: 0,
     }
   },
   props: ["item"],
   methods: {
+    collect() {
+      var self = this;
+      if (this.item.collected >= 1) {
+        //取消收藏
+        var buyParam = {"id": "" + this.item.id + "", "value": "0"};
+        axios.post("api/updateCollect", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ElMessage.success('取消收藏成功')
+            self.item.collected = '0';
+            // $(this).css("background-image", "url(images/icon/collect-1.png)");
+            $(".items-details").data("collect", "false");
+            $(".items-details>.left").find(".collect").find("i").css("background-image", "url(images/icon/collect-1.png)");
+            $(".items-details>.left").find(".collect").find(".txt").text("收藏").css("color", "gray");
+          } else {
+            ElMessage.error(res.data.respMsg);
+          }
+        });
+      } else {
+        //收藏
+        var buyParam = {"id": "" + this.item.id + "", "value": "1"};
+        axios.post("api/updateCollect", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ElMessage.success('收藏成功')
+            self.item.collected = '1';
+            //
+            $(".items-details").data("collect", "true");
+            $(".items-details>.left").find(".collect").find("i").css("background-image", "url(images/icon/collect-3.png)");
+            $(".items-details>.left").find(".collect").find(".txt").text("已收藏").css("color", "rgb(239,90,74)");
+          } else {
+            ElMessage.error(res.data.respMsg);
+          }
+        });
+      }
+    },
     add() {		//购买数量 : 添加
       var stock = this.item.stock * 1;		//获取当前库存
       // var xgDay = this.item.xgDay * 1;		//每日限购
