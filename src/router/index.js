@@ -150,9 +150,17 @@ const routes = [{
             path: "itemexchange",
             name: "itemexchange",
             meta: {
-                title: '游戏事件'
+                title: '物品转换'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ItemExchange.vue")
+        },
+        {
+            path: "itemlimit",
+            name: "itemlimit",
+            meta: {
+                title: '交易限制'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ItemLimit.vue")
         }]
 }, {
     path: "/login", name: "Login", meta: {

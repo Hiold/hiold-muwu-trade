@@ -107,6 +107,10 @@ export default {
         icon: "el-icon-lx-rank",
         index: "/manage/gameevent",
         title: "游戏事件",
+      },{
+        icon: "el-icon-lx-rank",
+        index: "/manage/itemlimit",
+        title: "交易限制",
       },
     ];
 
