@@ -95,10 +95,13 @@ export default {
           if (res.data.respCode === "1") {
             ElMessage.success('取消收藏成功')
             self.item.collected = '0';
+            self.item.collect = ((self.item.collect * 1) - 1) + "";
             // $(this).css("background-image", "url(images/icon/collect-1.png)");
             $(".items-details").data("collect", "false");
             $(".items-details>.left").find(".collect").find("i").css("background-image", "url(images/icon/collect-1.png)");
             $(".items-details>.left").find(".collect").find(".txt").text("收藏").css("color", "gray");
+            var number = $(".items-details>.left").find(".collect").find(".num").html();
+            $(".items-details>.left").find(".collect").find(".num").html((number * 1) - 1)
           } else {
             ElMessage.error(res.data.respMsg);
           }
@@ -110,10 +113,13 @@ export default {
           if (res.data.respCode === "1") {
             ElMessage.success('收藏成功')
             self.item.collected = '1';
+            self.item.collect = ((self.item.collect * 1) + 1) + "";
             //
             $(".items-details").data("collect", "true");
             $(".items-details>.left").find(".collect").find("i").css("background-image", "url(images/icon/collect-3.png)");
             $(".items-details>.left").find(".collect").find(".txt").text("已收藏").css("color", "rgb(239,90,74)");
+            var number = $(".items-details>.left").find(".collect").find(".num").html();
+            $(".items-details>.left").find(".collect").find(".num").html((number * 1) + 1)
           } else {
             ElMessage.error(res.data.respMsg);
           }

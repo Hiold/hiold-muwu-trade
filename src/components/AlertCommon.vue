@@ -99,7 +99,7 @@
                       class="s3">折</span></div>
 
 
-                  <div class="period"><span class="date">{{ item.couDate }} 到期</span> <span
+                  <div class="period"><span class="date">{{ item.couDateEnd.substring(0, 10) }} 到期</span> <span
                       class="num">仅剩{{ item.storageCount }}张</span>
                   </div>
                   <div class="couid" style="display: none">{{ item.id }}</div>
