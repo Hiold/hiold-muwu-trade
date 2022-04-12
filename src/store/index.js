@@ -10,7 +10,12 @@ export default createStore({
         shop: {
             cardcolor: "",
             cardbg: "",
-        }
+        },
+        //优惠券数据
+        couProps: [],
+        //已选择了优惠券
+        selectedCou: "",
+        buyCount: 1,
     },
     mutations: {
         delTagsItem(state, data) {

@@ -79,7 +79,8 @@
               </li>
 
               <!-- 优惠券选择列表 -->
-              <li class="coupon-card" :data-selfindex="index" v-for="(item,index) in couProps"
+              <li class="coupon-card" :id="'cou'+item.id" :data-selfindex="index"
+                  v-for="(item,index) in $store.state.couProps"
                   :key="item.id">
 
                 <div class="left"><span class="curr">{{ item.couCurrType }}</span><br>
@@ -243,17 +244,10 @@ import axios from "axios";
 export default {
   name: "AlertCommon",
   data() {
-    return {
-      couProps: []
-    }
+    return {}
   },
   mounted() {
-    axios.post("api/getdisCountTicket", "").then(res => {
-      if (res.data.respCode === "1") {
-        let JsonData = res.data.data;
-        this.couProps = JsonData;
-      }
-    });
+
   }
 }
 </script>

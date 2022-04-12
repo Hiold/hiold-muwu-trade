@@ -52,10 +52,10 @@
         <div></div> -->
       </div>
       <div class="num">
-        <div class="jian" @click="reduce"><span :class="buyCount>1?'point':'notallowed'">－</span></div>
-        <input type="text" v-model.number="buyCount">
+        <div class="jian" @click="reduce"><span :class="$store.state.buyCount>1?'point':'notallowed'">－</span></div>
+        <input type="text" v-model.number="$store.state.buyCount">
         <div class="add" @click="add"><span
-            :class="(buyCount<item.stock*1||item.stock*1===-1)?'point':'notallowed'">＋</span></div>
+            :class="($store.state.buyCount<item.stock*1||item.stock*1===-1)?'point':'notallowed'">＋</span></div>
       </div>
       <div class="stock">（库存 : 8888）</div>
       <div class="buy" @click="Buyitem">立即购买</div>
@@ -78,10 +78,10 @@ export default {
   name: "ShopItemDetails",
   data() {
     return {
-      buyCount: 1,
       playerinfo: {},
       ctx: null,
       collected: 0,
+      prePrice: 0
     }
   },
   props: ["item"],
@@ -128,63 +128,129 @@ export default {
     },
     add() {		//购买数量 : 添加
       var stock = this.item.stock * 1;		//获取当前库存
-      // var xgDay = this.item.xgDay * 1;		//每日限购
-      // var xgAll = this.item.xgAll * 1;		//总限购
-      //
-      // var buyDay = 0;		//今日已购买数量
-      // var buyAll = 0;		//历史购买总数量
-      // var findHis = false;	//商品历史购买数据（默认为没找到数据）
-      // for (var i = 1; i < playerBuy[playerIndex].length; i++) {	//遍历商品购买数据数组
-      //     var id2 = playerBuys.data[i].id;	//获取数组中的物品id
-      //     if (this.id == id2) {	//如果数组中找到了这个商品
-      //         buyDay = playerBuys.data[i].numDay * 1;
-      //         buyAll = playerBuys.data[i].numAll * 1;
-      //         findHis = true;
-      //         break;
-      //     }
-      // }
-      // if (!findHis) {
-      //     //如果遍历玩数组后仍然没找到这个物品
-      //     //创建一个新的数组用于储存玩家购买数据并保存
-      //     playerBuy[playerIndex][playerBuy[playerIndex]] = [id, "今日已购买数量:0", "总购买数量:0"];
-      // }
+
       if (isNaN(stock)) {
         stock = 999999999
       }
-      // if (isNaN(xgDay)) {
-      //     xgDay = 999999999
-      // }
-      // if (isNaN(xgAll)) {
-      //     xgAll = 999999999
-      // }
-      // if (isNaN(buyDay)) {
-      //     buyDay = 0
-      // }
-      // if (isNaN(buyAll)) {
-      //     buyAll = 0
-      // }
-      var num = this.buyCount;
+
+      var num = this.$store.state.buyCount;
       if (num >= stock && stock !== -1) {
         return;
-      }	//数量最大不能超过 库存库存
-      // if (num > xgDay - buyDay) {
-      //     num = xgDay - buyDay;
-      // }	//数量最大不能超过 每日限购 - 今日已购买
-      // if (num > xgAll - buyAll) {
-      //     num = xgAll - buyAll;
-      // }	//数量最大不能超过 总限购 - 总购买数量
-      this.buyCount++;	//填充经过校验后的数字
+      }
+      this.$store.state.buyCount++;
+      this.processCou(this.item, this.$store.state.buyCount);
     },
     reduce() {		//购买数量 : 减少
-      var num = this.buyCount;
+      var num = this.$store.state.buyCount;
       if (num <= 1) {
         return;
       }
-      this.buyCount--	//填充经过校验后的数字
+      this.$store.state.buyCount--	//填充经过校验后的数字
+      this.processCou(this.item, this.$store.state.buyCount);
     },
-    Buyitem() {	//购买商品
+    processCou(item, count) {
+      //取消所有框选
+      $(".coupon-card").css({"border": "0.25rem solid white"});
+
+      // var left = $(this).find(".left").html();
+      // $(".alert-buy .coupon>.card>.left").html(left);
+      // if (sxb == 0) {	//不使用优惠券
+      //   //alert(11)
+      //   $(".alert-buy .coupon>.card").data("ware", "undefined");
+      //   $(".alert-buy .coupon>.card>.right>div").hide();
+      //   $(".alert-buy .coupon>.card>.right>.none").show().text("不使用优惠券");
+      // } else if (sxb > 0) {
+      //   var cond = $(this).find(".cond").html();
+      //   var period = $(this).find(".period").html();
+      //   $(".alert-buy .coupon>.card>.right>div").show();
+      //   $(".alert-buy .coupon>.card>.right>.none").hide();
+      //   $(".alert-buy .coupon>.card>.right>.cond").html(cond);
+      //   $(".alert-buy .coupon>.card>.right>.period").html(period);
+      // }
+      var left = "";
+      var cond = "";
+      var period = "";
+
+      var Finalprice = Number.MAX_SAFE_INTEGER;
+
+      var payPrice = item.price * count;
+      var payPrice2 = payPrice;
+      //
+      console.log(payPrice);
+      if (item.currency == '1') {
+        for (var idx in this.$store.state.couProps) {
+          var cou = this.$store.state.couProps[idx];
+          //计算抵用券优惠价格
+          if (cou.couCurrType.indexOf("积分满减") > -1 && payPrice >= cou.couCond * 1) {
+            var prePrice = cou.couPrice * 1;
+          } else if (cou.couCurrType.indexOf("积分折扣") > -1 && payPrice >= cou.couCond * 1) {
+            prePrice = Math.round(payPrice * (1 - cou.couPrice / 10));
+          }
+          //console.log(prePrice);
+          payPrice2 = payPrice;
+          payPrice2 -= prePrice;	//使用抵用券后玩家需要支付的价格
+          if (payPrice2 <= 0) {
+            payPrice2 = 1
+          }
+          //计算与处理数据
+          if (payPrice2 < Finalprice) {
+            Finalprice = payPrice2;
+            this.$store.state.selectedCou = cou.id + "";
+            left = cou.couCurrType;
+            cond = $("#cou" + cou.id).find(".cond").html();
+            period = $("#cou" + cou.id).find(".period").html();
+          }
+        }
+      } else if (item.currency == '2') {
+        for (var idx in this.$store.couProps) {
+          var cou = this.$store.couProps[idx];
+          //计算抵用券优惠价格
+          if (cou.couCurrType.indexOf("钻石满减") > -1 && payPrice >= cou.couCond * 1) {
+            var prePrice = cou.couPrice * 1;
+          } else if (cou.couCurrType.indexOf("钻石折扣") > -1 && payPrice >= cou.couCond * 1) {
+            prePrice = Math.round(payPrice * (1 - cou.couPrice / 10));
+          }
+          //console.log(prePrice);
+          payPrice2 = payPrice;
+          payPrice2 -= prePrice;	//使用抵用券后玩家需要支付的价格
+          if (payPrice2 <= 0) {
+            payPrice2 = 1
+          }
+          //计算与处理数据
+          if (payPrice2 < Finalprice) {
+            Finalprice = payPrice2;
+            this.$store.state.selectedCou = cou.id + "";
+            left = cou.couCurrType;
+            cond = $("#cou" + cou.id).find(".cond").html();
+            period = $("#cou" + cou.id).find(".period").html();
+          }
+        }
+      }
+
+      if (Finalprice >= Number.MAX_SAFE_INTEGER) {	//不使用优惠券
+        //alert(11)
+        $(".alert-buy .coupon>.card").data("ware", "undefined");
+        $(".alert-buy .coupon>.card>.right>div").hide();
+        $(".alert-buy .coupon>.card>.right>.none").show().text("不使用优惠券");
+        this.$store.state.selectedCou = "";
+        this.prePrice = 0;
+      } else if (Finalprice < Number.MAX_SAFE_INTEGER) {
+        $("#cou" + this.$store.state.selectedCou).css({"border": "0.25rem solid red"});
+        this.prePrice = Finalprice;
+        $(".alert-buy .coupon>.card>.right>div").show();
+        $(".alert-buy .coupon>.card>.right>.none").hide();
+        $(".alert-buy .coupon>.card").find(".left").html(left);
+        $(".alert-buy .coupon>.card>.right>.cond").html(cond);
+        $(".alert-buy .coupon>.card>.right>.period").html(period);
+      }
+      console.log(Finalprice);
+      console.log(cond, period);
+    },
+    Buyitem() {
+      this.processCou(this.item, this.$store.state.buyCount);
+
+      //购买商品
       var ctx = this.ctx.appContext.config.globalProperties;
-      console.log(ctx);
       this.playerinfo = JSON.parse(localStorage.getItem("userinfo"))
       if (!this.playerinfo.id || this.playerinfo.id === "") {
         ctx.Confirm("您当前未登录，请登录后再来购买！<br>是否前往登录页面？");
@@ -236,12 +302,6 @@ export default {
       if (expired == true) {
         ctx.Alert("这个商品已经过期，无法购买！");
         ctx.popupCss(25, 13);
-        // for (var i = 0; i < $(".Category>li").length; i++) {	//遍历子分类按钮
-        //     var ck = $(".Category>li").eq(i).data("click");	//获取子分类按钮的浏览状态
-        //     if (ck == "true") {	//如果这个子分类就是玩家正在浏览的子分类
-        //         $(".Category>li").eq(i).click();	//点击它
-        //     }
-        // }
         return;
       }
       if (sell == "false") {
@@ -293,15 +353,15 @@ export default {
         return;
       }
 
-      if (isNaN(this.buyCount)) {	//如果输入的内容不是数字
+      if (isNaN(this.$store.state.buyCount)) {	//如果输入的内容不是数字
         ctx.Alert("请输入正确的数量！");
         return;
       } else {
         var curr = this.item.currency == '1' ? '积分' : this.item.currency == '2' ? '钻石' : '未知';	//获取货币类型
         var unit = $(".spxq").find(".price").find(".p1").text();	//获取单价
-        var price = this.buyCount * unit;	//物品价格 = 数量 x 单价
+        var price = this.$store.state.buyCount * unit;	//物品价格 = 数量 x 单价
         var numBind = this.item.num;	//购买一件实际获得的数量
-        var numAll = numBind * this.buyCount;	//购买后实际发送到背包的数量
+        var numAll = numBind * this.$store.state.buyCount;	//购买后实际发送到背包的数量
         if (curr == "积分") {
           //var con = Confirm("您当前选择购买的数量为 <span style='color:dodgerblue;'>"+num+"</span> 件<br>需要支付的价格为 <span style='color:orange;'>"+price+"</span> "+curr+"<br>是否确认要购买商品？");
         } else if (curr == "钻石") {
@@ -328,8 +388,6 @@ export default {
         var offers = this.playerinfo.vipdiscount * 1;	//获取玩家购物优惠(%)
         // console.log(this.playerinfo);
         var disoff = 10;
-        console.log(this.playerinfo.vipdiscount);
-        console.log(this.playerinfo);
 
         if (isNaN(offers) || offers == 0) {
           offers = 0;
@@ -345,6 +403,9 @@ export default {
           $(".alert-buy>footer>.price>del").show();
         }
         var payPrice = Math.round(price * disoff / 10);	//玩家实际支付价格
+        if (this.prePrice != 0) {
+          payPrice = Math.round(this.prePrice * disoff / 10);	//玩家实际支付价格
+        }
         if (payPrice <= 0) {
           payPrice = 1
         }		//价格至少为1，不能是负数或0
@@ -363,7 +424,8 @@ export default {
 
         var couid = "";
         $(".choose>.coupon-card").unbind("click");
-        $(".choose").on("click", ".coupon-card", function () {			//点击列表中某个优惠券
+        $(".choose").on("click", ".coupon-card", function () {
+          //点击列表中某个优惠券
           //样式特效
           $(".choose>.coupon-card").css({
             "border": "0.2rem solid white",
@@ -417,41 +479,19 @@ export default {
           //console.log(payPrice);
           $(".alert-buy>footer>.price>b").text(payPrice2);	//渲染到页面
 
-          //var wxb = queryWareItems();
-
         });
 
         var self = this;
         $(".alert-buy>footer>.confirm").unbind("click");
-        $(".alert-buy>footer>.confirm").click(function () {	//如果玩家点击确认付款
-          $("#alert,.alert-buy").hide();	//隐藏弹窗
-          // //console.log("点击了确认");
-          // //alert(payPrice);
-          // if (curr == "积分") {	//如果货币为积分
-          //   var point = this.playerinfo.money;	//获取玩家的积分
-          //   point -= payPrice2;
-          //   if (point < 0) {	//如果购买后积分为负数
-          //     point += payPrice2;	//还原积分;
-          //     ctx.Alert("您的<span style='color:orange;'>积分</span>不足,购买失败！");
-          //     ctx.popupCss(25, 13);
-          //     return;
-          //   }
-          // } else if (curr == "钻石") {	//如果货币为钻石
-          //   var zs = this.playerinfo.credit;	//获取玩家的钻石
-          //   zs -= payPrice2;
-          //   if (zs < 0) {	//如果购买后钻石为负数
-          //     ctx.Alert("您的<span style='color:rgb(249,102,112);'>钻石</span>不足,购买失败！");
-          //     ctx.popupCss(25, 13);
-          //     return;
-          //   }
-          // } else {	//如果货币类型既不是积分也不是钻石（一般这种情况不可能出现，除非服主在商品数组中设置错误）
-          //   alert("商品货币类型出错！请联系服主");
-          //   return;
-          // }
-          //
-          // ctx.Alert("购买成功,物品已发送到您的仓库");
-          // ctx.popupCss(25, 13);
-          var buyParam = {"id": "" + self.item.id + "", "count": "" + self.buyCount + "", "couid": "" + couid + ""};
+        $(".alert-buy>footer>.confirm").click(function () {
+          //如果玩家点击确认付款
+          $("#alert,.alert-buy").hide();
+          //隐藏弹窗
+          var buyParam = {
+            "id": "" + self.item.id + "",
+            "count": "" + self.$store.state.buyCount + "",
+            "couid": "" + self.$store.state.selectedCou + ""
+          };
 
           axios.post("api/buyItem", buyParam).then(res => {
             if (res.data.respCode === "1") {

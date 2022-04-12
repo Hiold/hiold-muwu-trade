@@ -124,10 +124,15 @@ export default {
       sorttype: "默认排序",
       idDetail: "",
       ctx: {},
+      cancel: null
     }
   },
   methods: {
     queryShopItem() {
+      if (this.cancel != null) {
+        this.cancel();
+        this.cancel = null;
+      }
       let params = {
         id: this.idDetail,
         itemname: this.itemname,
@@ -135,12 +140,18 @@ export default {
         class2: this.class2,
         sorttype: this.sorttype
       };
-      axios.post("api/queryShopItem", params).then(res => {
+      axios.post("api/queryShopItem", params, {
+        cancelToken: new axios.CancelToken((c) => {
+          // An executor function receives a cancel function as a parameter
+          this.cancel = c;
+        })
+      }).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.shop = JsonData.data;
         }
       });
+
     },
     getTime() {	//获取当前时间
       var myDate = new Date();
@@ -168,7 +179,8 @@ export default {
         "sec": sec,
         "date": date3
       }
-    },
+    }
+    ,
     hideDetail() {
       if (window.location.href != null && window.location.href != "" && window.location.href.indexOf("id=") > -1) {
         //fromBack
@@ -176,11 +188,13 @@ export default {
       } else {
         this.isdetailShow = false;
       }
-    },
+    }
+    ,
     deleteBBcode(itemName) {	//隐藏颜色代码, 如[FF0000]这样的内容将会自动隐藏
       return itemName.replace(/([\\[][0-9a-fA-F]{6}[\]])/g, "");
       //return itemName;
-    },
+    }
+    ,
     searchItems() {	//当输入框获内容改变时，只显示搜索的商品（无视英文字母大小写）
       var self = this;
       $(".items-box>.items").show();	//先默认让所有隐藏元素显示
@@ -203,8 +217,11 @@ export default {
         $(".items-box>.none").show();
         $(".items-box>.none").find("span").html("没有找到你想<br>搜索的商品");
       }
-    },
+    }
+    ,
     showdetail(item, target, limitData) {
+      //购买处理归零
+      this.$store.state.buyCount = 1;
       var ctx = this.ctx.appContext.config.globalProperties;
       this.item = item;
       console.log(item)
@@ -225,7 +242,7 @@ export default {
       //下面是获取商品的基本信息
       var name = ctx.HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
       var num = item.num;				//数量
-      var sales = item.sales;			//销量
+      var sales = item.selloutcount * 1;			//销量
       var class1 = item.class1;			//总分类
       var class2 = item.class2;			//子分类
       var class3 = $(target).find(".ex").text();	//其它类型
@@ -429,6 +446,14 @@ export default {
 
   }
   , mounted() {
+
+    axios.post("api/getdisCountTicket", "").then(res => {
+      if (res.data.respCode === "1") {
+        let JsonData = res.data.data;
+        this.$store.state.couProps = JsonData;
+      }
+    });
+
     this.ctx = getCurrentInstance();
     // let params = {itemname: ""};
     // axios.post("api/queryShopItem", params).then(res => {
