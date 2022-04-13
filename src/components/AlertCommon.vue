@@ -157,7 +157,7 @@
           <div class="val">
             <div class="icon"></div>
             <input type="text" placeholder="请输入出售的价格（单价）"
-                   onkeyup="this.value=this.value.replace(/[^(0-9).]|^[0]/g,'')">
+                   onkeyup="this.value=this.value.replace(/[^(0-9)]|^[0]/g,'')">
           </div>
         </div>
         <p>

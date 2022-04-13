@@ -259,7 +259,7 @@ export default {
       });
     },
     initTableData() {
-      let params = {type: "'1','2','3','4'"};
+      let params = {type: "'1','2','3','4'", searchType: "制作物", page: "1", limit: "10"};
       axios.post("api/getExchange", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
@@ -299,7 +299,7 @@ export default {
               ElMessage.error('保存出错')
             }
 
-            let args = {type: "'1','2','3','4'"};
+            let params = {type: "'1','2','3','4'", searchType: "制作物", page: "1", limit: "10"};
             axios.post("api/getExchange", args).then(res => {
               if (res.data.respCode === "1") {
                 let JsonData = res.data.data;

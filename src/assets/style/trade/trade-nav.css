@@ -32,7 +32,7 @@
     box-shadow: 0 0 0.2em gray;
     color: white;
     margin: 0.5em auto;
-    background-image: url(../../images/btn/b1.jfif);
+    background-image: url(images/btn/b1.jfif);
     letter-spacing: 0.2em;
     cursor: pointer;
     opacity: 0.9;
@@ -56,8 +56,8 @@
     background: rgba(0, 255, 0, 0.3);
 }
 
-.Trade-ware > div > .btn-4 > div {
-    background: rgba(0, 0, 255, 0.3);
+.Trade-ware > div > .btn-3 > div {
+    background: rgba(0, 255, 0, 0.3);
 }
 
 .Trade-ware > div > .btn-5 > div {
@@ -74,6 +74,7 @@
     text-align: center;
     color: gray;
     font-size: 1.05rem;
+    display: none;
 }
 
 .Trade-ware > div > .b1-t0 {

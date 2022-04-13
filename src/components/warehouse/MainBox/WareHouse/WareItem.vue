@@ -1,6 +1,6 @@
 <template>
   <!--$emit为调用父类中showDetail方法 用户展示详细信息-->
-  <li class="ware-items" :data-index="index" @click="showdetailsss($event.target)">
+  <li class="ware-items" :data-index="item.id" @click.prevent="showdetailsss($event.target)">
     <header>{{
         HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate)
       }}
@@ -8,7 +8,8 @@
     <section>
       <div class="left">
         <div class="img">
-          <img v-if="item.itemtype=='1'" :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
+          <img v-if="item.itemtype=='1'" :src="'404'"
+               @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
           <img v-if="item.itemtype=='2'" :src="'api/image/'+item.itemicon">
           <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
             <span>{{ item.quality }}</span>
@@ -35,7 +36,10 @@ export default {
       //return itemName;
     },
     showdetailsss(target) {
-      console.log(11111)
+      //检测是否输入按钮点击
+      if (target.className.indexOf("btn-2") > -1 || target.className.indexOf("btn-3") > -1) {
+        return;
+      }
       this.$emit('showdetail', this.item, target)
     },
     calcDiscount(discount) {

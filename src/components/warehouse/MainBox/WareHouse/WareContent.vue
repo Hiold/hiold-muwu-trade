@@ -5,7 +5,7 @@
     <header class="head-tool">
       <h1>个人仓库</h1>
       <div class="serch" v-show="formPage!='collect'">
-        <input type="text" class="name-id" placeholder="请输入物品名称或ID" oninput="searchItems()">
+        <input type="text" class="name-id" placeholder="请输入物品名称或ID" v-model="itemname" @input="queryShopItem">
         <div class="btn"></div>
       </div>
       <div class="display">
@@ -177,6 +177,7 @@ export default {
   },
   data() {
     return {
+      itemname: "",
       isdetailShow: false,
       item: {},
       formPage: "",
@@ -231,6 +232,7 @@ export default {
       LogSize: 0,
       page: 1,
       size: 10,
+      cancel: null,
     }
   },
   methods: {
@@ -329,6 +331,10 @@ export default {
 
     },
     queryShopItem() {
+      if (this.cancel != null) {
+        this.cancel();
+        this.cancel = null;
+      }
       let params = {
         itemname: this.itemname,
         class1: this.class1,
@@ -336,7 +342,12 @@ export default {
         pageSize: "1000",
         pageIndex: "1",
       };
-      axios.post("api/getPlayerStorage", params).then(res => {
+      axios.post("api/getPlayerStorage", params, {
+        cancelToken: new axios.CancelToken((c) => {
+          // An executor function receives a cancel function as a parameter
+          this.cancel = c;
+        })
+      }).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.shop = JsonData.data;
@@ -557,7 +568,9 @@ export default {
     },
     pickUpItems(itemindex) {	//提取仓库物品
       var self = this;
-      var item = this.shop[itemindex];
+      var item = self.shop.filter((item) => {
+        return item.id == itemindex
+      })[0];
       var ctx = this.ctx.appContext.config.globalProperties;
       var num = item.storageCount * 1;	//获取物品数量
       var con;
@@ -795,7 +808,9 @@ export default {
     $(".ware-details>section>.right>.btn-2").click(function () {
       var ctx = self.ctx.appContext.config.globalProperties;
       var itemindex = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
-      var item = self.shop[itemindex];
+      var item = self.shop.filter((item) => {
+        return item.id == itemindex
+      })[0];
       // Confirm("商品将会放在交易中心进行出售<br>如果有玩家购买你的商品你将会获得奖励<br>是否确认出售？");
       // popupCss(28,16);
       // $("#alert>.alert>footer>.confirm").click(function(){
@@ -817,7 +832,14 @@ export default {
       }
       //alert(qua)
       //将物品数据渲染到页面
-      $("#alert>.window>section>header>.head>img").attr("src", img);	//图标
+
+      if (item.itemtype == "1") {
+        ctx.$LoadTintImage($("#alert>.window>section>header>.head>img")[0], item.itemicon, item.itemtint)
+      } else {
+        $("#alert>.window>section>header>.head>img").attr("src", img);
+      }
+
+      // $("#alert>.window>section>header>.head>img").attr("src", img);	//图标
       $("#alert>.window>section>header>.msg>.name").html(name);		//名称
       $("#alert>.window>section>header>.msg>.num").text("x" + num);		//数量
       $("#alert>.window>section>header>.msg>.quality").text("品质：" + qua);	//品质
@@ -849,39 +871,22 @@ export default {
 
     //仓库物品详情页-配方制作
     $(".ware-details>section>.right>.btn-3").click(function () {
-      var xb = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
-      var id = playerWares.data[xb].id;	//获取物品ID
-      var name = playerWares.data[xb].name;	//获取物品名称
-      //加载页面
-      console.log(getTime().date + "\n正在加载页面 - 工作台 ......");
-      // $("body>.data-recipe").load("Config/recipes.xml", function () {	//先加载配方
-      //     console.log(getTime().date + "\n物品配方加载成功！");
-      //     $("main>article").load("page/work.html", function () {		//再加载工作台页面
-      //         $(".head-tool,.workbench>aside,.work-page").hide();
-      //         //GenerateRecipe(id);
-      //         console.log(getTime().date + "\n工作台 页面加载成功！");
-      //         setTimeout(function () {
-      //             $(".workbench>aside").fadeIn(200);
-      //             $(".work-page").fadeIn(200);
-      //             $(".head-tool").fadeIn(50);
-      //             setTimeout(function () {
-      //                 adaptive();
-      //             }, 20);
-      //             GenerateRecipe(id);		//生成物品基本信息
-      //             $(".citems-search>input").val(name);	//输入物品名称
-      //             searchItems();	//搜索这个物品
-      //             $(".citems-search>.search-type>.t2").click();	//搜索类型为配方
-      //         }, 10);
-      //     });
-      // });
-
-
+      //window.location = '/#/userq/craft/'
+      var ctx = self.ctx.appContext.config.globalProperties;
+      var itemindex = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
+      var item = self.shop.filter((item) => {
+        return item.id == itemindex
+      })[0]
+      //跳转到制作页面
+      window.location = '/#/userq/craft/?itemname='+ctx.HandleItemName(item.translate)
     });
     //仓库物品详情页-丢弃物品
     $(".ware-details>section>.right>.btn-4").click(function () {
       var ctx = self.ctx.appContext.config.globalProperties;
       var itemindex = $(this).parents(".ware-details").data("index");	//获取物品在数组中的下标
-      var item = self.shop[itemindex];
+      var item = self.shop.filter((item) => {
+        return item.id == itemindex
+      })[0]
       var num = item.storageCount * 1;	//获取物品数量
       var con;
       if (num == 1) {
@@ -925,14 +930,6 @@ export default {
         $(".ware-list").fadeIn(200);	//显示仓库物品列表
         $(".ware-details").hide();		//隐藏物品详情页
       });
-      // if(con){
-      // 	discardItems(xb,con);	//调用删除物品函数
-      // 	if(arrClass1=="特殊物品"){
-      // 		changeWareColor(2);
-      // 	}
-      // 	$(".ware-list").fadeIn(200);	//显示仓库物品列表
-      // 	$(".ware-details").hide();		//隐藏物品详情页
-      // }
     });
 
     function cardToIcon() {
@@ -1072,6 +1069,58 @@ export default {
         // useItems(xb);	//调用使用物品函数
         console.log("使用物品")
       }
+    });
+
+    $(".ware-list").on("click", ".ware-items .btn-3", function () {	//仓库卡片-丢弃
+      var xb = $(this).parents(".ware-items").data("index");	//获取物品在数组中的下标
+      var item = self.shop.filter((item) => {
+        return item.id == xb
+      })[0];
+
+      var ctx = self.ctx.appContext.config.globalProperties;
+      var num = item.storageCount * 1;	//获取物品数量
+      var con;
+      if (num == 1) {
+        ctx.Confirm("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿");
+        ctx.popupCss(25, 14);
+        $("#alert>.alert>footer>.confirm").click(function () {
+          con = 1;
+        });
+      } else {
+        ctx.Prompt("是否要丢弃此物品？<br>物品丢弃后不会有任何补偿<br>请输入你要丢弃的数量：", num);
+        ctx.popupCss(25, 18);
+        $("#alert>.alert>footer>.confirm").click(function () {
+          con = $("#alert>.alert>section>input").val() * 1;
+        });
+      }
+
+
+      $("#alert>.alert>footer>.confirm").click(function () {
+        $("#alert>.alert>section>p").html("");	//清空文本提示内容
+        $("#alert").hide();
+        var buyParam = {"id": "" + item.id + "", "count": "" + con + ""};
+        axios.post("api/deleteItem", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            self.queryShopItem();
+            ctx.Alert("丢弃成功！");
+            ctx.popupCss(25, 14);
+            $(".ware-details>header>.back").click();	//返回仓库物品列表页面
+            // $(this).css("background-image", "url(images/icon/collect-1.png)");
+          } else {
+            self.queryShopItem();
+            ctx.Alert("提取失败！" + res.data.respMsg);
+            ctx.popupCss(25, 13);
+          }
+        });
+
+
+        // discardItems(xb, con);	//调用删除物品函数
+        if (self.class1 == "特殊物品") {
+          changeWareColor(2);
+        }
+        $(".ware-list").fadeIn(200);	//显示仓库物品列表
+        $(".ware-details").hide();		//隐藏物品详情页
+      });
     });
 
     //丢弃

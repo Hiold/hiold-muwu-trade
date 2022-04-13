@@ -31,7 +31,7 @@
             <span class="name">物品名称</span>
             <span class="num">x2</span>
           </li> -->
-          <div class="empty" style="display: none;">
+          <div class="empty" v-show="craftList==null||craftList.length==0">
             <span>没有找到你想<br>搜索的物品</span>
           </div>
           <li v-for="(item,index) in craftList" :key="item.data.id" class="craftable-items" data-index="0"
@@ -73,7 +73,7 @@
           </div>
           <div class="right" style="height: 349px;">
             <ul class="recipe-list">
-              <div class="empty" style="display: none;">
+              <div class="empty" style="">
                 <img :src="'images/empty5.png'">
                 <span>
 							这个物品暂时不能制作<br>
@@ -124,7 +124,10 @@ export default {
       craftingList: [],
       page: 1,
       limit: 10,
-      itemname: ""
+      itemname: "",
+      cancel: null,
+      searchType: "制作物",
+      awardType: "",
       // class1: "活动折扣",
       // class2: "全部"
     }
@@ -135,10 +138,16 @@ export default {
     "shop-content": ShopContent
   },
   mounted() {
+    //itemname
+    if (window.location.href.indexOf("itemname=") > -1) {
+      var itemname = window.location.href.split("itemname=")[1]
+      this.itemname = decodeURIComponent(itemname);
+    }
+
     this.ctx = getCurrentInstance();
     this.leftready();
     this.rightready();
-    this.initCraftList();
+    this.searchItems();
     this.getcrafting();
   },
   props: ["itemMenu", "class1", "class2"]
@@ -234,16 +243,50 @@ export default {
       });
     },
     initCraftList() {
-      let args = {type: "'1','3'", name: this.itemname + "", page: this.page + "", limit: this.limit + ""};
-      axios.post("api/getExchange", args).then(res => {
+      if (this.cancel != null) {
+        this.cancel();
+        this.cancel = null;
+      }
+      let args = {
+        type: "'1','3'",
+        name: this.itemname + "",
+        page: this.page + "",
+        limit: this.limit + "",
+        searchType: this.searchType + "",
+        awardType: this.awardType + "",
+      };
+      axios.post("api/getExchange", args, {
+        cancelToken: new axios.CancelToken((c) => {
+          // An executor function receives a cancel function as a parameter
+          this.cancel = c;
+        })
+      }).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           this.craftList = JsonData;
         }
+        if (this.craftList != null && this.craftList.length > 0) {
+          this.GenerateRecipe(this.craftList[0]);
+        }
       });
     },
     searchItems() {
+      if (this.itemname == null || this.itemname == "") {	//如果输入的内容为空
+        $(".citems-search>.select-page").show();	//显示页数
+        $(".citems-search>.search-type").hide();	//隐藏搜索类型
+      } else {
+        $(".citems-search>.select-page").hide();	//隐藏页数
+        $(".citems-search>.search-type").css("display", "flex");	//显示搜索类型
+      }
+
       this.page = 1;
+      if (this.itemname == "积分") {
+        this.awardType = "4";
+      } else if (this.itemname == "点券") {
+        this.awardType = "5";
+      } else {
+        this.awardType = "1";
+      }
       this.initCraftList();
     },
     leftready() {
@@ -309,8 +352,8 @@ export default {
       });
 
       $(".citems-search>.search-type>.t1").click(function () {	//搜索类型: 制作物
-        searchType = "制作物";
-        searchItems();
+        self.searchType = "制作物";
+        self.searchItems();
         $(".citems-search>.search-type>div").css({
           "color": "rgb(111,111,111)",
           "border-bottom": "none",
@@ -323,8 +366,8 @@ export default {
         });
       });
       $(".citems-search>.search-type>.t2").click(function () {	//搜索类型: 配方
-        searchType = "配方";
-        searchItems();
+        self.searchType = "配方";
+        self.searchItems();
         $(".citems-search>.search-type>div").css({
           "color": "rgb(111,111,111)",
           "border-bottom": "none",
@@ -613,15 +656,14 @@ export default {
         //alert(123)
       });
 
-      $(".recipe-list").on("click", "li", function () {	//点击配方列表的物品
-        var xb1 = $(".work-recipe").data("index");	//获取制作物在制作列表中的下标
-        var xb2 = $(this).data("index");			//获取配方在配方列表中的下标
-        var id = recipes[xb1][xb2].id;		//获取配方的ID
-        var name = recipes[xb1][xb2].name;		//获取配方的名称
-        GenerateRecipe(id);			//渲染这个物品的详情信息
-        $(".citems-search>input").val(name);	//搜索这个物品
-        $(".citems-search>.search-type>.t2").click();	//搜索类型为配方
-
+      $(".recipe-list").on("click", "li", function () {
+        //点击配方列表的物品
+        var itemname = $(this).data("itemname");			//获取配方在配方列表中的下标
+        var itemtype = $(this).data("itemtype");
+        self.awardType = itemtype;
+        self.itemname = itemname;
+        self.searchType = "配方";
+        $(".citems-search>.search-type>.t2").click();
       });
 
       $(".head-tool>.back").click(function () {	//返回仓库
@@ -697,15 +739,23 @@ export default {
       /*
       下面是读取配方数据
        */
-      $(".recipe-list>li").remove();	//先移除所有配方
+      $(".recipe-list>li").remove();
+      if (item.award == null || item.award.length <= 0) {
+        $(".recipe-list").append("<div className=\"empty\" style=\"\"><img :src=\"'images/empty5.png'\"><span>这个物品暂时不能制作<br><!-- 去查询它的配方吧 -->快去叫服主写配方</span></div>");
+      }
       //console.log(recipes[cxb])
       console.log(item.award)
       for (var j = 0; j < item.award.length; j++) {
         //遍历物品配方
         //有多少个配方就追加多少个列表
-        $(".recipe-list").append('<li class="items"><div class="icon"><i><img style="width: 100%;height:100%;"/></i></div><div class="name"></div><div class="num"><span class="n1">仓库：<b></b></span><br><span class="n2">消耗：<b></b></span></div></li>');
         //var rId = recipes[cxb][j].id;		//配方ID
         var rName = ctx.HandleItemName(item.award[j].itemchinese);	//配方名称
+        if (item.award[j].type == '4') {
+          rName = "积分";
+        } else if (item.award[j].type == '5') {
+          rName = "钻石";
+        }
+        $(".recipe-list").append('<li class="items" data-index="' + item.award[j].id + '" data-itemname="' + rName + '" data-itemtype="' + item.award[j].type + '"><div class="icon"><i><img style="width: 100%;height:100%;"/></i></div><div class="name"></div><div class="num"><span class="n1">仓库：<b></b></span><br><span class="n2">消耗：<b></b></span></div></li>');
         var rNum = item.award[j].count * 1;	//配方数量
         var rType = item.award[j].type;	//配方类型
 
