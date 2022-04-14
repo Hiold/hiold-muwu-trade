@@ -90,7 +90,7 @@
           </div>
           <div class="text-button-p"
                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length>1"
-               @click="showAward(1)">点击查看奖励
+               @click="showAward(0)">点击查看奖励
           </div>
           <el-tooltip
               v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='1'"
@@ -233,6 +233,11 @@ export default {
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           this.isGeted = 1;
           ctx.loadUserInfo();
+          //编辑奖励领取状态
+          this.signinfos.filter((item) => {
+            return item.info.id == id
+          })[0].signed = "1";
+
         } else {
           ctx.Alert(res.data.respMsg);
         }
@@ -282,6 +287,10 @@ export default {
           ctx.Award(awardData, "获得如下奖励", "物品已存入个人仓库", "确认", null);
           this.isGeted = 1;
           ctx.loadUserInfo();
+          //编辑奖励领取状态
+          this.signinfos.filter((item) => {
+            return item.info.id == id
+          })[0].signed = "1";
         } else {
           ctx.Alert(res.data.respMsg);
         }

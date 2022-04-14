@@ -183,67 +183,79 @@
         </div>
         <div class="btn">
           <el-tooltip
-              v-if="(lotteryList!=null&&lotteryList.length>0)"
-              :content="getLottery(selectedLotteryId).itemchinese" placement="top">
+              v-if="($store.state.lotteryList!=null&&$store.state.lotteryList.length>0)"
+              :content="getLottery($store.state.selectedLotteryId).itemchinese" placement="top">
             <div class="b1" @click="doanimation(1)">
               <div class="align">
                 <b>立即抽奖</b>
                 <div class="price">
                   <i>
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
-                         :src="'images/icon/jf2.png'"
-                         :alt="积分"
-                         :title="积分"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='1'"
+                        :src="'images/icon/jf2.png'"
+                        :alt="积分"
+                        :title="积分"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
 
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
-                         :src="'images/icon/red-zs.png'"
-                         :alt="点券"
-                         :title="点券"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='2'"
+                        :src="'images/icon/red-zs.png'"
+                        :alt="点券"
+                        :title="点券"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
 
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
-                         :src="'404'"
-                         :alt="getLottery(selectedLotteryId).itemchinese"
-                         :title="getLottery(selectedLotteryId).itemchinese"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
-                         :src="'api/image/'+getLottery(selectedLotteryId).itemicon">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='3'"
+                        :src="'404'"
+                        :alt="getLottery($store.state.selectedLotteryId).itemchinese"
+                        :title="getLottery($store.state.selectedLotteryId).itemchinese"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='4'"
+                        :src="'api/image/'+getLottery($store.state.selectedLotteryId).itemicon">
                   </i>
-                  <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).one }}</span>
+                  <span v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0">{{
+                      getLottery($store.state.selectedLotteryId).one
+                    }}</span>
                 </div>
               </div>
             </div>
           </el-tooltip>
           <el-tooltip
-              v-if="(lotteryList!=null&&lotteryList.length>0)"
-              :content="getLottery(selectedLotteryId).itemchinese" placement="top">
+              v-if="($store.state.lotteryList!=null&&$store.state.lotteryList.length>0)"
+              :content="getLottery($store.state.selectedLotteryId).itemchinese" placement="top">
             <div class="b2" @click="doanimation(10)">
               <div class="align">
                 <b>十连抽</b>
                 <div class="price">
                   <i>
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='1'"
-                         :src="'images/icon/jf2.png'"
-                         :alt="积分"
-                         :title="积分"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='1'"
+                        :src="'images/icon/jf2.png'"
+                        :alt="积分"
+                        :title="积分"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
 
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='2'"
-                         :src="'images/icon/red-zs.png'"
-                         :alt="点券"
-                         :title="点券"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='2'"
+                        :src="'images/icon/red-zs.png'"
+                        :alt="点券"
+                        :title="点券"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
 
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='3'"
-                         :src="'404'"
-                         :alt="getLottery(selectedLotteryId).itemchinese"
-                         :title="getLottery(selectedLotteryId).itemchinese"
-                         @error="$LoadTintImage($event.target,getLottery(selectedLotteryId).itemicon,getLottery(selectedLotteryId).itemtint)">
-                    <img v-if="lotteryList!=null&&lotteryList.length>0&&getLottery(selectedLotteryId).type=='4'"
-                         :src="'api/image/'+getLottery(selectedLotteryId).itemicon">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='3'"
+                        :src="'404'"
+                        :alt="getLottery($store.state.selectedLotteryId).itemchinese"
+                        :title="getLottery($store.state.selectedLotteryId).itemchinese"
+                        @error="$LoadTintImage($event.target,getLottery($store.state.selectedLotteryId).itemicon,getLottery($store.state.selectedLotteryId).itemtint)">
+                    <img
+                        v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0&&getLottery($store.state.selectedLotteryId).type=='4'"
+                        :src="'api/image/'+getLottery($store.state.selectedLotteryId).itemicon">
                   </i>
-                  <span v-if="lotteryList!=null&&lotteryList.length>0">{{ getLottery(selectedLotteryId).ten }}</span>
+                  <span v-if="$store.state.lotteryList!=null&&$store.state.lotteryList.length>0">{{
+                      getLottery($store.state.selectedLotteryId).ten
+                    }}</span>
                 </div>
               </div>
             </div>
@@ -473,7 +485,6 @@ export default {
       awardList: [],
       ctx: {},
       allChanceCount: 0,
-      selectedLotteryId: {},
       isnoticed: false,
       isanimation: false,
     }
@@ -483,7 +494,7 @@ export default {
       var self = this;
       if (!this.isanimation) {
         var ctx = this.ctx.appContext.config.globalProperties;
-        var target = this.getLottery(this.selectedLotteryId);
+        var target = this.getLottery(this.$store.state.selectedLotteryId);
         var cost = times === 1 ? target.one : target.ten;
         if (!this.isnoticed && target.type == "1") {
           ctx.Confirm(`本次抽奖将消耗${cost}积分，此提示只显示一次`);
@@ -586,31 +597,11 @@ export default {
 
           ctx.Award(awardData, "获得如下奖励", "物品已发放到仓库", "关闭", null);
           this.isanimation = false;
+          this.$store.state.loted += times * 1;
           ctx.loadUserInfo();
         } else {
           ctx.Alert(res.data.respMsg);
           this.isanimation = false;
-        }
-      });
-    },
-    initLotteryList() {
-      var ctx = this.ctx.appContext.config.globalProperties;
-      const $bus = ctx.$bus
-      let params = {itemname: ""};
-      axios.post("api/getLottery", params).then(res => {
-        if (res.data.respCode === "1") {
-          let JsonData = res.data.data;
-          this.lotteryList = JsonData;
-          var items = [];
-          for (var i in this.lotteryList) {
-            var st = {name: this.lotteryList[i].desc, data: this.lotteryList[i].id};
-            items.push(st);
-          }
-          if (this.lotteryList != null && this.lotteryList.length > 0) {
-            this.loadAward(this.lotteryList[0].id);
-            this.selectedLotteryId = this.lotteryList[0].id;
-          }
-          $bus.emit('setlottert', items);
         }
       });
     },
@@ -639,7 +630,7 @@ export default {
       });
     },
     getLottery(id) {
-      let res = this.lotteryList.filter((item) => {
+      let res = this.$store.state.lotteryList.filter((item) => {
         return item.id == id;
       });
       return res[0];
@@ -693,11 +684,108 @@ export default {
       $(".Act-lottery>.left").find("li").eq(1).css("background-color", l2);
       $(".Act-lottery>.left").find("li").eq(2).css("background-color", l3);
       $(".Act-lottery>.left").find("li").eq(3).css("background-color", b1);
+    },
+    bindEvent() {
+      // var navColor = [	//子分类背景颜色
+      //   ["rgb(232, 206, 185), rgba(254, 208, 171, 0.2)"],
+      //   ["rgb(186, 231, 206), rgba(255, 255, 255, 0.2)"],
+      //   ["rgb(254, 227, 171), rgba(255, 255, 255, 0.2)"],
+      //   ["rgb(255, 200, 200), rgba(255, 255, 255, 0.2)"]
+      // ]
+      // $($(".Category>div")[3]).find("li").on("click", function () {		//子分类点击特效
+      //   var xb = $(this).attr("class").split("")[1];	//获取序号
+      //   $(".Category>li[class^='b" + xb + "']").css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
+      //   $(this).css({	//设置当前子分类样式
+      //     "background": "radial-gradient(" + navColor[xb - 1] + ")",
+      //     "box-shadow": "0 0 0.1rem white"
+      //   });
+      //   $(".Category>li[class^='b" + xb + "']").data("click", "false");
+      //   $(this).data("click", "true");
+      // });
+      // console.log($($(".Category>div")[3]).find("li").length)
+      // $($(".Category>div")[3]).find("li").on("mouseenter", function () {	//子分类移入特效
+      //   var xb = $(this).attr("class").split("")[1];
+      //   var dc = $(this).data("click");
+      //   if (dc == "false" || dc == undefined) {
+      //     $(this).css({
+      //       "background": "radial-gradient(" + navColor[xb - 1] + ")",
+      //       "box-shadow": "0 0 0.1rem white"
+      //     });
+      //   }
+      // });
+      // $($(".Category>div")[3]).find("li").on("mouseout", function () {	//子分类移出特效
+      //   var xb = $(this).attr("class").split("")[1];
+      //   var dc = $(this).data("click");
+      //   if (dc == "false" || dc == undefined) {
+      //     $(this).css({"background": "none", "box-shadow": "none"});
+      //   }
+      // });
+      var self = this;
+      $($(".Category>div")[3]).find("li").each(function (index) {
+        // console.log(self.$store.state.selectedLotteryId);
+        var data = $(this).attr("data")
+        console.log(data);
+        if (data == self.$store.state.selectedLotteryId) {
+          $(this).data("click", "true");
+          $(this).attr("style", "background:radial-gradient(rgb(254, 227, 171), rgba(255, 255, 255, 0.2)) !important;box-shadow:white 0px 0px 0.1rem !important");
+        } else {
+          $(this).data("click", "false");
+          $(this).attr("style", "background:none !important;box-shadow:none !important");
+        }
+      });
+      $($(".Category>div")[3]).find("li").unbind("mouseenter");
+      $($(".Category>div")[3]).find("li").unbind("mouseout");
+      $($(".Category>div")[3]).on("mouseenter", "li", function () {	//子分类移入特效
+        var xb = $(this).attr("class").split("")[1];
+        var dc = $(this).data("click");
+        console.log(dc)
+        if (dc == "false" || dc == undefined) {
+          $(this).attr("style", "background:radial-gradient(rgb(254, 227, 171), rgba(255, 255, 255, 0.2)) !important;box-shadow:white 0px 0px 0.1rem !important");
+        }
+      });
+      $($(".Category>div")[3]).on("mouseout", "li", function () {	//子分类移出特效
+        var xb = $(this).attr("class").split("")[1];
+        var dc = $(this).data("click");
+        if (dc == "false" || dc == undefined) {
+          $(this).attr("style", "background:none !important;box-shadow:none !important");
+        }
+      });
+
+
+      if ($($(".Category>div")[3]).find("li").length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+  computed: {
+    selectedLotteryId() {
+      return this.$store.state.selectedLotteryId;
+    }
+  },
+  watch: {
+    selectedLotteryId: {
+      immediate: true,
+      handler: function (newval) {
+        this.loadAward(newval);
+        this.bindEvent();
+        //
+      }
     }
   },
   mounted() {
+    var inited = setInterval(() => {
+      if (this.bindEvent()) {
+        clearInterval(inited);
+      }
+    }, 100);
+
+
+    if (this.$store.state.selectedLotteryId !== "") {
+      this.loadAward(this.$store.state.selectedLotteryId);
+    }
     this.ctx = getCurrentInstance();
-    this.initLotteryList();
     //幸运抽奖 下的子分类
     var self = this;
     $(".Category").on("click", "li[class^=b3]", function () {
@@ -705,14 +793,29 @@ export default {
       var name = $(this).text();	//获取子分类名称
       $(".head-tool>h1").text(name);	//在头部标题渲染名称
       // GenerateLottery(xb);	//渲染抽奖界面
-      console.warn($(this).attr("data"))
-      self.selectedLotteryId = $(this).attr("data");
-      self.loadAward(self.selectedLotteryId);
+      self.$store.state.selectedLotteryId = $(this).attr("data");
+      self.loadAward(self.$store.state.selectedLotteryId);
     });
   }
 }
 </script>
 
-<style scoped>
-
+<style>
+/*.Category > div:nth-child(3) > li {*/
+/*  background: radial-gradient(rgb(254, 227, 171), rgba(255, 255, 255, 0.2)) !important;*/
+/*  box-shadow: white 0px 0px 0.1rem !important;*/
+/*}*/
+.head-tool > .back {
+  width: 4rem;
+  height: 4rem;
+  background-image: url(/src/assets/images/icon/back.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: right;
+  box-sizing: border-box;
+  margin-right: 1rem;
+  transform: scale(0.65);
+  cursor: pointer;
+  transition: all 0.1s;
+}
 </style>

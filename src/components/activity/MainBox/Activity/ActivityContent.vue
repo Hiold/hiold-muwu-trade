@@ -9,8 +9,8 @@
         <span class="val-1">{{ $store.state.loted }}</span>
         <span class="val-2"> / {{ $store.state.lotLimit == "-1" ? "无限" : $store.state.lotLimit }}</span>
       </div>
-      <div class="refresh" title="刷新"></div>
-      <div class="back" title="返回"></div>
+      <!--      <div class="refresh" title="刷新"></div>-->
+      <div class="back" v-if="istosign" title="返回" @click="goback()"></div>
     </header>
 
     <ActHb></ActHb>
@@ -63,9 +63,36 @@ export default {
   data() {
     return {
       ctx: {},
+      istosign: false,
     }
   },
-  methods: {}
+  methods: {
+    goback() {
+      window.history.go(-1);
+    },
+    initLotteryList() {
+      var ctx = this.ctx.appContext.config.globalProperties;
+      const $bus = ctx.$bus
+      let params = {itemname: ""};
+      axios.post("api/getLottery", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          this.lotteryList = JsonData;
+          var items = [];
+          for (var i in this.lotteryList) {
+            var st = {name: this.lotteryList[i].desc, data: this.lotteryList[i].id};
+            items.push(st);
+          }
+          if (this.lotteryList != null && this.lotteryList.length > 0) {
+            this.loadAward(this.lotteryList[0].id);
+            this.selectedLotteryId = this.lotteryList[0].id;
+          }
+          $bus.emit('setlottert', items);
+        }
+      });
+    }
+
+  }
   , mounted() {
     $(".head-tool>.lottery-num").show();
     const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
@@ -221,7 +248,7 @@ export default {
     //判断是否跳转到签到页面
     if (window.location.href.indexOf("tosign") > 0) {
       $(".Category>div>.btn-5").click();
-      console.log("惦记了")
+      this.istosign = true;
     }
   }
 }

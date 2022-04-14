@@ -5,7 +5,7 @@
     <header class="head-tool">
       <h1>我的店铺</h1>
       <div class="serch">
-        <input type="text" class="name-id" v-model="keyword" placeholder="请输入玩家或店铺名称">
+        <input type="text" class="name-id" v-model="keyword" placeholder="请输入玩家或店铺名称" @input="searchItems()">
         <div class="btn" @click="searchItems()"></div>
       </div>
       <div class="sort">
@@ -138,29 +138,11 @@
       <TransPRequireItem v-if="class1=='玩家求购区'" v-for="(item,index) in requireItemsAll" :key="item.id"
                          :item="item"
                          :index="index"></TransPRequireItem>
-      <!-- <li>
-          <div class="image">
-              <img src="images/ItemIcons/decoPumpkinJackOLantern.png">
-              <div class="quality"><span>6</span></div>
-          </div>
-          <div class="content">
-              <div class="price">
-                  <i></i>
-                  <span>123456</span>
-              </div>
-              <div class="num">
-                  数量：200
-              </div>
-              <div class="name">南瓜灯</div>
-              <div class="shop">
-                  <i></i>
-                  <span>彩虹糖果屋</span>
-              </div>
-          </div>
-      </li> -->
 
-      <div class="empty">
-        <span>没有找到你想<br>搜索的店铺</span>
+
+      <div class="empty"
+           v-if="(class1=='玩家售卖区'&&pstoreCardsAll.length===0)||(class1=='玩家求购区'&&requireItemsAll.length===0)">
+        <span>没有找到你想<br>搜索的物品</span>
       </div>
     </div>
 
@@ -382,11 +364,18 @@ export default {
           console.log("监听到变化" + newName);
           if (this.class1 == "玩家售卖区") {
             this.queryPlayerOnSell("", "玩家售卖区");
-            // this.displayType="出售";
+            $(".head-tool").show();
+            $(".player-com").show();
+            $(".my-shop").hide();
+            $(".my-shop>header>.back").hide();
             return;
           }
           if (this.class1 == "玩家求购区") {
             this.queryPlayerRequireItems("", "玩家求购区");
+            $(".head-tool").show();
+            $(".player-com").show();
+            $(".my-shop").hide();
+            $(".my-shop>header>.back").hide();
             // this.displayType="求购";
             return;
           }
@@ -493,10 +482,12 @@ export default {
         this.page = 1;
         this.playershops = [];
         this.queryPlayerShopList();
-      } else if (this.class1 == "玩家售卖区" || this.class1 == "玩家求购区") {
+      } else if (this.class1 == "玩家售卖区") {
         this.onsellpage = 1;
         this.pstoreCardsAll = [];
         this.queryPlayerOnSell("", this.class1)
+      } else if (this.class1 == "玩家求购区") {
+        this.queryPlayerRequireItems("", "玩家求购区");
       } else if (this.class1 == "物资求购") {
         $(".buying>.box>li").show();	//先默认让所有隐藏物品显示
         this.GenerateBuyingItems();
@@ -535,7 +526,8 @@ export default {
           class1: "",
           // class2: "",
           pageIndex: this.onsellpage + "",
-          pageSize: this.onsellsize + ""
+          pageSize: this.onsellsize + "",
+          sort: this.orderby + "",
         };
         axios.post("api/getPlayerOnSell", params).then(res => {
           if (res.data.respCode === "1") {
@@ -556,13 +548,22 @@ export default {
       }
     },
     queryPlayerShopList() {
+      if (this.cancel) {
+        this.cancel();
+        this.cancel = null;
+      }
       let params = {
         page: this.page + "",
         limit: this.size + "",
         name: this.keyword + "",
         orderby: this.orderby
       }
-      axios.post('api/getUserShopList', params).then(res => {
+      axios.post('api/getUserShopList', params, {
+        cancelToken: new axios.CancelToken((c) => {
+          // An executor function receives a cancel function as a parameter
+          this.cancel = c;
+        })
+      }).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
           for (var i in JsonData) {
@@ -577,6 +578,8 @@ export default {
       let params = {
         id: id + "",
         class2: this.class2,
+        name: this.keyword + "",
+        sort: this.orderby + ""
       }
       axios.post('api/getUserRequire', params).then(res => {
         if (res.data.respCode === "1") {
@@ -598,7 +601,8 @@ export default {
         class1: "",
         // class2: "",
         pageIndex: this.onsellpage + "",
-        pageSize: this.onsellsize + ""
+        pageSize: this.onsellsize + "",
+        sort: this.orderby + "",
       };
       axios.post("api/getPlayerOnSell", params).then(res => {
         if (res.data.respCode === "1") {
@@ -1208,7 +1212,8 @@ export default {
               var buyParam = {"id": "" + xb2 + ""};
               axios.post("api/TackBackItem", buyParam).then(res => {
                 if (res.data.respCode === "1") {
-                  ElMessage.success('下架成功')
+                  ElMessage.success('取回成功')
+                  self.onsellpage = 1;
                   self.queryPlayerOnSell("", "玩家售卖区");
                   // $(this).css("background-image", "url(images/icon/collect-1.png)");
                 } else {
@@ -1466,7 +1471,20 @@ export default {
         self.orderby = txt;
         self.page = 0;
         self.playershops = [];
-        self.queryPlayerShopList();
+        if (self.class1 == "玩家店铺") {
+          self.page = 1;
+          self.playershops = [];
+          self.queryPlayerShopList();
+        } else if (self.class1 == "玩家售卖区") {
+          self.onsellpage = 1;
+          self.pstoreCardsAll = [];
+          self.queryPlayerOnSell("", self.class1)
+        } else if (self.class1 == "玩家求购区") {
+          self.queryPlayerRequireItems("", "玩家求购区");
+        } else if (self.class1 == "物资求购") {
+          $(".buying>.box>li").show();	//先默认让所有隐藏物品显示
+          self.GenerateBuyingItems();
+        }
       });
       $(".head-tool>.sort>li").hover(function () {	//排序选择列表 悬浮事件
         var ck = $(this).data("click");
@@ -1513,6 +1531,7 @@ export default {
             axios.post("api/TackBackItem", buyParam).then(res => {
               if (res.data.respCode === "1") {
                 ElMessage.success('取回成功')
+                self.onsellpage = 1;
                 self.queryPlayerOnSell(self.playerid);
                 // $(this).css("background-image", "url(images/icon/collect-1.png)");
               } else {
@@ -1684,5 +1703,7 @@ export default {
 </script>
 
 <style scoped>
-
+.player-com > .empty {
+  display: block !important;
+}
 </style>

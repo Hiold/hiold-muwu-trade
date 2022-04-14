@@ -8,7 +8,7 @@
         <input type="text" class="name-id" placeholder="请输入物品名称或ID" v-model="itemname" @input="queryShopItem">
         <div class="btn"></div>
       </div>
-      <div class="display">
+      <div class="display" :class="{'mgr':iscollect}">
         <li class="l1" data-click="true">卡片</li>
         <li class="l2">图标</li>
         <li class="l3">列表</li>
@@ -177,6 +177,7 @@ export default {
   },
   data() {
     return {
+      iscollect: false,
       itemname: "",
       isdetailShow: false,
       item: {},
@@ -878,7 +879,7 @@ export default {
         return item.id == itemindex
       })[0]
       //跳转到制作页面
-      window.location = '/#/userq/craft/?itemname='+ctx.HandleItemName(item.translate)
+      window.location = '/#/userq/craft/?itemname=' + ctx.HandleItemName(item.translate)
     });
     //仓库物品详情页-丢弃物品
     $(".ware-details>section>.right>.btn-4").click(function () {
@@ -1134,6 +1135,7 @@ export default {
     //丢弃 详情页
     // $(".ware-details>section>.right>.btn-4").click();
     $(".ware-details>header>.back").click(function () {			//仓库物品详情页-返回按钮
+      self.iscollect = false;
       $(".ware-list").fadeIn(200);
       $(".ware-details").hide();
       $(".head-tool>h1").html("个人仓库");
@@ -1226,7 +1228,7 @@ export default {
     $(".warehouse>.menu>.l3").click(function () {		//彩色按钮 - 收藏夹
       self.formPage = "collect";
       self.queryCollectItem();
-
+      self.iscollect = true;
       $(".head-tool>h1").html("我的收藏");
 
       // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
@@ -1250,24 +1252,6 @@ export default {
     $(".warehouse>.menu>.l4").click(function () {		//彩色按钮 - 工作台
       self.formPage = "craft";
       window.location = '/#/userq/craft/'
-      // console.log(this.getTime().date + "\n正在加载页面 - 工作台 ......");
-      //$("body>.data-recipe").load("Config/recipes.xml",function(){	//先加载配方
-      //console.log(getTime().date+"\n物品配方加载成功！");
-      // $("main>article").load("page/work.html", function () {		//加载工作台页面
-      //     $(".head-tool,.workbench>aside,.work-page").hide();
-      //     console.log(getTime().date + "\n工作台 页面加载成功！");
-      //     setTimeout(function () {
-      //         $(".workbench>aside").fadeIn(200);
-      //         $(".work-page").fadeIn(200);
-      //         $(".head-tool").fadeIn(50);
-      //         setTimeout(function () {
-      //             adaptive();
-      //         }, 20);
-      //
-      //     }, 10);
-      // });
-      //});
-
     });
 
     $(".warehouse>.menu>.l5").click(function () {		//彩色按钮 - 订单记录
@@ -1395,6 +1379,7 @@ export default {
 
     //订单记录 - 返回
     $(".order-record>header>.back").click(function () {
+      self.iscollect = false;
       //alert(123)
       $(".order-record").hide();
       $(".ware-list").fadeIn(200);
@@ -1407,6 +1392,7 @@ export default {
 
     //点击返回按钮
     $(".head-tool>.back").click(function () {
+      self.iscollect = false;
       self.formPage = "take";
       // console.log(this.getTime().date + "\n加载页面 - 我的收藏 ......");
       // $("main>article").load("page/collect.html", function () {
@@ -1458,5 +1444,7 @@ export default {
 </script>
 
 <style scoped>
-
+.mgr {
+  margin-left: 2rem;
+}
 </style>

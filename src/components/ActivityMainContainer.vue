@@ -16,6 +16,7 @@ import RightMenuBox from "/src/components/activity/RightMenuBox.vue";
 import $ from "jquery";
 import AlertCommon from "/src/components/AlertCommon.vue";
 import {getCurrentInstance} from "vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -55,6 +56,26 @@ export default {
     }
   },
   methods: {
+    initLotteryList() {
+      var ctx = this.ctx.appContext.config.globalProperties;
+      const $bus = ctx.$bus
+      let params = {itemname: ""};
+      axios.post("api/getLottery", params).then(res => {
+        if (res.data.respCode === "1") {
+          let JsonData = res.data.data;
+          this.$store.state.lotteryList = JsonData;
+          var items = [];
+          for (var i in this.$store.state.lotteryList) {
+            var st = {name: this.$store.state.lotteryList[i].desc, data: this.$store.state.lotteryList[i].id};
+            items.push(st);
+          }
+          if (this.$store.state.lotteryList != null && this.$store.state.lotteryList.length > 0) {
+            this.$store.state.selectedLotteryId = this.$store.state.lotteryList[0].id;
+          }
+          $bus.emit('setlottert', items);
+        }
+      });
+    },
     setclass1(val) {
       this.class1 = val;
     },
@@ -222,9 +243,12 @@ export default {
       //});
 
     }
-  },
+  }
+  ,
   mounted() {
     this.ready();
+    this.ctx = getCurrentInstance();
+    this.initLotteryList()
     //注册全局时间
     const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
     $bus.on('setclass1', options => {
