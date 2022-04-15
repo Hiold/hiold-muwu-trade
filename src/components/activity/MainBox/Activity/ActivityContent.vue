@@ -210,13 +210,13 @@ export default {
       $(".Act-lottery").fadeIn(200);
       $(".Category>div>.b3-t0").click();
     });
-    $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
-      $(".head-tool>.lottery-num").hide();
-      console.log("数字谜团");
-      $(".head-tool>h1").text("数字谜团");
-      $(".Act-number").fadeIn(200);
-    });
-    $(".Category>div>.btn-5").click(function () {	//每日签到 按钮
+    // $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
+    //   $(".head-tool>.lottery-num").hide();
+    //   console.log("数字谜团");
+    //   $(".head-tool>h1").text("数字谜团");
+    //   $(".Act-number").fadeIn(200);
+    // });
+    $(".Category>div>.btn-4").click(function () {	//每日签到 按钮
       $(".head-tool>.lottery-num").hide();
       console.log("七日签到领好礼");
       $(".head-tool>h1").text("七日签到领好礼");
@@ -247,7 +247,7 @@ export default {
     });
     //判断是否跳转到签到页面
     if (window.location.href.indexOf("tosign") > 0) {
-      $(".Category>div>.btn-5").click();
+      $(".Category>div>.btn-4").click();
       this.istosign = true;
     }
   }

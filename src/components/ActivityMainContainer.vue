@@ -44,10 +44,11 @@ export default {
         },
         {
           category: "幸运抽奖", items: []
-        },
-        {
-          category: "数字谜团", items: []
         }
+        // ,
+        // {
+        //   category: "数字谜团", items: []
+        // }
         , {
           category: "每日签到", items: []
         },

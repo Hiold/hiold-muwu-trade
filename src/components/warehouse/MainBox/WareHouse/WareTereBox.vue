@@ -181,6 +181,49 @@ export default {
       }
 
     },
+    StoreAllToWare(itemInfos) {
+      var ctx = this.ctx.appContext.config.globalProperties;
+      var self = this;
+      $("#alert>.alert>section>p").html("");	//清空文本提示内容
+      $("#alert").hide();
+      var cnt = 0;
+      var success = 0;
+      var faild = 0;
+      ctx.Alert("正在处理，请稍候");
+      for (var index in itemInfos) {
+        var itemInfo = itemInfos[index];
+        var buyParam = {
+          x: self.currentContainer.x + "",
+          y: self.currentContainer.y + "",
+          z: self.currentContainer.z + "",
+          clridx: self.currentContainer.clr + "",
+          itemidx: itemInfo.idx + "",
+          itemdata: itemInfo.itemStack.itemData + "",
+          itemcount: itemInfo.itemStack.itemCount + "",
+          price: itemInfo.itemStack.price + "",
+          password: self.password
+        };
+        axios.post("api/TakeItem", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ctx.popupCss(25, 13);
+            self.reloadItem();
+            success++;
+
+          } else {
+            ctx.popupCss(25, 13);
+            faild++;
+          }
+          cnt++;
+          if (cnt >= itemInfos.length) {
+            ctx.Alert(`提取完毕，共提取成功${success}个，提取失败${faild}个`);
+            //调用重新加载库存
+            self.$emit("queryShopItem");
+          }
+        });
+      }
+      $(".page-items").find(".head-box").show();		//显示箱子信息
+      $(".page-items").find(".head-items").hide();	//隐藏物品信息
+    }
   },
   mounted() {
     var self = this;
@@ -263,27 +306,13 @@ export default {
         ctx.popupCss(25, 14);
         $("#alert>.alert>footer>.confirm").click(function () {
           pro = 1;	//储存数量为1
-          // playerBox[playerIndex][xbBox].splice(xb, 1);		//删除箱子里对应物品
           StoreToWare(itemInfo, pro);
         });
-        // $("#alert>.alert>footer>.close").click(function(){
-        // 	return;
-        // });
-        // if(con){
-
-        // }else{	//用户取消储存
-        // 	return;
-        // }
-        //如果数量有1件以上
       } else if (num > 1) {
         ctx.Prompt("您选择的物品是 " + name + "<br>是否确认将此物品储存到仓库？<br>您当前拥有数量为 " + num + "<br>请输入你要储存的数量：", num);
         ctx.popupCss(25, 19);
-        //alert(pro)
         $("#alert>.alert>footer>.confirm").click(function () {
           pro = $("#alert>.alert>section>input").val() * 1;
-          // if(pro==null){	//用户取消储存
-          // 	return;
-          // }
           if (isNaN(pro)) {
             ctx.Alert("请输入正确的数字！");
             ctx.popupCss(25, 13);
@@ -305,44 +334,10 @@ export default {
 
       }
 
-
-      //下面的函数是给仓库增加储存的物品
-      //$("#alert>.alert>footer>.confirm").click(function(){
       function StoreToWare(itemInfo, count) {
-        //alert(pro)
         $("#alert>.alert>section>p").html("");	//清空文本提示内容
         $("#alert").hide();
-        //console.log("点击了确认");
-        // var findItem = false;	//默认为没找到相同物品
-        // for (var j in playerWare[playerIndex]) {	//遍历玩家仓库
-        //     var nameW = playerWares.data[j].name;	//获取数组中物品名称
-        //     var idW = playerWares.data[j].id;		//获取数组中物品ID
-        //     var quaW = playerWares.data[j].quality * 1;	//获取数组中物品品质
-        //     var numW = playerWares.data[j].num * 1;		//获取数组中物品数量
-        //     if (nameW == name && idW == id && quaW == qua) {	//如果是相同的物品
-        //         findItem = true;
-        //         //console.log("数组数量："+numW+"---储存数量："+pro);
-        //         numW += pro;	//直接给相同的物品增加储存的数量，无需再新创建数组
-        //         //console.log("增加后的数组数量："+numW);
-        //         playerWares.data[j].num = numW;	//保存更新的数量
-        //         playerWare[playerIndex][j][1][1] = "品质:" + numW;
-        //     }
-        // }
-        // if (findItem == false) {	//如果遍历完数组后仍然没找到物品，给数组结尾追加数组
-        //     playerWare[playerIndex][playerWare[playerIndex].length] = [[name, "ID:" + id, "图片:" + img], ["品质:" + qua, "数量:" + pro], ["总分类:auto", "子分类:auto", "mod:auto"], ["auto"]];
-        // }
-        // arrboxToObj();		//给箱子数组转换储存格式
-        // GenerateBoxItems(xbBox);	//重新渲染箱子物品到页面
-        // arrwareToObj();		//给仓库数组转换储存格式
-        // GenerateWare(arrClass1, arrClass2);	//重新渲染仓库物品到页面
-        // recordConsole[playerIndex][recordConsole[playerIndex].length] = getTime().date + "<br><span>储存物品</span><span><b>" + name + "</b></span><span>" + pro + " 件</span>";
-        // Alert("储存成功！<br>物品已发送至您的仓库");
-        // popupCss(25, 14);
 
-        // "itemidx"
-        // "itemdata"
-        // "itemcount"
-        // "price"
         var buyParam = {
           x: self.currentContainer.x + "",
           y: self.currentContainer.y + "",
@@ -366,14 +361,44 @@ export default {
             ctx.popupCss(25, 13);
           }
         });
-
-
         $(".page-items").find(".head-box").show();		//显示箱子信息
         $(".page-items").find(".head-items").hide();	//隐藏物品信息
-        //});
       }
+
+
     });
 
+
+    $(".warehouse>.menu>.l1-replace").click(function () {	//彩色按钮 - 储存到仓库
+      self.formPage = "storageTosystem";
+      var ctx = self.ctx.appContext.config.globalProperties;
+      var page = $(".terr-box").data("page");
+      if (page == "box") {
+        ctx.Alert("请选择一个箱子");
+        ctx.popupCss(25, 13);
+        return;
+      }
+      //判断容器状态
+      var containerCount = self.itemList.length;
+      if (containerCount <= 0) {
+        ctx.Alert("箱子里是空的，没有可以储存的物品！");
+        ctx.popupCss(28, 13);
+        return;
+      }
+
+
+      self.Confirm("你的箱子里有 " + containerCount + " 件物品<br>是否确认把箱子内所有物品储存到仓库？");
+      ctx.popupCss(28, 15);
+      $("#alert>.alert>footer>.confirm").click(function () {
+        $("#alert>.alert>section>p").html("");	//清空文本提示内容
+        $("#alert").hide();
+        self.StoreAllToWare(self.itemList);
+        ctx.popupCss(25, 13);
+      });
+      // if(con){
+
+      // }
+    });
 
   }
 }

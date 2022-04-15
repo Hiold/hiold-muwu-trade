@@ -641,6 +641,31 @@ export default {
         }
       }
     },
+    extractAll() {
+      var self = this;
+      var ctx = self.ctx.appContext.config.globalProperties;
+      ctx.Alert("正在处理，请稍候");
+      $("#alert>.alert>section>p").html("");	//清空文本提示内容
+      $("#alert").hide();
+      var cnt = 0;
+      var success = 0;
+      var faild = 0;
+      for (var index in self.shop) {
+        var buyParam = {"id": "" + self.shop[index].id + "", "count": "" + self.shop[index].storageCount + ""};
+        axios.post("api/dispachItemToGame", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            success++;
+          } else {
+            faild++;
+          }
+          cnt++;
+          if (cnt >= self.shop.length) {
+            self.queryShopItem();
+            ctx.Alert(`提取完毕，共提取成功${success}个，提取失败${faild}个`);
+          }
+        });
+      }
+    },
     useItems(item) {
       var ctx = this.ctx.appContext.config.globalProperties;
       //使用仓库物品
@@ -1142,67 +1167,53 @@ export default {
     });
 
     $(".warehouse>.menu>.l1").click(function () {		//彩色按钮 - 提取到背包
+
+      // {name: "全部", data: ""},
+      // {name: "武器/弹药", data: "Ammo/Weapons"},
+      // {name: "防具", data: "Armor"},
+      // {name: "工具/陷阱", data: "Tools/Traps"},
+      // {name: "食物/炊具", data: "Food/Cooking"},
+      // {name: "书籍", data: "Books"},
+      // {name: "化学品", data: "Chemicals"},
+      // {name: "模组", data: "Mods"},
+      // {name: "资源", data: "Resources"},
+      // {name: "科学", data: "Science"},
+      // {name: "医疗", data: "Medical"},
+      // {name: "装饰/杂项", data: "Decor/Miscellaneous"}
+
+      var typesInfo =
+          {
+            "": "全部",
+            "Ammo/Weapons": "武器/弹药",
+            "Armor": "防具",
+            "Tools/Traps": "工具/陷阱",
+            "Food/Cooking": "食物/炊具",
+            "Books": "书籍",
+            "Chemicals": "化学品",
+            "Mods": "模组",
+            "Resources": "资源",
+            "Science": "科学",
+            "Medical": "医疗",
+            "Decor/Miscellaneous": "装饰/杂项",
+          };
+
       self.formPage = "take";
-      var ctx = this.ctx.appContext.config.globalProperties;
-      ctx.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + this.class2 + "</font><br>请确保背包容量充足");
+      var ctx = self.ctx.appContext.config.globalProperties;
+      ctx.Confirm("是否将当前分类下所有物品提取到背包？<br>您选中提取的分类是 : <font color='orangered'>" + typesInfo[self.class2] + "</font><br>请确保背包容量充足！否则物品将掉落在地上！");
       ctx.popupCss(28, 16);
       $("#alert>.alert>footer>.confirm").click(function () {
         $("#alert>.alert>section>p").html("");	//清空文本提示内容
         $("#alert").hide();
-        //console.log("点击了确认");
-        //这一步可能需要后端验证
-        //.....
-        var suc = true;	//假设这是后端传回来的数据，表示验证成功
-        if (suc) {
-          //暂时声明为true
-          var fn = true;
-          if (fn) {
-            ctx.Alert("提取成功！<br>物品已发送到您的背包");
-            ctx.popupCss(25, 14);
-          } else if (!fn) {
-            ctx.Alert("仓库没有任何可提取的东西！");
-            ctx.popupCss(25, 13);
-          }
-        } else {
-          ctx.Alert("提取失败！");
+
+        if (self.shop === null || self.shop.length <= 0) {
+          ctx.Alert("仓库没有任何可提取的东西！");
           ctx.popupCss(25, 13);
+        } else {
+          self.extractAll();
         }
       });
     });
 
-
-    $(".warehouse>.menu>.l1-replace").click(function () {	//彩色按钮 - 储存到仓库
-      self.formPage = "storageTosystem";
-      var ctx = this.ctx.appContext.config.globalProperties;
-      var page = $(".terr-box").data("page");
-      if (page == "box") {
-        ctx.Alert("请选择一个箱子");
-        ctx.popupCss(25, 13);
-        return;
-      }
-      //判断容器状态
-      var containerStatus = false;
-      if (containerStatus) {
-        ctx.Alert("箱子里是空的，没有可以储存的物品！");
-        ctx.popupCss(28, 13);
-        return;
-      }
-
-      var containerCount = 95;
-      self.Confirm("你的箱子里有 " + containerCount + " 件物品<br>是否确认把箱子内所有物品储存到仓库？");
-      ctx.popupCss(28, 15);
-      $("#alert>.alert>footer>.confirm").click(function () {
-        $("#alert>.alert>section>p").html("");	//清空文本提示内容
-        $("#alert").hide();
-        //console.log("点击了确认");
-        //arrboxToObj();
-        ctx.Alert("储存成功！");
-        ctx.popupCss(25, 13);
-      });
-      // if(con){
-
-      // }
-    });
 
     $(".warehouse>.menu>.l2").click(function () {		//彩色按钮 - 领地箱子
       self.formPage = "landContainer";

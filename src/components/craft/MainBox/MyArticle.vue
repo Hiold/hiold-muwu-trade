@@ -761,7 +761,7 @@ export default {
 
         $(".recipe-list>li:last").data("index", j);	//将物品在配方列表中的下标保存到页面
         //下面是从仓库数组中获取物品数量
-        var wNum = 0;
+        var wNum = item.award[j].extinfo6;
 
         console.log(item.data.type)
         //渲染到页面

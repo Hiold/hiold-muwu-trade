@@ -16,7 +16,7 @@
         <li class="t4">获赞高到低</li>
         <li class="t5">销售额高到低</li>
       </div>
-      <div class="refresh" title="刷新"></div>
+      <div class="refresh" title="刷新" @click="reload()"></div>
       <div class="back" title="返回"></div>
     </header>
 
@@ -425,6 +425,13 @@ export default {
     }
   },
   methods: {
+    reload() {
+      if (this.class1 == "玩家店铺") {
+        this.page = 1;
+        this.playershops = [];
+        this.queryPlayerShopList();
+      }
+    },
     buyNum() {		//输入购买数量
       var self = this;
       var xb2 = $(".player-order").data("index");		//获取物品在数组中的下标
@@ -1097,6 +1104,11 @@ export default {
             ctx.Alert("修改成功！");
             ctx.popupCss(25, 13);
             self.initUserData(self.playerinfo.gameentityid);
+            if (self.class1 == "玩家店铺") {
+              self.page = 1;
+              self.playershops = [];
+              self.queryPlayerShopList();
+            }
           } else {
             ctx.Alert("修改失败！" + res.data.respMsg);
             ctx.popupCss(25, 13);
