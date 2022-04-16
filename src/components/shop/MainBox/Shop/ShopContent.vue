@@ -139,6 +139,7 @@ export default {
         class1: this.class1,
         class2: this.class2,
         sorttype: this.sorttype
+        , "pageIndex": "1", "pageSize": "9999"
       };
       axios.post("api/queryShopItem", params, {
         cancelToken: new axios.CancelToken((c) => {
@@ -648,6 +649,7 @@ export default {
         class1: self.class1,
         class2: self.class2,
         sorttype: self.sorttype
+        , "pageIndex": "1", "pageSize": "9999"
       };
       axios.post("api/queryShopItem", params).then(res => {
         if (res.data.respCode === "1") {

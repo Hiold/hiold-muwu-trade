@@ -476,7 +476,7 @@ export default {
           })
     },
     initTableData() {
-      let params = {itemname: ""};
+      let params = {itemname: "", "pageIndex": "1", "pageSize": "9999"};
       axios.post("api/queryShopItem", params).then(res => {
         if (res.data.respCode === "1") {
           let JsonData = res.data.data;
