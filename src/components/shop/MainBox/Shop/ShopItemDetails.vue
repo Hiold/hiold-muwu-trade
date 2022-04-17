@@ -232,16 +232,19 @@ export default {
         $(".alert-buy .coupon>.card").data("ware", "undefined");
         $(".alert-buy .coupon>.card>.right>div").hide();
         $(".alert-buy .coupon>.card>.right>.none").show().text("不使用优惠券");
+        $(".alert-buy .coupon>.card>.left").html("<span class=\"curr\" data-v-03cddce7=\"\">活动</span><br><span class=\"type\">优惠券</span>");
         this.$store.state.selectedCou = "";
         this.prePrice = 0;
+        return false;
       } else if (Finalprice < Number.MAX_SAFE_INTEGER) {
         $("#cou" + this.$store.state.selectedCou).css({"border": "0.25rem solid red"});
         this.prePrice = Finalprice;
         $(".alert-buy .coupon>.card>.right>div").show();
         $(".alert-buy .coupon>.card>.right>.none").hide();
-        $(".alert-buy .coupon>.card").find(".left").html(left);
+        $(".alert-buy .coupon>.card>.left").html(left);
         $(".alert-buy .coupon>.card>.right>.cond").html(cond);
         $(".alert-buy .coupon>.card>.right>.period").html(period);
+        return true;
       }
       console.log(Finalprice);
       console.log(cond, period);
@@ -439,6 +442,7 @@ export default {
 
           //将选中的卡片渲染到上面
           var sxb = $(this).index();	//获取抵用券在优惠券列表中的下标
+          self.$store.state.selectedCou = $(this).data("id");
           console.log(sxb)
           var left = $(this).find(".left").html();
           $(".alert-buy .coupon>.card>.left").html(left);

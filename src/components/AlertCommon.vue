@@ -79,7 +79,7 @@
               </li>
 
               <!-- 优惠券选择列表 -->
-              <li class="coupon-card" :id="'cou'+item.id" :data-selfindex="index"
+              <li class="coupon-card" :id="'cou'+item.id" :data-selfindex="index" :data-id="item.id"
                   v-for="(item,index) in $store.state.couProps"
                   :key="item.id">
 
@@ -100,8 +100,9 @@
                       class="s3">折</span></div>
 
 
-                  <div class="period"><span class="date">{{ item.couDateEnd.substring(0, 10) }} 到期</span> <span
-                      class="num">仅剩{{ item.storageCount }}张</span>
+                  <div class="period">
+                    <span class="date" v-if="item.coudatelimit=='2'">{{ item.couDateEnd.substring(0, 10) }} 到期</span>
+                    <span class="num">仅剩{{ item.storageCount }}张</span>
                   </div>
                   <div class="couid" style="display: none">{{ item.id }}</div>
                 </div>
