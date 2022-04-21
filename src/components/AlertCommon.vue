@@ -173,6 +173,46 @@
       </footer>
     </div>
 
+
+
+    <div class="charge" style="display:none;">    <!-- 仓库出售物品时的确认窗口 -->
+      <div class="fil"></div>
+      <header>
+        <span>点数充值</span>
+        <i>✘</i>
+      </header>
+      <section>
+        <div class="count">
+          <span class="tit">点数：</span>
+          <div class="val">
+            <div class="reduce">-</div>
+            <input readonly type="text" placeholder="请点击按钮进行数量增减"
+                   onkeyup="this.value=this.value.replace(/[^\d]|^[0]/g,'')">
+            <div class="add">+</div>
+          </div>
+        </div>
+        <div class="price">
+          <span class="tit">价格：</span>
+          <div class="val">
+            <div class="icon"></div>
+            <input readonly type="text" placeholder="价格自动计算请输入点数"
+                   onkeyup="this.value=this.value.replace(/[^(0-9)]|^[0]/g,'')">
+          </div>
+        </div>
+        <p>
+          说明：<br>
+          1.点数与积分之间的转换为100:10000<br>
+          2.点数充值只能是100的倍数
+        </p>
+      </section>
+      <footer>
+        <div class="close">取消</div>
+        <div class="confirm">确认充值</div>
+      </footer>
+    </div>
+
+
+
     <div class="alert-edit" style="display:none;">    <!-- 交易中心编辑个人资料窗口 -->
       <div class="fil"></div>
       <header>

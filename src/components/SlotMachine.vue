@@ -1,6 +1,7 @@
 <template>
   <div class="maincontainer" @resize="resize()">
-    <div class="bgcontainer" :style="'width:'+divwidth+'px;height:'+divheidht+'px;'">
+    <div class="bgcontainer"
+         :style="'width:'+divwidth+'px;height:'+divheidht+'px;margin-left:'+(containerwidth/2-(divwidth/2))+'px'">
       <!--按钮bar-->
       <div class="btn1" @click="addpoint(1)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
            @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
@@ -43,31 +44,32 @@
       </div>
       <!--按钮开始-->
       <div class="btn9" :style="'width:'+divwidth/8+'px;height:'+divheidht/8+'px;cursor:pointer'"
-           @mousedown="mouseDownStart($event.target)" @mouseup="mouseUpStart($event.target)">
+           @mousedown="mouseDownStart($event.target)" @mouseup="mouseUpStart($event.target)" @click="StartRolling">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--中间数字部分-->
       <div class="pointContainer" :style="'width:'+divwidth/4.25+'px;height:'+divheidht/19.8+'px;'">
         <div class="num7">
-          <img v-if="points>=1000000" :src="'images/sgj/'+Math.floor(points/1000000)%10+'.png'">
+          <img v-if="$store.state.points>=1000000"
+               :src="'images/sgj/'+Math.floor($store.state.points/1000000)%10+'.png'">
         </div>
         <div class="num6">
-          <img v-if="points>=100000" :src="'images/sgj/'+Math.floor(points/100000)%10+'.png'">
+          <img v-if="$store.state.points>=100000" :src="'images/sgj/'+Math.floor($store.state.points/100000)%10+'.png'">
         </div>
         <div class="num5">
-          <img v-if="points>=10000" :src="'images/sgj/'+Math.floor(points/10000)%10+'.png'">
+          <img v-if="$store.state.points>=10000" :src="'images/sgj/'+Math.floor($store.state.points/10000)%10+'.png'">
         </div>
         <div class="num4">
-          <img v-if="points>=1000" :src="'images/sgj/'+Math.floor(points/1000)%10+'.png'">
+          <img v-if="$store.state.points>=1000" :src="'images/sgj/'+Math.floor($store.state.points/1000)%10+'.png'">
         </div>
         <div class="num3">
-          <img v-if="points>=100" :src="'images/sgj/'+Math.floor(points/100)%10+'.png'">
+          <img v-if="$store.state.points>=100" :src="'images/sgj/'+Math.floor($store.state.points/100)%10+'.png'">
         </div>
         <div class="num2">
-          <img v-if="points>=10" :src="'images/sgj/'+Math.floor(points/10)%10+'.png'">
+          <img v-if="$store.state.points>=10" :src="'images/sgj/'+Math.floor($store.state.points/10)%10+'.png'">
         </div>
         <div class="num1">
-          <img v-if="points>=0" :src="'images/sgj/'+points%10+'.png'">
+          <img v-if="$store.state.points>=0" :src="'images/sgj/'+$store.state.points%10+'.png'">
         </div>
         <div style="clear: both"></div>
       </div>
@@ -82,6 +84,7 @@
         <div class="num3">
           <img v-if="barcount>=0" :src="'images/sgj/'+Math.floor(barcount)%10+'.png'">
         </div>
+        <div style="clear: both"></div>
       </div>
       <!--77数量-->
       <div class="divcount-77" :style="'width:'+divwidth/16.7+'px;height:'+divheidht/31+'px;'">
@@ -168,12 +171,38 @@
         </div>
       </div>
 
+      <!--旋转框-->
+      <div id="selectBox" class="selectBox0" :style="'width:'+divwidth/10+'px;height:'+divwidth/10+'px;'"></div>
+      <audio preload="auto" id="bgm">
+        <source :src="'images/sgj/bgm.wav'" type="audio/wav">
+      </audio>
+
+      <audio preload="auto" id="clickbtn">
+        <source :src="'images/sgj/clickbtn.wav'" type="audio/wav">
+      </audio>
+
+      <audio loop preload="auto" id="rolling">
+        <source :src="'images/sgj/rolling.wav'" type="audio/wav">
+      </audio>
+
+      <audio preload="auto" id="forresult">
+        <source :src="'images/sgj/Forresult.wav'" type="audio/wav">
+      </audio>
+
+      <div class="rules">
+        <h2>规则说明</h2>
+        <h3>1、10000积分兑换100点数</h3>
+        <h3>2、押注水果后按开始键。可同时押几种水果，也可重复压一种水果。</h3>
+        <h3>3、灯停后，按照对应的赔率获得点数</h3>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
+import axios from "axios";
 
 export default {
   name: "SlotMachine",
@@ -181,7 +210,6 @@ export default {
     return {
       divwidth: 0,
       divheidht: 0,
-      points: 9129770,
       barcount: 0,
       sevencount: 0,
       starcount: 0,
@@ -189,43 +217,49 @@ export default {
       lingdangcount: 0,
       lemoncount: 0,
       orangecount: 0,
-      applecount: 0
+      applecount: 0,
+      containerwidth: 0
     }
   },
   methods: {
     addpoint(idx) {
+      $("#clickbtn")[0].currentTime = 0;
+      $("#clickbtn")[0].play();
+      if (this.$store.state.points == 0) {
+        return;
+      }
       switch (idx) {
         case 1 :
           this.barcount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 2 :
           this.sevencount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 3 :
           this.starcount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 4 :
           this.xiguacount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 5 :
           this.lingdangcount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 6 :
           this.lemoncount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 7 :
           this.orangecount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
         case 8 :
           this.applecount += 10;
-          this.points -= 10;
+          this.$store.state.points -= 10;
           break
       }
     },
@@ -233,7 +267,6 @@ export default {
       if ($(target)[0].className.indexOf("btn-ast") > 0) {
         target = $(target).parent();
       }
-      console.log(target);
       $(target).css(
           "background-image", "url(images/sgj/sgj_xzan_2.png)"
       )
@@ -246,7 +279,6 @@ export default {
       if ($(target)[0].className.indexOf("btn-ast") > 0) {
         target = $(target).parent();
       }
-      console.log(target);
       $(target).css(
           "background-image", "url(images/sgj/sgj_xzan_1.png)"
       )
@@ -270,10 +302,53 @@ export default {
           "background-image", "url(images/sgj/sgj_ksan_1.png)"
       )
     },
+    //开始rolling
+    StartRolling() {
+      var randNumber = Math.floor(Math.random() * 22);
+      console.log(randNumber);
 
+      $("#rolling")[0].play();
+      var index = 1;
+      //开始旋转
+      var maininterval = setInterval(() => {
+        $("#selectBox").attr("class", "selectBox" + (index % 22));
+        index++;
+      }, 30);
+      //2.5秒后停止
+      setTimeout(() => {
+        clearInterval(maininterval);
+        //停止播放rolling
+        $("#rolling")[0].pause();
+        //播放结束
+        $("#forresult")[0].play();
+        //计算剩余步数需要旋转的次数
+        var cnt = 0;
+        if (index % 22 >= randNumber) {
+          //计算剩余步骤
+          var leftCount = 21 - (index % 22);
+          cnt = leftCount + randNumber;
+        } else {
+          cnt = randNumber - (index % 22)
+          if (cnt <= 3) {
+            cnt += 22;
+          }
+        }
+
+        var vset = setInterval(() => {
+          $("#selectBox").attr("class", "selectBox" + (index % 22));
+          if (index % 22 == randNumber) {
+            clearInterval(vset);
+          }
+          index++;
+        }, 1300 / cnt);
+
+
+      }, 1000 + (Math.random() * 2000))
+    },
     resize() {
       var containerwidth = $(".maincontainer").width();
       var containerheight = $(".maincontainer").height();
+      this.containerwidth = containerwidth;
 
       var width = $(".maincontainer").width();
       var heigh = width / 1.14583;
@@ -291,18 +366,231 @@ export default {
     }
   },
   mounted() {
+    var try1 = setInterval(() => {
+      $("#bgm")[0].play().then(() => {
+        clearInterval(try1);
+      }).catch(() => {
+        console.log("未交互不播放")
+      })
+    }, 100)
     this.resize();
     window.addEventListener("resize", () => {
       this.resize();
     })
+
+    //加载数据
+    var buyParam = {};
+    axios.post("api/GetSGJPoint", buyParam).then(res => {
+      if (res.data.respCode === "1") {
+        console.log(res.data.data)
+        this.$store.state.points = res.data.data.configValue * 1;
+      }
+    });
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.rules {
+  width: 14%;
+  height: 39%;
+  position: absolute;
+  border: #2d8cf0 solid 1px;
+  top: 34.5%;
+  left: 74.2%;
+  padding-top: 2%;
+
+  h2 {
+    font-size: 1.2em;
+    color: white;
+  }
+
+  h3 {
+    margin: 0.5em;
+    font-size: 0.5em;
+    color: white;
+  }
+}
+
+.selectBox0 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 34%;
+  left: 11.5%;
+}
+
+.selectBox1 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 24.5%;
+  left: 11.5%;
+}
+
+.selectBox2 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 15%;
+  left: 11.5%;
+}
+
+.selectBox3 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 11.5%;
+}
+
+.selectBox4 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 20%;
+}
+
+.selectBox5 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 28.7%;
+}
+
+.selectBox6 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 37.2%;
+}
+
+.selectBox7 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 45.7%;
+}
+
+.selectBox8 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 54.3%;
+}
+
+.selectBox9 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 5%;
+  left: 62.8%;
+}
+
+.selectBox10 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 15%;
+  left: 62.8%;
+}
+
+.selectBox11 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 24.5%;
+  left: 62.8%;
+}
+
+.selectBox12 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 34%;
+  left: 62.8%;
+}
+
+.selectBox13 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 44%;
+  left: 62.8%;
+}
+
+.selectBox14 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 62.8%;
+}
+
+.selectBox15 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 54.3%;
+}
+
+.selectBox16 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 45.7%;
+}
+
+.selectBox17 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 37.2%;
+}
+
+.selectBox18 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 28.7%;
+}
+
+.selectBox19 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 20%;
+}
+
+.selectBox20 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 54%;
+  left: 11.5%;
+}
+
+.selectBox21 {
+  position: absolute;
+  background-image: url("../assets/images/sgj/sgj_bdg.png");
+  background-size: 100% 100%;
+  top: 44%;
+  left: 11.5%;
+}
+
 .divcount-bar {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 12.3%;
 
   .num1 {
@@ -313,6 +601,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -325,6 +616,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -337,13 +631,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-77 {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 20%;
 
   .num1 {
@@ -354,6 +651,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -366,6 +666,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -378,13 +681,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-star {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 27.7%;
 
   .num1 {
@@ -395,6 +701,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -407,6 +716,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -419,13 +731,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-xigua {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 35.5%;
 
   .num1 {
@@ -436,6 +751,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -448,6 +766,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -460,13 +781,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-lingdang {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 43.1%;
 
   .num1 {
@@ -477,6 +801,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -489,6 +816,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -501,13 +831,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-lemon {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 50.8%;
 
   .num1 {
@@ -518,6 +851,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -530,6 +866,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -542,13 +881,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-orange {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 58.5%;
 
   .num1 {
@@ -559,6 +901,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -571,6 +916,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -583,13 +931,16 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
 
 .divcount-apple {
   position: absolute;
-  bottom: 23.7%;
+  top: 73%;
   left: 66.3%;
 
   .num1 {
@@ -600,6 +951,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -612,6 +966,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -624,6 +981,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
@@ -641,6 +1001,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -653,6 +1016,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -665,6 +1031,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -677,6 +1046,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -689,6 +1061,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -701,6 +1076,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -713,6 +1091,9 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
@@ -741,7 +1122,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 8%;
 
   .btn-ast {
@@ -753,7 +1134,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 17%;
 
   .btn-ast {
@@ -765,7 +1146,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 26%;
 
   .btn-ast {
@@ -777,7 +1158,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 35%;
 
   .btn-ast {
@@ -789,7 +1170,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 44%;
 
   .btn-ast {
@@ -801,7 +1182,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 53%;
 
   .btn-ast {
@@ -813,7 +1194,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 62%;
 
   .btn-ast {
@@ -825,7 +1206,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_xzan_1.png');
   background-size: 100% 100%;
-  bottom: 10%;
+  top: 81%;
   left: 71%;
 
   .btn-ast {
@@ -837,8 +1218,7 @@ export default {
   position: absolute;
   background-image: url('../assets/images/sgj/sgj_ksan_1.png');
   background-size: 100% 100%;
-  bottom: 8.5%;
+  top: 79.5%;
   left: 80%;
 }
-
 </style>

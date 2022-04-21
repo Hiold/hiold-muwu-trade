@@ -9,6 +9,16 @@
     z-index: 100;
     overflow: visible;
 }
+.head-tool2 {
+    width: 100%;
+    height: 4rem;
+    box-sizing: border-box;
+    /*position: absolute;*/
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 100;
+    overflow: visible;
+}
 
 .head-tool > .serch {
     background: linear-gradient(90deg, #BE93C5, #7BC6CC, #7BC6CC, #BE93C5);
@@ -153,6 +163,26 @@
 }
 
 .head-tool > h1 {
+    display: inline-block;
+    float: left;
+    line-height: 4.5rem;
+    height: 4.5rem;
+    font-family: "new", "微软雅黑";
+    font-weight: normal;
+    font-size: 2.2em;
+    padding-left: 1.5rem;
+    padding-right: 2rem;
+    color: rgb(244, 164, 96);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgb(255, 239, 213));
+    border-right: 8px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 8px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0 0 0.8rem 0;
+    transform: skewX(-20deg);
+    letter-spacing: 0.2rem;
+    -webkit-text-stroke-color: white;
+}
+
+.head-tool2 > h1 {
     display: inline-block;
     float: left;
     line-height: 4.5rem;

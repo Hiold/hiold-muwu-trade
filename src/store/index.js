@@ -16,7 +16,9 @@ export default createStore({
         //已选择了优惠券
         selectedCou: "",
         buyCount: 1,
-        selectedLotteryId: ""
+        selectedLotteryId: "",
+        points:0
+
     },
     mutations: {
         delTagsItem(state, data) {

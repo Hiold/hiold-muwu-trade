@@ -9,7 +9,18 @@
         <span class="val-1">{{ $store.state.loted }}</span>
         <span class="val-2"> / {{ $store.state.lotLimit == "-1" ? "无限" : $store.state.lotLimit }}</span>
       </div>
-      <!--      <div class="refresh" title="刷新"></div>-->
+
+
+      <div v-if="class1=='水果奇遇'" class="sort" @click="release"
+           style="height: 50%; border-radius: 2rem; border: 1px solid rgb(180, 180, 180); box-shadow: none;">
+        <div class="s-page" style="font-weight: normal;">点数提取</div>
+      </div>
+
+      <div v-if="class1=='水果奇遇'" class="sort" @click="charge"
+           style="height: 50%; border-radius: 2rem; border: 1px solid rgb(180, 180, 180); box-shadow: none;">
+        <div class="s-page" style="font-weight: normal;">点数充值</div>
+      </div>
+
       <div class="back" v-if="istosign" title="返回" @click="goback()"></div>
     </header>
 
@@ -18,6 +29,10 @@
     <ActLottery></ActLottery>
     <ActSign></ActSign>
 
+    <!--水果奇遇-->
+    <div class="Act-number" style="padding-top: 4rem;border:none;">
+      <SlotMachine></SlotMachine>
+    </div>
   </section>
 </template>
 
@@ -38,6 +53,7 @@ import ActHb from "./ActHb.vue";
 import ActTask from "./ActTask.vue";
 import ActLottery from "./ActLottery.vue";
 import ActSign from "./ActSign.vue";
+import SlotMachine from "../../../SlotMachine.vue";
 
 export default {
   watch: {
@@ -59,7 +75,15 @@ export default {
   },
   name: "ShopContent",
   props: ["class1", "class2"],
-  components: {ActSign, ActLottery, ActTask, ActHb, "shop-item": ShopMenuItem, "shop-item-details": ShopItemDetails},
+  components: {
+    SlotMachine,
+    ActSign,
+    ActLottery,
+    ActTask,
+    ActHb,
+    "shop-item": ShopMenuItem,
+    "shop-item-details": ShopItemDetails
+  },
   data() {
     return {
       ctx: {},
@@ -67,6 +91,105 @@ export default {
     }
   },
   methods: {
+    charge() {
+      var self = this;
+      var ctx = this.ctx.appContext.config.globalProperties;
+      $("#alert").fadeIn(100);	//显示弹窗主体页面
+      $("#alert>.charge").show();	//显示提示窗口
+      $("#alert>.charge>header>span").html("点数充值");
+      $("#alert>.charge>footer>.close").click(function () {	//自定义弹窗 : 点击取消
+        //console.log("关闭了弹窗");
+        $("#alert,#charge>div").hide();
+      });
+      $("#alert>.charge>header>i").click(function () {	//自定义弹窗 : 右上角关闭
+        $("#alert>.charge>footer>.close").click();
+      });
+      //确认充值
+      $(".charge>footer>.confirm").click(function () {
+        $("#alert,#charge>div").hide();
+        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
+        axios.post("api/ChargeSGJPoint", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ctx.Alert("充值成功！");
+            self.$store.state.points += (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
+            ctx.popupCss(25, 14);
+          } else {
+            ctx.Alert("充值失败！" + res.data.respMsg);
+          }
+        });
+      });
+
+
+      //出售物品窗口 增加按钮
+      $("#alert>.charge>section>div>.val>.add").unbind("click");
+      $("#alert>.charge>section>div>.val>.add").click(function () {
+        var num = $(this).prev().val() * 1;
+        num += 100;
+        $(this).prev().val(num);
+        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+      });
+      //出售物品窗口 减少按钮
+      $("#alert>.charge>section>div>.val>.reduce").unbind("click");
+      $("#alert>.charge>section>div>.val>.reduce").click(function () {
+        var num = $(this).next().val() * 1;
+        num -= 100;
+        if (num <= 0) {		//填入的数字至少为1
+          num = 1;
+        }
+        $(this).next().val(num);
+        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+      });
+
+    },
+    release() {
+      var self = this;
+      var ctx = this.ctx.appContext.config.globalProperties;
+      $("#alert").fadeIn(100);	//显示弹窗主体页面
+      $("#alert>.charge").show();	//显示提示窗口
+      $("#alert>.charge>header>span").html("点数提取");
+      $("#alert>.charge>footer>.close").click(function () {	//自定义弹窗 : 点击取消
+        //console.log("关闭了弹窗");
+        $("#alert,#charge>div").hide();
+      });
+      $("#alert>.charge>header>i").click(function () {	//自定义弹窗 : 右上角关闭
+        $("#alert>.charge>footer>.close").click();
+      });
+      //确认充值
+      $(".charge>footer>.confirm").click(function () {
+        $("#alert,#charge>div").hide();
+        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
+        axios.post("api/ReleaseSGJPoint", buyParam).then(res => {
+          if (res.data.respCode === "1") {
+            ctx.Alert("提取成功！");
+            self.$store.state.points -= (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
+            ctx.popupCss(25, 14);
+          } else {
+            ctx.Alert("充值失败！" + res.data.respMsg);
+          }
+        });
+      });
+
+
+      //出售物品窗口 增加按钮
+      $("#alert>.charge>section>div>.val>.add").unbind("click");
+      $("#alert>.charge>section>div>.val>.add").click(function () {
+        var num = $(this).prev().val() * 1;
+        num += 100;
+        $(this).prev().val(num);
+        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+      });
+      //出售物品窗口 减少按钮
+      $("#alert>.charge>section>div>.val>.reduce").unbind("click");
+      $("#alert>.charge>section>div>.val>.reduce").click(function () {
+        var num = $(this).next().val() * 1;
+        num -= 100;
+        if (num <= 0) {		//填入的数字至少为1
+          num = 1;
+        }
+        $(this).next().val(num);
+        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+      });
+    },
     goback() {
       window.history.go(-1);
     },
@@ -94,6 +217,7 @@ export default {
 
   }
   , mounted() {
+    this.ctx = getCurrentInstance();
     $(".head-tool>.lottery-num").show();
     const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
     $(".Category>div>ul").click(function () {		//左侧分类按钮点击特效
@@ -210,13 +334,13 @@ export default {
       $(".Act-lottery").fadeIn(200);
       $(".Category>div>.b3-t0").click();
     });
-    // $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
-    //   $(".head-tool>.lottery-num").hide();
-    //   console.log("数字谜团");
-    //   $(".head-tool>h1").text("数字谜团");
-    //   $(".Act-number").fadeIn(200);
-    // });
-    $(".Category>div>.btn-4").click(function () {	//每日签到 按钮
+    $(".Category>div>.btn-4").click(function () {	//数字谜团 按钮
+      $(".head-tool>.lottery-num").hide();
+      console.log("数字谜团");
+      $(".head-tool>h1").text("水果奇遇");
+      $(".Act-number").fadeIn(200);
+    });
+    $(".Category>div>.btn-5").click(function () {	//每日签到 按钮
       $(".head-tool>.lottery-num").hide();
       console.log("七日签到领好礼");
       $(".head-tool>h1").text("七日签到领好礼");

@@ -870,7 +870,245 @@
 }
 
 
+/**/
+#alert > .charge {
+    width: 24.5rem;
+    height: 20rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 0.2rem solid rgba(255, 188, 188, 0.9);
+    border-radius: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 0 0.5rem grey;
+    background-image: url(../../images/back2.jpg);
+    background-size: cover;
+}
 
+#alert > .charge > .fil {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 0.7rem 0.7rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#alert > .charge > header {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    width: 100%;
+    background-color: rgba(255, 188, 188, 0.9);
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    letter-spacing: 0.1rem;
+    border-radius: 0.8rem 0.8rem 0 0;
+}
+
+#alert > .charge > header > i {
+    float: right;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+#alert > .charge > section {
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+#alert > .charge > section > header {
+    width: 100%;
+    height: 4rem;
+    margin: auto;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0.3rem rgb(200 200 200);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#alert > .charge > section > header > .head {
+    width: 3.4rem;
+    height: 3.4rem;
+    float: left;
+    margin-left: 0.5rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: rgba(255, 188, 0, 0.2);
+}
+
+#alert > .charge > section > header > .head > img {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.8);
+}
+
+#alert > .charge > section > header > .msg {
+    float: left;
+    box-sizing: border-box;
+    padding-left: 1rem;
+}
+
+#alert > .charge > section > header > .msg > .name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    float: left;
+    color: rgb(101, 51, 14);
+}
+
+#alert > .charge > section > header > .msg > .num {
+    font-size: 0.9rem;
+    padding: 0 0.3rem;
+    font-style: italic;
+    line-height: 1.6rem;
+    float: left;
+    color: #F4A460;
+}
+
+#alert > .charge > section > header > .msg > .quality {
+    font-size: 0.8rem;
+    clear: both;
+    color: mediumpurple;
+}
+
+#alert > .charge > section > div * {
+    float: left;
+}
+
+#alert > .charge > section > p {
+    line-height: 1.2rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    color: brown;
+}
+
+#alert > .charge > section > div {
+    width: 100%;
+    height: 3.2rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+#alert > .charge > section > div > .tit {
+    width: 4.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+#alert > .charge > section > div > .val {
+    width: 18rem;
+    height: 2.5rem;
+    box-sizing: border-box;
+}
+
+#alert > .charge > section > div > .val > div {
+    width: 2.5rem;
+    height: 100%;
+    font-size: 1.6rem;
+    border: 0.1rem solid rgb(188, 188, 188);
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.3em;
+}
+
+#alert > .charge > section > div > .val > .reduce {
+    background-color: rgba(255, 200, 200, 0.3);
+    cursor: pointer;
+}
+
+#alert > .charge > section > div > .val > .add {
+    background-color: rgba(200, 255, 200, 0.3);
+    cursor: pointer;
+}
+
+#alert > .charge > section > div > .val > .icon {
+    background-color: rgba(255, 255, 100, 0.3);
+    background-image: url(../../images/icon/jf2.png);
+    background-size: 70%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+}
+
+#alert > .charge > section > div > .val > input {
+    width: 12rem;
+    height: 100%;
+    box-sizing: border-box;
+    border: 0.1rem solid rgb(188, 188, 188);
+    border-left: none;
+    border-right: none;
+    outline: none;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+}
+
+#alert > .charge > section > div > .val > input::placeholder {
+    color: rgb(188, 188, 188);
+    font-size: 0.9rem;
+}
+
+#alert > .charge > section > .quality > .val > input {
+    color: mediumpurple;
+}
+
+#alert > .charge > section > .count > .val > input {
+    color: limegreen;
+}
+
+#alert > .charge > section > .price > .val > input {
+    width: 14.5rem;
+    border-right: 0.1rem solid rgb(188, 188, 188);
+    color: orange;
+
+}
+
+#alert > .charge > footer {
+    height: 4rem;
+    width: 100%;
+    border-top: 0.15rem dashed rgb(200, 200, 200);
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+}
+
+#alert > .charge > footer > div {
+    float: right;
+    width: 5rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: white;
+    margin-top: 0.7rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#alert > .charge > footer > div:hover {
+    opacity: 1;
+}
+
+#alert > .charge > footer > .close {
+    background-color: rgba(244, 100, 100, 0.8);
+}
+
+#alert > .charge > footer > .confirm {
+    background-color: rgba(66, 200, 66, 0.8);
+}
 
 
 
