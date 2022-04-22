@@ -4,42 +4,42 @@
          :style="'width:'+divwidth+'px;height:'+divheidht+'px;margin-left:'+(containerwidth/2-(divwidth/2))+'px'">
       <!--按钮bar-->
       <div class="btn1" @click="addpoint(1)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,1)" @mouseup="mouseUp($event.target,1)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮77-->
       <div class="btn2" @click="addpoint(2)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,2)" @mouseup="mouseUp($event.target,2)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮五角星-->
       <div class="btn3" @click="addpoint(3)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,3)" @mouseup="mouseUp($event.target,3)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮西瓜-->
       <div class="btn4" @click="addpoint(4)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,4)" @mouseup="mouseUp($event.target,4)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮铃铛-->
       <div class="btn5" @click="addpoint(5)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,5)" @mouseup="mouseUp($event.target,5)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮柠檬-->
       <div class="btn6" @click="addpoint(6)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,6)" @mouseup="mouseUp($event.target,6)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮橘子-->
       <div class="btn7" @click="addpoint(7)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,7)" @mouseup="mouseUp($event.target,7)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮苹果-->
       <div class="btn8" @click="addpoint(8)" :style="'width:'+divwidth/11+'px;height:'+divheidht/11+'px;cursor:pointer'"
-           @mousedown="mouseDown($event.target)" @mouseup="mouseUp($event.target)">
+           @mousedown="mouseDown($event.target,8)" @mouseup="mouseUp($event.target,8)">
         <div class="btn-container btn-ast"></div>
       </div>
       <!--按钮开始-->
@@ -203,11 +203,14 @@
 <script>
 import $ from 'jquery'
 import axios from "axios";
+import {getCurrentInstance} from "vue";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "SlotMachine",
   data() {
     return {
+      ctx: {},
       divwidth: 0,
       divheidht: 0,
       barcount: 0,
@@ -218,52 +221,63 @@ export default {
       lemoncount: 0,
       orangecount: 0,
       applecount: 0,
-      containerwidth: 0
+      containerwidth: 0,
+      timerout: 0,
+      timerinter: 0,
+      isrolling: false,
     }
   },
   methods: {
     addpoint(idx) {
       $("#clickbtn")[0].currentTime = 0;
       $("#clickbtn")[0].play();
-      if (this.$store.state.points == 0) {
+      if (this.$store.state.points <= (this.barcount + this.sevencount + this.starcount + this.xiguacount + this.lingdangcount + this.lemoncount + this.orangecount + this.applecount)) {
         return;
       }
       switch (idx) {
         case 1 :
-          this.barcount += 10;
-          this.$store.state.points -= 10;
+          if (this.barcount < 990)
+            this.barcount += 10;
+          // this.$store.state.points -= 10;
           break
         case 2 :
-          this.sevencount += 10;
-          this.$store.state.points -= 10;
+          if (this.sevencount < 990)
+            this.sevencount += 10;
+          // this.$store.state.points -= 10;
           break
         case 3 :
-          this.starcount += 10;
-          this.$store.state.points -= 10;
+          if (this.starcount < 990)
+            this.starcount += 10;
+          // this.$store.state.points -= 10;
           break
         case 4 :
-          this.xiguacount += 10;
-          this.$store.state.points -= 10;
+          if (this.xiguacount < 990)
+            this.xiguacount += 10;
+          // this.$store.state.points -= 10;
           break
         case 5 :
-          this.lingdangcount += 10;
-          this.$store.state.points -= 10;
+          if (this.lingdangcount < 990)
+            this.lingdangcount += 10;
+          // this.$store.state.points -= 10;
           break
         case 6 :
-          this.lemoncount += 10;
-          this.$store.state.points -= 10;
+          if (this.lemoncount < 990)
+            this.lemoncount += 10;
+          // this.$store.state.points -= 10;
           break
         case 7 :
-          this.orangecount += 10;
-          this.$store.state.points -= 10;
+          if (this.orangecount < 990)
+            this.orangecount += 10;
+          // this.$store.state.points -= 10;
           break
         case 8 :
-          this.applecount += 10;
-          this.$store.state.points -= 10;
+          if (this.applecount < 990)
+            this.applecount += 10;
+          // this.$store.state.points -= 10;
           break
       }
     },
-    mouseDown(target) {
+    mouseDown(target, idx) {
       if ($(target)[0].className.indexOf("btn-ast") > 0) {
         target = $(target).parent();
       }
@@ -274,8 +288,13 @@ export default {
       $(target).find("div").css(
           "margin-top", "10%"
       )
+      this.timerout = setTimeout(() => {
+        this.timerinter = setInterval(() => {
+          this.addpoint(idx);
+        }, 100);
+      }, 1000);
     },
-    mouseUp(target) {
+    mouseUp(target, idx) {
       if ($(target)[0].className.indexOf("btn-ast") > 0) {
         target = $(target).parent();
       }
@@ -285,6 +304,8 @@ export default {
       $(target).find("div").css(
           "margin-top", "7%"
       )
+      clearTimeout(this.timerout);
+      clearInterval(this.timerinter);
     },
     mouseDownStart(target) {
       if ($(target)[0].className.indexOf("btn-ast") > 0) {
@@ -304,46 +325,91 @@ export default {
     },
     //开始rolling
     StartRolling() {
-      var randNumber = Math.floor(Math.random() * 22);
-      console.log(randNumber);
+      if (this.isrolling) {
+        return;
+      }
+      this.isrolling = true;
+      var self = this;
+      var buyParam = {
+        barcount: this.barcount + "",
+        sevencount: this.sevencount + "",
+        starcount: this.starcount + "",
+        xiguacount: this.xiguacount + "",
+        lingdangcount: this.lingdangcount + "",
+        lemoncount: this.lemoncount + "",
+        orangecount: this.orangecount + "",
+        applecount: this.applecount + "",
+      };
+      var allCount = this.barcount + this.sevencount + this.starcount + this.xiguacount + this.lingdangcount + this.lemoncount + this.orangecount + this.applecount;
+      if (allCount == 0) {
+        ElMessage.error("请下注!");
+        return;
+      }
+      if (allCount > this.$store.state.points) {
+        ElMessage.error("点数不足!");
+        return;
+      }
+      //清空点数
+      // this.barcount = 0;
+      // this.sevencount = 0;
+      // this.starcount = 0;
+      // this.xiguacount = 0;
+      // this.lingdangcount = 0;
+      // this.lemoncount = 0;
+      // this.orangecount = 0;
+      // this.applecount = 0;
+      this.$store.state.points -= allCount;
+      //请求数据
+      axios.post("api/SGJRolling", buyParam).then(res => {
+        if (res.data.respCode === "1") {
+          var JsonData = JSON.parse(res.data.data);
+          console.log(JsonData[0])
+          console.log(JsonData[1])
+          var randNumber = JsonData[0].Value * 1;
+          var point = JsonData[1].Value * 1;
+          console.log(randNumber);
 
-      $("#rolling")[0].play();
-      var index = 1;
-      //开始旋转
-      var maininterval = setInterval(() => {
-        $("#selectBox").attr("class", "selectBox" + (index % 22));
-        index++;
-      }, 30);
-      //2.5秒后停止
-      setTimeout(() => {
-        clearInterval(maininterval);
-        //停止播放rolling
-        $("#rolling")[0].pause();
-        //播放结束
-        $("#forresult")[0].play();
-        //计算剩余步数需要旋转的次数
-        var cnt = 0;
-        if (index % 22 >= randNumber) {
-          //计算剩余步骤
-          var leftCount = 21 - (index % 22);
-          cnt = leftCount + randNumber;
-        } else {
-          cnt = randNumber - (index % 22)
-          if (cnt <= 3) {
-            cnt += 22;
-          }
+          $("#rolling")[0].play();
+          var index = 1;
+          //开始旋转
+          var maininterval = setInterval(() => {
+            $("#selectBox").attr("class", "selectBox" + (index % 22));
+            index++;
+          }, 30);
+          //2.5秒后停止
+          setTimeout(() => {
+            clearInterval(maininterval);
+            //停止播放rolling
+            $("#rolling")[0].pause();
+            //播放结束
+            $("#forresult")[0].play();
+            //计算剩余步数需要旋转的次数
+            var cnt = 0;
+            if (index % 22 >= randNumber) {
+              //计算剩余步骤
+              var leftCount = 21 - (index % 22);
+              cnt = leftCount + randNumber;
+            } else {
+              cnt = randNumber - (index % 22)
+              if (cnt <= 3) {
+                cnt += 22;
+              }
+            }
+
+            var vset = setInterval(() => {
+              $("#selectBox").attr("class", "selectBox" + (index % 22));
+              if (index % 22 == randNumber) {
+                clearInterval(vset);
+                this.$store.state.points = point;
+                this.isrolling = false;
+              }
+              index++;
+            }, 1300 / cnt);
+
+
+          }, 1000 + (Math.random() * 2000))
         }
-
-        var vset = setInterval(() => {
-          $("#selectBox").attr("class", "selectBox" + (index % 22));
-          if (index % 22 == randNumber) {
-            clearInterval(vset);
-          }
-          index++;
-        }, 1300 / cnt);
-
-
-      }, 1000 + (Math.random() * 2000))
+      });
     },
     resize() {
       var containerwidth = $(".maincontainer").width();
@@ -364,8 +430,19 @@ export default {
       console.log(this.divwidth);
       console.log(this.divheidht);
     }
+    ,
+    loadPoint() {
+      var buyParam = {};
+      axios.post("api/GetSGJPoint", buyParam).then(res => {
+        if (res.data.respCode === "1") {
+          console.log(res.data.data)
+          this.$store.state.points = res.data.data.configValue * 1;
+        }
+      });
+    }
   },
   mounted() {
+    this.ctx = getCurrentInstance();
     var try1 = setInterval(() => {
       $("#bgm")[0].play().then(() => {
         clearInterval(try1);
@@ -379,13 +456,7 @@ export default {
     })
 
     //加载数据
-    var buyParam = {};
-    axios.post("api/GetSGJPoint", buyParam).then(res => {
-      if (res.data.respCode === "1") {
-        console.log(res.data.data)
-        this.$store.state.points = res.data.data.configValue * 1;
-      }
-    });
+    this.loadPoint();
   }
 }
 </script>

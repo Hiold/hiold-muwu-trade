@@ -105,6 +105,7 @@ export default {
         $("#alert>.charge>footer>.close").click();
       });
       //确认充值
+      $(".charge>footer>.confirm").unbind("click");
       $(".charge>footer>.confirm").click(function () {
         $("#alert,#charge>div").hide();
         var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
@@ -112,6 +113,7 @@ export default {
           if (res.data.respCode === "1") {
             ctx.Alert("充值成功！");
             self.$store.state.points += (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
+            ctx.loadUserInfo();
             ctx.popupCss(25, 14);
           } else {
             ctx.Alert("充值失败！" + res.data.respMsg);
@@ -155,6 +157,7 @@ export default {
         $("#alert>.charge>footer>.close").click();
       });
       //确认充值
+      $(".charge>footer>.confirm").unbind("click");
       $(".charge>footer>.confirm").click(function () {
         $("#alert,#charge>div").hide();
         var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
@@ -163,6 +166,7 @@ export default {
             ctx.Alert("提取成功！");
             self.$store.state.points -= (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
             ctx.popupCss(25, 14);
+            ctx.loadUserInfo();
           } else {
             ctx.Alert("充值失败！" + res.data.respMsg);
           }
