@@ -173,9 +173,9 @@
 
       <!--旋转框-->
       <div id="selectBox" class="selectBox0" :style="'width:'+divwidth/10+'px;height:'+divwidth/10+'px;'"></div>
-      <audio preload="auto" id="bgm">
-        <source :src="'images/sgj/bgm.wav'" type="audio/wav">
-      </audio>
+<!--      <audio preload="auto" id="bgm">-->
+<!--        <source :src="'images/sgj/bgm.wav'" type="audio/wav">-->
+<!--      </audio>-->
 
       <audio preload="auto" id="clickbtn">
         <source :src="'images/sgj/clickbtn.wav'" type="audio/wav">

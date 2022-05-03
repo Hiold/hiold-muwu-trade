@@ -101,11 +101,14 @@
           <div class="need">收东西</div>
         </nav>
         <ul class="sitems-list">
-          <TransPstoreCard v-if="displayType=='出售'" v-for="(item,index) in pstoreCards" :key="item.id"
+          <TransPstoreCard @handlerDisplay="handlerDisplay" @setDisplayType="setDisplayType" v-if="displayType=='出售'"
+                           v-for="(item,index) in pstoreCards"
+                           :key="item.id"
                            :item="item"
                            :index="index"></TransPstoreCard>
 
-          <TransRequireCard v-if="displayType=='求购'" v-for="(item,index) in requireItems" :key="item.id"
+          <TransRequireCard @handlerDisplay="handlerDisplay" @setDisplayType="setDisplayType" v-if="displayType=='求购'"
+                            v-for="(item,index) in requireItems" :key="item.id"
                             :item="item"
                             :index="index"></TransRequireCard>
           <div class="add">
@@ -132,10 +135,14 @@
 
     <!-- 玩家售卖区/玩家求购区 页面 -->
     <div class="player-com" id="player-com">
-      <TransPStoreItem v-if="class1=='玩家售卖区'" v-for="(item,index) in pstoreCardsAll" :key="item.id" :item="item"
+      <TransPStoreItem @handlerDisplay="handlerDisplay" @setDisplayType="setDisplayType" v-if="class1=='玩家售卖区'"
+                       v-for="(item,index) in pstoreCardsAll"
+                       :key="item.id" :item="item"
                        :index="index"></TransPStoreItem>
 
-      <TransPRequireItem v-if="class1=='玩家求购区'" v-for="(item,index) in requireItemsAll" :key="item.id"
+      <TransPRequireItem @handlerDisplay="handlerDisplay" @setDisplayType="setDisplayType" v-if="class1=='玩家求购区'"
+                         v-for="(item,index) in requireItemsAll"
+                         :key="item.id"
                          :item="item"
                          :index="index"></TransPRequireItem>
 
@@ -360,26 +367,23 @@ export default {
     },
     class2: {
       handler(newName, oldName) {
-        if (newName != oldName) {
-          console.log("监听到变化" + newName);
-          if (this.class1 == "玩家售卖区") {
-            this.queryPlayerOnSell("", "玩家售卖区");
-            $(".head-tool").show();
-            $(".player-com").show();
-            $(".my-shop").hide();
-            $(".my-shop>header>.back").hide();
-            return;
-          }
-          if (this.class1 == "玩家求购区") {
-            this.queryPlayerRequireItems("", "玩家求购区");
-            $(".head-tool").show();
-            $(".player-com").show();
-            $(".my-shop").hide();
-            $(".my-shop>header>.back").hide();
-            // this.displayType="求购";
-            return;
-          }
-
+        console.log("监听到变化" + newName);
+        if (this.class1 == "玩家售卖区") {
+          this.queryPlayerOnSell("", "玩家售卖区");
+          $(".head-tool").show();
+          $(".player-com").show();
+          $(".my-shop").hide();
+          $(".my-shop>header>.back").hide();
+          return;
+        }
+        if (this.class1 == "玩家求购区") {
+          this.queryPlayerRequireItems("", "玩家求购区");
+          $(".head-tool").show();
+          $(".player-com").show();
+          $(".my-shop").hide();
+          $(".my-shop>header>.back").hide();
+          // this.displayType="求购";
+          return;
         }
       }
     }
@@ -425,6 +429,28 @@ export default {
     }
   },
   methods: {
+    handlerDisplay(newName, oldName) {
+      if (this.class1 == "玩家售卖区") {
+        this.queryPlayerOnSell("", "玩家售卖区");
+        $(".head-tool").show();
+        $(".player-com").show();
+        $(".my-shop").hide();
+        $(".my-shop>header>.back").hide();
+        return;
+      }
+      if (this.class1 == "玩家求购区") {
+        this.queryPlayerRequireItems("", "玩家求购区");
+        $(".head-tool").show();
+        $(".player-com").show();
+        $(".my-shop").hide();
+        $(".my-shop>header>.back").hide();
+        // this.displayType="求购";
+        return;
+      }
+    },
+    setDisplayType(type) {
+      this.displayType = type;
+    },
     reload() {
       if (this.class1 == "玩家店铺") {
         this.page = 1;
@@ -1407,7 +1433,7 @@ export default {
         self.queryPlayerRequireItems(self.playerid);
         self.initUserData(self.playerid);
 
-        self.displayType = "出售";
+        // self.displayType = "出售";
         // GeneratePStore(xb, pst);
         if (self.displayType == "出售") {
           $(".my-shop>section>nav>.sell").click();
@@ -1710,6 +1736,10 @@ export default {
     this.queryPlayerRequireItems(this.playerid)
     this.initUserData(this.playerid);
     // this.arrPStoreToObj();
+    //
+    $bus.on('handlerDisplay', options => {
+      this.handlerDisplay();
+    });
   }
 }
 </script>

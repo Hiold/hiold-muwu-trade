@@ -80,6 +80,7 @@ export default {
       this.class1 = val;
     },
     setclass2(val) {
+      console.log("新值:" + val)
       this.class2 = val;
     },
     adaptive() {
@@ -244,6 +245,7 @@ export default {
       this.class1 = options;
     });
     $bus.on('setclass2', options => {
+      console.log("新值" + options)
       this.class2 = options;
     });
   }

@@ -404,7 +404,7 @@ export default {
           .then((value) => {
             if (value === "confirm") {
               let params = {id: id + ""};
-              axios.post("api/deletegetLottery", params).then(res => {
+              axios.post("api/deleteLottery", params).then(res => {
                 if (res.data.respCode === "1") {
                   ElMessage({
                     message: '删除成功!',

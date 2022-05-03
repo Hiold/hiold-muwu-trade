@@ -26,6 +26,8 @@ export default {
   },
   methods: {
     ready() {
+      $(".b3-t0").data("click", "true");
+      $(".b4-t0").data("click", "true");
       const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
       $(".Trade-ware>div>ul").click(function () {
@@ -86,7 +88,7 @@ export default {
       var navColor = [	//子分类背景颜色
         ["rgb(254, 227, 171), rgba(254, 208, 171, 0.2)"],
         ["rgb(186, 231, 206), rgba(255, 255, 255, 0.2)"],
-        ["rgb(232, 206, 185), rgba(255, 255, 255, 0.2)"],
+        ["rgb(186, 231, 206), rgba(255, 255, 255, 0.2)"],
         ["rgb(255, 200, 200), rgba(255, 255, 255, 0.2)"],
         ["rgb(200, 200, 255), rgba(255, 255, 255, 0.2)"],
         ["rgb(255, 160, 160), rgba(255, 255, 255, 0.2)"]
@@ -99,14 +101,14 @@ export default {
         $(".items-details").hide();
         $(".items-box,.head-tool").show();
         var xb = $(this).attr("class").split("")[1];	//获取序号
-        // console.log("序号:"+xb)
+        console.log("序号:" + xb)
         $(".Trade-ware>div>li[class^='b" + xb + "']").css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
         $(this).css({	//设置当前子分类样式
           "background": "radial-gradient(" + navColor[xb - 1] + ")",
           "box-shadow": "0 0 0.1rem white"
         });
-        //$(".Category>div>li[class^='b"+xb+"']").data("click","false");
-        $(".Trade-ware>div>li").data("click", "false");
+        $(".Trade-ware>div>li[class^='b" + xb + "']").data("click", "false");
+        // $(".Trade-ware>div>li").data("click", "false");
         $(this).data("click", "true");
         // self.class2 = $(this).text();	//获取当前点击的子分类名称
         $bus.emit('setclass2', $(this).attr("data"));
@@ -117,8 +119,27 @@ export default {
         //$(".items-details").hide();
         //$(".items-shop,section>.head-tool").show();
         //alert("点击子分类："+class2);
+        $bus.emit("handlerDisplay", "");
       });
 
+      $(".Trade-ware>div>li").mouseenter(function () {	//出东西 鼠标移入特效
+        var xb = $(this).attr("class").split("")[1];	//获取序号
+        // console.log("序号:" + xb)
+        $(this).css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
+        $(this).css({	//设置当前子分类样式
+          "background": "radial-gradient(" + navColor[xb - 1] + ")",
+          "box-shadow": "0 0 0.1rem white"
+        });
+      });
+      $(".Trade-ware>div>li").mouseleave(function () {	//收/出东西 鼠标移出特效
+            if ($(this).data("click") != "true") {
+
+              var xb = $(this).attr("class").split("")[1];	//获取序号
+              // console.log("序号:" + xb)
+              $(this).css({"background": "none", "box-shadow": "none"});	//清除同组子分类的样式
+            }
+          }
+      );
 
       $(".Trade-ware>div>.btn-1").click(function () {	//我的店铺
         // $(".Trade-ware>div>li").slideUp(100);	//先隐藏所有分组的子分类
@@ -269,7 +290,8 @@ export default {
         $(".items-box>.items>section").css("background", "linear-gradient(90deg, rgba(253, 208, 211, 0.5), rgba(253, 213, 216, 0.7))");
       }
       //$(".items-shop>.items").css("opacity","1");
-    },
+    }
+    ,
     lastView(type1, type2) {	//自动跳转到规定的分类并打印商品
       //$(".Category>div>.btn-2").click();
       for (var i = 0; i < $(".Category>div>ul").length; i++) {

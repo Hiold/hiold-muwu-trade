@@ -741,7 +741,7 @@ export default {
        */
       $(".recipe-list>li").remove();
       if (item.award == null || item.award.length <= 0) {
-        $(".recipe-list").append("<div className=\"empty\" style=\"\"><img :src=\"'images/empty5.png'\"><span>这个物品暂时不能制作<br><!-- 去查询它的配方吧 -->快去叫服主写配方</span></div>");
+        $(".recipe-list").append("<div class=\"empty\" style=\"\"><img src=\"images/empty5.png\"><span>这个物品暂时不能制作<br><!-- 去查询它的配方吧 -->快去叫服主写配方</span></div>");
       }
       //console.log(recipes[cxb])
       console.log(item.award)
