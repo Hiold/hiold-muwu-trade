@@ -443,13 +443,13 @@ export default {
   },
   mounted() {
     this.ctx = getCurrentInstance();
-    var try1 = setInterval(() => {
-      $("#bgm")[0].play().then(() => {
-        clearInterval(try1);
-      }).catch(() => {
-        console.log("未交互不播放")
-      })
-    }, 100)
+    // var try1 = setInterval(() => {
+    //   $("#bgm")[0].play().then(() => {
+    //     clearInterval(try1);
+    //   }).catch(() => {
+    //     console.log("未交互不播放")
+    //   })
+    // }, 100)
     this.resize();
     window.addEventListener("resize", () => {
       this.resize();

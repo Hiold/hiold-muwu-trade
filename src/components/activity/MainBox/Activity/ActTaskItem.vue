@@ -20,10 +20,10 @@
           <span>{{ proitem.count }}</span>
         </div>
       </div>
-      <div class="btn b1" v-show="progressionComplateData>=item.value&&isGeted<=0" @click="pullGetProgreesion(item)">领取
+      <div class="btn b1" v-show="progressionComplateData>=item.value*1&&isGeted<=0" @click="pullGetProgreesion(item)">领取
       </div>
       <div class="btn b2" v-show="isGeted>0">已领取</div>
-      <div class="btn b3" v-show="progressionComplateData<item.value">未完成</div>
+      <div class="btn b3" v-show="progressionComplateData<item.value*1&&isGeted<=0">未完成</div>
     </section>
   </li>
 </template>

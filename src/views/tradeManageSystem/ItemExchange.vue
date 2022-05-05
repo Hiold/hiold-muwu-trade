@@ -57,7 +57,7 @@
                      size="small" @click="openAwardEdit(scope)">编辑兑换物品
           </el-button>
           <el-button type="delete" icon="el-icon-delete" size="small" class="red"
-                     @click="handleAddDelete(scope.row.id)">删除
+                     @click="handleAddDelete(scope.row.data.id)">删除
           </el-button>
         </template>
       </el-table-column>
@@ -401,7 +401,7 @@ export default {
           .then((value) => {
             if (value === "confirm") {
               let params = {id: id + ""};
-              axios.post("api/deleteAwardInfo", params).then(res => {
+              axios.post("api/deleteExchange", params).then(res => {
                 if (res.data.respCode === "1") {
                   ElMessage({
                     message: '删除成功!',
@@ -410,14 +410,7 @@ export default {
                 } else {
                   ElMessage.error('删除失败')
                 }
-                let args = {containerid: this.cid + "", funcid: this.fid};
-                axios.post("api/getAwardInfo", args).then(res => {
-                  if (res.data.respCode === "1") {
-                    let JsonData = res.data.data;
-                    this.awardInfo = JsonData;
-                    this.awardAddVisible = false;
-                  }
-                });
+                this.initTableData();
               });
             }
           })
