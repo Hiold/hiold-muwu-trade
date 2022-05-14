@@ -107,11 +107,25 @@ export default {
         icon: "el-icon-lx-rank",
         index: "/manage/gameevent",
         title: "游戏事件",
-      },{
+      }, {
         icon: "el-icon-lx-rank",
         index: "/manage/itemlimit",
         title: "交易限制",
-      },
+      }, {
+        icon: "el-icon-lx-people",
+        index: "4",
+        title: "群机器人",
+        subs: [
+          {
+            index: "/manage/botmanage",
+            title: "群机器人配置",
+          },
+          {
+            index: "/manage/bot",
+            title: "群机器人日志",
+          }
+        ],
+      }
     ];
 
     const route = useRoute();

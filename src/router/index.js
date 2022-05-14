@@ -169,6 +169,22 @@ const routes = [{
                 title: '交易限制'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/ItemLimit.vue")
+        },
+        {
+            path: "bot",
+            name: "bot",
+            meta: {
+                title: '群机器人'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/BOT.vue")
+        },
+        {
+            path: "botmanage",
+            name: "botmanage",
+            meta: {
+                title: '群机器人配置'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/BOTManage.vue")
         }]
 }, {
     path: "/login", name: "Login", meta: {
