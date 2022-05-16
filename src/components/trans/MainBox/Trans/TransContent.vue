@@ -431,6 +431,7 @@ export default {
   methods: {
     handlerDisplay(newName, oldName) {
       if (this.class1 == "玩家售卖区") {
+        this.page=1;
         this.queryPlayerOnSell("", "玩家售卖区");
         $(".head-tool").show();
         $(".player-com").show();
@@ -439,6 +440,7 @@ export default {
         return;
       }
       if (this.class1 == "玩家求购区") {
+        this.page=1;
         this.queryPlayerRequireItems("", "玩家求购区");
         $(".head-tool").show();
         $(".player-com").show();
