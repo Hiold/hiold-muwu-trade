@@ -36,10 +36,9 @@
 
       <el-table-column label="奖励信息">
         <template #default="scope">
-          <img v-if="scope.row.data.type == '1'||scope.row.data.type == '2'" style="height: 30px" :src="'404'"
-               @error="$LoadTintImage($event.target,scope.row.data.itemicon,scope.row.data.itemtint)">
+          <img v-if="scope.row.data.type == '1'||scope.row.data.type == '2'" style="height: 30px" :src="'/api/getimagetint/' + scope.row.data.itemname">
           <img v-if="scope.row.data.type == '3'||scope.row.data.type == '4'" style="height: 30px"
-               :src="'api/image/'+scope.row.data.itemicon">
+               :src="'api/getimagetint/'+scope.row.data.itemicon">
 
         </template>
       </el-table-column>
@@ -328,8 +327,7 @@ export default {
         this.awardData.itemname = this.itemNameCache[item.value].itemname;
         this.awardData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.awardData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($("#imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
+        $("#imgDesc").attr("src",'/api/getimagetint/' + this.awardData.itemname);
         $("#imgDesc").show();
       } else {
         this.awardData.couCurrType = item.value;

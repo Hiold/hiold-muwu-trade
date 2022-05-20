@@ -1,7 +1,7 @@
 <template>
   <li :data-itemid="item.id"  style="background-image: url('images/card/pink.jpg');">
     <div class="image">
-      <img :src="'404'" @error="$LoadTintImage($event.target,item.Itemicon,item.Itemicontint)">
+      <img :src="'/api/getimagetint/' + item.Itemname">
       <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">
         <span>{{ item.Itemquality }}</span>
       </div>

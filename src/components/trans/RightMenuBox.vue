@@ -3,7 +3,7 @@
         <header data-more="false">    <!-- 右上角资料卡 -->
             <!-- 头像、名称、等级、SteamID -->
             <div class="player-head"
-                 :style="{'background-image': `url(api/image/${playerinfo.avatar}),url('/images/player/head1.jfif')`}"></div>
+                 :style="{'background-image': `url(api/getimagetint/${playerinfo.avatar}),url('/images/player/head1.jfif')`}"></div>
             <div class="player-key">
                 <span class="name">{{playerinfo.name}}</span><br>
                 <span class="level">lv. {{playerinfo.level}}</span>

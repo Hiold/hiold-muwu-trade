@@ -184,9 +184,7 @@
         <li class="game-items" v-for="(item,index) in gameItems" :key="item.itemname"
             :data-index="item.itemname">
           <div class="image">
-            <img v-if="item.icon!=null" :src="'404'"
-                 @error="$LoadTintImage($event.target,item.icon.Value,item.tint)">
-            <img v-else :src="'api/image/'+item.itemname+'.png'">
+            <img :src="'/api/getimagetint/' + item.itemname">
           </div>
         </li>
 
@@ -327,6 +325,8 @@ export default {
   watch: {
     class1: {
       handler(newName, oldName) {
+        this.page = 1;
+        this.onsellpage = 1;
         this.keyword = "";
         if (newName != oldName) {
           console.log("监听到变化" + newName);
@@ -367,6 +367,8 @@ export default {
     },
     class2: {
       handler(newName, oldName) {
+        this.page = 1;
+        this.onsellpage = 1;
         console.log("监听到变化" + newName);
         if (this.class1 == "玩家售卖区") {
           this.queryPlayerOnSell("", "玩家售卖区");
@@ -431,7 +433,8 @@ export default {
   methods: {
     handlerDisplay(newName, oldName) {
       if (this.class1 == "玩家售卖区") {
-        this.page=1;
+        this.page = 1;
+        this.onsellpage = 1;
         this.queryPlayerOnSell("", "玩家售卖区");
         $(".head-tool").show();
         $(".player-com").show();
@@ -440,7 +443,8 @@ export default {
         return;
       }
       if (this.class1 == "玩家求购区") {
-        this.page=1;
+        this.page = 1;
+        this.onsellpage = 1;
         this.queryPlayerRequireItems("", "玩家求购区");
         $(".head-tool").show();
         $(".player-com").show();
@@ -491,7 +495,7 @@ export default {
           this.currentViewPlayer = res.data.data;
           console.log(this.currentViewPlayer);
           console.log(this.$store.state.playerinfo)
-          $(".my-shop>header>.left>.head").css("background-image", `url(api/image/${this.currentViewPlayer.avatar}),url('/images/player/head1.jfif')`);	//玩家头像
+          $(".my-shop>header>.left>.head").css("background-image", `url(api/getimagetint/${this.currentViewPlayer.avatar}),url('/images/player/head1.jfif')`);	//玩家头像
           $(".my-shop>header>.center>.shop-name").text(this.currentViewPlayer.shopname);	//店铺名称
           $(".my-shop>header>.center>.shopkeeper>.name").text(this.currentViewPlayer.name);	//店主名称
           //$(".my-shop>header>.center>.opening-time>span").text(playerStores[xb].openTime);	//开店时间
@@ -847,12 +851,10 @@ export default {
         } else {
           $(".buying .window>section>header>.name").html(ctx.HandleItemName(res[0].translate[16]));
         }
-        // <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
-        //         <img v-else :src="'api/image/'+item.itemname+'.png'">
         if (res[0].icon == null) {
-          $(".buying .window>section>header>.head>img").attr("src", 'api/image/' + res[0].itemname + '.png');
+          $(".buying .window>section>header>.head>img").attr("src", 'api/getimagetint/' + res[0].itemname + '.png');
         } else {
-          $(".buying .window>section>header>.head>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
+          $(".buying .window>section>header>.head>img").attr("src", 'api/getimagetint/' + res[0].icon.Value + '.png');
         }
         //清空输入框内的内容
         $(".buying .window>section>div>.val>input").val("");
@@ -894,13 +896,10 @@ export default {
         } else {
           $(".buying>.content>.name").text(ctx.HandleItemName(res[0].translate[16]));
         }
-        // <img v-if="item.icon!=null" :src="'api/image/'+item.icon.Value+'.png'">
-        //         <img v-else :src="'api/image/'+item.itemname+'.png'">
         if (res[0].icon == null) {
-          $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].itemname + '.png');
+          $(".buying>.content>.image>img").attr("src", 'api/getimagetint/' + res[0].itemname + '.png');
         } else {
-          ctx.$LoadTintImage($(".buying>.content>.image>img")[0], res[0].icon.Value, res[0].tint);
-          // $(".buying>.content>.image>img").attr("src", 'api/image/' + res[0].icon.Value + '.png');
+          $(".buying>.content>.image>img").attr("src", '/api/getimagetint/' + res[0].itemname);
         }
         var min = 0;
         var max = "无限";
@@ -1086,7 +1085,7 @@ export default {
 
             $(".shop-name-val").val(shopName);
             $(".myself-qq-val").val(qq);
-            $("#alert>.alert-edit>section>.left>.head").css("background-image", `url(api/image/${img}),url('/images/player/head1.jfif')`);
+            $("#alert>.alert-edit>section>.left>.head").css("background-image", `url(api/getimagetint/${img}),url('/images/player/head1.jfif')`);
           } else {
             window.location = "/#/login";
           }
@@ -1300,9 +1299,9 @@ export default {
             });
             // console.log(self.pstoreCards, itemid);
             if (res[0].itemicon == null) {
-              img = 'api/image/' + res[0].name + '.png';
+              img = 'api/getimagetint/' + res[0].name + '.png';
             } else {
-              img = 'api/image/' + res[0].itemicon;
+              img = 'api/getimagetint/' + res[0].itemname;
             }
 
             var name = res[0].translate;	//获取物品名称
@@ -1618,9 +1617,9 @@ export default {
           });
           // console.log(self.pstoreCards, itemid);
           if (res[0].itemicon == null) {
-            img = 'api/image/' + res[0].name + '.png';
+            img = 'api/getimagetint/' + res[0].name + '.png';
           } else {
-            img = 'api/image/' + res[0].itemicon;
+            img = 'api/getimagetint/' + res[0].itemname;
           }
 
           var name = res[0].translate;	//获取物品名称

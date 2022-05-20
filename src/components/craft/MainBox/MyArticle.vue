@@ -37,10 +37,10 @@
           <li v-for="(item,index) in craftList" :key="item.data.id" class="craftable-items" data-index="0"
               style="line-height: 47px; background: rgba(255, 255, 255, 0.7);" @click="GenerateRecipe(item)">
             <i style=" background-color: rgba(255, 205, 135, 0.2); border: 0.15rem solid rgba(255, 205, 135, 0.9); width: 47px;">
-              <img v-if="item.data.type == '1'||item.data.type == '2'" :src="'404'" style="width: 100%;height: 100%;"
-                   @error="$LoadTintImage($event.target,item.data.itemicon,item.data.itemtint)">
+              <img v-if="item.data.type == '1'||item.data.type == '2'" :src="'/api/getimagetint/'+item.data.itemname"
+                   style="width: 100%;height: 100%;">
               <img v-if="item.data.type == '3'||item.data.type == '4'" style="width: 100%;height: 100%;"
-                   :src="'api/image/'+item.data.itemicon">
+                   :src="'api/getimagetint/'+item.data.itemicon">
             </i><span
               class="name" style="font-weight: normal;">{{ HandleItemName(item.data.itemchinese) }}</span><span
               class="num">x{{ item.data.count }}</span></li>
@@ -90,12 +90,11 @@
         <div class="slots" style="height: 129.5px;">  <!-- 制作槽 -->
           <li v-for="(item,index) in craftingList" @click="getAward(item.id)">
             <div class="icon">
-              <img v-if="JSON.parse(item.extinfo1).type == '1'||JSON.parse(item.extinfo1).type == '2'" :src="'404'"
-                   style="width: 100%;height: 100%;"
-                   @error="$LoadTintImage($event.target,JSON.parse(item.extinfo1).itemicon,JSON.parse(item.extinfo1).itemtint)">
+              <img v-if="JSON.parse(item.extinfo1).type == '1'||JSON.parse(item.extinfo1).type == '2'" :src="'/api/getimagetint/'+JSON.parse(item.extinfo1).itemname"
+                   style="width: 100%;height: 100%;">
               <img v-if="JSON.parse(item.extinfo1).type == '3'||JSON.parse(item.extinfo1).type == '4'"
                    style="width: 100%;height: 100%;"
-                   :src="'api/image/'+JSON.parse(item.extinfo1).itemicon">
+                   :src="'api/getimagetint/'+JSON.parse(item.extinfo1).itemicon">
             </div>
             <div class="time" :id="'award'+index">{{ timer('award' + index, item) }}</div>
           </li>
@@ -703,9 +702,9 @@ export default {
       $(".work-recipe>header>.name").html(name);
       $(".work-recipe>header>.num").html("x" + num);
       if (item.data.type == '1') {
-        ctx.$LoadTintImage($(".work-recipe>.left>.icon>img")[0], item.data.itemicon, item.data.itemtint);
+        $(".work-recipe>.left>.icon>img").attr("src", '/api/getimagetint/'+item.data.itemname);
       } else if (item.data.type == '3') {
-        $(".work-recipe>.left>.icon>img").attr("src", "/api/image/" + item.data.itemicon);
+        $(".work-recipe>.left>.icon>img").attr("src", "/api/getimagetint/" + item.data.itemicon);
       }
       $(".work-recipe>.left>.icon>.quality>span").text(qua);
       if (qua == 0) {
@@ -766,9 +765,9 @@ export default {
         console.log(item.data.type)
         //渲染到页面
         if (item.award[j].type == '1') {
-          ctx.$LoadTintImage($(".recipe-list>li:last").find(".icon").find("i").find("img")[0], item.award[j].itemicon, item.award[j].itemtint);
+          $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", '/api/getimagetint/'+item.award[j].itemname);
         } else if (item.award[j].type == '2') {
-          $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "/api/image/" + item.award[j].itemicon);
+          $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "/api/getimagetint/" + item.award[j].itemicon);
         } else if (item.award[j].type == '4') {
           $(".recipe-list>li:last").find(".icon").find("i").find("img").attr("src", "images/items/jf2.png");
           rName = "积分";

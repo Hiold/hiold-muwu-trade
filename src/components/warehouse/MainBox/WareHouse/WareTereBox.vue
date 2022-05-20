@@ -11,8 +11,8 @@
             @click="loadItems(item,index)">
           <header>{{ item.sign == null || item.sign == "" ? item.nametranslate : item.sign }}</header>
           <section>
-            <img v-if="item.icon==null" :src="'api/image/'+item.name+'.png'">
-            <img v-else :src="'api/image/'+item.icon.Value+'.png'">
+            <img v-if="item.icon==null" :src="'api/getimagetint/'+item.name+'.png'">
+            <img v-else :src="'api/getimagetint/'+item.icon.Value+'.png'">
           </section>
           <footer>
             <div class="num">编号： <span>{{ index + 1 }}</span></div>
@@ -67,10 +67,7 @@
           <li class="box-items" :data-index="index" v-for="(item,index) in itemList" :key="index">
             <div class="filter">
               <!--              -->
-              <img v-if="item.itemStack.CustomIcon==null||item.itemStack.CustomIcon==''"
-                   :src="'404'" @error="$LoadTintImage($event.target,item.itemStack.itemName,item.CustomIconTint)">
-              <img v-else :src="'404'"
-                   @error="$LoadTintImage($event.target,item.itemStack.CustomIcon,item.itemStack.CustomIconTint)">
+              <img :src="'/api/getimagetint/' + item.itemStack.itemName" >
             </div>
             <div class="num">{{ item.itemStack.itemCount }}</div>
           </li>
@@ -127,9 +124,9 @@ export default {
           //alert(name)
           //渲染箱子信息
           if (container.icon == null) {
-            $(".page-items .head-box>.head>img").attr("src", 'api/image/' + container.name + '.png');
+            $(".page-items .head-box>.head>img").attr("src", 'api/getimagetint/' + container.name + '.png');
           } else {
-            $(".page-items .head-box>.head>img").attr("src", 'api/image/' + container.icon.Value + '.png');
+            $(".page-items .head-box>.head>img").attr("src", 'api/getimagetint/' + container.icon.Value + '.png');
           }
           $(".page-items .head-box>.msg>.name>span").text(container.sign == null || container.sign == "" ? container.nametranslate : container.sign);
           $(".page-items .head-box>.msg>.name>i").text(index + 1);
@@ -255,9 +252,9 @@ export default {
       var itemInfo = self.itemList[xb];
       //将物品数据渲染到页面
       if (itemInfo.itemStack.CustomIcon == null) {
-        $(".page-items").find(".head-items").find("img").attr("src", 'api/image/' + itemInfo.itemStack.itemName + '.png');
+        $(".page-items").find(".head-items").find("img").attr("src", 'api/getimagetint/' + itemInfo.itemStack.itemName + '.png');
       } else {
-        $(".page-items").find(".head-items").find("img").attr("src", 'api/image/' + itemInfo.itemStack.CustomIcon + '.png');
+        $(".page-items").find(".head-items").find("img").attr("src", 'api/getimagetint/' + itemInfo.itemStack.CustomIcon + '.png');
       }
       $(".page-items").find(".head-items").find(".name").find("span").text(ctx.HandleItemName(itemInfo.itemStack.translate));
       $(".page-items").find(".head-items").find(".num").find("span").text(itemInfo.itemStack.itemCount);
@@ -291,9 +288,9 @@ export default {
       var name = ctx.HandleItemName(itemInfo.itemStack.translate);	//获取物品名称
       var img = "";
       if (itemInfo.itemStack.CustomIcon == null) {
-        img = 'api/image/' + itemInfo.itemStack.itemName + '.png';
+        img = 'api/getimagetint/' + itemInfo.itemStack.itemName + '.png';
       } else {
-        img = 'api/image/' + itemInfo.itemStack.CustomIcon + '.png';
+        img = 'api/getimagetint/' + itemInfo.itemStack.CustomIcon + '.png';
       }
 
 

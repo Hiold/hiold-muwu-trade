@@ -21,8 +21,7 @@
 
         <el-table-column label="物品图标" :width="100">
           <template #default="scope">
-            <img style="width: 50px;height: 50px;" :src="'404'"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)"/>
+            <img style="width: 50px;height: 50px;" :src="'/api/getimagetint/'+scope.row.name"/>
           </template>
         </el-table-column>
 
@@ -557,7 +556,7 @@ export default {
       this.formData.itemIcon = scope.row.itemicon;
       this.formData.itemTint = scope.row.itemtint;
       this.formData.itemGroup = scope.row.class1;
-      this.src = 'api/image/' + this.formData.itemIcon;
+      this.src = 'api/getimagetint/' + this.formData.itemName;
       this.selectspeitem = scope.row.name;
       console.log(scope.row.name)
     },
@@ -637,8 +636,7 @@ export default {
         this.formData.itemGroup = this.itemNameCache[item.value].group;
         this.formData.itemIcon = ((this.itemNameCache[item.value].icon === null || this.itemNameCache[item.value].icon.Value === null) ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.formData.itemTint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($("#imgDesc")[0], this.formData.itemIcon, this.formData.itemTint);
+        this.src = 'api/getimagetint/' + this.formData.itemName;
 
       }
       if (this.formData.itemType == "2") {

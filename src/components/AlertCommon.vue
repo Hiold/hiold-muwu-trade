@@ -201,7 +201,7 @@
         </div>
         <p>
           说明：<br>
-          1.点数与积分之间的转换为100:10000<br>
+          1.点数与积分之间的转换为100:{{$store.state.slotmachinerete}}<br>
           2.点数充值只能是100的倍数
         </p>
       </section>

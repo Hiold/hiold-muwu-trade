@@ -108,11 +108,12 @@ export default {
       $(".charge>footer>.confirm").unbind("click");
       $(".charge>footer>.confirm").click(function () {
         $("#alert,#charge>div").hide();
-        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
+        console.log("充值倍率为:" + self.$store.state.slotmachinerete);
+        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / self.$store.state.slotmachinerete) + ""};
         axios.post("api/ChargeSGJPoint", buyParam).then(res => {
           if (res.data.respCode === "1") {
             ctx.Alert("充值成功！");
-            self.$store.state.points += (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
+            self.$store.state.points += (parseInt($("#alert>.charge>section>.price>.val>input").val()) / self.$store.state.slotmachinerete) * 100;
             ctx.loadUserInfo();
             ctx.popupCss(25, 14);
           } else {
@@ -128,7 +129,7 @@ export default {
         var num = $(this).prev().val() * 1;
         num += 100;
         $(this).prev().val(num);
-        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+        $("#alert>.charge>section>.price>.val>input").val(num * (self.$store.state.slotmachinerete/100));
       });
       //出售物品窗口 减少按钮
       $("#alert>.charge>section>div>.val>.reduce").unbind("click");
@@ -136,10 +137,10 @@ export default {
         var num = $(this).next().val() * 1;
         num -= 100;
         if (num <= 0) {		//填入的数字至少为1
-          num = 1;
+          num = 100;
         }
         $(this).next().val(num);
-        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+        $("#alert>.charge>section>.price>.val>input").val(num * (self.$store.state.slotmachinerete/100));
       });
 
     },
@@ -160,11 +161,11 @@ export default {
       $(".charge>footer>.confirm").unbind("click");
       $(".charge>footer>.confirm").click(function () {
         $("#alert,#charge>div").hide();
-        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) + ""};
+        var buyParam = {"count": "" + (parseInt($("#alert>.charge>section>.price>.val>input").val()) / self.$store.state.slotmachinerete) + ""};
         axios.post("api/ReleaseSGJPoint", buyParam).then(res => {
           if (res.data.respCode === "1") {
             ctx.Alert("提取成功！");
-            self.$store.state.points -= (parseInt($("#alert>.charge>section>.price>.val>input").val()) / 10000) * 100;
+            self.$store.state.points -= (parseInt($("#alert>.charge>section>.price>.val>input").val()) / self.$store.state.slotmachinerete) * 100;
             ctx.popupCss(25, 14);
             ctx.loadUserInfo();
           } else {
@@ -177,21 +178,25 @@ export default {
       //出售物品窗口 增加按钮
       $("#alert>.charge>section>div>.val>.add").unbind("click");
       $("#alert>.charge>section>div>.val>.add").click(function () {
+        console.log(self.$store.state.slotmachinerete/100);
         var num = $(this).prev().val() * 1;
         num += 100;
         $(this).prev().val(num);
-        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+        $("#alert>.charge>section>.price>.val>input").val(num * (self.$store.state.slotmachinerete/100));
       });
       //出售物品窗口 减少按钮
       $("#alert>.charge>section>div>.val>.reduce").unbind("click");
       $("#alert>.charge>section>div>.val>.reduce").click(function () {
+
+        console.log(self.$store.state.slotmachinerete/100);
+
         var num = $(this).next().val() * 1;
         num -= 100;
         if (num <= 0) {		//填入的数字至少为1
-          num = 1;
+          num = 100;
         }
         $(this).next().val(num);
-        $("#alert>.charge>section>.price>.val>input").val(num * 100);
+        $("#alert>.charge>section>.price>.val>input").val(num * (self.$store.state.slotmachinerete/100));
       });
     },
     goback() {

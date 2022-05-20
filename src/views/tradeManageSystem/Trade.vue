@@ -44,8 +44,7 @@
         </el-table-column>
         <el-table-column label="物品图标" :width="80">
           <template #default="scope">
-            <img class="imgDesc" style="width: 50px;height: 50px;" :src="'404'"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)"/>
+            <img class="imgDesc" style="width: 50px;height: 50px;" :src="'/api/getimagetint/'+scope.row.name"/>
           </template>
         </el-table-column>
         <el-table-column label="物品名" align="center">
@@ -111,8 +110,8 @@
         </el-col>
         <el-col :span="16">
           <div class="grid-content center">
-            <img class="imgDescDetail" style="height: 100px;" :src="'404'"
-                 @error="$LoadTintImage($event.target,currentViewStorage.itemicon,currentViewStorage.itemtint)"/>
+            <img class="imgDescDetail" style="height: 100px;"
+                 :src="'/api/getimagetint/' + currentViewStorage.itemname"/>
           </div>
         </el-col>
         <el-col :span="4">

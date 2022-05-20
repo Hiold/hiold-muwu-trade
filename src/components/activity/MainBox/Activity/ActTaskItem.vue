@@ -8,11 +8,10 @@
       <div class="reward" v-for="(proitem,index) in awards">
         <div>
           <el-tooltip v-if="proitem.type == '1'" :content="HandleItemName(proitem.itemchinese)" placement="top">
-            <img v-if="proitem.type == '1'" :src="'404'"
-                 @error="$LoadTintImage($event.target,proitem.itemicon,proitem.itemtint)">
+            <img v-if="proitem.type == '1'" :src="'/api/getimagetint/'+proitem.itemname">
           </el-tooltip>
           <el-tooltip v-if="proitem.type == '2'" :content="HandleItemName(proitem.itemchinese)" placement="top">
-            <img v-if="proitem.type == '2'" :src="'api/image/'+proitem.itemicon">
+            <img v-if="proitem.type == '2'" :src="'api/getimagetint/'+proitem.itemicon">
           </el-tooltip>
           <span v-if="proitem.type == '3'">{{ proitem.command }}</span>
           <img v-if="proitem.type == '5'" :src="'images/items/red-zs.png'">
@@ -20,7 +19,8 @@
           <span>{{ proitem.count }}</span>
         </div>
       </div>
-      <div class="btn b1" v-show="progressionComplateData>=item.value*1&&isGeted<=0" @click="pullGetProgreesion(item)">领取
+      <div class="btn b1" v-show="progressionComplateData>=item.value*1&&isGeted<=0" @click="pullGetProgreesion(item)">
+        领取
       </div>
       <div class="btn b2" v-show="isGeted>0">已领取</div>
       <div class="btn b3" v-show="progressionComplateData<item.value*1&&isGeted<=0">未完成</div>

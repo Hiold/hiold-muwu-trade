@@ -373,7 +373,7 @@ export default {
         ctx.popupCss(25, 16);
 
         $("#alert,.alert-buy").show();	//显示订单确认弹窗
-        var icon = 'api/image/' + this.item.itemicon;
+        var icon = 'api/getimagetint/' + this.item.itemicon;
         // console.log(icon);
         //将物品信息渲染到订单确认页面
         $(".alert-buy>section>.items>.icon>img").attr("src", icon);		//图片

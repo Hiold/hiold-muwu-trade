@@ -173,9 +173,9 @@
 
       <!--旋转框-->
       <div id="selectBox" class="selectBox0" :style="'width:'+divwidth/10+'px;height:'+divwidth/10+'px;'"></div>
-<!--      <audio preload="auto" id="bgm">-->
-<!--        <source :src="'images/sgj/bgm.wav'" type="audio/wav">-->
-<!--      </audio>-->
+      <!--      <audio preload="auto" id="bgm">-->
+      <!--        <source :src="'images/sgj/bgm.wav'" type="audio/wav">-->
+      <!--      </audio>-->
 
       <audio preload="auto" id="clickbtn">
         <source :src="'images/sgj/clickbtn.wav'" type="audio/wav">
@@ -195,7 +195,7 @@
         <h3>2、押注水果后按开始键。可同时押几种水果，也可重复压一种水果。</h3>
         <h3>3、灯停后，按照对应的赔率获得点数</h3>
       </div>
-
+      <svg t="1652873261623" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="799" width="200" height="200"><path d="" p-id="800"></path></svg>
     </div>
   </div>
 </template>
@@ -436,7 +436,9 @@ export default {
       axios.post("api/GetSGJPoint", buyParam).then(res => {
         if (res.data.respCode === "1") {
           console.log(res.data.data)
-          this.$store.state.points = res.data.data.configValue * 1;
+          this.$store.state.slotmachinerete = res.data.data.rate * 1;
+          this.$store.state.points = res.data.data.point.configValue * 1;
+          console.log(this.$store.state.slotmachinerete)
         }
       });
     }

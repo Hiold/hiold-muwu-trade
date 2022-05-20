@@ -8,9 +8,8 @@
     <section>
       <div class="left">
         <div class="img">
-          <img v-if="item.itemtype=='1'" :src="'404'"
-               @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
-          <img v-if="item.itemtype=='2'" :src="'api/image/'+item.itemicon">
+          <img v-if="item.itemtype=='1'" :src="'/api/getimagetint/' + item.name" >
+          <img v-if="item.itemtype=='2'" :src="'api/getimagetint/'+item.itemicon">
           <div class="quality" v-show="item.quality*1>0" :style="{'background':calcColor(item.quality)}">
             <span>{{ item.quality }}</span>
           </div>

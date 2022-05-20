@@ -258,7 +258,7 @@ export default {
       var xgAll = item.xgall;			//总数限购
       var xgAllset = item.xgallset;			//总数限购
       var stock = item.stock;			//剩余库存
-      var img = 'api/image/' + item.itemicon;				//商品图片
+      var img = 'api/getimagetint/' + item.itemicon;				//商品图片
       var backImg = $(target).css("background-image");//商品展示框背景图片
       var hot = $(target).find("section").find(".hot").css("display");//热销图标
       var quality = item.quality;			//品质
@@ -293,7 +293,7 @@ export default {
       }
       var groupinfos = ctx.getItemType(item.class1);
       if (item.itemtype == "1") {
-        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
+        $(".ware-details>section>.left>.img>img").attr("src", '/api/getimagetint/' + item.itemname);
         $(".spxq").find(".cs1").hide();
         $(".spxq").find(".cs2").hide();
         $(".spxq").find(".cs3").hide();
@@ -423,9 +423,9 @@ export default {
       //物品图片
       // $(".items-details>.left").find("img").attr("src", img);
       if (item.itemtype == '1') {
-        ctx.$LoadTintImage($(".items-details>.left").find("img")[0], item.itemicon, item.itemtint)
+        $(".items-details>.left").find("img").attr("src", '/api/getimagetint/' + item.name);
       } else {
-        $(".items-details>.left").find("img").attr("src", "api/image/" + item.itemicon);
+        $(".items-details>.left").find("img").attr("src", "api/getimagetint/" + item.itemicon);
       }
       //收藏图标
       if (item.collected == "1") {

@@ -185,6 +185,14 @@ const routes = [{
                 title: '群机器人配置'
             },
             component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/BOTManage.vue")
+        },
+        {
+            path: "onekey",
+            name: "onekey",
+            meta: {
+                title: '一键操作'
+            },
+            component: () => import ( /* webpackChunkName: "dashboard" */ "../views/tradeManageSystem/OneKeyOption.vue")
         }]
 }, {
     path: "/login", name: "Login", meta: {

@@ -118,7 +118,7 @@
               <li v-for="i in allIcon" :key="i" class="infinite-list-item" :ref="imglist">
                 <el-image :class="{'selected':(i===formData.itemicon)}"
                           style="width: 100px;height:100px;cursor: pointer"
-                          :src="'api/image/'+i"
+                          :src="'api/getimagetint/'+i"
                           @click="handleSelectImageLottery(i)">
                 </el-image>
               </li>
@@ -266,8 +266,7 @@ export default {
         this.formData.itemname = this.itemNameCache[item.value].itemname;
         this.formData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.formData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($(".imgDesc")[0], this.formData.itemicon, this.formData.itemtint);
+        $("#imgDesc").attr("src",'/api/getimagetint/' + this.formData.itemname);
         $(".imgDesc").show();
       }
     },
@@ -335,8 +334,7 @@ export default {
         this.awardData.itemname = this.itemNameCache[item.value].itemname;
         this.awardData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.awardData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($("#imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
+        $("#imgDesc").attr("src",'/api/getimagetint/' + this.awardData.itemname);
         $("#imgDesc").show();
       } else {
         this.awardData.couCurrType = item.value;

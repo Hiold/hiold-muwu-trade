@@ -291,7 +291,7 @@
               <li v-for="i in allIcon" :key="i" class="infinite-list-item">
                 <el-image :class="{'selected':(i===currentViewPlayer.avatar)}"
                           style="width: 100px;height:100px;cursor: pointer"
-                          :src="'api/image/'+i"
+                          :src="'api/getimagetint/'+i"
                           @click="handleSelectImage(i)">
                 </el-image>
               </li>

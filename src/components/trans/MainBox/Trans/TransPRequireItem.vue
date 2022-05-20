@@ -1,24 +1,7 @@
 <template>
-  <!--    <li :data-itemid="item.id">-->
-  <!--        <div class="image"><img :src="'api/image/'+item.Itemicon+'.png'">-->
-  <!--            <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">-->
-  <!--                <span>{{ item.Itemquality }}</span>-->
-  <!--            </div>-->
-  <!--        </div>-->
-  <!--        <div class="content">-->
-  <!--            <div class="price"><i></i><span>{{ item.Price }}</span></div>-->
-  <!--            <div class="num">需求：{{ item.Itemcount }}</div>-->
-  <!--            <div class="name">-->
-  <!--                {{ deleteBBcode((item.Itemchinese))-->
-  <!--                }}-->
-  <!--            </div>-->
-  <!--        </div>-->
-  <!--    </li>-->
-
 
   <li :data-itemid="item.gameentityid" :data-itemid2="item.id" style="background-image: url('images/card/pink.jpg');">
-    <div class="image" style="position: relative;"><img :src="'404'"
-                                                        @error="$LoadTintImage($event.target,item.Itemicon,item.Itemicontint)">
+    <div class="image" style="position: relative;"><img :src="'/api/getimagetint/'+item.Itemname">
       <div class="quality" v-show="item.Itemquality*1>0" :style="{'background':calcColor(item.Itemquality)}">
         <span>{{ item.Itemquality }}</span>
       </div>
@@ -31,7 +14,7 @@
         }}
       </div>
       <div class="shop" title="进入商店" @click="toList"><i
-          :style="{'background-image': `url(api/image/${currentViewPlayer.avatar}),url('/images/player/head1.jfif')`}"></i><span>{{ currentViewPlayer.name }}</span>
+          :style="{'background-image': `url(api/getimagetint/${currentViewPlayer.avatar}),url('/images/player/head1.jfif')`}"></i><span>{{ currentViewPlayer.name }}</span>
       </div>
     </div>
   </li>

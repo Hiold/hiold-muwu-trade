@@ -107,7 +107,7 @@
           v-for="(item,index) in CollectItem" :key="item.id"
           style="box-shadow: rgb(186, 85, 211) 0px 0px 0.5rem inset, rgb(186, 85, 211) 0px 0px 0.3rem; width: 48%; height: 8.5rem; padding: 2%;">
         <div class="left" style="background-color: rgba(186, 85, 211, 0.2);">
-          <img :src="'404'" @error="$LoadTintImage($event.target,item.itemicon,item.itemtint)">
+          <img :src="'/api/getimagetint/'+item.itemname">
         </div>
         <div class="right">
           <div class="Name">
@@ -486,7 +486,7 @@ export default {
       // console.log($(target))
       $(".ware-details").data("index", xb);	//将物品下标保存到详情页面
       var name = ctx.HandleItemName((item.translate === null || item.translate === "") ? item.couCurrType : item.translate);//名称
-      var img = 'api/image/' + item.itemicon;				//商品图片
+      var img = 'api/getimagetint/' + item.itemicon;				//商品图片
       var c1 = item.class1;	//获取物品总分类
       var c2 = item.class2;	//获取物品子分类
       var c3 = item.mod;		//获取物品是否为mod
@@ -524,7 +524,8 @@ export default {
       }
 
       if (item.itemtype == "1") {
-        ctx.$LoadTintImage($(".ware-details>section>.left>.img>img")[0], item.itemicon, item.itemtint)
+        //
+        $(".ware-details>section>.left>.img>img").attr("src", '/api/getimagetint/'+item.itemname);
         $(".ware-details>section>.left>header>.c1").show();
         $(".ware-details>section>.left>header>.c2").show();
         $(".ware-details>section>.left>header>.c3").hide();
@@ -792,7 +793,7 @@ export default {
       $("#alert>.window").data("index", itemindex);
       // console.log(item);
       var name = ctx.HandleItemName(((item.translate === null || item.translate === "") ? item.couCurrType : item.translate));//名称
-      var img = 'api/image/' + item.itemicon;				//商品图片
+      var img = 'api/getimagetint/' + item.itemicon;				//商品图片
       var num = item.storageCount;		//数量
       var qua = item.quality;	//品质
       // console.log(name);

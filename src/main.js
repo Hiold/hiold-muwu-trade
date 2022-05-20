@@ -176,7 +176,7 @@ app.config.globalProperties.$LoadTintImage = function (t, m, tint) {
         } else if (m == "images/items/jf2") {
             src = "images/items/jf2.png";
         } else {
-            src = 'api/image/' + m + '.png';
+            src = 'api/getimagetint/' + m + '.png';
         }
         console.log(src);
 

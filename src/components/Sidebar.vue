@@ -125,6 +125,10 @@ export default {
             title: "群机器人日志",
           }
         ],
+      }, {
+        icon: "el-icon-lx-rank",
+        index: "/manage/onekey",
+        title: "一键操作",
       }
     ];
 

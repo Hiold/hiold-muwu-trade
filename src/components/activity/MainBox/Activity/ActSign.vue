@@ -16,14 +16,13 @@
                       v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='1'">
             <img
                 v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='1'"
-                :src="'404'"
-                @error="$LoadTintImage($event.target,signinfos[index+1].awards[0].itemicon,signinfos[index+1].awards[0].itemtint)">
+                :src="'/api/getimagetint/'+signinfos[index+1].awards[0].itemname">
           </el-tooltip>
           <el-tooltip :content="signinfos[index+1].awards[0].itemchinese" placement="top"
                       v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='2'">
             <img
                 v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='2'"
-                :src="'api/image/'+signinfos[index+1].awards[0].itemicon">
+                :src="'api/getimagetint/'+signinfos[index+1].awards[0].itemicon">
           </el-tooltip>
           <div class="text-button"
                v-if="signinfos[index+1]!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards!=null&&signinfos[index+1].awards.length===1&&signinfos[index+1].awards[0].type=='3'">
@@ -97,15 +96,14 @@
               :content="signinfos[0].awards[0].itemchinese" placement="top">
             <img
                 v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='1'"
-                :src="'404'"
-                @error="$LoadTintImage($event.target,signinfos[0].awards[0].itemicon,signinfos[0].awards[0].itemtint)">
+                :src="'/api/getimagetint/'+signinfos[0].awards[0].itemname">
           </el-tooltip>
           <el-tooltip
               v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='2'"
               :content="signinfos[0].awards[0].itemchinese" placement="top">
             <img
                 v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='2'"
-                :src="'api/image/'+signinfos[0].awards[0].itemicon">
+                :src="'api/getimagetint/'+signinfos[0].awards[0].itemicon">
           </el-tooltip>
           <div class="text-button"
                v-if="signinfos[0]!=null&&signinfos[0].awards!=null&&signinfos[0].awards!=null&&signinfos[0].awards.length===1&&signinfos[0].awards[0].type=='3'">

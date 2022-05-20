@@ -48,9 +48,8 @@
 
         <el-table-column label="奖励信息">
           <template #default="scope">
-            <img v-if="scope.row.type == '1'" style="height: 30px" :src="'404'"
-                 @error="$LoadTintImage($event.target,scope.row.itemicon,scope.row.itemtint)">
-            <img v-if="scope.row.type == '2'" style="height: 30px" :src="'api/image/'+scope.row.itemicon">
+            <img v-if="scope.row.type == '1'" style="height: 30px" :src="'/api/getimagetint/' + scope.row.itemname">
+            <img v-if="scope.row.type == '2'" style="height: 30px" :src="'api/getimagetint/'+scope.row.itemicon">
             <span v-if="scope.row.type == '3'">{{ scope.row.command }}</span>
             <img v-if="scope.row.type == '5'" style="height: 30px" :src="'images/items/red-zs.png'">
             <img v-if="scope.row.type == '4'" style="height: 30px" :src="'images/items/jf2.png'">
@@ -334,8 +333,7 @@ export default {
         this.awardData.itemname = this.itemNameCache[item.value].itemname;
         this.awardData.itemicon = (!this.itemNameCache[item.value].icon ? this.itemNameCache[item.value].itemname : this.itemNameCache[item.value].icon.Value) + ".png";
         this.awardData.itemtint = this.itemNameCache[item.value].tint === null ? "1|1|1|1" : this.itemNameCache[item.value].tint;
-        // this.src = 'api/image/' + this.formData.itemIcon;
-        ctx.$LoadTintImage($("#imgDesc")[0], this.awardData.itemicon, this.awardData.itemtint);
+        $("#imgDesc").attr("src", '/api/getimagetint/' + this.awardData.itemname);
         $("#imgDesc").show();
       } else {
         this.awardData.couCurrType = item.value;
