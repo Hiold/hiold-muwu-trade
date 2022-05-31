@@ -67,7 +67,7 @@
           <li class="box-items" :data-index="index" v-for="(item,index) in itemList" :key="index">
             <div class="filter">
               <!--              -->
-              <img :src="'/api/getimagetint/' + item.itemStack.itemName" >
+              <img :src="'/api/getimagetint/' + item.itemStack.itemName">
             </div>
             <div class="num">{{ item.itemStack.itemCount }}</div>
           </li>
@@ -251,11 +251,7 @@ export default {
 
       var itemInfo = self.itemList[xb];
       //将物品数据渲染到页面
-      if (itemInfo.itemStack.CustomIcon == null) {
-        $(".page-items").find(".head-items").find("img").attr("src", 'api/getimagetint/' + itemInfo.itemStack.itemName + '.png');
-      } else {
-        $(".page-items").find(".head-items").find("img").attr("src", 'api/getimagetint/' + itemInfo.itemStack.CustomIcon + '.png');
-      }
+      $(".page-items").find(".head-items").find("img").attr("src", 'api/getimagetint/' + itemInfo.itemStack.itemName + '.png');
       $(".page-items").find(".head-items").find(".name").find("span").text(ctx.HandleItemName(itemInfo.itemStack.translate));
       $(".page-items").find(".head-items").find(".num").find("span").text(itemInfo.itemStack.itemCount);
       $(".page-items").find(".head-items").find(".quality").find("span").text(itemInfo.itemStack.itemQuality);
