@@ -1,7 +1,7 @@
 <template>
     <section class="showcase">
         <div class="video-container">
-            <video src="https://pan.bilnn.com/api/v3/file/sourcejump/YGWeZxCv/O6TL9t36OCb5Q4fcrwmINNVRQjMLWuI4SdLsl-m0wlA*" autoplay muted loop></video>
+            <video :src="Videosrc" autoplay muted loop></video>
         </div>
         <div class="title">
             <span><b>7</b> Days To <die>Die</die></span>
